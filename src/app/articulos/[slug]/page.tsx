@@ -10,8 +10,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = articles.find((a) => a.slug === slug);
-  if (!article) return { title: 'No encontrado — MacroAR.app' };
-  return { title: `${article.title} — MacroAR.app`, description: article.summary };
+  if (!article) return { title: 'No encontrado — MacroLibre' };
+  return { title: `${article.title} — MacroLibre`, description: article.summary };
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {

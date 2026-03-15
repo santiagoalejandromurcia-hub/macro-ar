@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { articles } from '@/data/articles';
 
 export const metadata = {
-  title: 'Artículos — MacroAR.app',
+  title: 'Artículos — MacroLibre',
   description: 'Análisis y opinión sobre la economía argentina.',
 };
 

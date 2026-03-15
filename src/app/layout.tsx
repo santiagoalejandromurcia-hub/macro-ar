@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import ThemeProvider from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
-  title: 'MacroAR.app — Estadísticas Macroeconómicas de Argentina',
+  title: 'MacroLibre — Estadísticas Macroeconómicas de Argentina',
   description: 'Plataforma de datos macro de Argentina: EMAE, PBI, inflación, fiscal, reservas, tipo de cambio y más.',
 };
 

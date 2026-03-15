@@ -17,8 +17,7 @@ export default function Footer() {
               <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-ar-celeste to-ar-gold flex items-center justify-center font-bold text-xs text-white">M</div>
               <span className="text-base font-bold">
                 <span className="text-theme-primary">Macro</span>
-                <span className="text-ar-celeste">AR</span>
-                <span className="text-ar-gold/60 text-sm">.app</span>
+                <span className="text-ar-celeste">Libre</span>
               </span>
             </Link>
             <p className="text-sm text-theme-muted leading-relaxed">

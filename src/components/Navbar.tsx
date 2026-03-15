@@ -25,12 +25,11 @@ export default function Navbar() {
           {/* Logo original "M" */}
           <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-ar-celeste to-ar-gold flex items-center justify-center text-ar-dark font-bold text-sm">
-              M
+              ML
             </div>
             <span className="text-lg font-bold tracking-tight">
               <span className="text-theme-primary">Macro</span>
-              <span className="text-ar-celeste">AR</span>
-              <span className="text-ar-gold/60 text-sm">.app</span>
+              <span className="text-ar-celeste">Libre</span>
             </span>
           </Link>
 
