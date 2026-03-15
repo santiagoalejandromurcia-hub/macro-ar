@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ═══════════ DARK MODE (default) ═══════════ */
+html {
+  --bg-primary: #0A0E17;
+  --bg-card: #111827;
+  --bg-surface: #0F172A;
+  --bg-hover: rgba(255,255,255,0.05);
+  --border: #1E293B;
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-faint: #475569;
+  --navbar-bg: rgba(10, 14, 23, 0.8);
+  --tooltip-bg: #111827;
+  --chart-grid: #1E293B;
+  --table-highlight: rgba(116, 172, 223, 0.05);
+}
+
+/* ═══════════ LIGHT MODE ═══════════ */
+html.light {
+  --bg-primary: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-surface: #F1F5F9;
+  --bg-hover: rgba(0,0,0,0.04);
+  --border: #E2E8F0;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --text-faint: #94A3B8;
+  --navbar-bg: rgba(248, 250, 252, 0.85);
+  --tooltip-bg: #FFFFFF;
+  --chart-grid: #E2E8F0;
+  --table-highlight: rgba(116, 172, 223, 0.08);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* ═══════════ THEME UTILITY CLASSES ═══════════ */
+.bg-theme { background-color: var(--bg-primary); }
+.bg-theme-card { background-color: var(--bg-card); }
+.bg-theme-surface { background-color: var(--bg-surface); }
+.bg-theme-hover { background-color: var(--bg-hover); }
+.border-theme { border-color: var(--border); }
+.text-theme-primary { color: var(--text-primary); }
+.text-theme-secondary { color: var(--text-secondary); }
+.text-theme-muted { color: var(--text-muted); }
+.text-theme-faint { color: var(--text-faint); }
+.navbar-bg { background-color: var(--navbar-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+
+/* ═══════════ SCROLLBAR ═══════════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
+
+/* ═══════════ RECHARTS TOOLTIP ═══════════ */
+.recharts-default-tooltip {
+  background: var(--tooltip-bg) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15) !important;
+}
+.recharts-tooltip-label { color: var(--text-secondary) !important; font-weight: 500 !important; }
+.recharts-tooltip-item { color: var(--text-primary) !important; }
+
+/* ═══════════ SKELETON ═══════════ */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-surface) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ═══════════ GRADIENT TEXT ═══════════ */
+.gradient-text-ar {
+  background: linear-gradient(135deg, #74ACDF, #D4A843);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══════════ CARD HOVER ═══════════ */
+.card-hover {
+  transition: all 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+html.light .card-hover:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+/* ═══════════ FADE IN ═══════════ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* ═══════════ LION LOGO ANIMATION ═══════════ */
+.lion-logo {
+  transition: transform 0.3s ease;
+}
+.lion-logo:hover {
+  transform: scale(1.1);
+}
+
+/* ═══════════ LIGHT MODE — LION FACE FIX ═══════════ */
+html.light .lion-logo ellipse[fill="#0F172A"],
+html.light .lion-logo ellipse[fill="#1a2436"] {
+  fill: #E2E8F0;
+}
+html.light .lion-logo ellipse[fill="#E2E8F0"] {
+  fill: #FFFFFF;
+}
+html.light .lion-logo line {
+  stroke: #94A3B8;
+}
+html.light .lion-logo path[stroke="#64748B"] {
+  stroke: #94A3B8;
+}
