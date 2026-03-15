@@ -2,6 +2,7 @@ import { kpiCards } from '@/data/macroData';
 import { articles } from '@/data/articles';
 import KPICardComponent from '@/components/KPICard';
 import SectionHeader from '@/components/SectionHeader';
+import DolarBlueVivo from '@/components/DolarBlueVivo';
 import {
   EmaeChart, PBIBarChart, SectorChart, FiscalChart, TaxTable,
   TradeChart, ReservasChart, TCRChart,
