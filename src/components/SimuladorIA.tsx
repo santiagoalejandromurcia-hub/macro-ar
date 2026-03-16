@@ -310,7 +310,7 @@ export default function SimuladorIA() {
           &ldquo;ARGENSTATS muestra el pasado. Nosotros proyectamos el futuro libre.&rdquo;
         </p>
         <p className="text-xs text-theme-muted">
-          Modelo austríaco (Mises-Hayek-Rothbard) calibrado con datos reales Argentina 2010-2025 · INDEC, FMI, BCRA
+          Modelo Economico calibrado con datos reales Argentina · INDEC, FMI, BCRA
         </p>
       </div>
 
@@ -410,10 +410,10 @@ export default function SimuladorIA() {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
-              Calculando con modelo Mises-Hayek-Rothbard...
+              Calculando con Modelo Economico
             </span>
           ) : (
-            '🦁 Simular con Escuela Austríaca'
+            'Simulando Proyección'
           )}
         </button>
 
@@ -496,9 +496,9 @@ export default function SimuladorIA() {
             <div className="bg-theme-surface border border-ar-gold/20 rounded-xl p-5">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-xl">🦁</span>
-                <h4 className="text-sm font-bold text-theme-primary">Análisis Austríaco</h4>
+                <h4 className="text-sm font-bold text-theme-primary">Análisis Economico</h4>
                 <span className="px-2 py-0.5 text-[9px] font-mono font-bold rounded-full bg-ar-gold/10 text-ar-gold border border-ar-gold/20">
-                  MISES · HAYEK · ROTHBARD
+                  Modelo Calibrado
                 </span>
               </div>
               <div className="space-y-3">
