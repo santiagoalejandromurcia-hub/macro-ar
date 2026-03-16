@@ -35,17 +35,20 @@ export default function HomePage() {
           </p>
         </div>
       </section>
-
-      {/* ════════ DASHBOARD ════════ */}
+{/* ════════ DASHBOARD ════════ */}
       <section id="dashboard">
-        <SectionHeader id="dashboard-h" title="Dashboard en Vivo" subtitle="Principales indicadores macroeconómicos — Última actualización disponible" icon="⚡" />
+        <SectionHeader id="dashboard-h" title="Dashboard en Vivo" subtitle="Principales indicadores macroeconómicos" icon="⚡" />
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3 sm:gap-4">
           {kpiCards.map((card, i) => (
             <KPICardComponent key={card.id} card={card} index={i} />
           ))}
         </div>
+        {/* Dólar en vivo */}
+        <div className="mt-4">
+          <DolarBlueVivo />
+        </div>
       </section>
-
+      
       {/* ════════ ACTIVIDAD ════════ */}
       <section id="actividad" className="mt-16">
         <SectionHeader id="actividad-h" title="Actividad Económica" subtitle="EMAE, PBI trimestral y desglose sectorial — Fuente: INDEC" icon="📈" />

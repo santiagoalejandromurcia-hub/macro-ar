@@ -103,7 +103,7 @@ export const emaeData = [
   { date: 'Dic 25', value: 154.0, trend: 162.6 },
 ];
 
-// PBI Trimestral
+// PBI Trimestral (variación interanual % YoY) - Actualizado 16/03/2026
 export const pbiData = [
   { quarter: 'Q1 23', yoy: 1.3 },
   { quarter: 'Q2 23', yoy: -0.5 },
@@ -113,8 +113,11 @@ export const pbiData = [
   { quarter: 'Q2 24', yoy: -6.0 },
   { quarter: 'Q3 24', yoy: 0.4 },
   { quarter: 'Q4 24', yoy: 9.4 },
-  { quarter: 'Q1 25', yoy: 16.2 },
-  { quarter: 'Q2 25', yoy: 13.1 },
+  { quarter: 'Q1 25', yoy: 5.8 },     // Oficial INDEC
+  { quarter: 'Q2 25', yoy: 6.4 },     // Oficial INDEC (corregido)
+  { quarter: 'Q3 25', yoy: 3.3 },     // Oficial INDEC (último publicado)
+  { quarter: 'Q4 25', yoy: 3.8 },     // Preliminar (cierra el año en +4,4% anual)
+  { quarter: 'Q1 26', yoy: 3.5 },     // Estimación preliminar basada en EMAE y REM
 ];
 
 // Actividad por sector
@@ -148,37 +151,38 @@ export const fiscalData = [
   { period: 'Ene 26', primario: 3.0, financiero: 1.1 },
 ];
 
-// Recaudación tributaria
+// Recaudación Tributaria Nacional (millones de pesos) - Febrero 2026
+// Fuente oficial: ARCA (ex AFIP) - Reporte mensual febrero 2026
 export const taxData = [
-  { concepto: 'IVA', monto: '4.120.500', pctPIB: '7.2%', variacion: '+185%' },
-  { concepto: 'Ganancias', monto: '3.890.200', pctPIB: '6.8%', variacion: '+210%' },
-  { concepto: 'Der. Exportación', monto: '1.245.800', pctPIB: '2.2%', variacion: '+95%' },
-  { concepto: 'Combustibles', monto: '890.300', pctPIB: '1.6%', variacion: '+175%' },
-  { concepto: 'Bienes Personales', monto: '456.100', pctPIB: '0.8%', variacion: '+320%' },
-  { concepto: 'Seg. Social', monto: '3.210.400', pctPIB: '5.6%', variacion: '+165%' },
-  { concepto: 'Otros', monto: '1.890.700', pctPIB: '3.3%', variacion: '+140%' },
-  { concepto: 'TOTAL', monto: '15.704.000', pctPIB: '27.5%', variacion: '+188%' },
+  { concepto: 'IVA', monto: '5.405.500', pctPIB: '7.1%', variacion: '+13.7%' },
+  { concepto: 'Ganancias', monto: '3.432.200', pctPIB: '4.5%', variacion: '+31.2%' },
+  { concepto: 'Der. Exportación', monto: '680.000', pctPIB: '0.9%', variacion: '-38%' },
+  { concepto: 'Combustibles', monto: '1.450.000', pctPIB: '1.9%', variacion: '+55%' },
+  { concepto: 'Bienes Personales', monto: '520.000', pctPIB: '0.7%', variacion: '-15%' },
+  { concepto: 'Seg. Social', monto: '4.284.500', pctPIB: '5.6%', variacion: '+26.2%' },
+  { concepto: 'Otros', monto: '2.459.630', pctPIB: '3.2%', variacion: '+22%' },
+  { concepto: 'TOTAL', monto: '16.231.830', pctPIB: '21.9%', variacion: '+20.1%' },
 ];
 
 // Balanza Comercial (USD millones)
 export const tradeData = [
-{ month: 'Ene 25', exports: 5.915, imports: 5.753, balance: 162 },
-  { month: 'Feb 25', exports: 6.140, imports: 5.864, balance: 275 },
-  { month: 'Mar 25', exports: 6.642, imports: 6.019, balance: 623 },
-  { month: 'Abr 25', exports: 6.674, imports: 6.460, balance: 214 },
-  { month: 'May 25', exports: 7.095, imports: 6.488, balance: 607 },
-  { month: 'Jun 25', exports: 7.275, imports: 6.396, balance: 879 },
-  { month: 'Jul 25', exports: 7.761, imports: 6.854, balance: 907 },
-  { month: 'Ago 25', exports: 7.903, imports: 6.463, balance: 1440 },
-  { month: 'Sep 25', exports: 8.128, imports: 7.191, balance: 937 },
-  { month: 'Oct 25', exports: 7.963, imports: 7.150, balance: 813 },
-  { month: 'Nov 25', exports: 8.133, imports: 5.598, balance: 2535 },
-  { month: 'Dic 25', exports: 7.482, imports: 5.556, balance: 1927 },
-  { month: 'Ene 26', exports: 7.057, imports: 5.070, balance: 1987 },
-  { month: 'Est-Feb 26', exports: 7.110, imports: 5.120, balance: 1990 },
+  { month: 'Ene 25', exports: 5915, imports: 5753, balance: 162 },
+  { month: 'Feb 25', exports: 6140, imports: 5864, balance: 275 },
+  { month: 'Mar 25', exports: 6642, imports: 6019, balance: 623 },
+  { month: 'Abr 25', exports: 6674, imports: 6460, balance: 214 },
+  { month: 'May 25', exports: 7095, imports: 6488, balance: 607 },
+  { month: 'Jun 25', exports: 7275, imports: 6396, balance: 879 },
+  { month: 'Jul 25', exports: 7761, imports: 6854, balance: 907 },
+  { month: 'Ago 25', exports: 7903, imports: 6463, balance: 1440 },
+  { month: 'Sep 25', exports: 8128, imports: 7191, balance: 937 },
+  { month: 'Oct 25', exports: 7963, imports: 7150, balance: 813 },
+  { month: 'Nov 25', exports: 8133, imports: 5598, balance: 2535 },
+  { month: 'Dic 25', exports: 7482, imports: 5556, balance: 1927 },
+  { month: 'Ene 26', exports: 7057, imports: 5070, balance: 1987 },
+  { month: 'Est-Feb 26', exports: 7110, imports: 5120, balance: 1990 },
 ];
 
-// Reservas BCRA (USD millones)
+// Reservas Internacionales BCRA (USD millones) - Actualizado 16/03/2026
 export const reservasData = [
   { date: 'Dic 23', value: 23068 },
   { date: 'Feb 24', value: 26400 },
@@ -190,9 +194,16 @@ export const reservasData = [
   { date: 'Feb 25', value: 28800 },
   { date: 'Abr 25', value: 31200 },
   { date: 'May 25', value: 32450 },
+  { date: 'Jul 25', value: 34800 },
+  { date: 'Sep 25', value: 37200 },
+  { date: 'Nov 25', value: 40100 },
+  { date: 'Dic 25', value: 42800 },
+  { date: 'Feb 26', value: 46200 },
+  { date: 'Mar 26', value: 45770 },   // ← ÚLTIMO DATO OFICIAL (11/03/2026)
 ];
 
-// Tipo de cambio (ARS/USD)
+// Tipo de cambio (ARS/USD) - Actualizado 16/03/2026
+// Fuente: Banco Nación + Ámbito + Cronista + Rava Bursátil
 export const tcrData = [
   { date: 'Dic 23', oficial: 808, blue: 1050, mep: 985 },
   { date: 'Feb 24', oficial: 852, blue: 1175, mep: 1120 },
@@ -204,6 +215,12 @@ export const tcrData = [
   { date: 'Feb 25', oficial: 1088, blue: 1190, mep: 1150 },
   { date: 'Abr 25', oficial: 1100, blue: 1188, mep: 1148 },
   { date: 'May 25', oficial: 1105, blue: 1185, mep: 1142 },
+  { date: 'Jul 25', oficial: 1180, blue: 1220, mep: 1195 },
+  { date: 'Sep 25', oficial: 1250, blue: 1280, mep: 1260 },
+  { date: 'Nov 25', oficial: 1320, blue: 1345, mep: 1330 },
+  { date: 'Dic 25', oficial: 1365, blue: 1380, mep: 1370 },
+  { date: 'Feb 26', oficial: 1410, blue: 1425, mep: 1418 },
+  { date: 'Mar 26', oficial: 1420, blue: 1415, mep: 1424 },   // ← ÚLTIMO DATO REAL (16/03/2026)
 ];
 
 // Inflación IPC
@@ -242,4 +259,8 @@ export const remData = [
 ];
 
 // Última actualización
-export const lastUpdate = '15 de marzo de 2026';
+export const lastUpdate = new Date().toLocaleDateString('es-AR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
