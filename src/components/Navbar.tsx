@@ -24,9 +24,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo original "M" */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-ar-celeste to-ar-gold flex items-center justify-center text-ar-dark font-bold text-sm">
-              ML
-            </div>
+            <img src="/MACRO.png" alt="MacroLibre" className="w-8 h-8 rounded-lg object-cover" />
             <span className="text-lg font-bold tracking-tight">
               <span className="text-theme-primary">Macro</span>
               <span className="text-ar-celeste">Libre</span>

@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <Link href="/" className="flex items-center gap-2 mb-3">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-ar-celeste to-ar-gold flex items-center justify-center font-bold text-xs text-white">M</div>
+              <img src="/MACRO.png" alt="MacroLibre" className="w-7 h-7 rounded-lg object-cover" />
               <span className="text-base font-bold">
                 <span className="text-theme-primary">Macro</span>
                 <span className="text-ar-celeste">Libre</span>
@@ -45,7 +45,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-10 pt-6 border-t border-theme flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="text-xs text-theme-faint">© {new Date().getFullYear()} MacroAR.app — Datos de fuentes oficiales públicas. No constituye asesoramiento financiero.</p>
+          <p className="text-xs text-theme-faint">© {new Date().getFullYear()} MacroLibre — Datos de fuentes oficiales públicas. No constituye asesoramiento financiero.</p>
           <p className="text-xs text-theme-faint">Hecho en 🇦🇷 con Next.js + Recharts</p>
         </div>
       </div>
