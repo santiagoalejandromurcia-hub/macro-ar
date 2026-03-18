@@ -132,7 +132,7 @@ export const sectorData = [
   { sector: 'Transporte', value: 3.8, color: '#84CC16' },
 ];
 
-// Resultado Fiscal (% del PIB)
+// Resultado Fiscal (% del PIB) SECRETARIA DE HACIENDA - Actualizado 16/03/2026
 export const fiscalData = [
   { period: 'Ene 24', primario: 2.0, financiero: 0.5 },
   { period: 'Mar 24', primario: 0.6, financiero: 0.2 },
@@ -149,6 +149,8 @@ export const fiscalData = [
   { period: 'Nov 25', primario: 2.1, financiero: 0.5 },
   { period: 'Dic 25', primario: 2.0, financiero: 1.1 },
   { period: 'Ene 26', primario: 3.0, financiero: 1.1 },
+  { period: 'Feb 26', primario: 1.4, financiero: 0.1 },
+
 ];
 
 // Recaudación Tributaria Nacional (millones de pesos) - Febrero 2026
