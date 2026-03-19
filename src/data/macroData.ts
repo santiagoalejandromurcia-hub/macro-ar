@@ -68,16 +68,7 @@ export const kpiCards: KPICard[] = [
     change: 0,
     changeLabel: 'vs. semana anterior',
     icon: '💵',
-  },
-  {
-    id: 'riesgo-pais',
-    title: 'Riesgo País',
-    value: '687',
-    change: -15.2,
-    changeLabel: 'puntos básicos',
-    unit: 'pb',
-    icon: '🌍',
-  },
+  }
 ];
 
 // EMAE — Estimador Mensual de Actividad Económica

@@ -3,6 +3,7 @@ import { articles } from '@/data/articles';
 import KPICardComponent from '@/components/KPICard';
 import SectionHeader from '@/components/SectionHeader';
 import DolarBlueVivo from '@/components/DolarBlueVivo';
+import RiesgoPaisVivo from '@/components/RiesgoPaisVivo';
 import {
   EmaeChart, PBIBarChart, SectorChart, FiscalChart, TaxTable,
   TradeChart, ReservasChart, TCRChart,
@@ -43,9 +44,12 @@ export default function HomePage() {
             <KPICardComponent key={card.id} card={card} index={i} />
           ))}
         </div>
-        {/* Dólar en vivo */}
-        <div className="mt-4">
-          <DolarBlueVivo />
+        {/* Dólar y Riesgo País en vivo */}
+        <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div className="col-span-2 sm:col-span-3">
+            <DolarBlueVivo />
+          </div>
+          <RiesgoPaisVivo />
         </div>
       </section>
       
