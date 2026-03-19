@@ -1,0 +1,25 @@
+{
+  "name": "MacroLibre — Estadísticas Macro de Argentina",
+  "short_name": "MacroLibre",
+  "description": "Plataforma de datos macroeconómicos de Argentina en tiempo real.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0E17",
+  "theme_color": "#74ACDF",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo-favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo-app-icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["finance", "news", "business"],
+  "lang": "es-AR"
+}

@@ -14,6 +14,7 @@ const navLinks = [
   { href: '#simulador', label: 'Interactivo' }, 
   { href: '/proxys', label: 'Proxys' },  // ← AGREGE ESTA LÍNEA
   { href: '/articulos', label: 'Artículos' },
+  { href: '/contacto', label: 'Contacto' },
 ];
 
 export default function Navbar() {
