@@ -192,7 +192,7 @@ export const reservasData = [
   { date: 'Nov 25', value: 40100 },
   { date: 'Dic 25', value: 42800 },
   { date: 'Feb 26', value: 46200 },
-  { date: 'Mar 26', value: 45770 },   // ← ÚLTIMO DATO OFICIAL (11/03/2026)
+  { date: 'Mar 26', value: 43702 },   // ← ÚLTIMO DATO OFICIAL (11/03/2026)
 ];
 
 // Tipo de cambio (ARS/USD) - Actualizado 16/03/2026
@@ -250,7 +250,30 @@ export const remData = [
   { period: 'Jun 26', mediana: 1.7, actual: null, r25: 1.4, r75: 2.1, r10: 1.1, r90: 2.4 },
   { period: 'Jul 26', mediana: 1.5, actual: null, r25: 1.2, r75: 1.9, r10: 1.0, r90: 2.2 },
 ];
-
+// Inflación Mayorista — IPIM (INDEC) - Interanuales corregidos con datos oficiales INDEC
+export const inflacionMayoristaData = [
+  { date: 'Dic 23', mensual: 54.0, interanual: 276.4 },     // Pico post-devaluación
+  { date: 'Feb 24', mensual: 10.2, interanual: 310.5 },     // Máximo histórico reciente
+  { date: 'Abr 24', mensual: 5.4, interanual: 289.4 },
+  { date: 'Jun 24', mensual: 2.8, interanual: 245.1 },
+  { date: 'Ago 24', mensual: 2.1, interanual: 197.8 },
+  { date: 'Oct 24', mensual: 1.5, interanual: 148.2 },
+  { date: 'Dic 24', mensual: 1.4, interanual: 67.3 },
+  { date: 'Ene 25', mensual: 1.6, interanual: 67.3 },       // Transición
+  { date: 'Feb 25', mensual: 1.6, interanual: 42.1 },       // Baja fuerte
+  { date: 'Mar 25', mensual: 1.5, interanual: 55.9 },       // Corregido (no 67.3 repetido)
+  { date: 'Abr 25', mensual: 2.7, interanual: 30.8 },
+  { date: 'May 25', mensual: -0.3, interanual: 26.4 },
+  { date: 'Jun 25', mensual: 1.6, interanual: 25.7 },
+  { date: 'Jul 25', mensual: 2.8, interanual: 24.3 },
+  { date: 'Ago 25', mensual: 3.0, interanual: 22.8 },
+  { date: 'Sep 25', mensual: 3.7, interanual: 21.5 },
+  { date: 'Oct 25', mensual: 1.1, interanual: 21.0 },
+  { date: 'Nov 25', mensual: 1.7, interanual: 20.8 },
+  { date: 'Dic 25', mensual: 2.5, interanual: 26.2 },       // Cierre 2025 oficial ~26.2%
+  { date: 'Ene 26', mensual: 1.7, interanual: 26.4 },       // Enero 2026 oficial
+  { date: 'Feb 26', mensual: 1.0, interanual: 25.6 },       // Febrero 2026 oficial (INDEC 17/03/2026)
+];
 // Última actualización
 export const lastUpdate = new Date().toLocaleDateString('es-AR', {
   day: 'numeric',

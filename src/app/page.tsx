@@ -1,5 +1,6 @@
 import { kpiCards } from '@/data/macroData';
 import { articles } from '@/data/articles';
+import PreciosRotativo from '@/components/PreciosRotativo';
 import KPICardComponent from '@/components/KPICard';
 import SectionHeader from '@/components/SectionHeader';
 import DolarBlueVivo from '@/components/DolarBlueVivo';
@@ -86,7 +87,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ════════ PRECIOS ════════ */}
+     {/* ════════ PRECIOS ════════ */}
       <section id="precios" className="mt-16">
         <SectionHeader id="precios-h" title="Precios e Inflación" subtitle="IPC mensual, interanual, núcleo y expectativas REM — Fuente: INDEC, BCRA" icon="🏷️" />
         <div className="space-y-6">

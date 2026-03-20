@@ -10,7 +10,7 @@ const navLinks = [
   { href: '#actividad', label: 'Actividad' },
   { href: '#fiscal', label: 'Fiscal' },
   { href: '#externo', label: 'Externo' },
-  { href: '#precios', label: 'Precios' },
+  { href: '/precios', label: 'Precios' },
   { href: '#simulador', label: 'Interactivo' }, 
   { href: '/proxys', label: 'Proxys' },  // ← AGREGE ESTA LÍNEA
   { href: '/articulos', label: 'Artículos' },
