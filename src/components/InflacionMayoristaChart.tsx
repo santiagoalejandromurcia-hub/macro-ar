@@ -32,16 +32,17 @@ export default function InflacionMayoristaChart() {
   };
 
   return (
-    <ChartCard title="IPIM — Inflación Mayorista" subtitle="Índice de Precios Internos al por Mayor · Var. mensual e interanual (%)">
+    <ChartCard title="IPIM — Inflación Mayorista" subtitle="Índice de Precios Internos al por Mayor · Barras = mensual (eje izq.) · Línea = interanual (eje der.)">
       <ResponsiveContainer width="100%" height={320}>
         <ComposedChart data={inflacionMayoristaData} margin={{ top: 5, right: 10, left: -15, bottom: 5 }}>
           <CartesianGrid {...gr} />
           <XAxis dataKey="date" tick={ax} />
-          <YAxis tick={ax} />
+          <YAxis yAxisId="left" tick={ax} />
+          <YAxis yAxisId="right" orientation="right" tick={ax} />
           <Tooltip content={<CustomTooltip />} />
           <Legend wrapperStyle={{ fontSize: 12, color: isDark ? '#94A3B8' : '#64748B' }} />
-          <Bar dataKey="mensual" name="IPIM Mensual %" fill="#F97316" radius={[3, 3, 0, 0]} opacity={0.7} />
-          <Line type="monotone" dataKey="interanual" name="Interanual %" stroke="#D4A843" strokeWidth={2} dot={false} />
+          <Bar yAxisId="left" dataKey="mensual" name="IPIM Mensual %" fill="#F97316" radius={[3, 3, 0, 0]} opacity={0.7} />
+          <Line yAxisId="right" type="monotone" dataKey="interanual" name="Interanual %" stroke="#D4A843" strokeWidth={2} dot={false} />
         </ComposedChart>
       </ResponsiveContainer>
     </ChartCard>

@@ -31,7 +31,7 @@ export const kpiCards: KPICard[] = [
   {
     id: 'pbi',
     title: 'PBI Real',
-    value: '3.3%',
+    value: '4.4',
     change: 0.3,
     changeLabel: 'var. interanual',
     icon: '📈',
