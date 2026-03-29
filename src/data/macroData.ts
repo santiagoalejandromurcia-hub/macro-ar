@@ -32,7 +32,7 @@ export const kpiCards: KPICard[] = [
     id: 'pbi',
     title: 'PBI Real',
     value: '4.4',
-    change: 0.3,
+    change: 0.6,
     changeLabel: 'var. interanual',
     icon: '📈',
   },
@@ -56,7 +56,7 @@ export const kpiCards: KPICard[] = [
   {
     id: 'reservas',
     title: 'Reservas BCRA',
-    value: 'USD 45.659M',
+    value: 'USD 43.808M',
     change: 0.01,
     changeLabel: 'respecto a mes anterior',
     icon: '🏦',
@@ -64,7 +64,7 @@ export const kpiCards: KPICard[] = [
   {
     id: 'dolar-blue',
     title: 'Dólar Blue',
-    value: '$1415',
+    value: '$1420',
     change: 0,
     changeLabel: 'vs. semana anterior',
     icon: '💵',
@@ -73,25 +73,26 @@ export const kpiCards: KPICard[] = [
 
 // EMAE — Estimador Mensual de Actividad Económica
 export const emaeData = [
-  { date: 'Ene 23', value: 149.4, trend: 144.0 },
-  { date: 'Mar 23', value: 148.7, trend: 143.8 },
-  { date: 'May 23', value: 148.0, trend: 143.0 },
-  { date: 'Jul 23', value: 147.2, trend: 142.0 },
-  { date: 'Sep 23', value: 146.2, trend: 140.2 },
-  { date: 'Nov 23', value: 145.1, trend: 138.0 },
-  { date: 'Ene 24', value: 144.2, trend: 132.0 },
-  { date: 'Mar 24', value: 143.9, trend: 129.5 },
-  { date: 'May 24', value: 144.4, trend: 133.5 },
+  { date: 'Ene 23', value: 143.0, trend: 144.0 },
+  { date: 'Mar 23', value: 155.0, trend: 143.8 },
+  { date: 'May 23', value: 153.8, trend: 143.0 },
+  { date: 'Jul 23', value: 150.2, trend: 142.0 },
+  { date: 'Sep 23', value: 148.4, trend: 140.2 },
+  { date: 'Nov 23', value: 146.4, trend: 138.0 },
+  { date: 'Ene 24', value: 137.5, trend: 132.0 },
+  { date: 'Mar 24', value: 142.6, trend: 129.5 },
+  { date: 'May 24', value: 156.8, trend: 133.5 },
   { date: 'Jul 24', value: 145.7, trend: 138.8 },
-  { date: 'Sep 24', value: 147.4, trend: 144.0 },
-  { date: 'Nov 24', value: 149.0, trend: 150.2 },
-  { date: 'Ene 25', value: 150.3, trend: 155.5 },
-  { date: 'Mar 25', value: 151.2, trend: 158.8 },
-  { date: 'May 25', value: 151.7, trend: 161.2 },
-  { date: 'Jul 25', value: 152.2, trend: 161.5},
-  { date: 'Sep 25', value: 152.8, trend: 161.9 },
-  { date: 'Nov 25', value: 153.6, trend: 162.2 },
-  { date: 'Dic 25', value: 154.0, trend: 162.6 },
+  { date: 'Sep 24', value: 148.1, trend: 144.0 },
+  { date: 'Nov 24', value: 148.1, trend: 150.2 },
+  { date: 'Ene 25', value: 146.3, trend: 155.5 },
+  { date: 'Mar 25', value: 150.4, trend: 158.8 },
+  { date: 'May 25', value: 164.9, trend: 161.2 },
+  { date: 'Jul 25', value: 153.9, trend: 161.5},
+  { date: 'Sep 25', value: 151.8, trend: 161.9 },
+  { date: 'Nov 25', value: 147.7, trend: 162.2 },
+  { date: 'Dic 25', value: 153.5, trend: 162.6 },
+  { date: 'Ene 26', value: 149.0, trend: 163.0 },
 ];
 
 // PBI Trimestral (variación interanual % YoY) - Actualizado 16/03/2026
@@ -192,7 +193,7 @@ export const reservasData = [
   { date: 'Nov 25', value: 40100 },
   { date: 'Dic 25', value: 42800 },
   { date: 'Feb 26', value: 46200 },
-  { date: 'Mar 26', value: 43702 },   // ← ÚLTIMO DATO OFICIAL (11/03/2026)
+  { date: 'Mar 26', value: 43808 },   // ← ÚLTIMO DATO OFICIAL (11/03/2026)
 ];
 
 // Tipo de cambio (ARS/USD) - Actualizado 16/03/2026

@@ -1,48 +1,64 @@
 'use client';
 
-import {
-  ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, Legend,
-} from 'recharts';
+import { useState, useMemo } from 'react';
+import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import ChartCard from './ChartCard';
-import { useTheme } from './ThemeProvider';
+import { useChartTheme, ThemedTooltip } from './charts/useChartTheme';
 import { inflacionMayoristaData } from '@/data/macroData';
+import { useLiveData } from '@/hooks/useLiveData';
+import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
+
+interface IPIMPoint {
+  date: string;
+  mensual: number;
+  interanual: number | null;
+}
+
+function transformIPIM(json: unknown): IPIMPoint[] {
+  const j = json as { data?: IPIMPoint[] };
+  if (!j?.data?.length) return inflacionMayoristaData;
+  return j.data;
+}
 
 export default function InflacionMayoristaChart() {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
+  const t = useChartTheme();
+  const [period, setPeriod] = useState(0);
 
-  const ax = { fontSize: 11, fill: isDark ? '#64748B' : '#94A3B8' };
-  const gr = { strokeDasharray: '3 3' as const, stroke: isDark ? '#1E293B' : '#E2E8F0' };
+  const { data, isLive, lastUpdate } = useLiveData<IPIMPoint[]>(
+    '/api/ipim',
+    inflacionMayoristaData,
+    transformIPIM,
+    { refreshInterval: 86400 * 1000 }
+  );
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (!active || !payload) return null;
-    return (
-      <div style={{ background: isDark ? '#111827' : '#FFF', border: `1px solid ${isDark ? '#1E293B' : '#E2E8F0'}` }} className="rounded-lg p-3 shadow-xl text-xs">
-        <p style={{ color: isDark ? '#94A3B8' : '#64748B' }} className="mb-1.5 font-medium">{label}</p>
-        {payload.map((p: any, i: number) => (
-          <div key={i} className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: p.color }} />
-            <span style={{ color: isDark ? '#94A3B8' : '#64748B' }}>{p.name}:</span>
-            <span style={{ color: isDark ? '#F1F5F9' : '#0F172A' }} className="font-mono font-semibold">{p.value}%</span>
-          </div>
-        ))}
-      </div>
-    );
-  };
+  const displayData = useMemo(() => filterByPeriod(data, period), [data, period]);
+  const csvData = displayData.map((d) => ({ ...d })) as Record<string, unknown>[];
 
   return (
-    <ChartCard title="IPIM — Inflación Mayorista" subtitle="Índice de Precios Internos al por Mayor · Barras = mensual (eje izq.) · Línea = interanual (eje der.)">
+    <ChartCard
+      title="IPIM — Inflación Mayorista"
+      subtitle={
+        isLive
+          ? `Índice de Precios Internos al por Mayor · Actualizado ${lastUpdate} · Fuente: INDEC`
+          : 'Índice de Precios Internos al por Mayor · Barras = mensual (eje izq.) · Línea = interanual (eje der.)'
+      }
+      isLive={isLive}
+      periods={[...MONTHLY_PERIODS]}
+      selectedPeriod={period}
+      onPeriodChange={setPeriod}
+      csvData={csvData}
+      csvFileName="ipim-mayorista"
+    >
       <ResponsiveContainer width="100%" height={320}>
-        <ComposedChart data={inflacionMayoristaData} margin={{ top: 5, right: 10, left: -15, bottom: 5 }}>
-          <CartesianGrid {...gr} />
-          <XAxis dataKey="date" tick={ax} />
-          <YAxis yAxisId="left" tick={ax} />
-          <YAxis yAxisId="right" orientation="right" tick={ax} />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend wrapperStyle={{ fontSize: 12, color: isDark ? '#94A3B8' : '#64748B' }} />
+        <ComposedChart data={displayData} margin={{ top: 5, right: 10, left: -15, bottom: 5 }}>
+          <CartesianGrid {...t.grid} />
+          <XAxis dataKey="date" tick={t.axis} />
+          <YAxis yAxisId="left" tick={t.axis} domain={['auto', 'auto']} />
+          <YAxis yAxisId="right" orientation="right" tick={t.axis} domain={['auto', 'auto']} />
+          <Tooltip content={<ThemedTooltip />} />
+          <Legend wrapperStyle={{ fontSize: 12, color: t.textSecondary }} />
           <Bar yAxisId="left" dataKey="mensual" name="IPIM Mensual %" fill="#F97316" radius={[3, 3, 0, 0]} opacity={0.7} />
-          <Line yAxisId="right" type="monotone" dataKey="interanual" name="Interanual %" stroke="#D4A843" strokeWidth={2} dot={false} />
+          <Line yAxisId="right" type="monotone" dataKey="interanual" name="Interanual %" stroke="#D4A843" strokeWidth={2} dot={false} connectNulls={false} />
         </ComposedChart>
       </ResponsiveContainer>
     </ChartCard>

@@ -1,7 +1,6 @@
-import { kpiCards } from '@/data/macroData';
 import { articles } from '@/data/articles';
 import PreciosRotativo from '@/components/PreciosRotativo';
-import KPICardComponent from '@/components/KPICard';
+import LiveKPIGrid from '@/components/LiveKPIGrid';
 import SectionHeader from '@/components/SectionHeader';
 import DolarBlueVivo from '@/components/DolarBlueVivo';
 import RiesgoPaisVivo from '@/components/RiesgoPaisVivo';
@@ -40,11 +39,7 @@ export default function HomePage() {
 {/* ════════ DASHBOARD ════════ */}
       <section id="dashboard">
         <SectionHeader id="dashboard-h" title="Dashboard en Vivo" subtitle="Principales indicadores macroeconómicos" icon="⚡" />
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3 sm:gap-4">
-          {kpiCards.map((card, i) => (
-            <KPICardComponent key={card.id} card={card} index={i} />
-          ))}
-        </div>
+        <LiveKPIGrid />
         {/* Dólar y Riesgo País en vivo */}
         <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           <div className="col-span-2 sm:col-span-3">

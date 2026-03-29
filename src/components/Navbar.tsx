@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { lastUpdate } from '@/data/macroData';
 import LionToggle from './LionToggle';
+import NavbarLiveDate from './NavbarLiveDate';
 
 const navLinks = [
   { href: '#dashboard', label: 'Dashboard' },
@@ -11,8 +11,8 @@ const navLinks = [
   { href: '#fiscal', label: 'Fiscal' },
   { href: '#externo', label: 'Externo' },
   { href: '/precios', label: 'Precios' },
-  { href: '#simulador', label: 'Interactivo' }, 
-  { href: '/proxys', label: 'Proxys' },  // ← AGREGE ESTA LÍNEA
+  { href: '#simulador', label: 'Interactivo' },
+  { href: '/proxys', label: 'Proxys' },
   { href: '/articulos', label: 'Artículos' },
   { href: '/contacto', label: 'Contacto' },
 ];
@@ -24,7 +24,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 navbar-bg border-b border-theme">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo original "M" */}
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <img src="/MACRO.png" alt="MacroLibre" className="w-8 h-8 rounded-lg object-cover" />
             <span className="text-lg font-bold tracking-tight">
@@ -46,12 +46,10 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Right: update badge + lion toggle + mobile menu */}
+          {/* Right: fecha en vivo + toggle + mobile menu */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-ar-green/10 border border-ar-green/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-ar-green animate-pulse" />
-              <span className="text-xs text-ar-green font-medium">{lastUpdate}</span>
-            </div>
+            {/* Fecha real en vivo (reemplaza la estática de build-time) */}
+            <NavbarLiveDate />
 
             {/* León para cambiar tema */}
             <LionToggle />

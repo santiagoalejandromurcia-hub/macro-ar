@@ -16,7 +16,8 @@ export default function DolarBlueVivo() {
   useEffect(() => {
     async function fetchDolar() {
       try {
-        const res = await fetch('https://api.bluelytics.com.ar/v2/latest');
+        // Usamos nuestro propio API route (evita CORS y aplica caché del servidor)
+        const res = await fetch('/api/dolar');
         if (!res.ok) throw new Error('API error');
         const json = await res.json();
         setData(json);
@@ -49,11 +50,12 @@ export default function DolarBlueVivo() {
     );
   }
 
-  if (error || !data) return null; // Silencioso si falla, se muestran los datos estáticos
+  if (error || !data) return null;
 
-  const brecha = data.blue.value_sell > 0 && data.oficial.value_sell > 0
-    ? ((data.blue.value_sell / data.oficial.value_sell - 1) * 100).toFixed(1)
-    : null;
+  const brecha =
+    data.blue.value_sell > 0 && data.oficial.value_sell > 0
+      ? ((data.blue.value_sell / data.oficial.value_sell - 1) * 100).toFixed(1)
+      : null;
 
   const cards = [
     {
