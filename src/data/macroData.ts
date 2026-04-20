@@ -1,5 +1,5 @@
 // ============================================================
-// MacroAR.app — Datos Macroeconómicos de Argentina
+// MacroLibre — Datos Macroeconómicos de Argentina
 // ============================================================
 // Estos datos son MOCK estáticos para la primera versión.
 // Más adelante se pueden reemplazar por fetch a APIs reales:

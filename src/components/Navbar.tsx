@@ -1,91 +1,152 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import LionToggle from './LionToggle';
-import NavbarLiveDate from './NavbarLiveDate';
+
+// ════════════════════════════════════════════════════
+// Navbar MacroLibre · compacto, h-14, glassy + wordmark
+// con checkmark, search pill con ⌘K, reloj live y CTA.
+// ════════════════════════════════════════════════════
 
 const navLinks = [
-  { href: '#dashboard', label: 'Dashboard' },
-  { href: '#actividad', label: 'Actividad' },
-  { href: '#fiscal', label: 'Fiscal' },
-  { href: '#externo', label: 'Externo' },
-  { href: '/precios', label: 'Precios' },
-  { href: '#simulador', label: 'Interactivo' },
-  { href: '/proxys', label: 'Proxys' },
-  { href: '/articulos', label: 'Artículos' },
-  { href: '/contacto', label: 'Contacto' },
+  { href: '#dashboard',   label: 'Indicadores' },
+  { href: '#actividad',   label: 'Series' },
+  { href: '/inflacion',   label: 'Inflación' },
+  { href: '/proxys',      label: 'Datasets' },
+  { href: '/articulos',   label: 'Informes' },
 ];
+
+function useClock() {
+  const [time, setTime] = useState<string>('—');
+  useEffect(() => {
+    const update = () => {
+      const d = new Date();
+      setTime(
+        d.toLocaleTimeString('es-AR', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          timeZone: 'America/Argentina/Buenos_Aires',
+        })
+      );
+    };
+    update();
+    const int = setInterval(update, 1000);
+    return () => clearInterval(int);
+  }, []);
+  return time;
+}
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const clock = useClock();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 navbar-bg border-b border-theme">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <img src="/MACRO.png" alt="MacroLibre" className="w-8 h-8 rounded-lg object-cover" />
-            <span className="text-lg font-bold tracking-tight">
-              <span className="text-theme-primary">Macro</span>
-              <span className="text-ar-celeste">Libre</span>
-            </span>
-          </Link>
-
-          {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-3 py-1.5 text-sm text-theme-secondary hover:text-theme-primary transition-colors rounded-md hover:bg-theme-hover"
-              >
-                {link.label}
-              </Link>
-            ))}
+    <nav className="sticky top-0 z-40 border-b border-[var(--line-1)] bg-[oklch(0.12_0.018_250_/_0.85)] backdrop-blur-xl">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-4 lg:gap-8">
+        {/* ── Wordmark ─────────────────────────────────── */}
+        <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+          <div className="relative w-7 h-7 rounded-[7px] bg-gradient-to-br from-[var(--celeste)] to-[var(--celeste-dim)] flex items-center justify-center overflow-hidden">
+            <div className="absolute inset-0 bg-[var(--sol)] opacity-0 group-hover:opacity-100 transition-opacity" />
+            <svg viewBox="0 0 24 24" className="relative w-4 h-4 text-[var(--bg-0)]" fill="none" stroke="currentColor" strokeWidth={2.5}>
+              <path d="M3 20L8 10L13 16L21 4" />
+            </svg>
           </div>
+          <div className="flex flex-col leading-none">
+            <span className="text-[14px] font-semibold tracking-tight text-[var(--fg-0)]">MacroLibre</span>
+            <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-[var(--fg-2)]">AR · Macro · Real-time</span>
+          </div>
+        </Link>
 
-          {/* Right: fecha en vivo + toggle + mobile menu */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Fecha real en vivo (reemplaza la estática de build-time) */}
-            <NavbarLiveDate />
-
-            {/* León para cambiar tema */}
-            <LionToggle />
-
-            {/* Mobile menu btn */}
-            <button
-              onClick={() => setOpen(!open)}
-              className="lg:hidden p-2 text-theme-secondary hover:text-theme-primary"
+        {/* ── Primary nav ──────────────────────────────── */}
+        <div className="hidden lg:flex items-center gap-1 text-[13px] text-[var(--fg-1)]">
+          {navLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="px-3 py-1.5 rounded-md hover:bg-[var(--bg-1)] hover:text-[var(--fg-0)] transition"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                {open ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-          </div>
+              {l.label}
+            </Link>
+          ))}
         </div>
 
-        {/* Mobile menu */}
-        {open && (
-          <div className="lg:hidden pb-4 border-t border-theme mt-2 pt-4 flex flex-col gap-1">
-            {navLinks.map((link) => (
+        {/* ── Right cluster ────────────────────────────── */}
+        <div className="ml-auto flex items-center gap-2 sm:gap-3">
+          {/* Search */}
+          <button
+            type="button"
+            className="hidden md:flex items-center gap-2.5 h-8 px-2.5 text-[12px] text-[var(--fg-2)] bg-[var(--bg-1)] border border-[var(--line-1)] rounded-md hover:border-[var(--celeste)]/40 transition"
+            aria-label="Buscar"
+          >
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+              <circle cx="11" cy="11" r="7" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <span className="font-mono">Buscar IPC, dólar, reservas…</span>
+            <span className="ml-4 font-mono text-[10px] px-1.5 py-0.5 bg-[var(--bg-2)] border border-[var(--line-1)] rounded">⌘K</span>
+          </button>
+
+          {/* Status */}
+          <div className="hidden md:flex items-center gap-2 h-8 px-3 bg-[var(--bg-1)] border border-[var(--line-1)] rounded-md">
+            <span className="live-dot" aria-hidden />
+            <span className="text-[11px] font-mono uppercase tracking-wider text-[var(--fg-1)]">En vivo</span>
+            <span className="text-[11px] font-mono text-[var(--fg-2)] tnum">{clock}</span>
+          </div>
+
+          {/* CTA */}
+          <Link
+            href="/contacto"
+            className="hidden sm:inline-flex items-center h-8 px-3.5 text-[12px] font-medium bg-[var(--celeste)] text-[var(--bg-0)] rounded-md hover:bg-[oklch(0.84_0.14_230)] transition"
+          >
+            Ingresar
+          </Link>
+
+          {/* LionToggle (tema claro/oscuro) */}
+          <LionToggle />
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="lg:hidden p-1.5 text-[var(--fg-1)] hover:text-[var(--fg-0)] rounded-md hover:bg-[var(--bg-1)]"
+            aria-label="Abrir menú"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {open ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {open && (
+        <div className="lg:hidden border-t border-[var(--line-1)] bg-[var(--bg-0)]">
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-3 flex flex-col gap-1">
+            {navLinks.map((l) => (
               <Link
-                key={link.href}
-                href={link.href}
+                key={l.href}
+                href={l.href}
                 onClick={() => setOpen(false)}
-                className="px-3 py-2.5 text-sm text-theme-secondary hover:text-theme-primary hover:bg-theme-hover rounded-md"
+                className="px-3 py-2.5 text-sm text-[var(--fg-1)] hover:text-[var(--fg-0)] hover:bg-[var(--bg-1)] rounded-md"
               >
-                {link.label}
+                {l.label}
               </Link>
             ))}
+            <Link
+              href="/contacto"
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex items-center justify-center h-9 px-3.5 text-[13px] font-medium bg-[var(--celeste)] text-[var(--bg-0)] rounded-md"
+            >
+              Ingresar
+            </Link>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
   );
 }

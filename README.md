@@ -1,156 +1,100 @@
-# 🇦🇷 MacroAR.app
+# MacroLibre
 
-Plataforma de estadísticas macroeconómicas de Argentina.
+Plataforma de estadísticas macroeconómicas de Argentina. Datos de fuentes oficiales (INDEC, BCRA, Min. Economía) visualizados con claridad, análisis y herramientas interactivas.
+
+Stack: Next.js 15, TypeScript, Tailwind CSS, Recharts.
 
 ---
 
-## 🚀 PASO 1 — Correr en tu computadora
+## Correr en local
 
-### Requisito previo: instalar Node.js
-
-1. Andá a **https://nodejs.org**
-2. Descargá la versión **LTS** (el botón verde grande)
-3. Instalalo como cualquier programa (siguiente, siguiente, instalar)
-4. Para verificar que se instaló bien, abrí la **Terminal** (Mac) o **CMD/PowerShell** (Windows) y escribí:
-
-```
-node --version
-```
-
-Si te muestra un número (como `v20.11.0`), está todo bien.
-
-### Ahora sí, correr MacroAR:
+Requisito: Node.js LTS (https://nodejs.org).
 
 ```bash
-# 1. Abrí la Terminal/CMD y navegá a la carpeta del proyecto
-cd macro-ar
-
-# 2. Instalá las dependencias (tarda 1-2 minutos la primera vez)
 npm install
-
-# 3. Arrancá el servidor de desarrollo
 npm run dev
 ```
 
-4. Abrí tu navegador en **http://localhost:3000**
-5. ¡Listo! Ya ves MacroAR.app andando en tu compu.
-
-Para frenar el servidor: apretá `Ctrl + C` en la Terminal.
+Abrir http://localhost:3000.
 
 ---
 
-## ☁️ PASO 2 — Subir a Internet con Vercel (gratis)
+## Deploy
 
-### 2A. Subir el código a GitHub
-
-1. Creá una cuenta en **https://github.com** (si no tenés)
-2. Creá un repositorio nuevo: click en **"New repository"**
-   - Nombre: `macro-ar`
-   - Dejalo **público**
-   - NO marques "Add README" (ya tenemos uno)
-   - Click **"Create repository"**
-3. En la Terminal, dentro de la carpeta `macro-ar`:
+Proyecto pensado para Vercel. Push a GitHub → Import en Vercel → deploy automático. Dominio de producción: `macrolibre.com`.
 
 ```bash
-git init
 git add .
-git commit -m "MacroAR.app v1"
-git branch -M main
-git remote add origin https://github.com/TU-USUARIO/macro-ar.git
-git push -u origin main
+git commit -m "mensaje"
+git push
 ```
-
-(Reemplazá `TU-USUARIO` por tu nombre de usuario de GitHub)
-
-### 2B. Conectar con Vercel
-
-1. Andá a **https://vercel.com** y logueate con tu cuenta de GitHub
-2. Click en **"Add New Project"**
-3. Buscá y seleccioná el repo **macro-ar**
-4. Framework Preset: **Next.js** (lo detecta solo)
-5. Click en **"Deploy"**
-6. ¡En 60 segundos tu web está online en `tu-proyecto.vercel.app`!
-
-### 2C. Dominio personalizado (opcional)
-
-En Vercel → tu proyecto → Settings → Domains → escribí `macroar.app` (o el dominio que compres) y seguí las instrucciones de DNS.
 
 ---
 
-## 📝 PASO 3 — Agregar un artículo nuevo al blog
+## Estructura
 
-1. Abrí el archivo `src/data/articles.ts` con cualquier editor de texto
-2. Copiá uno de los artículos existentes
-3. Pegalo al final del array (antes del `];`)
-4. Cambiá los datos:
+```
+macro-arg/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx              Dashboard (home)
+│   │   ├── layout.tsx            Layout (Navbar + Footer + Theme)
+│   │   ├── inflacion/page.tsx    Página de inflación
+│   │   ├── proxys/page.tsx       Proxys macro (M2, etc.)
+│   │   ├── articulos/            Blog (lista + [slug])
+│   │   ├── contacto/page.tsx
+│   │   └── api/                  Endpoints de datos en vivo
+│   │       ├── dolar/            Dólar blue
+│   │       ├── riesgo-pais/
+│   │       ├── reservas/
+│   │       ├── inflacion/
+│   │       ├── emae/
+│   │       ├── ipim/
+│   │       ├── kpis/
+│   │       └── newsletter/       Captura de suscriptores
+│   ├── components/               UI y gráficos
+│   ├── data/
+│   │   ├── macroData.ts          Datos macro estáticos (mock / fallback)
+│   │   └── articles.ts           Artículos del blog
+│   ├── hooks/useLiveData.ts
+│   └── lib/                      Utilidades (CSV, data helpers)
+├── package.json
+└── README.md
+```
 
-```typescript
+---
+
+## Agregar un artículo al blog
+
+Editar `src/data/articles.ts` y agregar un objeto al array:
+
+```ts
 {
-  slug: 'mi-nuevo-articulo',           // sin espacios, sin acentos
-  title: 'Título de Mi Artículo',
-  author: 'Tu Nombre',
-  authorRole: 'Tu cargo — Tu institución',
-  date: '15 de marzo de 2026',
-  summary: 'Un resumen corto de qué trata...',
-  image: '📊',                         // un emoji
+  slug: 'mi-articulo',              // sin espacios ni acentos
+  title: 'Título',
+  author: 'Autor',
+  authorRole: 'Rol — Institución',
+  date: '15 de abril de 2026',
+  summary: 'Resumen corto.',
+  image: '📊',
   tags: ['Economía', 'Análisis'],
   readTime: '5 min',
   content: `
-## Primera sección
+## Sección
 
-Acá va el texto. Podés usar **negritas** y secciones con ##.
-
-## Segunda sección
-
-Más texto...
+Texto con **negritas** y subtítulos con ##.
   `,
 },
 ```
 
-5. Guardá el archivo
-6. Si estás corriendo `npm run dev`, el artículo aparece al instante
-7. Si ya está en Vercel, hacé `git add . && git commit -m "Nuevo artículo" && git push` y Vercel lo actualiza solo
+El sitemap se regenera solo.
 
 ---
 
-## 📁 Estructura del proyecto
+## Suscriptores del newsletter
 
-```
-macro-ar/
-├── src/
-│   ├── app/
-│   │   ├── page.tsx            ← Página principal (dashboard)
-│   │   ├── layout.tsx          ← Layout con Navbar y Footer
-│   │   ├── globals.css         ← Estilos
-│   │   └── articulos/
-│   │       ├── page.tsx        ← Lista de artículos
-│   │       └── [slug]/page.tsx ← Artículo individual
-│   ├── components/
-│   │   ├── Charts.tsx          ← Todos los gráficos
-│   │   ├── Navbar.tsx          ← Barra de navegación
-│   │   └── ...otros
-│   └── data/
-│       ├── macroData.ts        ← DATOS MACRO (editá acá los números)
-│       └── articles.ts         ← ARTÍCULOS DEL BLOG (agregá acá)
-├── package.json
-└── README.md                   ← Este archivo
-```
-
-## 🔄 Cómo actualizar los datos macro
-
-Abrí `src/data/macroData.ts` y cambiá los números. Por ejemplo, para actualizar el dólar blue:
-
-```typescript
-{
-  id: 'dolar-blue',
-  title: 'Dólar Blue',
-  value: '$1.250',        // ← cambiá este número
-  change: -2.1,           // ← y este porcentaje
-  changeLabel: 'vs. semana anterior',
-  icon: '💵',
-},
-```
+Los emails capturados por `/api/newsletter` se persisten en `data/subscribers.json` (gitignored). Para producción, migrar a Resend / Buttondown / Mailchimp cambiando el handler del endpoint.
 
 ---
 
-Hecho con Next.js 15, TypeScript, Tailwind CSS y Recharts.
+© MacroLibre — Datos de fuentes oficiales públicas. No constituye asesoramiento financiero.

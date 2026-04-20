@@ -40,7 +40,7 @@ export default function PreciosRotativo() {
       {/* Link a ver todos */}
       <div className="text-center">
         <Link
-          href="/precios"
+          href="/inflacion"
           className="inline-flex items-center gap-2 px-5 py-2.5 bg-ar-celeste/10 border border-ar-celeste/20 rounded-lg text-sm text-ar-celeste hover:bg-ar-celeste/20 transition-colors"
         >
           Ver todos los indicadores de precios →

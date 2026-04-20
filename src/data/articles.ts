@@ -1,5 +1,5 @@
 // ============================================================
-// MacroAR.app — Artículos / Blog
+// MacroLibre — Artículos / Blog
 // ============================================================
 // Para agregar un artículo nuevo: copiá un objeto, cambiá los
 // datos, y listo. Aparece automáticamente en la web.
