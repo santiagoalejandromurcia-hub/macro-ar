@@ -11,9 +11,9 @@ import LionToggle from './LionToggle';
 
 const navLinks = [
   { href: '#dashboard',   label: 'Indicadores' },
-  { href: '#actividad',   label: 'Series' },
+  { href: '/calculadora', label: 'Calculadora' },
   { href: '/inflacion',   label: 'Inflación' },
-  { href: '/proxys',      label: 'Datasets' },
+  { href: '/servicios',   label: 'Servicios' },
   { href: '/articulos',   label: 'Informes' },
 ];
 
@@ -47,12 +47,12 @@ export default function Navbar() {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-4 lg:gap-8">
         {/* ── Wordmark ─────────────────────────────────── */}
         <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-          <div className="relative w-7 h-7 rounded-[7px] bg-gradient-to-br from-[var(--celeste)] to-[var(--celeste-dim)] flex items-center justify-center overflow-hidden">
-            <div className="absolute inset-0 bg-[var(--sol)] opacity-0 group-hover:opacity-100 transition-opacity" />
-            <svg viewBox="0 0 24 24" className="relative w-4 h-4 text-[var(--bg-0)]" fill="none" stroke="currentColor" strokeWidth={2.5}>
-              <path d="M3 20L8 10L13 16L21 4" />
-            </svg>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/MACRO.png"
+            alt="MacroLibre"
+            className="w-8 h-8 rounded-lg object-cover ring-1 ring-[var(--line-1)] group-hover:ring-[var(--celeste)]/50 transition"
+          />
           <div className="flex flex-col leading-none">
             <span className="text-[14px] font-semibold tracking-tight text-[var(--fg-0)]">MacroLibre</span>
             <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-[var(--fg-2)]">AR · Macro · Real-time</span>

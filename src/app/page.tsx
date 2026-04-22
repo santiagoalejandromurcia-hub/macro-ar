@@ -12,6 +12,7 @@ import Link from 'next/link';
 import SimuladorIA from '@/components/SimuladorIA';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import Hero from '@/components/hero/Hero';
+import ServicesSection from '@/components/Services/ServicesSection';
 
 export default function HomePage() {
   const latestArticles = articles.slice(0, 3);
@@ -104,9 +105,58 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ════════ SIMULADOR ════════ */}
+        {/* ════════ CALCULADORA ════════ */}
+        <section id="calculadora-teaser" className="mt-20">
+          <div className="glass glass-lift p-6 md:p-8 grid grid-cols-1 md:grid-cols-5 gap-6 items-center overflow-hidden relative">
+            <div
+              aria-hidden
+              className="absolute -top-16 -right-16 w-64 h-64 rounded-full opacity-20 pointer-events-none"
+              style={{ background: 'radial-gradient(circle, var(--celeste) 0%, transparent 70%)' }}
+            />
+            <div className="md:col-span-3 relative">
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--celeste)]">
+                ◆ NUEVA HERRAMIENTA
+              </span>
+              <h2 className="font-display text-[26px] sm:text-[32px] leading-tight text-[var(--fg-0)] mt-2">
+                ¿Dólar, plazo fijo o bonos?
+              </h2>
+              <p className="text-[14px] text-[var(--fg-1)] mt-2 max-w-xl leading-relaxed">
+                Simulá cuánto te habría rendido tu plata en cada instrumento desde cualquier fecha.
+                Todo ajustado por inflación, con datos en vivo del BCRA, INDEC y ArgentinaDatos.
+              </p>
+              <Link
+                href="/calculadora"
+                className="mt-4 h-10 px-5 inline-flex items-center text-[13px] font-semibold bg-[var(--celeste)] text-[var(--bg-0)] rounded-md hover:bg-[oklch(0.84_0.14_230)] transition"
+              >
+                Abrir calculadora →
+              </Link>
+            </div>
+            <div className="md:col-span-2 relative grid grid-cols-2 gap-2 text-[11px] font-mono">
+              {[
+                { k: 'Plazo Fijo',  v: 'BADLAR'   },
+                { k: 'Dólar MEP',   v: 'Bolsa'    },
+                { k: 'Dólar Blue',  v: 'Bluelytics' },
+                { k: 'LECAP',       v: 'Tesoro'   },
+                { k: 'AL30',        v: 'Ley Arg'  },
+                { k: 'GD30',        v: 'Ley NY'   },
+              ].map((x) => (
+                <div key={x.k} className="p-2.5 bg-[var(--bg-1)] border border-[var(--line-1)] rounded-md">
+                  <div className="text-[12px] font-semibold text-[var(--fg-0)]">{x.k}</div>
+                  <div className="text-[var(--fg-2)]">{x.v}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ════════ SIMULADOR IA ════════ */}
         <section id="simulador" className="mt-20">
           <SimuladorIA />
+        </section>
+
+        {/* ════════ SERVICIOS ════════ */}
+        <section className="mt-20">
+          <ServicesSection />
         </section>
 
         {/* ════════ NEWSLETTER ════════ */}

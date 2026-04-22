@@ -60,15 +60,7 @@ export const kpiCards: KPICard[] = [
     change: 0.01,
     changeLabel: 'respecto a mes anterior',
     icon: '🏦',
-},
-  {
-    id: 'dolar-blue',
-    title: 'Dólar Blue',
-    value: '$1420',
-    change: 0,
-    changeLabel: 'vs. semana anterior',
-    icon: '💵',
-  }
+  },
 ];
 
 // EMAE — Estimador Mensual de Actividad Económica

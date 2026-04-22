@@ -12,3 +12,7 @@ next-env.d.ts
 
 # Newsletter — emails capturados localmente (no subir a git)
 /data/subscribers.json
+
+# Archivos temporales de verificación
+tscheck.tmp.json
+*.tmp.json
