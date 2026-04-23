@@ -24,11 +24,10 @@ const SERVICES: ServiceItem[] = [
       'Panel mensual con ingresos, egresos y proyecciones para emprendedores y comercios en etapa de formalización. Consolidamos tus datos y los cruzamos con la macro.',
     bullets: [
       'Conciliación bancaria automática',
-      'Reporte ARCA-ready cuando quieras formalizar',
       'Alertas de márgenes vs inflación real',
     ],
     accent: 'celeste',
-    price: 'Desde USD 149 / mes',
+    price: 'Desde ARS 150.000 / mes',
   },
   {
     id: 'auditoria-ads',
@@ -42,35 +41,21 @@ const SERVICES: ServiceItem[] = [
       'Plan de optimización priorizado',
     ],
     accent: 'sol',
-    price: 'USD 890 · único',
-  },
-  {
-    id: 'marketing-macro',
-    eyebrow: 'ESTRATEGIA · DATA-DRIVEN',
-    title: 'Programa de Marketing Macro-Driven',
-    description:
-      'Estrategia trimestral que ajusta precios, promos y mensajes al ciclo económico argentino. Tus campañas pisando el timing correcto.',
-    bullets: [
-      'Análisis de elasticidad precio de tu categoría',
-      'Calendario editorial sincronizado a IPC e ingresos',
-      'Revisión mensual + ajuste táctico',
-    ],
-    accent: 'magenta',
-    price: 'Desde USD 480 / mes',
+    price: 'ARS 750.000 · único',
   },
   {
     id: 'consultoria-macro',
     eyebrow: 'C-LEVEL · ADVISORY',
-    title: 'Consultoría Macro',
+    title: 'Consultoría MacroEconomica',
     description:
-      'Sesiones mensuales con analistas para directorios y founders. Traducimos lo que pasa en BCRA, Tesoro e INDEC a decisiones concretas de tu negocio.',
+      'Traduzco lo que pasa en BCRA, Tesoro e INDEC a decisiones concretas de tu negocio.',
     bullets: [
-      'Escenarios de inflación, tipo de cambio y tasas a 90/180 días',
-      'Stress test de tu plan financiero',
-      'Memo ejecutivo mensual · 1 reunión en vivo',
+      'Escenarios de inflación, tipo de cambio y Expectativas',
+      'Analisis de escenarios de tu plan financiero',
+      'Informe ejecutivo mensual · 1 reunión en vivo',
     ],
     accent: 'verde',
-    price: 'USD 350 / sesión',
+    price: 'ARS 250.000 / sesión',
   },
 ];
 
