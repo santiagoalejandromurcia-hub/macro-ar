@@ -5,8 +5,11 @@ import DolarBlueVivo from '@/components/DolarBlueVivo';
 import RiesgoPaisVivo from '@/components/RiesgoPaisVivo';
 import {
   EmaeChart, PBIBarChart, SectorChart, FiscalChart, TaxTable,
-  TradeChart, ReservasChart, TCRChart,
+  TradeChart, ReservasChart, TCRChart, RiesgoPaisChart,
   InflacionMensualChart, InflacionInteranualChart, REMChart,
+  ConsumoPrivadoChart, PBIDesestacionalizadoChart, PobrezaChart, ExportacionesChart,
+  SalarioRealChart, DeudaPibChart, DeudaConsolidadaChart,
+  InflacionLargoPlazoChart, EmaeLargoPlazoChart,
 } from '@/components/Charts';
 import Link from 'next/link';
 import SimuladorIA from '@/components/SimuladorIA';
@@ -54,6 +57,55 @@ export default function HomePage() {
               <PBIBarChart />
               <SectorChart />
             </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <PBIDesestacionalizadoChart />
+              <ConsumoPrivadoChart />
+            </div>
+          </div>
+        </section>
+
+        {/* ════════ CONSUMO Y POBREZA ════════ */}
+        <section id="bienestar" className="mt-20">
+          <SectionHeader
+            id="bienestar"
+            title="Consumo y pobreza"
+            subtitle="Consumo privado desestacionalizado y pobreza — Fuente: Econométrica en base a INDEC"
+            accent="magenta"
+          />
+          <div className="space-y-6">
+            <PobrezaChart />
+          </div>
+        </section>
+
+        {/* ════════ SALARIO Y DEUDA ════════ */}
+        <section id="salarios-deuda" className="mt-20">
+          <SectionHeader
+            id="salarios-deuda"
+            title="Salarios y deuda pública"
+            subtitle="Salario real por sector, deuda como % del PIB y deuda consolidada Tesoro+BCRA"
+            accent="sol"
+          />
+          <div className="space-y-6">
+            <SalarioRealChart />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <DeudaPibChart />
+              <ExportacionesChart />
+            </div>
+            <DeudaConsolidadaChart />
+          </div>
+        </section>
+
+        {/* ════════ HISTÓRICO LARGO PLAZO ════════ */}
+        <section id="historico" className="mt-20">
+          <SectionHeader
+            id="historico"
+            title="Mirada histórica"
+            subtitle="Inflación 1990-2026 y EMAE largo plazo — Fuente: Econométrica en base a INDEC"
+            accent="celeste"
+          />
+          <div className="space-y-6">
+            <InflacionLargoPlazoChart />
+            <EmaeLargoPlazoChart />
           </div>
         </section>
 
@@ -85,6 +137,7 @@ export default function HomePage() {
               <ReservasChart />
               <TCRChart />
             </div>
+            <RiesgoPaisChart />
           </div>
         </section>
 

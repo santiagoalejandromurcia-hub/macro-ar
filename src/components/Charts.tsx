@@ -11,7 +11,20 @@ export {
   TradeChart,
   ReservasChart,
   TCRChart,
+  RiesgoPaisChart,
   InflacionMensualChart,
   InflacionInteranualChart,
   REMChart,
+  // Bloque Econométrica — Consumo, Pobreza, Comercio Exterior
+  ConsumoPrivadoChart,
+  PBIDesestacionalizadoChart,
+  PobrezaChart,
+  ExportacionesChart,
+  // Salarios y Deuda
+  SalarioRealChart,
+  DeudaPibChart,
+  DeudaConsolidadaChart,
+  // Histórico largo plazo
+  InflacionLargoPlazoChart,
+  EmaeLargoPlazoChart,
 } from './charts/index';

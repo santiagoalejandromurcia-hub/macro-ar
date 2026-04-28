@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Servicios · MacroLibre',
   description:
-    'Dashboard de facturación para PYMES, auditorías de ads, programa de marketing macro-driven y consultoría C-level. Data macro aplicada a tu negocio.',
+    'Dashboard de facturación para PYMES, auditorías de ads y consultoría macroeconómica C-level. Data macro aplicada a tu negocio.',
 };
 
 interface ServicePage {
@@ -26,7 +26,7 @@ const SERVICES_DETAIL: ServicePage[] = [
     title: 'Dashboard de Facturación',
     tagline:
       'Un panel claro de ingresos, egresos y márgenes para emprendedores y comercios en etapa de formalización — sin Excel gigantes ni contador perdido.',
-    price: 'Desde USD 149 / mes',
+    price: 'Desde ARS 150.000 / mes',
     deliverables: [
       'Dashboard web privado con tus KPIs mensuales',
       'Conciliación con tus cuentas bancarias (Mercado Pago, cuenta corriente, billeteras)',
@@ -53,7 +53,7 @@ const SERVICES_DETAIL: ServicePage[] = [
     title: 'Auditoría de Ads',
     tagline:
       'Revisamos tu cuenta de Meta, Google o TikTok Ads y te entregamos un informe accionable con las 10 optimizaciones de mayor impacto.',
-    price: 'USD 890 · pago único',
+    price: 'ARS 750.000 · pago único',
     deliverables: [
       'Informe PDF de 40+ páginas (español, 5 días hábiles)',
       'Análisis de CAC, ROAS y LTV reales vs los que reporta la plataforma',
@@ -75,43 +75,16 @@ const SERVICES_DETAIL: ServicePage[] = [
     accent: 'var(--sol)',
   },
   {
-    id: 'marketing-macro',
-    eyebrow: 'ESTRATEGIA · DATA-DRIVEN',
-    title: 'Programa de Marketing Macro-Driven',
-    tagline:
-      'Estrategia trimestral que sincroniza precios, promos y mensajes al ciclo económico argentino. Tu plan de marketing deja de ser independiente de la macro.',
-    price: 'Desde USD 480 / mes',
-    deliverables: [
-      'Análisis de elasticidad precio específico a tu categoría',
-      'Calendario editorial sincronizado con IPC, ingresos reales y consumo masivo',
-      'Scripts de mensajes por escenario (alta inflación, desaceleración, recuperación)',
-      'Revisión mensual 1:1 con nuestro equipo + ajustes tácticos',
-      'Acceso a nuestro data-room macro privado',
-    ],
-    idealPara: [
-      'Brands con presupuesto marketing > USD 10k / mes',
-      'Retail, consumo masivo, turismo doméstico',
-      'Startups que necesitan market fit con la realidad de bolsillo argentino',
-    ],
-    proceso: [
-      { step: '01', label: 'Diagnóstico inicial (2 semanas)' },
-      { step: '02', label: 'Diseño del plan trimestral' },
-      { step: '03', label: 'Implementación asistida' },
-      { step: '04', label: 'Review mensual + pivot táctico' },
-    ],
-    accent: 'var(--magenta)',
-  },
-  {
     id: 'consultoria-macro',
     eyebrow: 'C-LEVEL · ADVISORY',
-    title: 'Consultoría Macro',
+    title: 'Consultoría MacroEconomica',
     tagline:
-      'Sesiones mensuales con analistas para directorios y founders. Traducimos lo que pasa en BCRA, Tesoro e INDEC a decisiones concretas para tu negocio.',
-    price: 'USD 350 / sesión · paquetes 3/6 meses',
+      'Traduzco lo que pasa en BCRA, Tesoro e INDEC a decisiones concretas para tu negocio. Sesiones para directorios, founders y CFOs.',
+    price: 'ARS 250.000 / sesión · paquetes 3/6 meses',
     deliverables: [
       'Memo ejecutivo mensual (10-15 páginas)',
-      'Escenarios de inflación, tipo de cambio y tasas a 90 y 180 días',
-      'Stress test sobre tu plan financiero',
+      'Escenarios de inflación, tipo de cambio y expectativas a 90 y 180 días',
+      'Análisis de escenarios sobre tu plan financiero',
       'Reunión en vivo de 60 min con preguntas abiertas',
       'Disponibilidad por mail entre sesiones',
     ],
@@ -149,7 +122,7 @@ export default function ServiciosPage() {
         </h1>
         <p className="mt-4 text-[15px] text-[var(--fg-1)] max-w-2xl leading-relaxed">
           Desde un dashboard simple de facturación para emprendedores, hasta advisory mensual
-          para founders. Cuatro servicios, un mismo principio: tus decisiones de negocio
+          para founders. Tres servicios, un mismo principio: tus decisiones de negocio
           pisando la realidad macro argentina.
         </p>
         <div className="mt-6 flex gap-2">
