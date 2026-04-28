@@ -4,7 +4,7 @@ import SectionHeader from '@/components/SectionHeader';
 import DolarBlueVivo from '@/components/DolarBlueVivo';
 import RiesgoPaisVivo from '@/components/RiesgoPaisVivo';
 import {
-  EmaeChart, PBIBarChart, SectorChart, FiscalChart, TaxTable,
+  PBIBarChart, SectorChart, FiscalChart, TaxTable,
   TradeChart, ReservasChart, TCRChart, RiesgoPaisChart,
   InflacionMensualChart, InflacionInteranualChart, REMChart,
   ConsumoPrivadoChart, PBIDesestacionalizadoChart, PobrezaChart, ExportacionesChart,
@@ -52,7 +52,7 @@ export default function HomePage() {
             accent="celeste"
           />
           <div className="space-y-6">
-            <EmaeChart />
+            <EmaeLargoPlazoChart />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <PBIBarChart />
               <SectorChart />
@@ -100,12 +100,11 @@ export default function HomePage() {
           <SectionHeader
             id="historico"
             title="Mirada histórica"
-            subtitle="Inflación 1990-2026 y EMAE largo plazo — Fuente: Econométrica en base a INDEC"
+            subtitle="Inflación 1990-2026 — Fuente: Econométrica en base a INDEC"
             accent="celeste"
           />
           <div className="space-y-6">
             <InflacionLargoPlazoChart />
-            <EmaeLargoPlazoChart />
           </div>
         </section>
 
