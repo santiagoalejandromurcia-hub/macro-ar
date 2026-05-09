@@ -237,4 +237,101 @@ La síntesis del diagnóstico argentino en abril 2026 revela una tensión entre 
 El breakeven inflacionario implícito en el par T30A7/TZX27, cercano al 31% anual, es **la métrica de mercado más honesta disponible** sobre las expectativas, por encima de encuestas y proyecciones oficiales. Leído junto con el REM (29,1%) y las proyecciones privadas (23-30%), delimita un rango de consenso de **25-30% para 2026**, muy lejos del 10,1% del Presupuesto y con trayectoria convergente al 16-24% en 2027. La apuesta del mercado sobre el éxito del plan Milei-Caputo es, por ahora, **moderadamente optimista pero sin euforia**: reconoce que la desinflación continúa pero duda de su velocidad y del costo cambiario necesario para sostenerla.
 `,
   },
+  {
+    slug: 'homeostasis-argentina-dolares-escondidos',
+    title: 'Homeostasis Argentina: por qué tenemos USD 250.000 millones escondidos',
+    author: 'Santiago Murcia',
+    authorRole: 'Economista — MacroLibre',
+    date: '9 de mayo de 2026',
+    summary: 'La desconfianza argentina hacia el sistema bancario no es un capricho: es una respuesta aprendida tras décadas de inflación, cepos, confiscaciones y defaults.',
+    image: '📊',
+    tags: ['Economía Conductual', 'Dólar', 'Sistema Bancario', 'Milei', 'Política Económica', 'Ahorro'],
+    readTime: '9 min',
+    content: `# La homeostasis y la mentalidad argentina: por qué tenemos USD 250.000 millones escondidos
+
+Hay un concepto del libro *Mastery*, de George Leonard, que explica la economía argentina mejor que muchos manuales de macroeconomía: la homeostasis.
+
+La homeostasis es la tendencia natural de todo sistema vivo a resistir el cambio para mantener su equilibrio interno. Cuando intentás mejorar algo de forma significativa —tu cuerpo, tu mente, una cultura o una economía— el sistema genera resistencia para volver al estado conocido. Aunque ese estado sea disfuncional. Aunque ese estado te esté haciendo daño.
+
+En Argentina, esa homeostasis tiene nombre, apellido y número: cientos de miles de millones de dólares guardados fuera del sistema bancario. No es solo una estadística financiera. Es una radiografía de la psicología económica de un país.
+
+## El número que explica todo
+
+No es una metáfora. Es una cifra concreta que define la relación de los argentinos con el dinero, el Estado y los bancos.
+
+A principios de 2025, los argentinos conservaban cerca de USD 245.687 millones en billetes fuera del sistema financiero: efectivo en casas, cajas de seguridad y cuentas no declaradas en el exterior. Al cierre de 2025, el número estimado rondaba los USD 254.898 millones.
+
+Para dimensionarlo: esa cifra equivale a varias veces las reservas brutas del Banco Central y supera ampliamente el total de depósitos privados en dólares dentro de los bancos. Es decir, hay más dólares inmovilizados por desconfianza que dólares trabajando dentro del sistema productivo.
+
+El propio presidente Javier Milei habló de un rango todavía más amplio: entre USD 200.000 millones y USD 400.000 millones fuera del sistema. Cualquiera sea la cifra exacta, el mensaje es el mismo: Argentina no tiene solo un problema de escasez de capital. Tiene un problema de confianza.
+
+Eso es la homeostasis hecha número.
+
+## La desconfianza no es un capricho: es una cicatriz
+
+Imaginá que de chico te quemaste la mano tocando una estufa. De adulto, aunque la estufa esté apagada, tu mano se retira sola. No es irracionalidad. Es memoria muscular de dolor real.
+
+Algo parecido pasa con los argentinos y los bancos.
+
+La desconfianza acumulada no nació de la nada. Es una respuesta aprendida después de décadas de traiciones institucionales: el Corralito de 2001, la pesificación asimétrica, inflaciones descontroladas, defaults repetidos, cepos cambiarios y reglas que cambiaron demasiadas veces en mitad del partido.
+
+El sistema colectivo aprendió una lección brutal y la internalizó: "el banco no es seguro; el dólar bajo el colchón es la única reserva de valor verdadera".
+
+Esa es nuestra homeostasis económica. Dolorosa, ineficiente y empobrecedora, pero conocida. Y lo conocido, aunque duela, muchas veces parece más seguro que lo desconocido.
+
+## La homeostasis también resiste los incentivos formales
+
+Si todavía quedaban dudas sobre la fuerza de este fenómeno, el gobierno de Milei acaba de mostrarlo empíricamente.
+
+A fines de 2024 se impulsó la llamada Ley de Inocencia Fiscal: una invitación a ingresar dólares no declarados al sistema con garantías legales, menor carga burocrática y promesas explícitas de seguridad jurídica. También se facilitaron mecanismos para abrir cuentas y operar en dólares.
+
+El resultado fue limitado frente al stock total de dólares fuera del sistema. Hubo exteriorización de capitales, sí, pero no un cambio masivo de comportamiento. Los argentinos probaron el nuevo marco, miraron de reojo y, en gran parte, conservaron el viejo hábito.
+
+En términos de homeostasis: el sistema ofreció resistencia, volvió al equilibrio conocido y ganó la primera ronda.
+
+Esto no es solamente un fracaso o un éxito parcial de una política económica. Es la homeostasis cultural haciendo exactamente lo que Leonard describía: cuando un comportamiento nuevo compite contra un hábito arraigado, el hábito suele ganar en el corto plazo.
+
+## Las tres formas de lidiar con la homeostasis
+
+### 1. Reconocerla sin juzgarla
+
+El primer paso es dejar de insultar a la gente por "no confiar". Esa desconfianza no es un defecto cultural: es una respuesta adaptativa a décadas de mala información institucional. El Estado argentino sí confiscó, sí pesificó, sí defaulteó y sí cambió reglas de forma arbitraria.
+
+Cualquier estrategia de reconstrucción que empiece con "los argentinos son tontos por guardar dólares en el colchón" está condenada. La homeostasis no se rompe insultando al sistema que la generó.
+
+### 2. Negociar con el cambio, no decretarlo
+
+"Confíen" no alcanza. La confianza se construye con tiempo, consistencia y hechos repetidos. No con discursos, leyes aisladas ni garantías verbales.
+
+Para que el sistema perciba que el nuevo equilibrio es más seguro que el anterior, hacen falta señales sostenidas:
+
+- Superávit fiscal que no ceda ante presiones electorales.
+- Inflación bajando mes a mes, trimestre a trimestre, año a año.
+- Reglas que no cambien cuando cambia el gobierno.
+- Nunca más un cepo, nunca más una pesificación.
+
+La homeostasis se negocia con tiempo y consistencia, no con una ley. Incluso después de un blanqueo relevante, el saldo neto de dólares fuera del sistema apenas se mueve si la confianza profunda todavía no cambió. El proceso va a ser largo.
+
+### 3. Construir un entorno que refuerce el cambio
+
+Para romper una homeostasis no alcanza con fuerza de voluntad individual. Necesitás un ecosistema que empuje en la misma dirección.
+
+En términos económicos, eso implica reducir burocracia, ampliar la oferta de productos financieros en dólares, fortalecer la seguridad jurídica, proteger la propiedad privada y permitir que el ahorro formal tenga una recompensa visible.
+
+Pero hay algo más profundo que las reformas técnicas: necesitamos una cultura que premie el ahorro formal. Que quien deposita sus dólares en el banco sea visto como alguien racional, no como un ingenuo que "no aprendió la lección del 2001".
+
+Cuando Caputo dice que los argentinos pierden plata teniendo dólares inmóviles en sus casas, pero que también pierde el país, apunta a una idea correcta: conectar el interés individual con el interés colectivo. No desde la amenaza ni desde el control, sino desde la conveniencia.
+
+## Conclusión: la apuesta más importante no es fiscal
+
+La batalla del superávit está avanzada. La batalla contra la inflación muestra progresos, aunque todavía no está terminada. Pero la batalla más larga, la que va a definir si Argentina puede crecer de verdad, es esta: que los argentinos vuelvan a confiar en el sistema bancario.
+
+Si una parte relevante de esos dólares ingresara al sistema financiero, Argentina tendría más crédito, más inversión, más profundidad de mercado y más capacidad para financiar crecimiento sin depender siempre del endeudamiento externo.
+
+La homeostasis siempre resiste. No se vence en el primer intento ni en el segundo. Pero si las reglas se mantienen, si el superávit no cede, si la inflación sigue bajando y si la propiedad privada sigue siendo respetada, llegará el día en que el nuevo equilibrio sea más cómodo que el viejo.
+
+El día que un argentino deposite sus dólares en el banco sin calcular cuánto tiempo tiene antes del próximo corralito no será solo un dato del BCRA.
+
+Será la prueba de que cambiamos una de las homeostasis más profundas de nuestra historia.`,
+  },
 ];
