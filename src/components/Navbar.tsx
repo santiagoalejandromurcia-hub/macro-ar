@@ -13,8 +13,10 @@ const navLinks = [
   { href: '#dashboard',   label: 'Indicadores' },
   { href: '/calculadora', label: 'Calculadora' },
   { href: '/inflacion',   label: 'Inflación' },
-  { href: '/servicios',   label: 'Servicios' },
+  { href: '/glosario',    label: 'Glosario' },
   { href: '/articulos',   label: 'Informes' },
+  { href: '/servicios',   label: 'Servicios' },
+  { href: '/acerca',      label: 'Acerca' },
 ];
 
 function useClock() {
