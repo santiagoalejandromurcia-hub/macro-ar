@@ -61,19 +61,19 @@ export default function Hero() {
         className="absolute inset-0 bg-cover bg-center pointer-events-none"
         style={{
           backgroundImage: `url('/img/hero-world-map.jpg')`,
-          opacity: 0.22,
-          filter: 'sepia(0.3) hue-rotate(180deg) saturate(1.1)',
+          opacity: 0.55,
+          // Sin filter — dejamos los tonos originales del mapa para que se vea bien
         }}
         aria-hidden
       />
 
-      {/* 2. Vignette oscura para legibilidad */}
+      {/* 2. Vignette + degradé suave para legibilidad del texto, pero sin matar el mapa */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            radial-gradient(ellipse 90% 70% at 50% 50%, transparent 0%, oklch(0.10 0.02 250 / 0.55) 60%, oklch(0.08 0.02 250 / 0.95) 100%),
-            linear-gradient(to bottom, oklch(0.10 0.02 250 / 0.7), transparent 25%, transparent 65%, oklch(0.08 0.02 250 / 0.85))
+            linear-gradient(to right, oklch(0.10 0.02 250 / 0.85) 0%, oklch(0.10 0.02 250 / 0.45) 35%, transparent 60%),
+            linear-gradient(to bottom, oklch(0.10 0.02 250 / 0.55) 0%, transparent 20%, transparent 80%, oklch(0.08 0.02 250 / 0.7) 100%)
           `,
         }}
         aria-hidden
