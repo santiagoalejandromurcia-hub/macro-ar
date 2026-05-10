@@ -29,6 +29,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9, // alto: magnet de tráfico (long-tail keywords)
     },
     {
+      url: `${BASE_URL}/break-even`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.85, // alto: nicho diferenciado, sin competencia directa en español
+    },
+    {
       url: `${BASE_URL}/inflacion`,
       lastModified: now,
       changeFrequency: 'weekly',

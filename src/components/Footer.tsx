@@ -90,10 +90,11 @@ export default function Footer() {
           <div>
             <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--fg-2)] mb-4">Plataforma</h4>
             <ul className="space-y-2.5 text-[13px]">
-              <li><Link href="/inflacion" className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Inflación</Link></li>
-              <li><Link href="/proxys"    className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Datasets</Link></li>
-              <li><Link href="/articulos" className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Informes</Link></li>
-              <li><Link href="/glosario"  className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Glosario</Link></li>
+              <li><Link href="/inflacion"  className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Inflación</Link></li>
+              <li><Link href="/break-even" className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Break-Even</Link></li>
+              <li><Link href="/proxys"     className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Datasets</Link></li>
+              <li><Link href="/articulos"  className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Informes</Link></li>
+              <li><Link href="/glosario"   className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Glosario</Link></li>
               <li><a href="#simulador"    className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">MacroBot</a></li>
               <li><a href="#newsletter"   className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Newsletter</a></li>
             </ul>

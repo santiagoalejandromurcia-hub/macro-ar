@@ -48,42 +48,75 @@ function useSession() {
 // Extraído directo del template (viewBox 400x620).
 // ════════════════════════════════════════════════════
 function HeroMap() {
+  // Ciudades reposicionadas sobre la silueta real de Argentina.
   const cities = [
-    { id: 'ba',    cx: 245, cy: 305, r: 3,   label: 'BUENOS AIRES',  coords: '−34.61°S 58.38°W', color: 'oklch(0.78 0.15 230)', delay: '0s',   big: true },
-    { id: 'cba',   cx: 208, cy: 260, r: 2.5, label: 'CÓRDOBA',       color: 'oklch(0.82 0.14 85)',  delay: '0.6s' },
-    { id: 'ros',   cx: 230, cy: 290, r: 2.2, label: 'ROSARIO',       color: 'oklch(0.78 0.15 230)', delay: '1.2s' },
-    { id: 'mdz',   cx: 178, cy: 295, r: 2.2, label: 'MENDOZA',       color: 'oklch(0.68 0.22 350)', delay: '1.8s', leftLabel: true },
-    { id: 'sal',   cx: 198, cy: 150, r: 2,   label: 'SALTA',         color: 'oklch(0.78 0.15 230)', delay: '2.4s' },
-    { id: 'neu',   cx: 185, cy: 385, r: 2,   label: 'NEUQUÉN',       color: 'oklch(0.82 0.14 85)',  delay: '0.3s' },
-    { id: 'bar',   cx: 172, cy: 450, r: 1.8, label: 'BARILOCHE',     color: 'oklch(0.78 0.15 230)', delay: '1.5s' },
-    { id: 'ush',   cx: 148, cy: 580, r: 1.8, label: 'USHUAIA',       color: 'oklch(0.68 0.22 350)', delay: '2.1s' },
-    { id: 'tuc',   cx: 198, cy: 192, r: 1.8, label: 'TUCUMÁN',       color: 'oklch(0.76 0.16 155)', delay: '0.9s' },
+    { id: 'ba',    cx: 258, cy: 290, r: 3,   label: 'BUENOS AIRES',  coords: '−34.61°S 58.38°W', color: 'oklch(0.78 0.15 230)', delay: '0s',   big: true },
+    { id: 'cba',   cx: 215, cy: 220, r: 2.5, label: 'CÓRDOBA',       color: 'oklch(0.82 0.14 85)',  delay: '0.6s', leftLabel: true },
+    { id: 'ros',   cx: 235, cy: 245, r: 2.2, label: 'ROSARIO',       color: 'oklch(0.78 0.15 230)', delay: '1.2s' },
+    { id: 'mdz',   cx: 168, cy: 245, r: 2.2, label: 'MENDOZA',       color: 'oklch(0.68 0.22 350)', delay: '1.8s', leftLabel: true },
+    { id: 'sal',   cx: 195, cy: 95,  r: 2,   label: 'SALTA',         color: 'oklch(0.78 0.15 230)', delay: '2.4s', leftLabel: true },
+    { id: 'tuc',   cx: 200, cy: 130, r: 1.8, label: 'TUCUMÁN',       color: 'oklch(0.76 0.16 155)', delay: '0.9s' },
+    { id: 'mis',   cx: 285, cy: 130, r: 1.8, label: 'POSADAS',       color: 'oklch(0.82 0.14 85)',  delay: '2.7s' },
+    { id: 'neu',   cx: 175, cy: 340, r: 2,   label: 'NEUQUÉN',       color: 'oklch(0.82 0.14 85)',  delay: '0.3s', leftLabel: true },
+    { id: 'bar',   cx: 162, cy: 395, r: 1.8, label: 'BARILOCHE',     color: 'oklch(0.78 0.15 230)', delay: '1.5s', leftLabel: true },
+    { id: 'cdr',   cx: 215, cy: 470, r: 1.6, label: 'COMODORO',      color: 'oklch(0.76 0.16 155)', delay: '1.0s' },
+    { id: 'ush',   cx: 162, cy: 612, r: 1.8, label: 'USHUAIA',       color: 'oklch(0.68 0.22 350)', delay: '2.1s' },
   ];
 
-  const countryPath = `M 210 20
-    C 220 18, 232 26, 238 42
-    C 242 58, 236 72, 246 88
-    C 258 104, 250 122, 258 140
-    C 268 158, 256 178, 262 196
-    C 270 214, 258 232, 262 252
-    C 268 272, 254 292, 258 312
-    C 262 332, 244 350, 250 370
-    C 256 392, 238 408, 240 428
-    C 242 448, 224 462, 220 482
-    C 216 502, 204 516, 196 534
-    C 190 550, 178 562, 168 576
-    C 160 588, 150 596, 142 602
-    C 136 606, 130 602, 132 594
-    C 134 582, 140 570, 144 558
-    C 148 544, 152 528, 156 512
-    C 160 494, 164 476, 166 458
-    C 168 438, 170 418, 174 398
-    C 178 376, 180 354, 178 332
-    C 176 310, 180 288, 184 266
-    C 188 244, 190 222, 192 200
-    C 194 178, 198 158, 202 138
-    C 206 118, 198 100, 196 80
-    C 194 62, 198 44, 204 30 Z`;
+  // Silueta de Argentina (continente + Tierra del Fuego como subpath).
+  // Coordenadas aproximadas en el viewBox 400x620:
+  // norte amplio (Jujuy → Misiones), pampa centro, Patagonia que se estrecha,
+  // Cordillera al oeste. Es esquemática pero reconocible.
+  const countryPath = `
+    M 190 22
+    L 218 30
+    L 245 50
+    L 268 70
+    L 290 92
+    L 302 115
+    L 297 145
+    L 282 168
+    L 268 195
+    L 262 225
+    L 258 255
+    L 262 280
+    L 270 305
+    L 273 332
+    L 268 352
+    L 248 365
+    L 232 388
+    L 222 420
+    L 213 458
+    L 205 498
+    L 195 538
+    L 182 565
+    L 168 580
+    L 152 580
+    L 142 562
+    L 138 532
+    L 134 495
+    L 130 455
+    L 128 412
+    L 128 370
+    L 130 328
+    L 134 285
+    L 138 240
+    L 144 195
+    L 150 158
+    L 158 122
+    L 165 88
+    L 172 58
+    L 180 35
+    Z
+    M 152 595
+    L 138 605
+    L 138 622
+    L 162 624
+    L 182 615
+    L 195 600
+    L 178 593
+    Z
+  `;
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -132,10 +165,10 @@ function HeroMap() {
 
         <path d={countryPath} stroke="url(#mapStroke)" strokeWidth="1.2" fill="none" />
 
-        {/* Data-flow sweeps */}
+        {/* Data-flow sweeps — siguen la nueva silueta de Argentina */}
         <path
           className="map-sweep"
-          d="M 210 20 C 238 42, 258 140, 262 252 C 254 292, 240 428, 196 534 C 168 576, 142 602, 132 594"
+          d="M 195 25 C 235 80, 265 180, 263 280 C 258 380, 230 460, 195 540 C 175 575, 158 580, 148 575"
           stroke="oklch(0.78 0.15 230 / 0.9)"
           strokeWidth="1.2"
           fill="none"
@@ -144,7 +177,7 @@ function HeroMap() {
         />
         <path
           className="map-sweep"
-          d="M 210 20 C 238 42, 258 140, 262 252 C 254 292, 240 428, 196 534 C 168 576, 142 602, 132 594"
+          d="M 195 25 C 235 80, 265 180, 263 280 C 258 380, 230 460, 195 540 C 175 575, 158 580, 148 575"
           stroke="oklch(0.82 0.14 85 / 0.7)"
           strokeWidth="1"
           fill="none"
@@ -208,7 +241,7 @@ function HeroMap() {
 
         <g transform="translate(56, 560)" fontFamily="Geist Mono" fontSize="7" fill="oklch(0.60 0.01 250)" letterSpacing="0.8">
           <text y="0">ARGENTINA · AR</text>
-          <text y="10">LIVE · 9 NODOS</text>
+          <text y="10">LIVE · 11 NODOS</text>
           <text y="20">SRC: INDEC · BCRA</text>
         </g>
       </svg>

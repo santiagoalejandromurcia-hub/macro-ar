@@ -12,6 +12,7 @@ import LionToggle from './LionToggle';
 const navLinks = [
   { href: '#dashboard',   label: 'Indicadores' },
   { href: '/calculadora', label: 'Calculadora' },
+  { href: '/break-even',  label: 'Break-Even' },
   { href: '/inflacion',   label: 'Inflación' },
   { href: '/glosario',    label: 'Glosario' },
   { href: '/articulos',   label: 'Informes' },

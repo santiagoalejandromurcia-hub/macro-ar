@@ -182,6 +182,12 @@ export default function CalculadoraPage() {
           >
             Riesgo País →
           </Link>
+          <Link
+            href="/break-even"
+            className="px-3 py-1.5 bg-[var(--celeste)]/10 border border-[var(--celeste)]/30 rounded-lg text-[var(--celeste)] hover:bg-[var(--celeste)]/20 transition"
+          >
+            ◆ Break-Even Inflacionario →
+          </Link>
         </div>
       </section>
     </div>
