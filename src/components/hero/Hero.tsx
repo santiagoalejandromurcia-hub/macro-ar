@@ -57,23 +57,26 @@ export default function Hero() {
     <section className="relative overflow-hidden border-b border-[var(--line-1)] -mx-4 sm:-mx-6 lg:-mx-8 mb-12 min-h-[560px]">
       {/* ════════ BACKGROUND ════════ */}
       {/* 1. Imagen del mapa antiguo (subila como /public/img/hero-world-map.jpg) */}
+      {/* Truco clave: mix-blend-mode SCREEN + brightness alta hace que las líneas
+         del mapa "iluminen" el fondo oscuro en vez de apagarse contra él. */}
       <div
         className="absolute inset-0 bg-cover bg-center pointer-events-none"
         style={{
           backgroundImage: `url('/img/hero-world-map.jpg')`,
-          opacity: 0.55,
-          // Sin filter — dejamos los tonos originales del mapa para que se vea bien
+          opacity: 0.9,
+          mixBlendMode: 'screen',
+          filter: 'brightness(1.15) contrast(1.1)',
         }}
         aria-hidden
       />
 
-      {/* 2. Vignette + degradé suave para legibilidad del texto, pero sin matar el mapa */}
+      {/* 2. Vignette MUY suave solo del lado izquierdo, para legibilidad del título */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            linear-gradient(to right, oklch(0.10 0.02 250 / 0.85) 0%, oklch(0.10 0.02 250 / 0.45) 35%, transparent 60%),
-            linear-gradient(to bottom, oklch(0.10 0.02 250 / 0.55) 0%, transparent 20%, transparent 80%, oklch(0.08 0.02 250 / 0.7) 100%)
+            linear-gradient(to right, oklch(0.10 0.02 250 / 0.75) 0%, oklch(0.10 0.02 250 / 0.25) 30%, transparent 55%),
+            linear-gradient(to bottom, transparent 70%, oklch(0.08 0.02 250 / 0.5) 100%)
           `,
         }}
         aria-hidden
@@ -93,8 +96,8 @@ export default function Hero() {
       />
 
       {/* ════════ GLOBO 3D ════════ */}
-      {/* Posicionado a la derecha, ocupa parte del ancho del hero */}
-      <div className="absolute inset-y-0 right-0 w-full lg:w-[55%] xl:w-[50%] pointer-events-none">
+      {/* Posicionado a la derecha, ocupa parte del ancho del hero (más chico que antes) */}
+      <div className="absolute inset-y-0 right-0 w-full sm:w-[60%] lg:w-[46%] xl:w-[40%] pointer-events-none">
         <div className="relative w-full h-full opacity-70 lg:opacity-90">
           <Globe />
         </div>

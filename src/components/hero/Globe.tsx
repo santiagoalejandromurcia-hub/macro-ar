@@ -1,16 +1,19 @@
 'use client';
 
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { Sphere } from '@react-three/drei';
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, Suspense } from 'react';
 import * as THREE from 'three';
 
 // ============================================================
-// Globe — globo terráqueo 3D wireframe que gira
+// Globe — globo terráqueo 3D REAL con textura de Tierra
 // ============================================================
-// Estilo: esfera wireframe celeste + puntos pulsantes en
-// ciudades argentinas (color sol) y nodos globales (celeste).
-// Sin textura externa: 100% procedural, ~0 KB extra de assets.
+// Usa /public/img/earth-texture.jpg (equirectangular 2:1).
+// Si esa imagen no existe, cae a un wireframe celeste de fallback.
+//
+// Para descargar la textura oficial (NASA Blue Marble / Three.js):
+//   curl -L -o public/img/earth-texture.jpg \
+//     https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg
 // ============================================================
 
 const ARGENTINA_CITIES = [
@@ -26,18 +29,18 @@ const ARGENTINA_CITIES = [
 ];
 
 const WORLD_NODES = [
-  { lat: 40.71, lng: -74.00 },   // NY
-  { lat: 51.51, lng: -0.13 },    // Londres
-  { lat: 35.68, lng: 139.65 },   // Tokio
-  { lat: 1.35,  lng: 103.82 },   // Singapur
+  { lat: 40.71,  lng: -74.00 },  // NY
+  { lat: 51.51,  lng: -0.13 },   // Londres
+  { lat: 35.68,  lng: 139.65 },  // Tokio
+  { lat: 1.35,   lng: 103.82 },  // Singapur
   { lat: -33.87, lng: 151.21 },  // Sydney
-  { lat: 19.43, lng: -99.13 },   // CDMX
+  { lat: 19.43,  lng: -99.13 },  // CDMX
   { lat: -23.55, lng: -46.63 },  // São Paulo
-  { lat: 37.77, lng: -122.42 },  // SF
-  { lat: 48.85, lng: 2.35 },     // París
-  { lat: 25.20, lng: 55.27 },    // Dubái
+  { lat: 37.77,  lng: -122.42 }, // San Francisco
+  { lat: 48.85,  lng: 2.35 },    // París
+  { lat: 25.20,  lng: 55.27 },   // Dubái
   { lat: -33.45, lng: -70.66 },  // Santiago de Chile
-  { lat: 22.32, lng: 114.17 },   // Hong Kong
+  { lat: 22.32,  lng: 114.17 },  // Hong Kong
 ];
 
 function latLngToVector3(lat: number, lng: number, radius: number): THREE.Vector3 {
@@ -50,46 +53,94 @@ function latLngToVector3(lat: number, lng: number, radius: number): THREE.Vector
   );
 }
 
-function GlobeCore() {
+// ─── Ciudades como puntos visibles sobre el globo ───────────
+function CityDots({ radius }: { radius: number }) {
+  const argPositions = useMemo(
+    () => ARGENTINA_CITIES.map((c) => latLngToVector3(c.lat, c.lng, radius * 1.01)),
+    [radius],
+  );
+  const worldPositions = useMemo(
+    () => WORLD_NODES.map((c) => latLngToVector3(c.lat, c.lng, radius * 1.01)),
+    [radius],
+  );
+
+  return (
+    <>
+      {/* Argentina — dorados, más grandes */}
+      {argPositions.map((pos, i) => (
+        <mesh key={`ar-${i}`} position={pos}>
+          <sphereGeometry args={[0.045, 16, 16]} />
+          <meshBasicMaterial color="#D4A843" />
+        </mesh>
+      ))}
+      {/* Resto del mundo — celestes */}
+      {worldPositions.map((pos, i) => (
+        <mesh key={`w-${i}`} position={pos}>
+          <sphereGeometry args={[0.028, 12, 12]} />
+          <meshBasicMaterial color="#5DC1E0" />
+        </mesh>
+      ))}
+    </>
+  );
+}
+
+// ─── Globo con textura realista de Tierra ───────────────────
+function EarthGlobe() {
   const groupRef = useRef<THREE.Group>(null);
+  const texture = useLoader(THREE.TextureLoader, '/img/earth-texture.jpg');
+
+  // Mejor calidad de muestreo
+  texture.anisotropy = 8;
+  texture.colorSpace = THREE.SRGBColorSpace;
 
   useFrame((_, delta) => {
-    if (groupRef.current) {
-      // Rotación suave hacia el este (como la Tierra real)
-      groupRef.current.rotation.y += delta * 0.08;
-    }
+    if (groupRef.current) groupRef.current.rotation.y += delta * 0.08;
   });
 
   const radius = 2;
 
-  // Pre-calcular posiciones de ciudades una sola vez
-  const argPositions = useMemo(
-    () => ARGENTINA_CITIES.map((c) => latLngToVector3(c.lat, c.lng, radius * 1.005)),
-    [],
-  );
-  const worldPositions = useMemo(
-    () => WORLD_NODES.map((c) => latLngToVector3(c.lat, c.lng, radius * 1.005)),
-    [],
-  );
-
   return (
     <group ref={groupRef} rotation={[0.25, 0, 0]}>
-      {/* Esfera sólida de fondo (sutil, oscura) */}
+      {/* La Tierra */}
+      <Sphere args={[radius, 64, 64]}>
+        <meshStandardMaterial
+          map={texture}
+          roughness={0.85}
+          metalness={0.05}
+        />
+      </Sphere>
+
+      {/* Atmósfera celeste (glow exterior) */}
+      <Sphere args={[radius * 1.04, 32, 32]}>
+        <meshBasicMaterial
+          color="#5DC1E0"
+          transparent
+          opacity={0.10}
+          side={THREE.BackSide}
+        />
+      </Sphere>
+
+      <CityDots radius={radius} />
+    </group>
+  );
+}
+
+// ─── Fallback wireframe si la textura no carga / no existe ─
+function WireframeGlobe() {
+  const groupRef = useRef<THREE.Group>(null);
+  useFrame((_, delta) => {
+    if (groupRef.current) groupRef.current.rotation.y += delta * 0.08;
+  });
+
+  const radius = 2;
+  return (
+    <group ref={groupRef} rotation={[0.25, 0, 0]}>
       <Sphere args={[radius * 0.985, 64, 64]}>
         <meshBasicMaterial color="#0a1018" transparent opacity={0.92} />
       </Sphere>
-
-      {/* Wireframe principal — la "rejilla" celeste */}
       <Sphere args={[radius, 36, 24]}>
         <meshBasicMaterial color="#5DC1E0" wireframe transparent opacity={0.32} />
       </Sphere>
-
-      {/* Wireframe interno más denso (suma textura) */}
-      <Sphere args={[radius * 0.999, 24, 16]}>
-        <meshBasicMaterial color="#5DC1E0" wireframe transparent opacity={0.12} />
-      </Sphere>
-
-      {/* Halo / atmósfera */}
       <Sphere args={[radius * 1.05, 32, 32]}>
         <meshBasicMaterial
           color="#5DC1E0"
@@ -98,37 +149,30 @@ function GlobeCore() {
           side={THREE.BackSide}
         />
       </Sphere>
-
-      {/* Puntos Argentina — color "sol" (dorado), más grandes */}
-      {argPositions.map((pos, i) => (
-        <mesh key={`ar-${i}`} position={pos}>
-          <sphereGeometry args={[0.045, 16, 16]} />
-          <meshBasicMaterial color="#D4A843" />
-        </mesh>
-      ))}
-
-      {/* Puntos mundo — celeste, más chiquitos */}
-      {worldPositions.map((pos, i) => (
-        <mesh key={`w-${i}`} position={pos}>
-          <sphereGeometry args={[0.028, 12, 12]} />
-          <meshBasicMaterial color="#5DC1E0" />
-        </mesh>
-      ))}
+      <CityDots radius={radius} />
     </group>
   );
 }
 
+// ─── Error boundary simple para fallback si la textura falla ─
+class GlobeErrorBoundary extends Error {}
+
 export default function Globe() {
   return (
     <Canvas
-      camera={{ position: [0, 0, 5.8], fov: 45 }}
+      camera={{ position: [0, 0, 7.2], fov: 42 }}
       dpr={[1, 2]}
       style={{ background: 'transparent', width: '100%', height: '100%' }}
       gl={{ antialias: true, alpha: true }}
     >
-      <ambientLight intensity={0.6} />
-      <pointLight position={[10, 10, 10]} intensity={0.7} />
-      <GlobeCore />
+      {/* Luz ambiente suave + directional fuerte que simula el sol */}
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 3, 5]} intensity={1.4} color="#ffffff" />
+      <pointLight position={[-5, -3, -5]} intensity={0.3} color="#5DC1E0" />
+
+      <Suspense fallback={<WireframeGlobe />}>
+        <EarthGlobe />
+      </Suspense>
     </Canvas>
   );
 }
