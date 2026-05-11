@@ -110,7 +110,7 @@ export default function BreakEvenPage() {
       {
         '@type': 'DataDownload',
         encodingFormat: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        contentUrl: `${SITE_URL}/data/break-even/break-even.xlsx`,
+        contentUrl: `${SITE_URL}/api/download/break-even`,
         name: 'break-even.xlsx — 4 hojas con fórmulas editables',
       },
     ],
@@ -157,11 +157,12 @@ export default function BreakEvenPage() {
           </div>
         </div>
         <a
-          href="/data/break-even/break-even.xlsx"
-          download="break-even-macrolibre.xlsx"
+          href="/api/download/break-even"
           className="inline-flex items-center gap-2 h-10 px-4 bg-[var(--celeste)] text-[var(--bg-0)] rounded-md text-[13px] font-semibold hover:bg-[oklch(0.84_0.14_230)] transition shrink-0"
+          title="Requiere iniciar sesión"
         >
           ⬇ Descargar .xlsx
+          <span className="text-[10px] font-mono opacity-70">· login</span>
         </a>
       </div>
 

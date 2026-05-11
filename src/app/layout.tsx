@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import TopTicker from '@/components/TopTicker';
 import ThemeProvider from '@/components/ThemeProvider';
 import PWARegister from '@/components/PWARegister';
+import Providers from '@/components/Providers';
 
 export const metadata: Metadata = {
   title: {
@@ -115,13 +116,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#0a1018" />
       </head>
       <body className="antialiased min-h-screen flex flex-col">
-        <ThemeProvider>
-          <PWARegister />
-          <TopTicker />
-          <Navbar />
-          <main className="flex-1 relative z-10">{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider>
+            <PWARegister />
+            <TopTicker />
+            <Navbar />
+            <main className="flex-1 relative z-10">{children}</main>
+            <Footer />
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

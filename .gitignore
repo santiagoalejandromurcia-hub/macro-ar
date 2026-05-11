@@ -6,12 +6,19 @@ build
 *.pem
 npm-debug.log*
 .env*.local
+.env
 .vercel
 *.tsbuildinfo
 next-env.d.ts
 
 # Newsletter — emails capturados localmente (no subir a git)
 /data/subscribers.json
+
+# Nota: /private/ SÍ se commitea — el código gatea con auth, no por ocultamiento.
+# Solo se commite el contenido aprobado, no archivos sensibles reales.
+
+# Drizzle migrations metadata
+drizzle/meta/
 
 # Archivos temporales de verificación
 tscheck.tmp.json

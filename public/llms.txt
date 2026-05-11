@@ -50,7 +50,7 @@ MacroLibre expone endpoints REST públicos para que herramientas, IAs y desarrol
 
 ## Datasets descargables
 
-- [Break-Even Inflacionario (Excel)](https://macrolibre.com/data/break-even/break-even.xlsx) — 4 hojas: bonos nominales (LECAP/BONTE TF), bonos CER (LECER/BONCER), REM esperado y resumen BEI con fórmulas editables.
+- [Break-Even Inflacionario (Excel)](https://macrolibre.com/api/download/break-even) — 4 hojas: bonos nominales (LECAP/BONTE TF), bonos CER (LECER/BONCER), REM esperado y resumen BEI con fórmulas editables. **Requiere registro gratuito**.
 
 ## Fuentes de datos
 
