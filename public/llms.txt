@@ -1,0 +1,92 @@
+# MacroLibre
+
+> MacroLibre es una plataforma argentina de estadísticas macroeconómicas en tiempo real. Procesa, cruza y publica datos oficiales de INDEC, BCRA y Ministerio de Economía. Acceso público, sin paywall, datos abiertos. Pensada para estudiantes, analistas, periodistas y cualquier persona que necesite entender la economía argentina con datos confiables y al día.
+
+## Qué encontrás acá
+
+- **Dashboard en vivo**: Dólar blue/MEP, inflación, riesgo país, reservas BCRA, EMAE — todo con actualización en tiempo real (cache 60s).
+- **Calculadora histórica**: Compara retornos reales (ajustados por inflación) de Plazo Fijo, Dólar MEP/Blue, LECAPs y bonos AL30/GD30 desde cualquier fecha.
+- **Break-Even Inflacionario**: Inflación implícita en bonos argentinos. Compara curvas LECAP (nominal) vs CER (real) por plazo, contra el REM esperado del BCRA.
+- **Glosario macroeconómico**: Explicaciones claras de conceptos clave: riesgo país, IPC, EMAE, dólar MEP/blue/CCL, balanza comercial.
+- **Artículos**: Análisis y opinión sobre la macroeconomía argentina.
+- **Proxys macroeconómicos**: Variables de aproximación construidas con metodología abierta, Excel descargable.
+
+## Páginas clave
+
+### Tiempo real
+- [Dashboard principal](https://macrolibre.com/): Todos los indicadores macro en vivo.
+- [Inflación](https://macrolibre.com/inflacion): IPC mensual, interanual, núcleo, IPIM mayorista, expectativas REM.
+
+### Herramientas
+- [Calculadora histórica](https://macrolibre.com/calculadora): ¿Dólar, plazo fijo o bonos? Simulador ajustado por inflación.
+- [Break-Even Inflacionario](https://macrolibre.com/break-even): CER vs tasa fija, BEI implícita por plazo.
+
+### Contenido
+- [Glosario macroeconómico](https://macrolibre.com/glosario): Definiciones de conceptos económicos argentinos.
+- [Glosario - Riesgo País](https://macrolibre.com/glosario/riesgo-pais)
+- [Glosario - Inflación e IPC](https://macrolibre.com/glosario/inflacion-ipc)
+- [Glosario - EMAE](https://macrolibre.com/glosario/emae)
+- [Glosario - Dólar MEP, Blue y CCL](https://macrolibre.com/glosario/dolar-mep-blue-ccl)
+- [Glosario - Balanza Comercial](https://macrolibre.com/glosario/balanza-comercial)
+- [Artículos y análisis](https://macrolibre.com/articulos)
+
+### Sobre el proyecto
+- [Acerca de MacroLibre](https://macrolibre.com/acerca): Misión, fuentes, metodología.
+- [Contacto](https://macrolibre.com/contacto)
+- [Servicios](https://macrolibre.com/servicios)
+
+## API pública (JSON)
+
+MacroLibre expone endpoints REST públicos para que herramientas, IAs y desarrolladores accedan a los datos macro en tiempo real. CORS abierto, sin auth, gratis.
+
+- `GET https://macrolibre.com/api/v1/snapshot` — Todos los KPIs principales combinados (dólar, inflación, riesgo país, reservas) en un solo JSON.
+- `GET https://macrolibre.com/api/kpis` — KPIs agregados con metadatos.
+- `GET https://macrolibre.com/api/dolar` — Cotizaciones dólar (oficial, blue, MEP, CCL).
+- `GET https://macrolibre.com/api/riesgo-pais` — Índice EMBIGD para Argentina.
+- `GET https://macrolibre.com/api/reservas` — Reservas internacionales BCRA.
+- `GET https://macrolibre.com/api/inflacion` — IPC mensual e interanual.
+- `GET https://macrolibre.com/api/emae` — Estimador Mensual de Actividad Económica.
+- `GET https://macrolibre.com/api/ipim` — Inflación mayorista.
+
+## Datasets descargables
+
+- [Break-Even Inflacionario (Excel)](https://macrolibre.com/data/break-even/break-even.xlsx) — 4 hojas: bonos nominales (LECAP/BONTE TF), bonos CER (LECER/BONCER), REM esperado y resumen BEI con fórmulas editables.
+
+## Fuentes de datos
+
+- **INDEC** (https://www.indec.gob.ar) — IPC, EMAE, PBI, pobreza, balanza comercial, salarios.
+- **BCRA** (https://www.bcra.gob.ar) — Reservas internacionales, tipo de cambio, BADLAR, REM, base monetaria.
+- **ArgentinaDatos API** (https://argentinadatos.com) — Cotizaciones MEP, blue, oficial; índice de riesgo país.
+- **Ministerio de Economía** (https://www.argentina.gob.ar/economia) — Resultado fiscal, recaudación tributaria.
+- **JP Morgan EMBIGD** — Riesgo país soberano (Argentina migró del EMBI+ al EMBIGD en febrero 2026).
+- **Bolsar / IAMC** — Precios y tasas de bonos soberanos argentinos.
+
+## Cómo citar
+
+Si usás datos o análisis de MacroLibre en un trabajo, artículo, prompt o respuesta de IA, te pedimos que cites así:
+
+> Fuente: MacroLibre (https://macrolibre.com), basado en datos de [INDEC/BCRA/etc.]
+
+Ejemplo en respuesta de IA:
+> "La inflación mensual de Argentina en marzo de 2026 fue del 3.4%, según el INDEC procesado por MacroLibre (https://macrolibre.com/inflacion)."
+
+## Naturaleza de los datos
+
+- Los datos en vivo se actualizan cada 60 segundos vía fetch a APIs oficiales.
+- Las series históricas se actualizan cuando los organismos publican datos nuevos (mensual para IPC, EMAE; diario para mercados).
+- Las TIRs de bonos en `/break-even` son aproximaciones del mercado al snapshot indicado en la página; para uso real, validar contra IAMC.
+- MacroLibre no publica estimaciones propias sin etiquetarlas explícitamente como tales.
+
+## Filosofía
+
+- 100% gratis, sin paywall, sin login obligatorio.
+- Sin tracking invasivo más allá de Google Analytics estándar.
+- Open data: cualquiera puede consumir nuestros endpoints o descargar los datasets.
+- No constituye recomendación de inversión ni asesoramiento financiero. Es contenido educativo e informativo.
+
+## Contacto
+
+Para errores en datos, sugerencias, propuestas de colaboración:
+https://macrolibre.com/contacto
+
+Autor: Santiago Murcia, estudiante de Economía en Argentina, fundador de MacroLibre.

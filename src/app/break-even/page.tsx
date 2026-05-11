@@ -65,7 +65,7 @@ const FAQ = [
 ];
 
 export default function BreakEvenPage() {
-  // ─── JSON-LD: SoftwareApplication + FAQPage ───
+  // ─── JSON-LD: SoftwareApplication + FAQPage + Dataset ───
   const appJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
@@ -87,6 +87,39 @@ export default function BreakEvenPage() {
       acceptedAnswer: { '@type': 'Answer', text: f.a },
     })),
   };
+  // Dataset descargable — Google Dataset Search e IAs lo descubren.
+  const datasetJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: 'Curvas LECAP y CER + REM para cálculo de Break-Even Inflacionario',
+    description:
+      'Dataset con TIRs, precios y vencimientos de bonos argentinos: 17 bonos nominales (LECAP + BONTE TF) y 21 bonos CER (LECER + BONCER), más expectativas de inflación del REM BCRA. Incluye fórmulas para calcular BEI implícita por plazo.',
+    keywords: [
+      'Argentina', 'bonos', 'LECAP', 'BONCER', 'LECER', 'CER',
+      'break-even inflacionario', 'BEI', 'REM', 'inflación implícita',
+      'tasa fija', 'curva CER',
+    ],
+    license: 'https://creativecommons.org/licenses/by/4.0/',
+    isAccessibleForFree: true,
+    creator: {
+      '@type': 'Organization',
+      name: 'MacroLibre',
+      url: SITE_URL,
+    },
+    distribution: [
+      {
+        '@type': 'DataDownload',
+        encodingFormat: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        contentUrl: `${SITE_URL}/data/break-even/break-even.xlsx`,
+        name: 'break-even.xlsx — 4 hojas con fórmulas editables',
+      },
+    ],
+    spatialCoverage: { '@type': 'Country', name: 'Argentina' },
+    inLanguage: 'es-AR',
+    url: `${SITE_URL}/break-even`,
+    citation:
+      'MacroLibre (https://macrolibre.com/break-even) basado en datos de Bolsar / IAMC / BCRA.',
+  };
 
   return (
     <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
@@ -97,6 +130,10 @@ export default function BreakEvenPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetJsonLd) }}
       />
 
       <SectionHeader
