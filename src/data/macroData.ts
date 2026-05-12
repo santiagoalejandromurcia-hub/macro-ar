@@ -64,8 +64,8 @@ export const kpiCards: KPICard[] = [
   {
     id: 'riesgo-pais',
     title: 'Riesgo País',
-    value: '557 pb',
-    change: -2.3,
+    value: '500 pb',
+    change: -6.1,
     changeLabel: 'vs. cierre marzo (570)',
     icon: '⚠️',
   },
@@ -217,7 +217,9 @@ export const tcrData = [
   { date: 'Dic 25', oficial: 1365, blue: 1380, mep: 1370 },
   { date: 'Feb 26', oficial: 1410, blue: 1425, mep: 1418 },
   { date: 'Mar 26', oficial: 1420, blue: 1415, mep: 1424 },
-  { date: 'Abr 26', oficial: 1445, blue: 1450, mep: 1448 },   // ← ÚLTIMO DATO (28/04/2026)
+  { date: 'Abr 26', oficial: 1445, blue: 1450, mep: 1448 },
+  { date: 'May 26', oficial: 1385, blue: 1395, mep: 1424 },
+     // ← ÚLTIMO DATO (28/04/2026)
 ];
 
 // Inflación IPC
@@ -241,7 +243,8 @@ export const inflacionData = [
   { date: 'Dic 25', mensual: 2.8, interanual: 31.5, nucleo: 3.0 },
   { date: 'Ene 26', mensual: 2.9, interanual: 32.4, nucleo: 3.1 },
   { date: 'Feb 26', mensual: 2.9, interanual: 33.1, nucleo: 3.2 },
-  { date: 'Mar 26', mensual: 3.4, interanual: 32.6, nucleo: 3.2 },   // ← ÚLTIMO INDEC (15/04/2026) · Q1-26: 9.4% acum.
+  { date: 'Mar 26', mensual: 3.4, interanual: 32.6, nucleo: 3.2 }, 
+    // ← ÚLTIMO INDEC (15/04/2026) · Q1-26: 9.4% acum.
 ];
 
 // REM — Expectativas inflación (BCRA) — Fuente: REM feb-26 e INDEC
@@ -280,7 +283,9 @@ export const inflacionMayoristaData = [
   { date: 'Nov 25', mensual: 1.7, interanual: 20.8 },
   { date: 'Dic 25', mensual: 2.5, interanual: 26.2 },       // Cierre 2025 oficial ~26.2%
   { date: 'Ene 26', mensual: 1.7, interanual: 26.4 },       // Enero 2026 oficial
-  { date: 'Feb 26', mensual: 1.0, interanual: 25.6 },       // Febrero 2026 oficial (INDEC 17/03/2026)
+  { date: 'Feb 26', mensual: 1.0, interanual: 25.6 }, 
+  { date: 'Mar 26', mensual: 3.4, interanual: 27.9 }, 
+  { date: 'Abr 26', mensual: 2.4, interanual: 25.6 },     
 ];
 // ============================================================
 // Consumo Privado — Serie desestacionalizada (Base I-17 = 100)
@@ -668,8 +673,10 @@ export const riesgoPaisData: Array<{
   { date: 'Dic 25', value: 540, highlight: 'minimo', note: 'Mínimo del ciclo' },
   { date: 'Ene 26', value: 565 },
   { date: 'Feb 26', value: 590, note: 'JP Morgan: EMBI+ → EMBIGD' },
-  { date: 'Mar 26', value: 570 },
-  { date: 'Abr 26', value: 557, highlight: 'actual', note: 'Cierre 24/04: 557 pb (rango mes 535–557)' },
+  { date: 'Mar 26', value: 550 },
+  { date: 'Abr 26', value: 557 },
+  { date: 'May 26', value: 490 },
+  { date: 'Jun - Estimado 26', value: 470, highlight: 'actual', note: 'Mínimo histórico en EMBIGD' },
 ];
 
 // Última actualización
