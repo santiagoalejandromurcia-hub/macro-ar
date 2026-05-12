@@ -31,6 +31,7 @@ const SECTION_GROUPS: SectionGroup[] = [
       { href: '/#externo',    label: 'Dólar y reservas', desc: 'Blue, MEP, BCRA' },
       { href: '/#actividad',  label: 'Actividad',  desc: 'EMAE, PBI, sectorial' },
       { href: '/#fiscal',     label: 'Fiscal',     desc: 'Resultado primario y financiero' },
+      { href: '/carnes',      label: 'Carnes',     desc: 'Faena, exportaciones, IPCVA' },
     ],
   },
   {

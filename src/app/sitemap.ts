@@ -41,6 +41,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}/carnes`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8, // alto: nicho diferenciado (faena + exportaciones)
+    },
+    {
       url: `${BASE_URL}/articulos`,
       lastModified: now,
       changeFrequency: 'weekly',

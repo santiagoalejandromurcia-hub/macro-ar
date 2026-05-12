@@ -16,6 +16,7 @@
 ### Tiempo real
 - [Dashboard principal](https://macrolibre.com/): Todos los indicadores macro en vivo.
 - [Inflación](https://macrolibre.com/inflacion): IPC mensual, interanual, núcleo, IPIM mayorista, expectativas REM.
+- [Mercado de Carnes](https://macrolibre.com/carnes): Faena bovina por provincia y categoría, exportaciones por destino, precios FOB. Fuente SAGyP / IPCVA.
 
 ### Herramientas
 - [Calculadora histórica](https://macrolibre.com/calculadora): ¿Dólar, plazo fijo o bonos? Simulador ajustado por inflación.
