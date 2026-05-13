@@ -85,7 +85,7 @@ export default function CarnesContent() {
             <YAxis tick={{ fontSize: 11, fill: COLORS.fg2 }} tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`} />
             <Tooltip
               contentStyle={{ background: 'var(--bg-1)', border: `1px solid ${COLORS.line1}`, borderRadius: 8, fontSize: 12 }}
-              formatter={(v: unknown) => (typeof v === 'number' ? `${v.toLocaleString('es-AR')} cabezas` : v)}
+              formatter={(v: unknown): string => typeof v === 'number' ? `${v.toLocaleString('es-AR')} cabezas` : '—'}
             />
             <Bar dataKey="cabezas" name="Cabezas faenadas" fill={COLORS.celeste} radius={[6, 6, 0, 0]} />
           </BarChart>
@@ -113,9 +113,9 @@ export default function CarnesContent() {
             />
             <Tooltip
               contentStyle={{ background: 'var(--bg-1)', border: `1px solid ${COLORS.line1}`, borderRadius: 8, fontSize: 12 }}
-              formatter={(v: unknown, _name, item) => {
-                if (typeof v !== 'number') return v;
-                const cabezas = item?.payload?.cabezas;
+              formatter={(v: unknown, _name: unknown, item: unknown): string => {
+                if (typeof v !== 'number') return '—';
+                const cabezas = (item as { payload?: { cabezas?: number } })?.payload?.cabezas;
                 return `${v.toFixed(1)}% · ${cabezas ? cabezas.toLocaleString('es-AR') : ''} cabezas`;
               }}
             />
@@ -148,11 +148,11 @@ export default function CarnesContent() {
             />
             <Tooltip
               contentStyle={{ background: 'var(--bg-1)', border: `1px solid ${COLORS.line1}`, borderRadius: 8, fontSize: 12 }}
-              formatter={(v: unknown, name: string) => {
-                if (typeof v !== 'number') return v;
+              formatter={(v: unknown, name: unknown): string => {
+                if (typeof v !== 'number') return '—';
                 if (name === 'Toneladas') return `${v.toLocaleString('es-AR')} tn`;
                 if (name === 'Valor USD') return `USD ${(v / 1000).toFixed(1)}M`;
-                return v;
+                return String(v);
               }}
             />
             <Legend wrapperStyle={{ fontSize: 12 }} />
@@ -186,7 +186,7 @@ export default function CarnesContent() {
               </Pie>
               <Tooltip
                 contentStyle={{ background: 'var(--bg-1)', border: `1px solid ${COLORS.line1}`, borderRadius: 8, fontSize: 12 }}
-                formatter={(v: unknown) => (typeof v === 'number' ? `${v.toFixed(1)}%` : v)}
+                formatter={(v: unknown): string => typeof v === 'number' ? `${v.toFixed(1)}%` : '—'}
               />
               <Legend wrapperStyle={{ fontSize: 11 }} iconSize={10} />
             </PieChart>
@@ -247,7 +247,7 @@ export default function CarnesContent() {
               </Pie>
               <Tooltip
                 contentStyle={{ background: 'var(--bg-1)', border: `1px solid ${COLORS.line1}`, borderRadius: 8, fontSize: 12 }}
-                formatter={(v: unknown) => (typeof v === 'number' ? `${v.toFixed(1)}%` : v)}
+                formatter={(v: unknown): string => typeof v === 'number' ? `${v.toFixed(1)}%` : '—'}
               />
             </PieChart>
           </ResponsiveContainer>
