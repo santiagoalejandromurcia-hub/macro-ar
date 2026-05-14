@@ -41,32 +41,32 @@ export const kpiCards: KPICard[] = [
     title: 'Inflación Mensual',
     value: '3.4%',
     change: 0.5,
-    changeLabel: 'vs. feb-26 (2.9%)',
+    changeLabel: 'Mar 26 (vs Feb 2.9%)',
     icon: '🏷️',
   },
   {
     id: 'superavit',
     title: 'Superávit Primario',
-    value: '1.4%',
-    change: -1.6,
-    changeLabel: '% del PIB acumulado',
+    value: '0.5%',
+    change: -0.9,
+    changeLabel: '1T 26 (Ene-Mar) % del PIB',
     unit: '% PIB',
     icon: '✅',
   },
   {
     id: 'reservas',
     title: 'Reservas BCRA',
-    value: 'USD 46.088M',
-    change: 1.2,
-    changeLabel: 'vs. mes anterior',
+    value: 'USD 46.185M',
+    change: 1.8,
+    changeLabel: 'vs. cierre abril',
     icon: '🏦',
   },
   {
     id: 'riesgo-pais',
     title: 'Riesgo País',
     value: '496 pb',
-    change: -10.1,
-    changeLabel: 'vs. cierre marzo (540)',
+    change: -44,
+    changeLabel: 'vs. cierre marzo',
     icon: '⚠️',
   },
 ];
@@ -92,8 +92,9 @@ export const emaeData = [
   { date: 'Sep 25', value: 151.8, trend: 161.9 },
   { date: 'Nov 25', value: 147.7, trend: 162.2 },
   { date: 'Dic 25', value: 153.5, trend: 162.6 },
-  { date: 'Ene 26', value: 149.0, trend: 163.0 },
-  { date: 'Feb 26', value: 145.1, trend: 163.4 },   // -2.6% MoM, -2.1% i.a. (INDEC)
+  { date: 'Ene 26', value: 150.8, trend: 162.8 },   // +1.9% i.a. | +0.4% desestacionalizado
+  { date: 'Feb 26', value: 147.1, trend: 163.0 },   // -2.1% i.a. | -2.6% desestacionalizado (MoM)
+  // Próximo dato: Marzo 2026 → se publica el 21 de mayo 2026
 ];
 
 // PBI Trimestral (variación interanual % YoY) - Actualizado 16/03/2026
@@ -113,19 +114,21 @@ export const pbiData = [
   { quarter: 'Q1 26', yoy: 1.8 },     // Revisada a la baja: EMAE Feb-26 -2.1% i.a.
 ];
 
-// Actividad por sector
+// Actividad por sector - Variación interanual (%) 
+// Fuente: INDEC - EMAE Febrero 2026 (último dato publicado)
 export const sectorData = [
-  { sector: 'Construcción', value: 12.1, color: '#D4A843' },
-  { sector: 'Minería', value: 9.5, color: '#F97316' },
-  { sector: 'Agro', value: 8.2, color: '#22C55E' },
-  { sector: 'Energía', value: 7.3, color: '#EC4899' },
-  { sector: 'Comercio', value: 6.8, color: '#A78BFA' },
-  { sector: 'Industria', value: 5.4, color: '#74ACDF' },
-  { sector: 'Financiero', value: 4.2, color: '#06B6D4' },
-  { sector: 'Transporte', value: 3.8, color: '#84CC16' },
+  { sector: 'Minería', value: 9.9, color: '#F97316' },           // Explotación de minas y canteras
+  { sector: 'Agro', value: 8.4, color: '#22C55E' },              // Agricultura, ganadería, caza y silvicultura
+  { sector: 'Pesca', value: 14.8, color: '#10B981' },            // (Agregado - fuerte impulsor)
+  { sector: 'Construcción', value: 12.7, color: '#D4A843' },     // Marzo 2026 (ISAC)
+  { sector: 'Energía', value: -3.5, color: '#EC4899' },          // Electricidad, gas y agua (aprox.)
+  { sector: 'Comercio', value: -7.0, color: '#A78BFA' },         // Comercio mayorista y minorista
+  { sector: 'Industria', value: -8.7, color: '#74ACDF' },        // Industria manufacturera
+  { sector: 'Financiero', value: 6.0, color: '#06B6D4' },        // Intermediación financiera (aprox.)
+  { sector: 'Transporte', value: -2.5, color: '#84CC16' },       // Estimado
 ];
-
-// Resultado Fiscal (% del PIB) SECRETARIA DE HACIENDA - Actualizado 16/03/2026
+// Resultado Fiscal (% del PIB) - Secretaría de Hacienda / Ministerio de Economía
+// Actualizado al 14 de mayo de 2026
 export const fiscalData = [
   { period: 'Ene 24', primario: 2.0, financiero: 0.5 },
   { period: 'Mar 24', primario: 0.6, financiero: 0.2 },
@@ -141,22 +144,27 @@ export const fiscalData = [
   { period: 'Sep 25', primario: 0.6, financiero: 0.3 },
   { period: 'Nov 25', primario: 2.1, financiero: 0.5 },
   { period: 'Dic 25', primario: 2.0, financiero: 1.1 },
-  { period: 'Ene 26', primario: 3.0, financiero: 1.1 },
-  { period: 'Feb 26', primario: 1.4, financiero: 0.1 },
+  { period: 'Ene 26', primario: 3.0, financiero: 1.1 },   // Oficial
+  { period: 'Feb 26', primario: 1.4, financiero: 0.1 },   // Oficial
+  { period: 'Mar 26', primario: '-', financiero: '-' },   // Mensual no publicado (solo acumulado)
+  
+  // Acumulados Primer Trimestre 2026 (oficial)
+  { period: '1T 26 (Ene-Mar)', primario: 0.5, financiero: 0.2 },
+];
 
 ];
 
-// Recaudación Tributaria Nacional (millones de pesos) - Febrero 2026
-// Fuente oficial: ARCA (ex AFIP) - Reporte mensual febrero 2026
+// Recaudación Tributaria Nacional (millones de pesos) - Abril 2026
+// Fuente oficial: ARCA (ex AFIP) - Reporte mensual abril 2026
 export const taxData = [
-  { concepto: 'IVA', monto: '5.405.500', pctPIB: '7.1%', variacion: '+13.7%' },
-  { concepto: 'Ganancias', monto: '3.432.200', pctPIB: '4.5%', variacion: '+31.2%' },
-  { concepto: 'Der. Exportación', monto: '680.000', pctPIB: '0.9%', variacion: '-38%' },
-  { concepto: 'Combustibles', monto: '1.450.000', pctPIB: '1.9%', variacion: '+55%' },
-  { concepto: 'Bienes Personales', monto: '520.000', pctPIB: '0.7%', variacion: '-15%' },
-  { concepto: 'Seg. Social', monto: '4.284.500', pctPIB: '5.6%', variacion: '+26.2%' },
-  { concepto: 'Otros', monto: '2.459.630', pctPIB: '3.2%', variacion: '+22%' },
-  { concepto: 'TOTAL', monto: '16.231.830', pctPIB: '21.9%', variacion: '+20.1%' },
+  { concepto: 'IVA', monto: '6.049.934', pctPIB: '-', variacion: '+28.3%' },
+  { concepto: 'Ganancias', monto: '3.136.961', pctPIB: '-', variacion: '+28.0%' },
+  { concepto: 'Der. Exportación', monto: '574.547', pctPIB: '-', variacion: '-13.3%' },
+  { concepto: 'Combustibles', monto: '≈680.000', pctPIB: '-', variacion: '+74.1%' },   // Estimado según reportes
+  { concepto: 'Bienes Personales', monto: '65.783', pctPIB: '-', variacion: '+12.0%' },
+  { concepto: 'Seg. Social', monto: '4.552.873', pctPIB: '-', variacion: '+26.6%' },
+  { concepto: 'Otros', monto: '≈2.340.000', pctPIB: '-', variacion: '-' },            // Incluye Créditos/Débitos ~1.426.170 y resto
+  { concepto: 'TOTAL', monto: '17.400.833', pctPIB: '-', variacion: '+27.2%' },
 ];
 
 // Balanza Comercial (USD millones)
@@ -174,7 +182,8 @@ export const tradeData = [
   { month: 'Nov 25', exports: 8133, imports: 5598, balance: 2535 },
   { month: 'Dic 25', exports: 7482, imports: 5556, balance: 1927 },
   { month: 'Ene 26', exports: 7057, imports: 5070, balance: 1987 },
-  { month: 'Est-Feb 26', exports: 7110, imports: 5120, balance: 1990 },
+  { month: 'Feb-26', exports: 5962, imports: 5174, balance: 788 },
+  { month: 'Mar-26', exports: 8645, imports: 6122, balance: 2523 },
 ];
 
 // Reservas Internacionales BCRA (USD millones) - Actualizado 16/03/2026
@@ -244,6 +253,7 @@ export const inflacionData = [
   { date: 'Ene 26', mensual: 2.9, interanual: 32.4, nucleo: 3.1 },
   { date: 'Feb 26', mensual: 2.9, interanual: 33.1, nucleo: 3.2 },
   { date: 'Mar 26', mensual: 3.4, interanual: 32.6, nucleo: 3.2 }, 
+  { date: 'Abr 26', mensual: 2.6, interanual: 32.4, nucleo: 2.3 },
     // ← ÚLTIMO INDEC (15/04/2026) · Q1-26: 9.4% acum.
 ];
 
@@ -610,7 +620,8 @@ export const inflacionLargoPlazoData: Array<{
   { year: 'Abr-24', value: 289.4, highlight: 'pico-2024' },
   { year: '2024', value: 117.8 },
   { year: '2025', value:  31.5 },
-  { year: 'Mar-26', value:  32.6, highlight: 'actual' },
+  { year: 'Abril-26', value:  32.4, highlight: 'actual' },
+
 ];
 
 // ============================================================
