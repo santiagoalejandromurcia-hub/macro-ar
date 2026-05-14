@@ -41,6 +41,11 @@ export const metadata: Metadata = {
     title: 'MacroLibre — Pulso económico en tiempo real',
     description: 'Dólar blue en vivo, inflación, PBI, reservas y simulador económico.',
   },
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png',
+  },
   robots: { index: true, follow: true },
   appleWebApp: {
     capable: true,

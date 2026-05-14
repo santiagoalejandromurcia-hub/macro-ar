@@ -152,8 +152,6 @@ export const fiscalData = [
   { period: '1T 26 (Ene-Mar)', primario: 0.5, financiero: 0.2 },
 ];
 
-];
-
 // Recaudación Tributaria Nacional (millones de pesos) - Abril 2026
 // Fuente oficial: ARCA (ex AFIP) - Reporte mensual abril 2026
 export const taxData = [
