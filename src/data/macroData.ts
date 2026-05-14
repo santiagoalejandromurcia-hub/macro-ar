@@ -39,7 +39,7 @@ export const kpiCards: KPICard[] = [
   {
     id: 'inflacion',
     title: 'Inflación Mensual',
-    value: '3.4%',
+    value: '2.6%',
     change: 0.5,
     changeLabel: 'Mar 26 (vs Feb 2.9%)',
     icon: '🏷️',
@@ -60,14 +60,6 @@ export const kpiCards: KPICard[] = [
     change: 1.8,
     changeLabel: 'vs. cierre abril',
     icon: '🏦',
-  },
-  {
-    id: 'riesgo-pais',
-    title: 'Riesgo País',
-    value: '496 pb',
-    change: -44,
-    changeLabel: 'vs. cierre marzo',
-    icon: '⚠️',
   },
 ];
 
@@ -260,13 +252,14 @@ export const remData = [
   { period: 'Dic 25', mediana: 2.9, actual: 2.9, r25: 2.6, r75: 3.2, r10: 2.3, r90: 3.5 },
   { period: 'Ene 26', mediana: 2.8, actual: null, r25: 2.4, r75: 3.0, r10: 2.1, r90: 3.3 },
   { period: 'Feb 26', mediana: 2.9, actual: null, r25: 2.2, r75: 2.8, r10: 1.9, r90: 3.1 },
-  { period: 'Mar 26', mediana: 3.0, actual: null, r25: 1.9, r75: 2.6, r10: 1.6, r90: 2.9 },
+  { period: 'Mar 26', mediana: 3.4, actual: null, r25: 1.9, r75: 2.6, r10: 1.6, r90: 2.9 },
   { period: 'Abr 26', mediana: 2.6, actual: null, r25: 1.6, r75: 2.3, r10: 1.3, r90: 2.7 },
   { period: 'May 26', mediana: 2.3, actual: null, r25: 1.5, r75: 2.2, r10: 1.2, r90: 2.5 },
-  { period: 'Jun 26', mediana: 2.0, actual: null, r25: 1.4, r75: 2.1, r10: 1.1, r90: 2.4 },
-  { period: 'Jul 26', mediana: 2.1, actual: null, r25: 1.2, r75: 1.9, r10: 1.0, r90: 2.2 },
+  { period: 'Jun 26', mediana: 2.1, actual: null, r25: 1.4, r75: 2.1, r10: 1.1, r90: 2.4 },
+  { period: 'Jul 26', mediana: 2.0, actual: null, r25: 1.2, r75: 1.9, r10: 1.0, r90: 2.2 },
   { period: 'Ago 26', mediana: 1.8, actual: null, r25: 1.1, r75: 1.8, r10: 0.9, r90: 2.0 },
-  { period: 'Sep 26', mediana: 1.8, actual: null, r25: 1.0, r75: 1.7, r10: 0.8, r90: 2.0 },
+  { period: 'Sep 26', mediana: 1.9, actual: null, r25: 1.0, r75: 1.7, r10: 0.8, r90: 2.0 },
+  { period: 'Oct 26', mediana: 1.8, actual: null, r25: 0.9, r75: 1.6, r10: 0.7, r90: 1.8 },
   
 ];
 // Inflación Mayorista — IPIM (INDEC) - Interanuales corregidos con datos oficiales INDEC
@@ -450,7 +443,7 @@ export const exportacionesData: Array<{
   { year: 2023, value: 66.8 },
   { year: 2024, value: 67.0 },
   { year: 2025, value: 87.0 },
-  { year: 2026, value: 100.0, isEstimate: true },   // Récord histórico (+15% vs 2025)
+  { year: 2026, value: 120.0, isEstimate: true },   // Récord histórico (+15% vs 2025)
 ];
 
 // ============================================================
