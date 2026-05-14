@@ -77,7 +77,7 @@ export const faenaPorCategoria: FaenaCategoria[] = [
   { categoria: 'Vaca',       cabezas: 879850,  participacion: 22.4 },
   { categoria: 'Novillo',    cabezas: 638310,  participacion: 16.2 },
   { categoria: 'Toro',       cabezas: 59709,   participacion: 1.5  },
-  { categoria: 'MEJ',        cabezas: 66186,   participacion: 1.7  },
+  { categoria: 'MEJ (Macho Entero Joven)',        cabezas: 66186,   participacion: 1.7  },
 ];
 
 // ─── Exportaciones mensuales (ene-25 a mar-26) ───────────────

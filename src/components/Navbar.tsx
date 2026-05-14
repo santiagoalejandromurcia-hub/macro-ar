@@ -32,6 +32,7 @@ const SECTION_GROUPS: SectionGroup[] = [
       { href: '/#actividad',  label: 'Actividad',  desc: 'EMAE, PBI, sectorial' },
       { href: '/#fiscal',     label: 'Fiscal',     desc: 'Resultado primario y financiero' },
       { href: '/carnes',      label: 'Carnes',     desc: 'Faena, exportaciones, IPCVA' },
+      { href: '/uva',         label: 'Uva y vinos', desc: 'Vinos, mostos, INV' },
     ],
   },
   {
