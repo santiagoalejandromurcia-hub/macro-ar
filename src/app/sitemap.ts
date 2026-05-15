@@ -47,6 +47,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8, // alto: nicho diferenciado (faena + exportaciones)
     },
     {
+      url: `${BASE_URL}/granos`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.85, // alto: "precio FOB soja/maíz/trigo hoy" = alto volumen de búsqueda
+    },
+    {
       url: `${BASE_URL}/uva`,
       lastModified: now,
       changeFrequency: 'monthly',

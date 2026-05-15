@@ -21,19 +21,23 @@ interface SectionGroup {
   links: SectionLink[];
 }
 
+// Links del menú Mercados (dropdown separado)
+const MERCADOS_LINKS: SectionLink[] = [
+  { href: '/carnes', label: 'Carnes',      desc: 'Faena bovina, exportaciones, precios FOB · SAGyP/IPCVA' },
+  { href: '/granos', label: 'Granos',      desc: 'Precios FOB soja, maíz, trigo, DJVE · MAGyP' },
+  { href: '/uva',    label: 'Uva y vinos', desc: 'Producción, exportaciones, variedades · INV' },
+];
+
 // Estructura del mega-menú (4 columnas en desktop)
 const SECTION_GROUPS: SectionGroup[] = [
   {
     title: 'Datos en vivo',
     links: [
-      { href: '/#dashboard',  label: 'Dashboard',  desc: 'Todos los indicadores en vivo' },
-      { href: '/inflacion',   label: 'Inflación',  desc: 'IPC, núcleo, mayorista, REM' },
+      { href: '/#dashboard',  label: 'Dashboard',       desc: 'Todos los indicadores en vivo' },
+      { href: '/inflacion',   label: 'Inflación',       desc: 'IPC, núcleo, mayorista, REM' },
       { href: '/#externo',    label: 'Dólar y reservas', desc: 'Blue, MEP, BCRA' },
-      { href: '/#actividad',  label: 'Actividad',  desc: 'EMAE, PBI, sectorial' },
-      { href: '/#fiscal',     label: 'Fiscal',     desc: 'Resultado primario y financiero' },
-      { href: '/carnes',      label: 'Carnes',     desc: 'Faena, exportaciones, IPCVA' },
-      { href: '/granos',      label: 'Granos',     desc: 'FOB soja, maíz, trigo, DJVE' },
-      { href: '/uva',         label: 'Uva y vinos', desc: 'Vinos, mostos, INV' },
+      { href: '/#actividad',  label: 'Actividad',       desc: 'EMAE, PBI, sectorial' },
+      { href: '/#fiscal',     label: 'Fiscal',          desc: 'Resultado primario y financiero' },
     ],
   },
   {
@@ -85,31 +89,37 @@ function useClock() {
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [sectionsOpen, setSectionsOpen] = useState(false);
+  const [mercadosOpen, setMercadosOpen] = useState(false);
   const sectionsRef = useRef<HTMLDivElement>(null);
+  const mercadosRef = useRef<HTMLDivElement>(null);
   const clock = useClock();
   const { data: session, status } = useSession();
 
-  // Click afuera → cerrar dropdown
+  // Click afuera → cerrar dropdowns
   useEffect(() => {
-    if (!sectionsOpen) return;
     const handler = (e: MouseEvent) => {
       if (sectionsRef.current && !sectionsRef.current.contains(e.target as Node)) {
         setSectionsOpen(false);
       }
+      if (mercadosRef.current && !mercadosRef.current.contains(e.target as Node)) {
+        setMercadosOpen(false);
+      }
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
-  }, [sectionsOpen]);
+  }, []);
 
-  // ESC → cerrar dropdown
+  // ESC → cerrar dropdowns
   useEffect(() => {
-    if (!sectionsOpen) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSectionsOpen(false);
+      if (e.key === 'Escape') {
+        setSectionsOpen(false);
+        setMercadosOpen(false);
+      }
     };
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
-  }, [sectionsOpen]);
+  }, []);
 
   return (
     <nav className="sticky top-0 z-40 border-b border-[var(--line-1)] bg-[oklch(0.12_0.018_250_/_0.85)] backdrop-blur-xl">
@@ -137,11 +147,72 @@ export default function Navbar() {
             Inicio
           </Link>
 
+          {/* ── Dropdown MERCADOS ───────────────────────── */}
+          <div ref={mercadosRef} className="relative">
+            <button
+              type="button"
+              onClick={() => { setMercadosOpen((v) => !v); setSectionsOpen(false); }}
+              aria-expanded={mercadosOpen}
+              aria-haspopup="true"
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md transition ${
+                mercadosOpen
+                  ? 'bg-[var(--bg-1)] text-[var(--fg-0)]'
+                  : 'hover:bg-[var(--bg-1)] hover:text-[var(--fg-0)]'
+              }`}
+            >
+              Mercados
+              <svg
+                className={`w-3 h-3 transition-transform ${mercadosOpen ? 'rotate-180' : ''}`}
+                viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={2}
+              >
+                <path d="M3 4.5 L6 7.5 L9 4.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+
+            {mercadosOpen && (
+              <div
+                className="absolute left-0 top-full mt-2 w-72 p-4 bg-[var(--bg-0)] border border-[var(--line-1)] rounded-xl shadow-2xl shadow-black/40"
+                role="menu"
+              >
+                <h3 className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--fg-2)] mb-3 pb-2 border-b border-[var(--line-1)]">
+                  Mercados sectoriales
+                </h3>
+                <ul className="space-y-3">
+                  {MERCADOS_LINKS.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        onClick={() => setMercadosOpen(false)}
+                        className="group block text-[13px] text-[var(--fg-1)] hover:text-[var(--sol)] transition"
+                      >
+                        <div className="font-medium leading-tight">
+                          {link.label}
+                          <span
+                            aria-hidden
+                            className="ml-1 text-[var(--fg-3)] group-hover:text-[var(--sol)] opacity-0 group-hover:opacity-100 transition"
+                          >
+                            →
+                          </span>
+                        </div>
+                        {link.desc && (
+                          <div className="text-[11px] text-[var(--fg-3)] mt-0.5 leading-tight">{link.desc}</div>
+                        )}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-4 pt-3 border-t border-[var(--line-1)] text-[10px] font-mono text-[var(--fg-3)]">
+                  Próximamente: Bonos · Energía · Petróleo
+                </div>
+              </div>
+            )}
+          </div>
+
           {/* ── Dropdown SECCIONES ──────────────────────── */}
           <div ref={sectionsRef} className="relative">
             <button
               type="button"
-              onClick={() => setSectionsOpen((v) => !v)}
+              onClick={() => { setSectionsOpen((v) => !v); setMercadosOpen(false); }}
               aria-expanded={sectionsOpen}
               aria-haspopup="true"
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md transition ${
@@ -288,6 +359,27 @@ export default function Navbar() {
             >
               Inicio
             </Link>
+
+            {/* Mercados mobile */}
+            <div className="mb-4">
+              <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--sol)] mb-2 px-3">
+                Mercados
+              </div>
+              <ul className="space-y-0.5">
+                {MERCADOS_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="block px-3 py-2 text-[13px] text-[var(--fg-1)] hover:text-[var(--fg-0)] hover:bg-[var(--bg-1)] rounded-md"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             {SECTION_GROUPS.map((group) => (
               <div key={group.title} className="mb-4">
                 <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--fg-2)] mb-2 px-3">
