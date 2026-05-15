@@ -258,6 +258,213 @@ Su precio se forma por oferta y demanda libre, sin intervención. Cuando hay des
 
   // ════════════════════════════════════════════════════════════
   {
+    slug: 'fob',
+    term: 'FOB — Free on Board',
+    shortDef:
+      'FOB (Free on Board, "libre a bordo") es el precio al que se vende una mercadería puesta a bordo del barco en el puerto de origen, sin incluir flete ni seguro internacionales. En Argentina, es el precio de referencia oficial para la exportación de granos que publica el MAGyP.',
+    category: 'Sector externo · Agro',
+    source: 'MAGyP — Subsecretaría de Mercados Agropecuarios',
+    related: ['djve', 'balanza-comercial'],
+    relatedRoute: { label: 'Ver precios FOB de granos en vivo', href: '/granos' },
+    sections: [
+      {
+        heading: '¿Qué incluye y qué no incluye el precio FOB?',
+        body: `El FOB cubre todos los costos hasta que la mercadería es puesta físicamente a bordo del barco: el precio del producto, el flete terrestre hasta el puerto, los gastos de carga y estiba, y los derechos de exportación (retenciones). A partir de ahí, los costos corren por cuenta del comprador.
+
+Si a FOB le sumás el flete marítimo, obtenés el precio CFR (Cost and Freight). Si además incluís el seguro, llegás al CIF (Cost, Insurance and Freight). Son los tres Incoterms más usados en el comercio de granos.`,
+      },
+      {
+        heading: 'Por qué importa en Argentina',
+        body: `El Estado argentino cobra las retenciones (derechos de exportación) sobre el precio FOB de cada tonelada embarcada. Si el FOB de la soja es USD 305/tn y la retención es del 33%, el productor tributa USD 100,65 por tonelada al momento de exportar.
+
+El MAGyP publica diariamente los precios FOB de referencia para cada grano en su API pública (magyp.gob.ar). Estos valores sirven también para calcular el "precio pizarra" que reciben los productores — que es el FOB menos retenciones, gastos de comercialización y flete campo-puerto.`,
+      },
+      {
+        heading: 'Precio FOB vs. precio pizarra',
+        body: `Pensá el FOB como el precio "de cabecera": lo que paga el comprador internacional puesto en el barco en Argentina. El precio pizarra es lo que efectivamente llega al productor, que es bastante menos:
+
+· Se descuentan las retenciones (33% en soja, 12% en maíz y trigo).
+· Se descuentan los costos de flete campo-puerto (USD 15-30/tn según la distancia).
+· Se descuentan los gastos de comercialización (corredores, acondicionamiento, almacenaje).
+
+Esa cadena de descuentos explica por qué cuando el FOB sube, el productor no percibe el 100% de la mejora.`,
+      },
+    ],
+    faq: [
+      {
+        q: '¿Dónde consulto el precio FOB de la soja hoy?',
+        a: 'El MAGyP publica los precios FOB de referencia en su sitio oficial y vía API. En MacroLibre también los publicamos en la sección Mercado de Granos con evolución histórica mensual.',
+      },
+      {
+        q: '¿Es lo mismo precio FOB que precio en Chicago (CBOT)?',
+        a: 'No. Chicago (CBOT) es el mercado de futuros de referencia global. El FOB argentino se calcula ajustando el precio de Chicago por el diferencial de base (basis), que refleja la prima o descuento que paga el mercado por la soja argentina específicamente.',
+      },
+      {
+        q: '¿Por qué el FOB argentino puede diferir del de Brasil?',
+        a: 'Cada origen tiene su propia oferta, logística y condiciones de contrato. Brasil y Argentina son los dos grandes exportadores de soja: cuando Argentina tiene buena cosecha y Brasil tiene problemas logísticos, el basis argentino puede mejorar y viceversa.',
+      },
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════
+  {
+    slug: 'djve',
+    term: 'DJVE — Declaración Jurada de Ventas al Exterior',
+    shortDef:
+      'Una DJVE (Declaración Jurada de Ventas al Exterior) es el instrumento legal con el que un exportador argentino registra ante el MAGyP un contrato de venta de granos al exterior. Es el paso previo a embarcar y es el indicador clave que anticipa la liquidación futura de divisas del agro.',
+    category: 'Sector externo · Agro',
+    source: 'MAGyP — Dirección Nacional de Mercados y Estadística',
+    related: ['fob', 'balanza-comercial'],
+    relatedRoute: { label: 'Ver DJVE mensuales en el Mercado de Granos', href: '/granos' },
+    sections: [
+      {
+        heading: '¿Para qué sirve?',
+        body: `La DJVE tiene dos funciones principales:
+
+1. Permite al Estado controlar el flujo de exportaciones y recaudar retenciones. Al momento de registrar la DJVE, se fija la alícuota que corresponde al precio FOB vigente. Esto protege al exportador de eventuales cambios de retenciones entre la firma del contrato y el embarque.
+
+2. Es el principal indicador adelantado de cuántos dólares va a liquidar el agro en las próximas semanas. Los economistas y el BCRA la miran como termómetro de la oferta de divisas futura.`,
+      },
+      {
+        heading: 'DJVE vs. embarques efectivos',
+        body: `La DJVE es la promesa de venta; el embarque es la ejecución. Hay siempre un lag entre ambos: una empresa registra la DJVE cuando firma el contrato con el comprador exterior, pero los granos pueden embarcarse días, semanas o meses después.
+
+Cuando los exportadores registran muchas DJVE pero no embarcan, puede ser señal de que especulan con que bajen las retenciones, o de que esperan el pico de cosecha para tener la mercadería disponible.`,
+      },
+      {
+        heading: 'Cómo leer las DJVE semanales',
+        body: `El MAGyP publica un reporte semanal de DJVE (el "Compras y DJVE de granos") que detalla:
+· DJVE registradas en la semana (toneladas y USD).
+· Acumulado del año versus el mismo período del año anterior.
+· Desglose por grano (soja, maíz, trigo, girasol, cebada) y subproductos.
+
+Un acumulado de DJVE muy por arriba del año anterior en abril o mayo suele indicar que los exportadores anticipan una buena cosecha y ya han colocado el grano con compradores externos.`,
+      },
+    ],
+    faq: [
+      {
+        q: '¿Cuándo vence una DJVE?',
+        a: 'Las DJVE tienen un plazo de embarque que varía según el tipo de grano y las condiciones del contrato, normalmente entre 90 y 180 días desde el registro. Vencida sin embarcar, el exportador pierde el tipo de cambio y la alícuota fijados al momento del registro.',
+      },
+      {
+        q: '¿Las DJVE implican que el productor ya vendió?',
+        a: 'No directamente. Las DJVE las registran los exportadores (acopios, cooperativas, exportadoras). El productor puede haber vendido su grano al exportador, pero también puede haber entregado en acopio y esperar el precio. Las DJVE miden la venta al exterior, no la venta en el mercado interno.',
+      },
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════
+  {
+    slug: 'merma',
+    term: 'Merma (en granos y comercio)',
+    shortDef:
+      'La merma es la pérdida de peso, volumen o calidad que sufre una mercadería entre el momento de producción y el de entrega o venta. En el negocio de los granos, puede ocurrir por secado, venteo, manipulación, transporte o almacenaje. Se expresa en porcentaje del peso original.',
+    category: 'Sector externo · Agro',
+    source: 'SENASA / Bolsa de Cereales / MAGyP',
+    related: ['fob', 'djve'],
+    relatedRoute: { label: 'Ver Mercado de Granos', href: '/granos' },
+    sections: [
+      {
+        heading: '¿Cuándo se produce la merma?',
+        body: `Las mermas ocurren en múltiples etapas de la cadena de granos:
+
+· Cosecha: pérdidas en el campo por caída del grano o daño mecánico de la cosechadora.
+· Secado: al bajar la humedad del grano del 14-16% a los 13-13,5% que exige el mercado, se pierde peso por evaporación de agua.
+· Almacenaje: respiración biológica del grano, ataques de hongos o insectos si las condiciones no son las adecuadas.
+· Transporte: derrames durante la carga, descarga o el tránsito en camión o ferrocarril.
+
+En general, el mercado acepta mermas de hasta 0,5-1% por grano en el transporte terrestre. Valores superiores generan disputas entre productor y acopiador/exportador.`,
+      },
+      {
+        heading: 'Merma por secado: la más importante',
+        body: `El grano se negocia a una humedad de referencia (13% para soja, 14% para maíz). Si el productor entrega soja con 16% de humedad, el acopiador aplica un descuento por secado que tiene dos componentes:
+
+1. Merma por agua: la pérdida real de peso al secar. Una fórmula simple: merma % = (humedad entregada − humedad base) / (100 − humedad base) × 100.
+2. Gasto de secado: el costo operativo de la secadora, que se descuenta por separado en pesos por tonelada.
+
+Para el productor, es vital entregar el grano lo más cerca posible de la humedad base para evitar estos descuentos.`,
+      },
+      {
+        heading: 'Merma en la liquidación de exportaciones',
+        body: `En la exportación también hay mermas a tener en cuenta. El exportador puede recibir una penalidad del comprador externo si el grano llega con más impurezas, menor proteína o mayor humedad de lo pactado en el contrato FOB.
+
+Asimismo, el diferencial entre lo que el productor entregó al acopio y lo que el exportador embarcó efectivamente puede ser fuente de conflictos y de ajustes en la liquidación final.`,
+      },
+    ],
+    faq: [
+      {
+        q: '¿Quién paga la merma?',
+        a: 'Depende de la etapa y del contrato. La merma por humedad al ingreso al acopio suele ser a cargo del productor; la merma por almacenaje prolongado puede ser responsabilidad compartida; la merma en transporte puede estar cubierta por el seguro de carga.',
+      },
+      {
+        q: '¿Cómo se calcula la merma por secado?',
+        a: 'Merma (%) = (humedad inicial − humedad base) / (100 − humedad base) × 100. Por ejemplo, con soja al 16% de humedad vs. base del 13%: (16-13)/(100-13) = 3/87 ≈ 3,45%. Eso significa que de 100 kg entregados, solo se pagan 96,55 kg.',
+      },
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════
+  {
+    slug: 'brecha-cambiaria',
+    term: 'Brecha Cambiaria',
+    shortDef:
+      'La brecha cambiaria es la diferencia porcentual entre el tipo de cambio oficial del BCRA y los tipos de cambio paralelos o financieros (dólar MEP, CCL, blue). Cuanto mayor es la brecha, más distorsionada está la economía y más difícil resulta para el sector exportador liquidar divisas sin perder competitividad.',
+    category: 'Tipo de cambio',
+    source: 'BCRA · Bluelytics · ArgentinaDatos',
+    related: ['dolar-mep-blue-ccl', 'inflacion-ipc', 'balanza-comercial'],
+    relatedRoute: { label: 'Ver dólar blue y brecha en vivo', href: '/#dashboard' },
+    sections: [
+      {
+        heading: '¿Cómo se calcula?',
+        body: `La fórmula es simple:
+
+Brecha (%) = (dólar paralelo / dólar oficial − 1) × 100
+
+Por ejemplo, si el oficial cotiza a $1.100 y el blue a $1.200: brecha = (1200/1100 − 1) × 100 = 9,1%.
+
+Dependiendo de qué paralelo usés (blue, MEP o CCL), obtenés brechas ligeramente distintas. La brecha oficial con el blue suele ser la más citada por ser la más visible al ciudadano de a pie.`,
+      },
+      {
+        heading: 'Por qué importa',
+        body: `Una brecha alta desincentiva las exportaciones: el exportador recibe pesos al tipo de cambio oficial (más bajo), pero para reponer insumos importados tiene que ir al paralelo. Eso reduce el margen del negocio.
+
+Simultáneamente, incentiva la subfacturación de exportaciones y la sobrefacturación de importaciones — prácticas que erosionan las reservas del BCRA. Por eso los economistas consideran que la brecha es uno de los principales indicadores de presión cambiaria.`,
+      },
+      {
+        heading: 'Historia reciente de la brecha en Argentina',
+        body: `La brecha ha vivido episodios extremos en Argentina:
+
+· En 2022 llegó al 150-200% (oficial en $150, blue en $370).
+· En diciembre 2023, tras la devaluación de Milei, colapsó del 180% a menos del 30% en pocos días.
+· En 2025-2026, con el nuevo esquema de bandas cambiarias del BCRA, la brecha se mantuvo por debajo del 10%, lo que el mercado interpreta como una señal de normalización del mercado de cambios.
+
+Una brecha menor al 5% es considerada prácticamente equivalente a un mercado unificado. Cuando supera el 20-30%, vuelven los problemas de formación de activos externos y presión sobre reservas.`,
+      },
+      {
+        heading: 'Brecha y el campo: el "dólar agro"',
+        body: `El sector agropecuario es especialmente sensible a la brecha. Cuando es alta, los productores prefieren retener el grano antes de liquidar dólares al tipo de cambio oficial, esperando una eventual devaluación o la implementación de un "dólar agro" (un tipo de cambio diferencial más alto para el sector).
+
+Por eso reducir la brecha es condición necesaria para que el BCRA pueda acumular reservas genuinas: si los exportadores no liquidan, el Banco Central no compra divisas.`,
+      },
+    ],
+    faq: [
+      {
+        q: '¿Cuál es la brecha cambiaria hoy?',
+        a: 'Podés ver la brecha en tiempo real en el dashboard de MacroLibre. Al 12 de mayo de 2026, la brecha entre el dólar blue y el oficial se ubica por debajo del 1%, reflejando la convergencia dentro del esquema de bandas cambiarias vigente.',
+      },
+      {
+        q: '¿Una brecha de 0% es posible y buena?',
+        a: 'Es posible y es el objetivo de cualquier plan de unificación cambiaria. Con brecha cero no hay incentivo para maniobras de arbitraje entre mercados y los precios relativos se alinean. El riesgo es que requiere reservas suficientes para sostener el tipo de cambio oficial ante ataques especulativos.',
+      },
+      {
+        q: '¿La brecha afecta la inflación?',
+        a: 'Sí, indirectamente. Una brecha alta hace que las empresas formadoras de precios usen el tipo de cambio paralelo como referencia para sus costos de reposición, lo que genera inflación incluso sin devaluación oficial. Esto se llama "pass-through del tipo de cambio paralelo".',
+      },
+    ],
+  },
+
+  // ════════════════════════════════════════════════════════════
+  {
     slug: 'balanza-comercial',
     term: 'Balanza Comercial',
     shortDef:
