@@ -73,11 +73,15 @@ El gobierno habilitó el cobro de aranceles a extranjeros con residencia tempora
 
 ## El Presupuesto: El Piso Más Bajo en 20 Años
 
-El ajuste universitario bajo Milei es real y documentable. El presupuesto universitario como porcentaje del PBI cayó de 0,72% en 2023 a 0,47% en 2025 — el registro más bajo desde 2005 según Chequeado y CONADU. El gasto real en universidades cayó 30,4% en los primeros ocho meses de 2025 respecto al mismo período de 2023.
+El ajuste en el presupuesto universitario durante el gobierno de Javier Milei es significativo. Según datos de Chequeado y CONADU, el presupuesto universitario como porcentaje del PBI bajó de 0,72% en 2023 a 0,47% en 2025, el registro más bajo desde 2005. En términos reales, el gasto en universidades se contrajo un 30,4% durante los primeros ocho meses de 2025 en comparación con el mismo período de 2023.
 
-Los salarios docentes muestran el impacto más duro: pérdida real acumulada del **34,5%** entre noviembre 2023 y mayo 2026 — equivalente a 8,6 sueldos completos perdidos en poco más de dos años, según CONADU. Un titular de cátedra con dedicación exclusiva cobra hoy apenas $150.000 por encima de la canasta básica familiar.
+Los salarios docentes registraron la mayor caída: una pérdida real acumulada del 34,5% entre noviembre de 2023 y mayo de 2026, según CONADU. Esto equivale a la pérdida de aproximadamente 8,6 sueldos completos en poco más de dos años. 
 
-La comparación regional termina de situar el problema: la UBA recibe **USD 1.485 por alumno por año**. La UNAM de México recibe USD 8.180. La USP de Brasil, USD 17.942 — más de 10 veces lo que la UBA.
+Un profesor titular con dedicación exclusiva percibe actualmente alrededor de $150.000 por encima de la canasta básica familiar.A nivel regional, la diferencia es notable: la Universidad de Buenos Aires (UBA) recibe unos USD 1.485 por alumno al año, mientras que la Universidad Nacional Autónoma de México (UNAM) recibe USD 8.180 y la Universidad de São Paulo (USP) USD 17.942, más de diez veces el monto de la UBA.
+
+Sin embargo, hay un detalle que la oposición omite con descaro: cuando Sergio Massa era ministro de Economía en 2023, el gobierno recortó más de 70.000 millones de dólares del gasto público en términos reales para financiar un deficit enorme. En ese momento, ni los rectores, ni los gremios universitarios, ni los mismos dirigentes que hoy gritan “ajuste recesivo” dijeron absolutamente nada. Guardaron silencio total.
+
+El ajuste existía, era brutal y lo aceptaban sin chistar. La diferencia no está en el ajuste mismo, sino en quién lo hace y con qué objetivo.
 
 ## La Pregunta Que Nadie Hace: ¿Gratuito Para Quién?
 
