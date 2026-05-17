@@ -20,6 +20,91 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: 'universidad-gratuita-negocio-caro-argentina',
+    title: 'La Universidad Gratuita Que Nadie Termina: El Negocio Más Caro de Argentina',
+    author: 'Equipo MacroLibre',
+    authorRole: 'Análisis macroeconómico',
+    date: '17 de mayo de 2026',
+    summary: 'Cada graduado de una universidad nacional le cuesta al Estado USD 40.000. Solo 2 de cada 10 ingresantes termina la carrera. El sistema universitario público argentino enfrenta una paradoja: es gratuito para quien entra, pero carísimo para quien lo financia.',
+    image: '🎓',
+    tags: ['Universidad', 'Educación', 'Gasto Público', 'Política Económica'],
+    readTime: '9 min',
+    content: `## El restaurante que no te cobra la cuenta
+
+Hay un restaurante en Argentina que no te cobra la cuenta. Podés entrar, sentarte, pedir lo que quieras. El menú es extenso, el local es grande, la cocina trabaja todo el año. El problema es que solo 2 de cada 10 clientes terminan de comer. Los otros 8 se van a mitad del plato — o nunca llegan a la mesa principal.
+
+¿Y quién paga? Todos los argentinos. Incluso los que nunca entraron al restaurante.
+
+Eso es, en esencia, el sistema universitario público argentino.
+
+## El Número que Nadie Quiere Ver
+
+En mayo de 2026, el Subsecretario de Políticas Universitarias Alejandro Álvarez difundió una cifra que generó escándalo: cada graduado de una universidad nacional le cuesta al Estado argentino $57 millones de pesos — aproximadamente **USD 40.000 por egresado**.
+
+No es un cálculo de un think tank opositor. Es el número oficial del Ministerio de Capital Humano, calculado sobre 1.980.136 estudiantes y 93.321 egresados de pregrado y grado en universidades nacionales durante 2024.
+
+¿Por qué es tan alto ese número? Porque el denominador es pequeño.
+
+Según el informe *Radiografía de las universidades argentinas* de la Fundación Libertad (2024), solo **20,7 de cada 100 ingresantes terminan la carrera** — calculado como el cociente entre ingresantes 2018 y egresados 2023. En las universidades privadas, ese número trepa al 41,7%.
+
+La analogía es simple: si tenés una fábrica donde entran 100 materias primas y solo salen 20 productos terminados, el costo por unidad no es bajo aunque la producción sea "gratuita". Es altísimo — porque pagás el 100% de los insumos para obtener el 20% de los resultados.
+
+Y la tendencia empeora: desde 2013 la cantidad de estudiantes creció un 39,1%, mientras que la de egresados aumentó tan solo un 10,3%. Más entrada, menos salida. La fábrica crece pero produce menos proporcionalmente.
+
+## El CBC: El Filtro que Nadie Llama Filtro
+
+En la UBA el fenómeno tiene nombre propio: el Ciclo Básico Común.
+
+Según datos de la propia Secretaría Académica de la UBA, el 33% de los ingresantes se gradúa si contamos desde el CBC. Pero el 62% lo hace si medimos solo a quienes superaron el CBC. La ex secretaria de Políticas Universitarias Danya Tavela lo describió con precisión: "un 30% lo supera y sigue en carrera; otro 30% lo deja y otro 30% se queda dando vueltas sin avanzar".
+
+Dicho en términos de costo real: una porción significativa del presupuesto universitario financia años de cursada de estudiantes que el propio sistema ya sabe estadísticamente que no van a terminar.
+
+El CBC funciona como la capa superficial de un filtro de agua: retiene las impurezas más grandes. Pero nadie lo diseñó para eso — y nadie en el sistema universitario tiene incentivos para optimizarlo, porque más alumnos inscriptos significa más presupuesto.
+
+## El Caso Medicina y el Debate Que Sí Importa
+
+Ningún dato encendió más el debate en 2026 que los extranjeros en la Facultad de Medicina de la UBA. El dato verificado por Chequeado: **13.403 estudiantes extranjeros** sobre 34.387 argentinos en Medicina — el 27,9% del total.
+
+Para contextualizar: en el sistema universitario nacional en su conjunto, los extranjeros representan solo el 4,2% de la matrícula total. El 95,83% proviene de países latinoamericanos: Perú, Bolivia, Paraguay, Brasil, Colombia.
+
+Medicina UBA es la excepción estadística, no la regla. Y ahí es donde el debate se complejiza.
+
+El gobierno habilitó el cobro de aranceles a extranjeros con residencia temporaria mediante el Decreto 366/2025. La paradoja es llamativa: las mismas universidades que invocan la autonomía universitaria cuando se trata de recibir fondos del Estado, se niegan a usar esa misma autonomía para generar recursos propios. Como si un inquilino reclamara el derecho a decidir cómo decorar el departamento — pero rechazara pagar una parte del alquiler aunque pudiera hacerlo.
+
+## El Presupuesto: El Piso Más Bajo en 20 Años
+
+El ajuste universitario bajo Milei es real y documentable. El presupuesto universitario como porcentaje del PBI cayó de 0,72% en 2023 a 0,47% en 2025 — el registro más bajo desde 2005 según Chequeado y CONADU. El gasto real en universidades cayó 30,4% en los primeros ocho meses de 2025 respecto al mismo período de 2023.
+
+Los salarios docentes muestran el impacto más duro: pérdida real acumulada del **34,5%** entre noviembre 2023 y mayo 2026 — equivalente a 8,6 sueldos completos perdidos en poco más de dos años, según CONADU. Un titular de cátedra con dedicación exclusiva cobra hoy apenas $150.000 por encima de la canasta básica familiar.
+
+La comparación regional termina de situar el problema: la UBA recibe **USD 1.485 por alumno por año**. La UNAM de México recibe USD 8.180. La USP de Brasil, USD 17.942 — más de 10 veces lo que la UBA.
+
+## La Pregunta Que Nadie Hace: ¿Gratuito Para Quién?
+
+La universidad "gratuita" en Argentina la paga, en gran medida, gente que nunca va a ir a la universidad. El sistema tributario argentino es regresivo: el IVA del 21% lo paga tanto el repositor de supermercado como el médico. Ambos financian el sistema universitario. Pero solo uno — estadísticamente — va a mandar a sus hijos.
+
+Aldo Abram de la Fundación Libertad y Progreso lo formuló con precisión: "La gratuidad universitaria universal no contribuye, sino que contradice la igualdad de oportunidades. Lo que se debe lograr es darle razonabilidad al sistema de financiamiento universitario, con equidad y con una mejor asignación de los escasos recursos públicos."
+
+No se trata de cobrarle a todos. Se trata de no cobrarle al que no puede y sí cobrarle al que puede — exactamente lo contrario de lo que hace hoy el sistema.
+
+## El Modelo Alternativo: Competencia, No Solo Ajuste
+
+La crítica liberal al sistema universitario argentino no se agota en el ajuste presupuestario. Friedrich Hayek ya planteaba que era posible dejar la organización de la educación a esfuerzos privados, con el Estado garantizando financiamiento básico — lo que hoy conocemos como sistema de vouchers.
+
+En Argentina, el economista Adrián Ravier propone un sistema descentralizado con vouchers que garanticen el acceso sin monopolio estatal. La advertencia es relevante: un voucher mal diseñado puede ser un caballo de Troya regulatorio. El Estado financia y luego regula. El diseño importa tanto como el principio.
+
+## Conclusión: La Eficiencia Que No Aparece en el Ranking
+
+Argentina tiene una de las universidades más baratas del mundo por alumno. Y una de las tasas de graduación más bajas. Esa combinación no es eficiencia — es el síntoma de un sistema que optimiza la entrada y descuida la salida, que financia la inscripción y no el egreso, que mide su éxito en matrículas y no en graduados.
+
+El debate universitario argentino en 2026 tiene dos trampas simétricas: la derecha que solo habla de ajuste sin propuesta de modelo, y la izquierda que defiende el statu quo como si el statu quo fuera equitativo.
+
+El restaurante que no te cobra la cuenta puede ser generoso o puede ser un mal negocio colectivo. Depende de si alguien termina de comer.
+
+---
+*Fuentes: Ministerio de Capital Humano, Fundación Libertad (2024), Secretaría Académica UBA, Chequeado, CONADU, BCRA REM.*`,
+  },
+  {
     slug: 'inflacion-argentina-2026-desaceleracion',
     title: 'La inflación argentina en 2026: del 25% mensual al 3% — ¿qué pasó y qué falta?',
     author: 'Equipo MacroLibre',

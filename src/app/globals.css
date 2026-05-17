@@ -64,6 +64,56 @@ html {
   --table-highlight: oklch(0.78 0.15 230 / 0.06);
 }
 
+/* ════════════════════════════════════════════════════
+   MODO CLARO — se activa con class="light" en <html>
+   ════════════════════════════════════════════════════ */
+html.light {
+  /* Fondos */
+  --bg-0: oklch(0.97 0.004 250);
+  --bg-1: oklch(0.93 0.006 250);
+  --bg-2: oklch(0.89 0.008 248);
+  --bg-glass: oklch(0.93 0.006 250 / 0.80);
+  --bg-elev: oklch(0.99 0.002 250);
+
+  /* Texto */
+  --fg-0: oklch(0.15 0.020 250);
+  --fg-1: oklch(0.32 0.016 250);
+  --fg-2: oklch(0.50 0.012 250);
+  --fg-3: oklch(0.65 0.008 250);
+
+  /* Líneas */
+  --line-1: oklch(0.75 0.010 250 / 0.8);
+  --line-2: oklch(0.80 0.008 248 / 0.5);
+
+  /* Acentos — se oscurecen un poco para legibilidad sobre fondo claro */
+  --celeste:      oklch(0.58 0.16 230);
+  --celeste-dim:  oklch(0.45 0.13 230);
+  --sol:          oklch(0.62 0.15 85);
+  --sol-dim:      oklch(0.50 0.13 85);
+  --magenta:      oklch(0.52 0.22 350);
+  --magenta-dim:  oklch(0.42 0.18 350);
+
+  /* Semánticos */
+  --up:   oklch(0.50 0.18 155);
+  --down: oklch(0.52 0.22 25);
+  --flat: oklch(0.50 0.012 250);
+
+  /* Aliases legacy */
+  --bg-primary:     oklch(0.97 0.004 250);
+  --bg-card:        oklch(0.93 0.006 250);
+  --bg-surface:     oklch(0.89 0.008 248);
+  --bg-hover:       oklch(0.15 0.020 250 / 0.05);
+  --border:         oklch(0.75 0.010 250 / 0.8);
+  --text-primary:   oklch(0.15 0.020 250);
+  --text-secondary: oklch(0.32 0.016 250);
+  --text-muted:     oklch(0.50 0.012 250);
+  --text-faint:     oklch(0.65 0.008 250);
+  --navbar-bg:      oklch(0.97 0.004 250 / 0.92);
+  --tooltip-bg:     oklch(0.99 0.002 250);
+  --chart-grid:     oklch(0.75 0.010 250 / 0.5);
+  --table-highlight: oklch(0.58 0.16 230 / 0.08);
+}
+
 html, body {
   background: var(--bg-0);
   color: var(--fg-0);
