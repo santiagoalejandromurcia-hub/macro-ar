@@ -3,7 +3,6 @@ import Script from 'next/script';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import TopTicker from '@/components/TopTicker';
 import ThemeProvider from '@/components/ThemeProvider';
 import PWARegister from '@/components/PWARegister';
 import Providers from '@/components/Providers';
@@ -124,7 +123,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <ThemeProvider>
             <PWARegister />
-            <TopTicker />
             <Navbar />
             <main className="flex-1 relative z-10">{children}</main>
             <Footer />

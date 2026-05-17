@@ -86,12 +86,14 @@ export async function GET() {
     const hasta = new Date().toISOString().split('T')[0];
 
     const res = await fetch(
-      `https://api.bcra.gob.ar/estadisticas/v3.0/monetarias/1?desde=${desde}&hasta=${hasta}&limit=10`,
+      `https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1?desde=${desde}&hasta=${hasta}&limit=10`,
       { next: { revalidate: 3600 }, headers: { Accept: 'application/json' } }
     );
     if (res.ok) {
       const json = await res.json();
-      const items: { fecha: string; valor: number }[] = json.results ?? json.data ?? [];
+      // v4.0: los datos vienen en results[0].detalle
+      const detalle = json.results?.[0]?.detalle ?? json.results ?? json.data ?? [];
+      const items: { fecha: string; valor: number }[] = detalle;
       if (items.length >= 2) {
         const last = items[items.length - 1];
         const prev = items[items.length - 2];

@@ -23,7 +23,7 @@ export async function GET() {
     const desde = fechaDesde.toISOString().split('T')[0];
     const hasta = new Date().toISOString().split('T')[0];
 
-    const url = `https://api.bcra.gob.ar/estadisticas/v3.0/monetarias/1?desde=${desde}&hasta=${hasta}&limit=50`;
+    const url = `https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/1?desde=${desde}&hasta=${hasta}&limit=50`;
 
     const res = await fetch(url, {
       next: { revalidate: 3600 },
@@ -33,7 +33,13 @@ export async function GET() {
     if (!res.ok) throw new Error(`BCRA API error: ${res.status}`);
 
     const json = await res.json();
-    const items: BCRAItem[] = json.results ?? json.data ?? [];
+    // v4.0: results[0].detalle contiene el array de fechas/valores
+    const detalle = json.results?.[0]?.detalle ?? json.results ?? json.data ?? [];
+    const items: BCRAItem[] = detalle.map((d: { fecha: string; valor: number }) => ({
+      idVariable: 1,
+      fecha: d.fecha,
+      valor: d.valor,
+    }));
 
     // Tomar los últimos 24 registros y formatear
     const recientes = items.slice(-24).map((item) => {
