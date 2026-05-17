@@ -20,6 +20,61 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: 'inflacion-argentina-2026-desaceleracion',
+    title: 'La inflación argentina en 2026: del 25% mensual al 3% — ¿qué pasó y qué falta?',
+    author: 'Equipo MacroLibre',
+    authorRole: 'Análisis macroeconómico',
+    date: '2 de junio de 2026',
+    summary: 'Argentina recorrió en 18 meses uno de los procesos desinflacionarios más abruptos de su historia. El IPC bajó del 25% mensual de diciembre 2023 al 3.4% de abril 2026. Qué funcionó, qué riesgos persisten y cuándo podría llegarse a un dígito anual.',
+    image: '🏷️',
+    tags: ['Inflación', 'IPC', 'Estabilización', 'INDEC'],
+    readTime: '7 min',
+    content: `## Del caos al orden: 18 meses que cambiaron el mapa
+
+El 27 de diciembre de 2023, el INDEC publicó el dato de inflación de noviembre: 12.8% mensual. Un mes después, el dato de diciembre sería peor: **25.5%**, el registro más alto desde la hiperinflación de 1990. Para mucha gente, esa cifra representó el punto de máximo miedo. Para la macroeconomía argentina, fue el pico de una crisis que ya venía acumulándose.
+
+Hoy, en junio de 2026, el IPC mensual se ubica en torno al **3.4%**. La variación interanual cerró 2025 en torno al 117% y se proyecta para fin de 2026 en el rango del 25-35%, según las expectativas del REM del BCRA. No es poca cosa. Es el proceso desinflacionario más rápido en décadas.
+
+¿Qué explica esta caída? ¿Es sostenible? ¿Y cuánto falta para llegar a una inflación "normal"?
+
+## Las tres anclas que frenaron la inflación
+
+El proceso desinflacionario descansó sobre tres pilares que se retroalimentaron:
+
+**1. El ancla fiscal.** El programa de Milei priorizó el equilibrio presupuestario como señal de credibilidad. Al eliminar el déficit fiscal, se cortó la principal fuente de emisión monetaria que alimentaba la inflación. Argentina pasó de un déficit del 2.7% del PIB en 2023 a un superávit del 1.8% en 2024 — la corrección fiscal más rápida de su historia reciente. Sin déficit que monetizar, el BCRA dejó de imprimir pesos para financiar al Tesoro.
+
+**2. El ancla cambiaria.** El tipo de cambio oficial se movió dentro de bandas controladas, funcionando como referencia para la formación de precios. Cuando los empresarios saben que el dólar no va a saltar abruptamente, tienen menos incentivo a remarcar preventivamente. La reducción de la brecha cambiaria —del 180% en 2023 a menos del 5% en 2026— eliminó un elemento clave de presión inflacionaria.
+
+**3. La recesión del primer semestre 2024.** Dolorosa pero efectiva: la caída del consumo y la actividad redujo la presión de demanda sobre los precios. Con menos plata circulando y menos gente dispuesta a pagar más, los precios se moderaron. Fue la parte más costosa del ajuste.
+
+## Lo que funcionó diferente a otros planes
+
+Argentina tiene una larga historia de planes de estabilización fallidos: el Plan Austral (1985), la Convertibilidad (1991-2001), el Plan Bonex. ¿Por qué este proceso desinflacionario se sostuvo más tiempo?
+
+La respuesta más honesta es que todavía es temprano para saberlo con certeza. Pero hay algunas diferencias notables. A diferencia de la Convertibilidad, no hay tipo de cambio fijo atado a una ley: hay bandas que pueden moverse. A diferencia del Plan Austral, el ancla no fue solo el congelamiento de precios, sino el equilibrio fiscal real. Y a diferencia de muchos planes anteriores, el contexto externo es favorable: precios de commodities razonables, ingreso de divisas del agro y de Vaca Muerta, y una renegociación del FMI sin mayores turbulencias.
+
+## Los riesgos que persisten
+
+Sería ingenuo pintar un cuadro solo de éxito. Hay al menos tres riesgos que los analistas siguen de cerca:
+
+**La inercia inflacionaria.** Cuando la inflación lleva años alta, se vuelve parte de los contratos, los salarios y las expectativas. Bajar del 3% mensual al 1% es mucho más difícil que bajar del 25% al 3%. La inflación "residual" se resiste porque está incorporada en los mecanismos de indexación de la economía.
+
+**Las tarifas pendientes.** El proceso de normalización de tarifas de servicios públicos (luz, gas, transporte) no está terminado. Cada ronda de aumentos tarifarios agrega entre 0.3 y 0.8 puntos porcentuales al IPC del mes en que se aplica. Queda camino por recorrer.
+
+**El ciclo electoral.** Las elecciones legislativas de octubre 2025 pasaron sin grandes sobresaltos, pero el calendario electoral 2027 (presidencial) comienza a influir en las decisiones de política. La tentación de aflojar el ajuste antes de una elección es histórica en Argentina.
+
+## ¿Cuándo llegamos a inflación de un dígito anual?
+
+Las proyecciones del REM ubican la inflación de 2026 entre 25% y 35% anual. Para llegar a un dígito anual —menos del 10%— el consenso de los analistas ve al menos 2-3 años más de proceso desinflacionario sostenido, es decir, llegar al rango de 1-2% mensual de forma consistente.
+
+El camino importa tanto como el destino. Argentina ya demostró que puede bajar la inflación abruptamente. El desafío inédito es mantenerse abajo.
+
+---
+
+*Los datos de inflación son los publicados por el INDEC. Las proyecciones corresponden al Relevamiento de Expectativas de Mercado (REM) del BCRA de mayo 2026. Los datos actualizados están disponibles en [MacroLibre — Indicadores de Inflación](/indicadores/inflacion-argentina).*`,
+  },
+
+  {
     slug: 'superavit-fiscal-historico-2025',
     title: 'Por qué el superávit fiscal es histórico',
     author: 'Martín Rapetti',

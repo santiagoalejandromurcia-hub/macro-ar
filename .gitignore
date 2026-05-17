@@ -24,3 +24,7 @@ drizzle/meta/
 tscheck.tmp.json
 *.tmp.json
 .env*
+
+# Directorios internos que no deben subirse
+.codex/
+.nvm/

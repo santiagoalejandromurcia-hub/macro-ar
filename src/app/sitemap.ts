@@ -22,6 +22,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 1.0,
     },
+    // ── Indicadores (páginas SEO optimizadas) ──
+    {
+      url: `${BASE_URL}/indicadores/tipo-de-cambio`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.95,
+    },
+    {
+      url: `${BASE_URL}/indicadores/inflacion-argentina`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.95,
+    },
+    {
+      url: `${BASE_URL}/indicadores/reservas-bcra`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/indicadores/resultado-fiscal`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/indicadores/pobreza-argentina`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
     {
       url: `${BASE_URL}/calculadora`,
       lastModified: now,
