@@ -51,11 +51,11 @@ export default function BreakEvenContent() {
       <div className="glass p-4 sm:p-6">
         <div className="mb-4">
           <h2 className="text-lg font-semibold text-[var(--fg-0)] mb-1">
-            Market Inflation Expectations — Headline Inflation m/m
+            Expectativas de inflación del mercado — IPC mensual (m/m)
           </h2>
           <p className="text-xs text-[var(--fg-2)]">
-            IPC mensual real (INDEC) vs. mediana REM BCRA vs. Break-even implícito de bonos CER/nominal.
-            La zona punteada es proyección a partir de abr-26.
+            IPC mensual real (INDEC) vs. mediana del REM BCRA vs. break-even implícito de bonos CER/nominal.
+            La línea punteada es proyección a partir de abr-26.
           </p>
         </div>
         <ResponsiveContainer width="100%" height={380}>
@@ -83,7 +83,7 @@ export default function BreakEvenContent() {
             <Line
               type="monotone"
               dataKey="headline"
-              name="Headline inflation"
+              name="Inflación real (IPC)"
               stroke="#94A3B8"
               strokeWidth={2.5}
               dot={{ r: 3, fill: '#94A3B8' }}
@@ -93,7 +93,7 @@ export default function BreakEvenContent() {
             <Line
               type="monotone"
               dataKey="rem"
-              name="Central Bank survey (Median)"
+              name="Encuesta REM BCRA (Mediana)"
               stroke="var(--sol)"
               strokeWidth={2.5}
               dot={{ r: 3, fill: 'var(--sol)' }}
@@ -103,7 +103,7 @@ export default function BreakEvenContent() {
             <Line
               type="monotone"
               dataKey="bei"
-              name="Breakeven inflation"
+              name="Break-even implícito (bonos)"
               stroke="#1E3A5F"
               strokeWidth={2.5}
               strokeDasharray="6 3"
