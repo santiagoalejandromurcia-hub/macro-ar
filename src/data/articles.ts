@@ -478,4 +478,45 @@ El día que un argentino deposite sus dólares en el banco sin calcular cuánto 
 
 Será la prueba de que cambiamos una de las homeostasis más profundas de nuestra historia.`,
   },
+  {
+  slug: 'neutralidad-del-dinero-milei-udesa',
+  title: 'Neutralidad del dinero: qué dijo Milei en UdeSA',
+  description: 'Milei repasó 250 años de teoría monetaria en UdeSA: de Phillips a Lucas, de Friedman a Sidrauski. Qué implica para la desinflación argentina.',
+  date: '19 de mayo de 2026',
+  author: 'Equipo MacroLibre',
+  tags: ['Política Monetaria', 'Inflación', 'Teoría Económica', 'Curva de Phillips', 'Desinflación'],
+  readTime: '4 min',
+  content: `
+    <p>El 15 de mayo de 2026 falleció Edmund Phelps, Premio Nobel 2006 y uno de los economistas que demostró, hace casi seis décadas, que la inflación no puede comprar empleo de manera permanente. Días después, en la Universidad de San Andrés, Milei dio una conferencia en la que recorrió exactamente ese argumento: la historia de la neutralidad del dinero, desde los clásicos hasta los modelos dinámicos de hoy. El timing no fue casual. Entender de qué se trató esa clase es entender la lógica detrás del programa de estabilización que el Gobierno viene ejecutando.</p>
+
+    <h2>El truco del mago que solo funciona una vez</h2>
+    <p>Imaginá que un mago hace un truco frente a una audiencia que nunca lo vio: todos se sorprenden. Si lo repite al día siguiente con el mismo público, el efecto se reduce. Si lo hace por tercera vez, nadie se inmuta: ya saben cómo termina. La curva de Phillips funciona exactamente así. En 1960, Paul Samuelson y Robert Solow describieron la relación inversa entre inflación y desempleo como un "menú de política": el gobierno podía elegir más inflación a cambio de menos desocupación. El problema es que ese menú tiene fecha de vencimiento. Milton Friedman (1968) y Phelps (1967) lo demostraron por separado: cuando los trabajadores aprenden que la inflación sube sistemáticamente, exigen salarios nominales más altos para compensar, y el empleo vuelve a su nivel previo. El truco pierde el efecto. Robert Lucas fue más lejos en 1972: si los agentes usan toda la información disponible (expectativas racionales), una política monetaria <em>anunciada y sistemática</em> es completamente neutral desde el primer día. No hay ni siquiera un efecto de corto plazo. El único margen que queda son los shocks monetarios que nadie anticipó. La neutralidad del dinero no es un supuesto ideológico: es el resultado de incorporar que las personas aprenden y ajustan su comportamiento.</p>
+
+    <h2>¿Qué significa que el dinero sea "neutral"?</h2>
+    <p>En la tradición que recorrió la conferencia, neutralidad significa que cambios en la cantidad de dinero no afectan variables reales —empleo, capital, producto— en el largo plazo, sino solo el nivel de precios. La versión más fuerte es la <strong>superneutralidad</strong>: incluso cambios en la <em>tasa de crecimiento</em> del dinero dejan intactos el stock de capital y el consumo en estado estacionario. Eso es lo que demuestra el modelo de Miguel Sidrauski, economista argentino que publicó sus dos papers fundamentales en 1967 y murió al año siguiente con 28 años. En su modelo, el agente optimiza consumo e inflación a lo largo del tiempo, y en el equilibrio de largo plazo la tasa de interés real queda determinada únicamente por preferencias y demografía, no por variables monetarias. La inflación puede destruir bienestar vía el costo de mantener saldos reales, pero no modifica el capital productivo de la economía. Vale destacar que Sidrauski es hasta hoy el aporte argentino más citado en macroeconomía dinámica formal, un dato que la conferencia recuperó con razón. [Ver datos de inflación en tiempo real en MacroLibre](https://macrolibre.com/#inflacion)</p>
+
+    <h2>El argumento que más le importa a Argentina: Sargent y Wallace</h2>
+    <p>La parte más operativa de la conferencia para el contexto local es el paper de Thomas Sargent y Neil Wallace de 1981, "Some Unpleasant Monetarist Arithmetic". El argumento es contraintuitivo: en una economía donde el fisco fija su déficit sin considerar la restricción del banco central (lo que la literatura llama <strong>dominancia fiscal</strong>), una política monetaria contractiva <em>hoy</em> puede producir más inflación <em>mañana</em>. El mecanismo es aritmético: si el gobierno emite deuda en lugar de dinero para financiar el déficit, esa deuda acumula intereses; si la tasa real sobre la deuda supera el crecimiento del producto, el banco central deberá emitir más en el futuro para cubrir los vencimientos. Comprimir la emisión ahora solo traslada el problema hacia adelante con interés. La conclusión práctica es directa: la desinflación sostenida requiere consolidación fiscal previa o simultánea, no después. Sin superávit fiscal que valide la restricción monetaria, el ancla cambiaria o monetaria termina cediendo. Es exactamente lo que el Gobierno argumenta como justificación del ajuste de 2024: primero el equilibrio fiscal, después la estabilidad de precios.</p>
+
+    <h2>¿Y el efecto Cantillon? La parte incómoda para todos</h2>
+    <p>La conferencia también incluyó a Richard Cantillon, economista del siglo XVIII que observó algo que la teoría cuantitativa simple ignora: el dinero nuevo no llega a todos los bolsillos al mismo tiempo ni al mismo precio. Los primeros receptores —en el siglo XVIII eran los mineros y orfebres; en el siglo XXI son los bancos y sectores financieramente integrados— gastan cuando los precios todavía no subieron, apropiándose de poder de compra real. Los últimos en recibir el dinero —asalariados, jubilados, ahorristas en pesos— lo reciben cuando los precios ya se ajustaron. El efecto Cantillon es la razón por la cual la inflación redistribuye riqueza antes de que los precios se estabilicen, y es también la razón por la cual Mises sostenía que el dinero <em>nunca</em> es neutral en el corto plazo: la inyección tiene un orden topológico que reasigna precios relativos. Es un argumento incómodo para cualquier gobierno que administra una expansión monetaria, sea cual sea su signo político.</p>
+
+    <h2>Conclusión</h2>
+    <p>Lo que recorrió la conferencia en UdeSA no es doctrina de un partido: es el núcleo del consenso macroeconómico moderno, construido desde los años sesenta por keynesianos, monetaristas y nuevos clásicos. La neutralidad del dinero en el largo plazo, la ineficacia de la política monetaria sistemática y la necesidad de solvencia fiscal como condición de la estabilidad de precios son resultados que emergen de tradiciones teóricas distintas que convergieron en las mismas conclusiones. Lo que reste del debate argentino dependerá menos de si estos argumentos son correctos —hay amplio consenso en que lo son— y más de si las condiciones institucionales para sostenerlos en el tiempo logran consolidarse.</p>
+
+    <h2>Fuentes</h2>
+    <ul>
+      <li>A.W. Phillips — "The Relation between Unemployment and the Rate of Change of Money Wage Rates in the United Kingdom, 1861–1957" — <em>Economica</em> 25(100), 1958</li>
+      <li>Paul Samuelson y Robert Solow — "Analytical Aspects of Anti-Inflation Policy" — <em>AER Papers and Proceedings</em> 50(2), 1960</li>
+      <li>Milton Friedman — "The Role of Monetary Policy" — <em>American Economic Review</em> 58(1), 1968</li>
+      <li>Edmund Phelps — "Phillips Curves, Expectations of Inflation and Optimal Unemployment over Time" — <em>Economica</em> 34, 1967</li>
+      <li>Robert E. Lucas Jr. — "Expectations and the Neutrality of Money" — <em>Journal of Economic Theory</em> 4(2), 1972</li>
+      <li>Miguel Sidrauski — "Inflation and Economic Growth" — <em>Journal of Political Economy</em> 75, 1967</li>
+      <li>Thomas Sargent y Neil Wallace — "Some Unpleasant Monetarist Arithmetic" — <em>FRB Minneapolis Quarterly Review</em> 5(3), 1981</li>
+      <li>Richard Cantillon — <em>Essai sur la nature du commerce en général</em> — publicado póstumamente, 1755</li>
+      <li>Ludwig von Mises — <em>Theorie des Geldes und der Umlaufsmittel</em> — 1912</li>
+      <li>Bloomberg / Columbia University — obituario de Edmund Phelps — 18 de mayo de 2026</li>
+    </ul>
+  `,
+}
 ];
