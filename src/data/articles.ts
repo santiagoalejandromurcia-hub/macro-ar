@@ -480,7 +480,7 @@ Será la prueba de que cambiamos una de las homeostasis más profundas de nuestr
   },
   {
     slug: 'neutralidad-del-dinero-milei-udesa',
-    title: 'Neutralidad del dinero: qué se dijo en UdeSA y qué implica para Argentina',
+    title: 'Neutralidad del dinero: qué dijo Javier Milei en UdeSA y qué implica para Argentina',
     author: 'Equipo MacroLibre',
     authorRole: 'Análisis macroeconómico',
     date: '19 de mayo de 2026',
