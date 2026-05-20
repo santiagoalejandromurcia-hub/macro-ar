@@ -529,4 +529,129 @@ Lo que reste del debate argentino dependerá menos de si estos argumentos son co
 ---
 *Fuentes: Phillips (1958), Samuelson-Solow (1960), Friedman (1968), Phelps (1967), Lucas (1972), Sidrauski (1967), Sargent-Wallace (1981), Cantillon (1755), Mises (1912).*`,
   },
+  {
+    slug: 'dolar-vs-plazo-fijo-enero-mayo-2026',
+    title: 'El Dólar Perdió: Qué Pasó Con $100.000 en Argentina Entre Enero y Mayo 2026',
+    author: 'Equipo MacroLibre',
+    authorRole: 'Análisis macroeconómico',
+    date: '20 de mayo de 2026',
+    summary: 'Entre enero y mayo de 2026, el plazo fijo le ganó al dólar por casi 13 puntos porcentuales. Pero todos perdieron contra la inflación. Un experimento con $100.000 reales que revela la nueva lógica del ahorro argentino.',
+    image: '💵',
+    tags: ['Ahorro', 'Dólar', 'Plazo Fijo', 'Inflación', 'Inversión', 'UVA'],
+    readTime: '8 min',
+    content: `## El experimento mental que todo argentino hace
+
+Hay un experimento mental que todo argentino hace cuando cobra: **¿Lo pongo en el banco o compro dólares?**
+
+Entre enero y mayo de 2026, ese experimento tuvo una respuesta clara, incómoda para los dos bandos del debate económico argentino. Te lo contamos con números reales.
+
+## El Experimento: $100.000 el 2 de Enero
+
+Imaginá que el 2 de enero de 2026 tenías $100.000 y tres opciones:
+
+1. Colocarlos en un plazo fijo a 30 días en Banco Nación, renovando mes a mes
+2. Comprarle dólares al banco (tipo de cambio oficial BNA)
+3. Comprar dólares en el mercado informal (blue)
+
+Al 15 de mayo, el resultado fue el siguiente:
+
+| Estrategia | Valor final | Variación |
+|---|---|---|
+| **Plazo fijo 30 días Banco Nación** | **$107.900** | **+7,9%** |
+| Plazo fijo 90 días + rolleo | $108.400 | +8,4% |
+| Plazo fijo Santander | $106.400 | +6,4% |
+| Dólar oficial (BNA) | $94.984 | -5,0% |
+| Dólar blue | $92.484 | -7,5% |
+
+El plazo fijo le ganó al dólar oficial por **casi 13 puntos porcentuales**. Al blue, por más de **15 puntos**.
+
+Pero hay un dato que complica el festejo.
+
+## El Problema: Todos Perdieron Contra la Inflación
+
+Pensá en una cinta transportadora que sube. Vos podés caminar hacia adelante o quedarte quieto — en ambos casos retrocedés respecto al punto de llegada. La diferencia es cuánto retrocedés.
+
+Eso es lo que pasó con el ahorro argentino en estos cinco meses.
+
+La inflación acumulada entre enero y abril de 2026 fue **12,3%** según el INDEC (dato publicado el 14 de mayo). Con la proyección del REM del BCRA para mayo (2,3%), el acumulado de cinco meses ronda el **14,9%**.
+
+Resultado real:
+
+- El plazo fijo en Banco Nación perdió aproximadamente **4 puntos contra la inflación**
+- El dólar oficial perdió aproximadamente **15 puntos contra la inflación**
+- El dólar blue perdió aproximadamente **18 puntos contra la inflación**
+
+Ganaste la carrera contra el dólar. Pero la carrera que importa — la de preservar poder adquisitivo — la perdiste igual. Solo perdiste menos.
+
+## Por Qué el Dólar Bajó: La Nueva Lógica Cambiaria
+
+Esto es lo que más desorientó al ahorrista argentino clásico en 2026.
+
+El dólar oficial pasó de $1.495 el 2 de enero a $1.420 el 15 de mayo. Una caída del 5% en términos nominales. El blue siguió la misma dirección: de $1.530 a $1.415, una caída del 7,5%.
+
+¿Cómo es posible que el dólar baje en Argentina?
+
+La respuesta está en la nueva arquitectura cambiaria vigente desde el 1° de enero de 2026: un régimen de **bandas cambiarias** que ajustan por inflación, combinado con una oferta robusta del sector agropecuario y el fenómeno del **carry trade** — inversores que se quedaron en pesos aprovechando las tasas.
+
+El dato más llamativo: a mediados de mayo, el **blue cotizaba por debajo del oficial minorista**. Algo que no ocurría desde la salida del cepo. La brecha, que históricamente era el termómetro de la desconfianza argentina, se cerró a cero — y se invirtió.
+
+Para el BCRA, el período fue de acumulación: el presidente Santiago Bausili confirmó que el programa de compra de reservas acumuló **USD 8.234 millones desde enero**.
+
+## La Trampa de las Tasas: El Banco Que Elegiste Importó Mucho
+
+No todos los plazos fijos son iguales, y la diferencia entre bancos en este período fue significativa.
+
+| Banco | Enero 2026 (TNA) | Mayo 2026 (TNA) | Caída |
+|---|---|---|---|
+| Banco Nación | 23,5% | 17,5% | -6 p.p. |
+| BBVA | 21% | 18,75% | -2,25 p.p. |
+| Santander | 21% | 15% | -6 p.p. |
+
+Santander terminó pagando el equivalente a **1,25% mensual** — casi la mitad de la inflación de abril. Rendimiento real: fuertemente negativo.
+
+Mientras tanto, bancos medianos como BICA o CMF estaban pagando hasta 23-23,25% TNA. La diferencia entre el banco más caro y el más barato era del **50% en términos de rendimiento mensual**.
+
+La analogía es directa: es como dos almacenes en la misma cuadra que venden el mismo producto, pero uno lo vende un 50% más caro que el otro. La mayoría de los argentinos sigue comprando en el caro porque es donde siempre fue.
+
+El comparador oficial del BCRA (bcra.gob.ar) muestra estas diferencias en tiempo real. Pocos lo usan.
+
+## El Verdadero Ganador: El Que Nadie Habla
+
+Si el plazo fijo tradicional perdió contra la inflación y el dólar perdió todavía más, ¿qué le ganó al costo de vida?
+
+El **plazo fijo UVA**.
+
+El 1° de abril de 2026, Banco Nación lanzó el certificado de depósito a plazo fijo UVA con pago de intereses por subperíodos — mínimo $1.500, plazos de 90 a 1.095 días, con ajuste CER más un adicional de 4,5% TNA.
+
+El UVA ajusta por el índice CER, que sigue a la inflación. No importa si la inflación es 2% o 5% mensual — tu capital se ajusta con ella, más el adicional de tasa real. Es el único instrumento bancario del segmento minorista que le ganó claramente a la inflación en lo que va de 2026.
+
+¿Por qué no lo usa todo el mundo? Porque tiene un mínimo de 90 días sin rescate anticipado. En un país acostumbrado al corralito, la idea de "no poder sacar la plata" genera resistencia instintiva — incluso cuando el instrumento está diseñado exactamente para proteger contra la inflación que tanto se teme.
+
+Eso es la **homeostasis** aplicada al ahorro: el sistema resiste la herramienta que más lo protegería porque la desconfianza aprendida es más fuerte que el incentivo racional.
+
+## Qué Hacer Ahora: Tres Escenarios
+
+El REM del BCRA (encuesta a 45 analistas, publicada el 7 de mayo de 2026) proyecta inflación mayo 2,3%, junio-julio ~2,0% mensual, y dólar mayorista a diciembre en $1.676.
+
+Con ese escenario base, tres conclusiones operativas:
+
+**Si querés preservar poder adquisitivo:** el plazo fijo UVA es hoy el único instrumento bancario minorista que lo permite. Requiere horizonte mínimo de 90 días y tolerar la incomodidad de no tener acceso inmediato.
+
+**Si querés quedarte en tasa fija:** comparar bancos en el sitio oficial del BCRA antes de renovar. La diferencia entre Santander (15% TNA) y los mejores bancos medianos (23%+) es demasiado grande para ignorarla.
+
+**Si estás pensando en dolarizar:** el dólar oficial hoy está 5% más barato que en enero. Si creés que el atraso cambiario actual es insostenible, comprar dólares ahora implica cobertura barata. Pero si el esquema de bandas se sostiene, el carry en pesos seguirá ganando en el corto plazo.
+
+## La Conclusión que Incomoda a los Dos Bandos
+
+Al "dólar-siempre" le decimos: entre enero y mayo de 2026, el dólar destruyó poder adquisitivo más rápido que cualquier otra alternativa. El instinto aprendido de décadas de inflación y devaluación jugó exactamente en contra.
+
+Al "plazo fijo siempre" le decimos: ganaste contra el dólar, pero perdiste contra la inflación. La victoria es relativa.
+
+La realidad incómoda es que en Argentina, en este período, **no hubo refugio perfecto en el segmento bancario tradicional**. El único instrumento que funcionó — el UVA — es el que menos argentinos usaron, en parte por la desconfianza estructural al sistema que construimos en décadas de traiciones institucionales.
+
+La ironía es completa: el instrumento diseñado para protegerte de la inflación es el que más resistencia genera por miedo a la inflación.
+
+---
+*Datos: INDEC, BCRA (REM mayo 2026), BNA, comparador oficial de tasas bcra.gob.ar. Período: 2 de enero al 15 de mayo de 2026.*`,
+  },
 ];
