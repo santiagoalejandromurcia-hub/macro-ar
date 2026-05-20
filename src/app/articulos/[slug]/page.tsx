@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import ArticleContent from './ArticleContent';
+import LikeButton from '@/components/LikeButton';
 
 const SITE_URL = 'https://macrolibre.com';
 
@@ -153,6 +154,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       </header>
 
       <ArticleContent content={article.content} />
+
+      {/* Like button */}
+      <div className="mt-8 pt-6 border-t border-theme flex justify-center">
+        <LikeButton slug={article.slug} />
+      </div>
 
       {related.length > 0 && (
         <div className="mt-12 pt-8 border-t border-theme">

@@ -73,6 +73,13 @@ export const verificationTokens = pgTable(
   }),
 );
 
+// ─── ARTICLE LIKES ─────────────────────────────────────────
+export const articleLikes = pgTable('article_likes', {
+  slug: text('slug').primaryKey(),
+  count: integer('count').default(0).notNull(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().notNull(),
+});
+
 // ─── DOWNLOADS (tracking propio para analytics) ────────────
 export const downloads = pgTable('downloads', {
   id: serial('id').primaryKey(),
