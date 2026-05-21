@@ -132,6 +132,36 @@ export async function GET() {
     }
   } catch { /* silent */ }
 
+  // ── TAMAR — Tasa Activa de Mercado (BCRA) ───────────────────
+  // Variable 17: Tasa de adelantos en cta. cte. sector privado (TNA %)
+  try {
+    const fechaDesde = new Date();
+    fechaDesde.setDate(fechaDesde.getDate() - 10);
+    const desde = fechaDesde.toISOString().split('T')[0];
+    const hasta = new Date().toISOString().split('T')[0];
+
+    const res = await fetch(
+      `https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/17?desde=${desde}&hasta=${hasta}&limit=5`,
+      { next: { revalidate: 3600 }, headers: { Accept: 'application/json' } }
+    );
+    if (res.ok) {
+      const json = await res.json();
+      const detalle = json.results?.[0]?.detalle ?? json.results ?? json.data ?? [];
+      const items: { fecha: string; valor: number }[] = detalle;
+      if (items.length >= 1) {
+        const last = items[items.length - 1];
+        const prev = items.length >= 2 ? items[items.length - 2] : null;
+        const change = prev ? parseFloat((last.valor - prev.valor).toFixed(2)) : 0;
+        results.push({
+          id: 'tamar',
+          value: `${last.valor.toFixed(2)}% TNA`,
+          change,
+          changeLabel: `Tasa activa mercado · ${last.fecha}`,
+        });
+      }
+    }
+  } catch { /* silent */ }
+
   return NextResponse.json(
     { kpis: results, updatedAt: new Date().toISOString() },
     { headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=60' } }

@@ -61,6 +61,15 @@ export const kpiCards: KPICard[] = [
     changeLabel: 'vs. cierre abril',
     icon: '🏦',
   },
+  {
+    id: 'tamar',
+    title: 'TAMAR Diaria',
+    value: '38.00% TNA',
+    change: 0,
+    changeLabel: 'Tasa activa mercado · BCRA',
+    unit: 'TNA %',
+    icon: '📉',
+  },
 ];
 
 // EMAE — Estimador Mensual de Actividad Económica

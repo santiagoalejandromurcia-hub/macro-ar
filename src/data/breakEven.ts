@@ -109,6 +109,30 @@ export interface InflacionMensual {
   esProyeccion?: boolean;    // true = futuro / proyectado
 }
 
+// ─── Sendero mensual BEI vs REM (tabla) ──────────────────────
+// Actualizado al 21-may-2026 con datos del mercado secundario
+export interface SenderoMensual {
+  mes: string;
+  dias: number;
+  bei: number;       // BEI mensual implícita de bonos (%)
+  rem: number | null; // Mediana REM BCRA mensual (%)
+}
+
+export const senderoMensualBEI: SenderoMensual[] = [
+  { mes: 'may-26', dias: 31, bei: 2.94, rem: 2.38 },
+  { mes: 'jun-26', dias: 30, bei: 2.61, rem: 2.10 },
+  { mes: 'jul-26', dias: 31, bei: 2.23, rem: 2.00 },
+  { mes: 'ago-26', dias: 31, bei: 1.98, rem: 1.80 },
+  { mes: 'sep-26', dias: 30, bei: 1.78, rem: 1.87 },
+  { mes: 'oct-26', dias: 31, bei: 1.74, rem: 1.80 },
+  { mes: 'nov-26', dias: 30, bei: 1.62, rem: null },
+  { mes: 'dic-26', dias: 31, bei: 1.63, rem: null },
+  { mes: 'ene-27', dias: 31, bei: 1.58, rem: null },
+  { mes: 'feb-27', dias: 28, bei: 1.46, rem: null },
+  { mes: 'mar-27', dias: 31, bei: 1.51, rem: null },
+  { mes: 'abr-27', dias: 30, bei: 1.44, rem: null },
+];
+
 export const inflacionMensualSerie: InflacionMensual[] = [
   // ── Datos históricos reales (INDEC) ──
   { mes: 'Ene-25', headline: 2.2, rem: 2.3, bei: null },
@@ -126,16 +150,5 @@ export const inflacionMensualSerie: InflacionMensual[] = [
   { mes: 'Ene-26', headline: 2.9, rem: 2.3, bei: null },
   { mes: 'Feb-26', headline: 2.9, rem: 2.4, bei: null },
   { mes: 'Mar-26', headline: 3.4, rem: 2.7, bei: null },
-  // ── Último dato real + inicio proyección ──
   { mes: 'Abr-26', headline: 2.5, rem: 2.5, bei: 2.5 },
-  // ── Proyecciones (BEI + REM forward) ──
-  { mes: 'May-26', headline: null, rem: 2.2, bei: 2.1, esProyeccion: true },
-  { mes: 'Jun-26', headline: null, rem: 1.9, bei: 1.9, esProyeccion: true },
-  { mes: 'Jul-26', headline: null, rem: 1.9, bei: 1.8, esProyeccion: true },
-  { mes: 'Ago-26', headline: null, rem: 1.8, bei: 1.7, esProyeccion: true },
-  { mes: 'Sep-26', headline: null, rem: 1.7, bei: 1.5, esProyeccion: true },
-  { mes: 'Oct-26', headline: null, rem: 1.5, bei: 1.6, esProyeccion: true },
-  { mes: 'Nov-26', headline: null, rem: null, bei: 1.7, esProyeccion: true },
-  { mes: 'Dic-26', headline: null, rem: null, bei: 1.9, esProyeccion: true },
-  { mes: 'Ene-27', headline: null, rem: null, bei: 2.0, esProyeccion: true },
 ];

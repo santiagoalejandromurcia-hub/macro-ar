@@ -5,7 +5,7 @@ import {
   ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine,
 } from 'recharts';
 import {
-  bonosNominales, bonosReales, remEsperado, inflacionMensualSerie, ACTUALIZADO_AL, FUENTE_BONOS,
+  bonosNominales, bonosReales, remEsperado, senderoMensualBEI, ACTUALIZADO_AL, FUENTE_BONOS,
 } from '@/data/breakEven';
 import {
   construirCurvaBEI, diasHastaVto, type BeiPunto,
@@ -46,74 +46,65 @@ export default function BreakEvenContent() {
     <div className="space-y-8">
 
       {/* ═══════════════════════════════════════════════════
-          MARKET INFLATION EXPECTATIONS — gráfico principal
+          SENDERO MENSUAL — tabla BEI vs REM-BCRA
           ═══════════════════════════════════════════════════ */}
       <div className="glass p-4 sm:p-6">
         <div className="mb-4">
           <h2 className="text-lg font-semibold text-[var(--fg-0)] mb-1">
-            Expectativas de inflación del mercado — IPC mensual (m/m)
+            Sendero mensual · BEI vs REM-BCRA
           </h2>
           <p className="text-xs text-[var(--fg-2)]">
-            IPC mensual real (INDEC) vs. mediana del REM BCRA vs. break-even implícito de bonos CER/nominal.
-            La línea punteada es proyección a partir de abr-26.
+            Break-even implícito mensual derivado de la curva nominal vs CER, comparado con la mediana del REM BCRA.
+            Verde = mercado descuenta más inflación que la encuesta (favorece CER). Rojo = mercado más optimista que REM.
           </p>
         </div>
-        <ResponsiveContainer width="100%" height={380}>
-          <ComposedChart data={inflacionMensualSerie} margin={{ top: 16, right: 16, left: -10, bottom: 5 }}>
-            <CartesianGrid stroke="var(--line-1)" strokeDasharray="2 4" />
-            <XAxis
-              dataKey="mes"
-              tick={{ fontSize: 10, fill: 'var(--fg-2)' }}
-              interval={1}
-              angle={-35}
-              textAnchor="end"
-              height={48}
-            />
-            <YAxis
-              domain={[0, 4.5]}
-              tickFormatter={(v) => `${v}%`}
-              tick={{ fontSize: 11, fill: 'var(--fg-2)' }}
-            />
-            <Tooltip
-              contentStyle={{ background: 'var(--bg-1)', border: '1px solid var(--line-1)', borderRadius: 8, fontSize: 12 }}
-              formatter={(v: unknown, name: string) => [typeof v === 'number' ? `${v.toFixed(1)}%` : '—', name]}
-            />
-            <Legend wrapperStyle={{ fontSize: 11, paddingTop: 8 }} />
-            {/* Headline inflation — gris */}
-            <Line
-              type="monotone"
-              dataKey="headline"
-              name="Inflación real (IPC)"
-              stroke="#94A3B8"
-              strokeWidth={2.5}
-              dot={{ r: 3, fill: '#94A3B8' }}
-              connectNulls={false}
-            />
-            {/* REM BCRA — naranja */}
-            <Line
-              type="monotone"
-              dataKey="rem"
-              name="Encuesta REM BCRA (Mediana)"
-              stroke="var(--sol)"
-              strokeWidth={2.5}
-              dot={{ r: 3, fill: 'var(--sol)' }}
-              connectNulls={false}
-            />
-            {/* BEI implícito — azul oscuro punteado */}
-            <Line
-              type="monotone"
-              dataKey="bei"
-              name="Break-even implícito (bonos)"
-              stroke="#1E3A5F"
-              strokeWidth={2.5}
-              strokeDasharray="6 3"
-              dot={{ r: 3, fill: '#1E3A5F' }}
-              connectNulls={false}
-            />
-          </ComposedChart>
-        </ResponsiveContainer>
-        <p className="text-[11px] text-[var(--fg-3)] mt-2 text-right">
-          Fuente: INDEC · BCRA REM · Curva CER vs nominal — Actualizado {ACTUALIZADO_AL}
+        <div className="overflow-x-auto">
+          <table className="w-full text-[13px]">
+            <thead className="bg-[var(--bg-1)] border-b border-[var(--line-1)]">
+              <tr className="text-[10px] font-mono uppercase tracking-wider text-[var(--fg-2)]">
+                <th className="px-4 py-2.5 text-left">Mes</th>
+                <th className="px-3 py-2.5 text-center">Días</th>
+                <th className="px-3 py-2.5 text-right">BEI Mensual</th>
+                <th className="px-3 py-2.5 text-right">REM Mensual</th>
+                <th className="px-3 py-2.5 text-right">BEI − REM</th>
+              </tr>
+            </thead>
+            <tbody>
+              {senderoMensualBEI.map((row) => {
+                const diff = row.rem !== null ? row.bei - row.rem : null;
+                const diffPositive = diff !== null && diff > 0;
+                const diffNegative = diff !== null && diff < 0;
+                return (
+                  <tr key={row.mes} className="border-b border-[var(--line-1)] hover:bg-[var(--bg-1)] transition-colors">
+                    <td className="px-4 py-2.5 font-mono font-semibold text-[var(--fg-0)] uppercase">{row.mes}</td>
+                    <td className="px-3 py-2.5 text-center tnum text-[var(--fg-2)]">{row.dias}</td>
+                    <td className="px-3 py-2.5 text-right tnum font-semibold text-[var(--celeste)]">{row.bei.toFixed(2)}%</td>
+                    <td className="px-3 py-2.5 text-right tnum text-[var(--fg-1)]">
+                      {row.rem !== null ? `${row.rem.toFixed(2)}%` : <span className="text-[var(--fg-3)]">—</span>}
+                    </td>
+                    <td className="px-3 py-2.5 text-right">
+                      {diff !== null ? (
+                        <span className={`inline-block px-2 py-0.5 rounded text-[11px] font-mono font-bold ${
+                          diffPositive
+                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                            : diffNegative
+                            ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+                            : 'text-[var(--fg-3)]'
+                        }`}>
+                          {diff > 0 ? '+' : ''}{diff.toFixed(2)}%
+                        </span>
+                      ) : (
+                        <span className="text-[var(--fg-3)]">—</span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-[11px] text-[var(--fg-3)] mt-3 text-right">
+          Fuente: BCRA REM · Curva CER vs nominal — Actualizado {ACTUALIZADO_AL}
         </p>
       </div>
 

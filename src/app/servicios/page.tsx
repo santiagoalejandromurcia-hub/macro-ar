@@ -9,6 +9,8 @@ export const metadata: Metadata = {
 
 interface ServicePage {
   id: string;
+  nivel: string;
+  nivelLabel: string;
   eyebrow: string;
   title: string;
   tagline: string;
@@ -22,38 +24,43 @@ interface ServicePage {
 const SERVICES_DETAIL: ServicePage[] = [
   {
     id: 'dashboard-facturacion',
-    eyebrow: 'PYMES · FINANZAS',
+    nivel: 'NIVEL 1',
+    nivelLabel: 'Recurrente · Low-ticket',
+    eyebrow: 'PYMES · SUSCRIPCIÓN',
     title: 'Dashboard de Facturación',
     tagline:
-      'Un panel claro de ingresos, egresos y márgenes para emprendedores y comercios en etapa de formalización — sin Excel gigantes ni contador perdido.',
-    price: 'Desde ARS 150.000 / mes',
+      'Dashboard de ingresos, egresos y márgenes cruzado con la macro de MacroLibre. Tus números en contexto, sin Excel gigantes ni contador perdido. Ingresos recurrentes para tu negocio con bajo costo de soporte.',
+    price: 'ARS 150.000 / mes',
     deliverables: [
       'Dashboard web privado con tus KPIs mensuales',
+      'Cruza tus datos internos con indicadores macro reales (IPC, tipo de cambio, EMAE)',
       'Conciliación con tus cuentas bancarias (Mercado Pago, cuenta corriente, billeteras)',
-      'Reporte exportable listo para contador cuando decidas formalizar',
+      'Reporte exportable listo para contador',
       'Alertas de márgenes deflactados por IPC real',
       'Soporte por WhatsApp en horario hábil',
     ],
     idealPara: [
       'Emprendedores facturando entre USD 2k y USD 30k / mes',
-      'Comercios de barrio que quieren profesionalizar números',
-      'Monotributistas que necesitan visión clara antes de saltar a RI',
+      'Comercios de barrio que quieren profesionalizar sus números',
+      'Monotributistas que necesitan visión macro antes de saltar a RI',
     ],
     proceso: [
       { step: '01', label: 'Llamada de descubrimiento (30 min, gratis)' },
       { step: '02', label: 'Setup + conexión de fuentes (5 días)' },
       { step: '03', label: 'Dashboard en vivo + onboarding (1 hora)' },
-      { step: '04', label: 'Revisión mensual + ajustes' },
+      { step: '04', label: 'Revisión mensual + ajustes continuos' },
     ],
     accent: 'var(--celeste)',
   },
   {
     id: 'auditoria-ads',
+    nivel: 'NIVEL 2',
+    nivelLabel: 'Pago único · Diagnóstico',
     eyebrow: 'MARKETING · PERFORMANCE',
     title: 'Auditoría de Ads',
     tagline:
-      'Revisamos tu cuenta de Meta, Google o TikTok Ads y te entregamos un informe accionable con las 10 optimizaciones de mayor impacto.',
-    price: 'ARS 750.000 · pago único',
+      'Revisamos tu cuenta de Meta, Google o TikTok Ads y te entregamos un informe accionable con las 10 optimizaciones de mayor impacto. Producto de entrada para demostrar rigor técnico en análisis de datos.',
+    price: 'ARS 550.000 · pago único',
     deliverables: [
       'Informe PDF de 40+ páginas (español, 5 días hábiles)',
       'Análisis de CAC, ROAS y LTV reales vs los que reporta la plataforma',
@@ -63,8 +70,8 @@ const SERVICES_DETAIL: ServicePage[] = [
     ],
     idealPara: [
       'Marcas invirtiendo más de USD 5.000 / mes en paid media',
-      'Agencias que quieren validar performance propia',
-      'E-commerces con caída inexplicada de ventas',
+      'Agencias que quieren validar performance propia con un tercero',
+      'E-commerces con caída inexplicada de ventas o ROAS',
     ],
     proceso: [
       { step: '01', label: 'Intro de 15 min + acceso read-only a cuentas' },
@@ -76,10 +83,12 @@ const SERVICES_DETAIL: ServicePage[] = [
   },
   {
     id: 'consultoria-macro',
-    eyebrow: 'C-LEVEL · ADVISORY',
-    title: 'Consultoría MacroEconomica',
+    nivel: 'NIVEL 3',
+    nivelLabel: 'Advisory · C-Level',
+    eyebrow: 'C-LEVEL · CONSULTORÍA',
+    title: 'Advisory Macroeconómico',
     tagline:
-      'Traduzco lo que pasa en BCRA, Tesoro e INDEC a decisiones concretas para tu negocio. Sesiones para directorios, founders y CFOs.',
+      'Sesiones personalizadas de consultoría para directorios, founders y CFOs. Traduzco lo que pasa en BCRA, Tesoro e INDEC a decisiones concretas para tu negocio.',
     price: 'ARS 250.000 / sesión · paquetes 3/6 meses',
     deliverables: [
       'Memo ejecutivo mensual (10-15 páginas)',
@@ -90,7 +99,7 @@ const SERVICES_DETAIL: ServicePage[] = [
     ],
     idealPara: [
       'Founders pre-seed a Serie A armando presupuestos 2026',
-      'Directorios que necesitan lectura económica simple',
+      'Directorios que necesitan lectura económica clara y accionable',
       'CFOs que quieren sparring externo para sus proyecciones',
     ],
     proceso: [
@@ -121,9 +130,9 @@ export default function ServiciosPage() {
           Data macro aplicada a tu negocio.
         </h1>
         <p className="mt-4 text-[15px] text-[var(--fg-1)] max-w-2xl leading-relaxed">
-          Desde un dashboard simple de facturación para emprendedores, hasta advisory mensual
-          para founders. Tres servicios, un mismo principio: tus decisiones de negocio
-          pisando la realidad macro argentina.
+          Tres niveles diseñados como una escalera: empezás con una suscripción mensual de datos,
+          subís a un diagnóstico único de ads, y llegás al advisory C-Level. Cada nivel demuestra
+          rigor antes de pedirte un compromiso mayor.
         </p>
         <div className="mt-6 flex gap-2">
           <Link
@@ -147,6 +156,15 @@ export default function ServiciosPage() {
           <article key={s.id} id={s.id} className="scroll-mt-20 glass glass-lift p-6 md:p-8">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3 mb-4">
               <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span
+                    className="text-[10px] font-mono font-bold uppercase tracking-[0.18em] px-2 py-0.5 rounded"
+                    style={{ color: s.accent, background: `color-mix(in oklch, ${s.accent} 12%, transparent)`, border: `1px solid color-mix(in oklch, ${s.accent} 30%, transparent)` }}
+                  >
+                    {s.nivel}
+                  </span>
+                  <span className="text-[10px] font-mono text-[var(--fg-3)]">{s.nivelLabel}</span>
+                </div>
                 <span
                   className="text-[10px] font-mono uppercase tracking-[0.18em]"
                   style={{ color: s.accent }}
