@@ -167,6 +167,7 @@ export const taxData = [
 ];
 
 // Balanza Comercial (USD millones)
+// Actualizado al 20-may-2026 · Fuente: INDEC — Intercambio Comercial Argentino
 export const tradeData = [
   { month: 'Ene 25', exports: 5915, imports: 5753, balance: 162 },
   { month: 'Feb 25', exports: 6140, imports: 5864, balance: 275 },
@@ -181,8 +182,9 @@ export const tradeData = [
   { month: 'Nov 25', exports: 8133, imports: 5598, balance: 2535 },
   { month: 'Dic 25', exports: 7482, imports: 5556, balance: 1927 },
   { month: 'Ene 26', exports: 7057, imports: 5070, balance: 1987 },
-  { month: 'Feb-26', exports: 5962, imports: 5174, balance: 788 },
-  { month: 'Mar-26', exports: 8645, imports: 6122, balance: 2523 },
+  { month: 'Feb 26', exports: 5962, imports: 5174, balance: 788 },
+  { month: 'Mar 26', exports: 8645, imports: 6122, balance: 2523 },
+  { month: 'Abr 26', exports: 8914, imports: 6203, balance: 2711 }, // ← RÉCORD HISTÓRICO · INDEC 20/05/2026
 ];
 
 // Reservas Internacionales BCRA (USD millones) - Actualizado 16/03/2026
@@ -452,7 +454,7 @@ export const exportacionesData: Array<{
   { year: 2023, value: 66.8 },
   { year: 2024, value: 67.0 },
   { year: 2025, value: 87.0 },
-  { year: 2026, value: 120.0, isEstimate: true },   // Récord histórico (+15% vs 2025)
+  { year: 2026, value: 100.0, isEstimate: true },   // Proyección Abeceb/INDEC: primer año > USD 100 MM
 ];
 
 // ============================================================

@@ -530,6 +530,91 @@ Lo que reste del debate argentino dependerá menos de si estos argumentos son co
 *Fuentes: Phillips (1958), Samuelson-Solow (1960), Friedman (1968), Phelps (1967), Lucas (1972), Sidrauski (1967), Sargent-Wallace (1981), Cantillon (1755), Mises (1912).*`,
   },
   {
+    slug: 'superavit-comercial-abril-2026-record',
+    title: 'Argentina Superavitaria: El Récord Comercial de Abril y la Economía que Crece en Dos Velocidades',
+    author: 'Equipo MacroLibre',
+    authorRole: 'Análisis macroeconómico',
+    date: '21 de mayo de 2026',
+    summary: 'En abril de 2026, Argentina exportó USD 8.914 millones — el mayor valor nominal de la serie histórica del INDEC — con un superávit de USD 2.711 millones, también récord. Pero leerlo solo como un titular de éxito sería un error.',
+    image: '📦',
+    tags: ['Balanza Comercial', 'Exportaciones', 'Vaca Muerta', 'Economía', 'INDEC'],
+    readTime: '9 min',
+    content: `## El Número y su Contexto
+
+En abril de 2026, Argentina exportó USD 8.914 millones — el mayor valor nominal de la serie histórica del INDEC — y cerró el mes con un superávit comercial de USD 2.711 millones, también récord para ese mes.
+
+El número impresiona. Pero leerlo solo como un titular de éxito sería un error. Para entender qué significa realmente, hay que abrir el capó y ver qué motor está funcionando — y cuál está en ralentí.
+
+El superávit acumulado en el primer cuatrimestre de 2026 alcanzó **USD 8.275 millones** — casi seis veces más que en igual período de 2025. El resultado positivo se extendió por **vigésimo noveno mes consecutivo**.
+
+Para dimensionarlo: analistas consultados por Bloomberg esperaban un superávit de USD 1.100 millones para abril. El REM del BCRA proyectaba USD 1.828 millones. El resultado real fue USD 2.711 millones — **más del doble de la expectativa del mercado**.
+
+¿Cómo se explica esa sorpresa? Por dos vías simultáneas. Las exportaciones crecieron **33,6% interanual**, impulsadas tanto por un alza de 20,6% en las cantidades exportadas como por una mejora de 10,8% en los precios. Las importaciones, en cambio, cayeron **4,0%**, con una baja de 7,7% en las cantidades compradas.
+
+Más exportaciones y menos importaciones al mismo tiempo. Esa combinación es la que produce un superávit de esa magnitud. Pero la pregunta es por qué las importaciones caen — y la respuesta no es exclusivamente positiva.
+
+## Los Tres Motores del Boom Exportador
+
+Pensá en un tren con tres locomotoras tirando a la vez, mientras el resto de los vagones ruedan por inercia. Eso es el sector externo argentino en 2026.
+
+**Primera locomotora: Energía y Vaca Muerta.** Las exportaciones de combustibles y energía crecieron **85,9% interanual** en abril, impulsadas por el petróleo y carburantes. La balanza comercial energética registró un superávit de **USD 1.402 millones en abril** — el mayor valor mensual del que se tenga registro.
+
+El cambio estructural de fondo es notable. La producción de petróleo en Argentina se encamina a romper un récord histórico en 2026, impulsada por el boom de Vaca Muerta y el crecimiento de la extracción no convencional. Según la Bolsa de Comercio de Rosario, el país podría alcanzar una producción de 54,5 millones de metros cúbicos de crudo este año, superando el máximo histórico registrado en 1998.
+
+La analogía correcta para Vaca Muerta no es la de una mina que se agota: es la de una fábrica que recién está siendo construida. La CEPH estima que el desarrollo de Vaca Muerta podría generar un superávit energético superior a **USD 20.000 millones anuales**, impulsado por el aumento de exportaciones de petróleo, la expansión del gas hacia mercados regionales y el desarrollo de proyectos de GNL.
+
+**Segunda locomotora: Minería.** En marzo de 2026, las exportaciones mineras totalizaron USD 830 millones y acumularon USD 2.409 millones durante el primer trimestre del año, representando el **11,2% de las exportaciones totales argentinas** — un nivel 158,1% por encima del promedio 2010-2025 para el mismo período.
+
+**Tercera locomotora: Agro.** El complejo agroexportador sigue siendo la columna vertebral histórica del ingreso de divisas, aunque su peso relativo se reduce a medida que energía y minería crecen. La consultora Abeceb sintetizó el nuevo perfil exportador: "a la fortaleza tradicional del agro se suma con peso creciente el aporte de Vaca Muerta, la minería metalífera y el litio".
+
+El resultado proyectado para el año completo: Argentina podría alcanzar los **USD 100.000 millones en exportaciones en 2026**, superando el récord de 2022, con un superávit comercial cercano a los **USD 16.000 millones** — casi 50% más que en 2025.
+
+## La Otra Cara: Por Qué Caen las Importaciones
+
+Acá está el dato que el titular del superávit no muestra.
+
+Las importaciones no caen principalmente porque Argentina produce más de lo que antes importaba. Caen porque una parte significativa de la economía doméstica no está traccionando lo suficiente como para demandar más insumos, bienes de capital y componentes del exterior.
+
+Las consultoras privadas señalan que el aparato transable vuela hacia el mercado mundial mientras el consumo y la industria local siguen sin terminar de repuntar. La caída en importaciones de combustibles y lubricantes fue del **45,4%** — consecuencia directa de que Argentina ya no necesita importar energía como antes gracias a Vaca Muerta. Ese componente es genuinamente positivo. Pero también cayeron bienes de capital (-5,9%) y piezas y accesorios para bienes de capital — señal de que la inversión industrial doméstica no está acelerando al mismo ritmo que el sector extractivo.
+
+## La Argentina a Dos Velocidades
+
+Un analista del CEPEC lo formuló con precisión: *"Si ponemos la lupa sobre este resultado, podremos confirmar un relato que venimos reproduciendo hace ya unos meses: la Argentina a dos velocidades."*
+
+Es una imagen útil — y técnicamente precisa.
+
+Según datos de la consultora Invecq, los "sectores ganadores" — minería, petróleo y agropecuario — se mantienen un **15,3% por encima** de los niveles registrados en noviembre de 2023. Mientras tanto, los sectores dependientes del mercado interno y el consumo urbano enfrentan un panorama de estancamiento. La industria manufacturera, el comercio y la construcción se ven afectados por la debilidad del poder adquisitivo y el encarecimiento del crédito.
+
+La brecha se refleja directamente en los indicadores sociales: la desocupación subió al **7,5%** al cierre de 2025. La construcción representa casi el 20% de los nuevos desocupados.
+
+La metáfora más precisa no es la de un tren con locomotoras: es la de un **campo de fútbol con iluminación asimétrica**. La mitad del campo — Vaca Muerta, minería, agro — está perfectamente iluminada, con jugadores activos y resultados visibles. La otra mitad — industria, construcción, consumo urbano — opera con luz tenue, no completamente oscura, pero sin la energía del otro lado.
+
+## ¿Se Sostiene?
+
+La pregunta crítica para cualquier análisis honesto del superávit comercial argentino es si este desempeño es estructural o coyuntural.
+
+Hay elementos que sugieren sustentabilidad de mediano plazo. La expansión del shale convirtió al país en un exportador neto de energía y posicionó al sector como uno de los principales receptores de inversiones privadas, especialmente tras la implementación del RIGI. La infraestructura que se está construyendo — oleoductos al Atlántico, proyectos de GNL — tiene horizontes de décadas, no de trimestres.
+
+Y hay elementos que generan interrogantes. Los términos del intercambio favorables — el índice alcanzó un nivel de 149,5, con una suba de 6,5% respecto al año anterior — dependen de precios internacionales que Argentina no controla. Un ciclo bajista en commodities energéticos o agrícolas modifica el cuadro rápidamente.
+
+La consultora LCG advierte que para el resto de la economía "no hay drivers claros que impulsen un desarrollo vigoroso", proyectando un crecimiento anual promedio por debajo de lo que el sector externo sugeriría.
+
+## La Lección Estructural
+
+Argentina lleva décadas siendo rehén de la **"restricción externa"** — la escasez de dólares que cada tanto cortaba el crecimiento, forzaba devaluaciones y generaba los ciclos de stop-and-go que empobrecieron a varias generaciones.
+
+Lo que está pasando en 2026 es potencialmente una ruptura de ese patrón. Esta diversificación productiva reduce la vulnerabilidad histórica del sector externo a los ciclos climáticos y de precios agrícolas, y abre la puerta a un sendero de crecimiento exportador estructuralmente más sólido, siempre que se sostengan las condiciones macro y se materialicen las inversiones comprometidas.
+
+El superávit récord de abril no es solo un número. Es la primera señal sostenida de que el perfil exportador argentino está cambiando de composición. El agro ya no carga solo. Vaca Muerta y la minería están tomando parte del peso.
+
+Si el crecimiento de esos sectores logra derramarse hacia la industria y el consumo interno — a través de empleo directo, encadenamientos productivos y mayor crédito — el ciclo puede volverse virtuoso. Si la economía de dos velocidades se consolida como estado permanente, el éxito del sector externo convive con una pregunta social sin respuesta clara.
+
+El resultado de abril es, en términos técnicos, extraordinario. La pregunta de fondo — *para quién y cuándo* — sigue siendo la más importante.
+
+---
+*Fuentes: INDEC (Intercambio Comercial Argentino), Abeceb, Invecq, CEPEC, CEPH, Bolsa de Comercio de Rosario, LCG, BCRA REM.*`,
+  },
+  {
     slug: 'dolar-vs-plazo-fijo-enero-mayo-2026',
     title: 'El Dólar Perdió: Qué Pasó Con $100.000 en Argentina Entre Enero y Mayo 2026',
     author: 'Equipo MacroLibre',
