@@ -147,10 +147,9 @@ export const fiscalData = [
   { period: 'Dic 25', primario: 2.0, financiero: 1.1 },
   { period: 'Ene 26', primario: 3.0, financiero: 1.1 },   // Oficial
   { period: 'Feb 26', primario: 1.4, financiero: 0.1 },   // Oficial
-  { period: 'Mar 26', primario: '-', financiero: '-' },   // Mensual no publicado (solo acumulado)
+  { period: 'Mar 26', primario: 0.9, financiero: 0.4 },
+  { period: 'Abr 26', primario: 0.6, financiero: 0.2 },  // Mensual no publicado (solo acumulado)
   
-  // Acumulados Primer Trimestre 2026 (oficial)
-  { period: '1T 26 (Ene-Mar)', primario: 0.5, financiero: 0.2 },
 ];
 
 // Recaudación Tributaria Nacional (millones de pesos) - Abril 2026
