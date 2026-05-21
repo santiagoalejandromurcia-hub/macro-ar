@@ -141,7 +141,7 @@ export async function GET() {
     const hasta = new Date().toISOString().split('T')[0];
 
     const res = await fetch(
-      `https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/17?desde=${desde}&hasta=${hasta}&limit=5`,
+      `https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/4?desde=${desde}&hasta=${hasta}&limit=5`,
       { next: { revalidate: 3600 }, headers: { Accept: 'application/json' } }
     );
     if (res.ok) {
@@ -154,9 +154,9 @@ export async function GET() {
         const change = prev ? parseFloat((last.valor - prev.valor).toFixed(2)) : 0;
         results.push({
           id: 'tamar',
-          value: `${last.valor.toFixed(2)}% TNA`,
+          value: `${last.valor.toFixed(4)}% n.a.`,
           change,
-          changeLabel: `Tasa activa mercado · ${last.fecha}`,
+          changeLabel: `TAMAR bancos privados · ${last.fecha}`,
         });
       }
     }

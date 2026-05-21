@@ -64,10 +64,10 @@ export const kpiCards: KPICard[] = [
   {
     id: 'tamar',
     title: 'TAMAR Diaria',
-    value: '38.00% TNA',
+    value: '22.94% n.a.',
     change: 0,
-    changeLabel: 'Tasa activa mercado · BCRA',
-    unit: 'TNA %',
+    changeLabel: 'Tasa activa mercado bancos privados · BCRA',
+    unit: '% n.a.',
     icon: '📉',
   },
 ];
