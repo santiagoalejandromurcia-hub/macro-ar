@@ -225,18 +225,26 @@ export default function GranosContent() {
         </ChartCard>
 
         <ChartCard
-          title="Estimación cosecha 2025/26"
-          subtitle="Millones de toneladas — campaña en curso"
-          fuente="MAGyP — Estimaciones Agrícolas"
+          title="Cosecha 2025/26 — Dato oficial"
+          subtitle="Millones de toneladas · Total récord: 163,2 Mt (+21,25% i.a.) · Fuente: SAGyP"
+          fuente="Secretaría de Agricultura, Ganadería y Pesca"
         >
           <div className="space-y-3 mt-2">
             {cosecha2526.map((c) => {
-              const barWidth = (c.estimacion / 55) * 100;
+              const maxMt = 75; // maíz es 70 Mt, el máximo
+              const barWidth = Math.min((c.estimacion / maxMt) * 100, 100);
               const up = c.variacionYoY >= 0;
               return (
                 <div key={c.grano}>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-[12px] font-semibold text-[var(--fg-0)]">{c.grano}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[12px] font-semibold text-[var(--fg-0)]">{c.grano}</span>
+                      {c.esRecord && (
+                        <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded bg-[var(--up)]/15 text-[var(--up)] border border-[var(--up)]/30">
+                          Récord
+                        </span>
+                      )}
+                    </div>
                     <div className="flex items-center gap-3">
                       <span className={`text-[11px] font-mono ${up ? 'text-[var(--up)]' : 'text-[var(--down)]'}`}>
                         {up ? '▲' : '▼'} {Math.abs(c.variacionYoY).toFixed(1)}% i.a.
@@ -251,14 +259,23 @@ export default function GranosContent() {
                       className="h-full rounded-full"
                       style={{
                         width: `${barWidth}%`,
-                        background: up ? 'var(--up)' : 'var(--down)',
+                        background: c.esRecord ? 'var(--up)' : up ? 'var(--celeste)' : 'var(--down)',
                       }}
                     />
                   </div>
-                  <div className="text-[10px] text-[var(--fg-3)] mt-0.5">{c.estado}</div>
+                  <div className="flex items-center justify-between">
+                    <div className="text-[10px] text-[var(--fg-3)] mt-0.5">{c.estado}</div>
+                    {c.rinde && (
+                      <div className="text-[10px] font-mono text-[var(--fg-3)] mt-0.5">{c.rinde}</div>
+                    )}
+                  </div>
                 </div>
               );
             })}
+            <div className="mt-3 pt-3 border-t border-[var(--line-1)] flex justify-between items-center">
+              <span className="text-[11px] font-mono text-[var(--fg-2)] uppercase tracking-wider">Total campaña 25/26</span>
+              <span className="text-[14px] font-bold text-[var(--up)] font-mono tnum">163,2 Mt ▲ 21,3%</span>
+            </div>
           </div>
         </ChartCard>
       </div>

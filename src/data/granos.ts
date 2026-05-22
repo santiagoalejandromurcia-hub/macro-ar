@@ -8,7 +8,7 @@
 // ascendente por fecha. Los KPIs se actualizan arriba.
 // ============================================================
 
-export const ACTUALIZADO_AL = '2026-05-12';
+export const ACTUALIZADO_AL = '2026-05-21';
 export const FUENTE_FOB   = 'MAGyP — Subsecretaría de Mercados Agropecuarios';
 export const FUENTE_DJVE  = 'MAGyP — DJVE (Declaraciones Juradas de Ventas al Exterior)';
 export const FUENTE_EXPORT = 'INDEC — Intercambio Comercial Argentino (ICA)';
@@ -49,10 +49,11 @@ export const kpisGranos: KpiGranos[] = [
     color: 'magenta',
   },
   {
-    label: 'DJVE Acumulado',
-    valor: '41.2M',
-    unidad: 'tn (ene-may 26)',
-    mes: 'May 26',
+    label: 'Cosecha 25/26',
+    valor: '163.2M',
+    unidad: 'tn · récord histórico',
+    variacion: 21.25,
+    mes: 'Campaña 25/26',
     color: 'up',
   },
 ];
@@ -178,18 +179,59 @@ export const destinosPrincipales: Destino[] = [
   { pais: 'Otros',        participacion: 22.9, grano: 'Mix'   },
 ];
 
-// ─── Estimación de cosecha campaña 2025/26 (Mt) ──────────────
+// ─── Cosecha campaña 2025/26 (Mt) ────────────────────────────
+// Fuente: Secretaría de Agricultura, Ganadería y Pesca
+// DATO FINAL OFICIAL — Récord histórico total: 163.2 Mt (+21.25% vs campaña anterior)
 export interface Cosecha {
   grano: string;
   estimacion: number;   // millones de toneladas
   variacionYoY: number; // % vs campaña anterior
   estado: string;
+  rinde?: string;       // rendimiento por hectárea (qq/ha)
+  esRecord?: boolean;
 }
 
 export const cosecha2526: Cosecha[] = [
-  { grano: 'Soja',    estimacion: 49.5, variacionYoY:  8.2,  estado: 'Cosecha en curso' },
-  { grano: 'Maíz',   estimacion: 50.0, variacionYoY:  4.6,  estado: 'Cosecha en curso' },
-  { grano: 'Trigo',  estimacion: 18.5, variacionYoY: -3.1,  estado: 'Cosechado (dic 25)' },
-  { grano: 'Girasol',estimacion:  3.4, variacionYoY:  2.4,  estado: 'Cosechado (mar 26)' },
-  { grano: 'Cebada', estimacion:  5.2, variacionYoY:  6.1,  estado: 'Cosechado (dic 25)' },
+  {
+    grano: 'Maíz',
+    estimacion: 70.0,
+    variacionYoY: 22.8,
+    estado: 'Cosechado · Récord 20 años',
+    rinde: '72 qq/ha',
+    esRecord: true,
+  },
+  {
+    grano: 'Soja',
+    estimacion: 49.9,
+    variacionYoY: 0.8,
+    estado: 'Cosechado',
+    rinde: '30,6 qq/ha',
+  },
+  {
+    grano: 'Trigo',
+    estimacion: 27.9,
+    variacionYoY: 34.1,
+    estado: 'Cosechado (dic 25) · Récord histórico',
+    esRecord: true,
+  },
+  {
+    grano: 'Girasol',
+    estimacion: 7.4,
+    variacionYoY: 117.6,
+    estado: 'Cosechado (mar 26) · Récord histórico',
+    rinde: '23,4 qq/ha',
+    esRecord: true,
+  },
+  {
+    grano: 'Cebada',
+    estimacion: 5.6,
+    variacionYoY: 7.7,
+    estado: 'Cosechado (dic 25)',
+  },
+  {
+    grano: 'Sorgo',
+    estimacion: 2.4,
+    variacionYoY: 0.0,
+    estado: 'Cosechado',
+  },
 ];

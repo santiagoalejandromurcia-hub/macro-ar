@@ -22,9 +22,9 @@ export const kpiCards: KPICard[] = [
   {
     id: 'emae',
     title: 'EMAE',
-    value: '-2.1%',
-    change: -2.1,
-    changeLabel: 'var. i.a. (Feb 26)',
+    value: '+5.5%',
+    change: 5.5,
+    changeLabel: 'var. i.a. (Mar 26)',
     unit: 'Índice 2004=100',
     icon: '📊',
   },
@@ -74,28 +74,29 @@ export const kpiCards: KPICard[] = [
 
 // EMAE — Estimador Mensual de Actividad Económica
 export const emaeData = [
-  { date: 'Ene 23', value: 143.0, trend: 144.0 },
-  { date: 'Mar 23', value: 155.0, trend: 143.8 },
-  { date: 'May 23', value: 153.8, trend: 143.0 },
-  { date: 'Jul 23', value: 150.2, trend: 142.0 },
-  { date: 'Sep 23', value: 148.4, trend: 140.2 },
-  { date: 'Nov 23', value: 146.4, trend: 138.0 },
-  { date: 'Ene 24', value: 137.5, trend: 132.0 },
-  { date: 'Mar 24', value: 142.6, trend: 129.5 },
-  { date: 'May 24', value: 156.8, trend: 133.5 },
-  { date: 'Jul 24', value: 145.7, trend: 138.8 },
-  { date: 'Sep 24', value: 148.1, trend: 144.0 },
-  { date: 'Nov 24', value: 148.1, trend: 150.2 },
-  { date: 'Ene 25', value: 146.3, trend: 155.5 },
-  { date: 'Mar 25', value: 150.4, trend: 158.8 },
-  { date: 'May 25', value: 164.9, trend: 161.2 },
-  { date: 'Jul 25', value: 153.9, trend: 161.5},
-  { date: 'Sep 25', value: 151.8, trend: 161.9 },
-  { date: 'Nov 25', value: 147.7, trend: 162.2 },
-  { date: 'Dic 25', value: 153.5, trend: 162.6 },
-  { date: 'Ene 26', value: 150.8, trend: 162.8 },   // +1.9% i.a. | +0.4% desestacionalizado
-  { date: 'Feb 26', value: 147.1, trend: 163.0 },   // -2.1% i.a. | -2.6% desestacionalizado (MoM)
-  // Próximo dato: Marzo 2026 → se publica el 21 de mayo 2026
+
+  { date: 'Ene 23', value: 143.0, trend: 149.3 },
+  { date: 'Mar 23', value: 155.1, trend: 148.6 },
+  { date: 'May 23', value: 153.8, trend: 148.0 },
+  { date: 'Jul 23', value: 150.2, trend: 147.2 },
+  { date: 'Sep 23', value: 148.4, trend: 146.2 },
+  { date: 'Nov 23', value: 146.4, trend: 145.2 },
+  { date: 'Ene 24', value: 137.5, trend: 144.3 },
+  { date: 'Mar 24', value: 142.6, trend: 144.0 },
+  { date: 'May 24', value: 156.8, trend: 144.5 },
+  { date: 'Jul 24', value: 149.7, trend: 145.7 },
+  { date: 'Sep 24', value: 144.8, trend: 147.4 },
+  { date: 'Nov 24', value: 148.1, trend: 149.0 },
+  { date: 'Ene 25', value: 146.3, trend: 150.4 },
+  { date: 'Mar 25', value: 150.4, trend: 151.2 },
+  { date: 'May 25', value: 164.9, trend: 151.7 },
+  { date: 'Jul 25', value: 153.9, trend: 152.0 },
+  { date: 'Sep 25', value: 151.8, trend: 152.4 },
+  { date: 'Nov 25', value: 147.7, trend: 153.2 },
+  { date: 'Dic 25', value: 153.5, trend: 153.7 },
+  { date: 'Ene 26', value: 148.6, trend: 154.3 },
+  { date: 'Feb 26', value: 138.3, trend: 154.9 },
+  { date: 'Mar 26', value: 158.6, trend: 155.6 },
 ];
 
 // PBI Trimestral (variación interanual % YoY) - Actualizado 16/03/2026
@@ -657,8 +658,8 @@ export const emaeLargoPlazoData: Array<{
   { date: 'Jun 24',  value: 138.8, etapa: 'lla' },
   { date: 'Dic 24',  value: 148.0, etapa: 'lla' },
   { date: 'Jun 25',  value: 152.0, etapa: 'lla' },
-  { date: 'Dic 25',  value: 154.0, etapa: 'lla' },
-  { date: 'Mar 26',  value: 155.0, etapa: 'lla', isEstimate: true },   // Nuevo máximo (+7,9% vs Dic-23)
+  { date: 'Dic 25',  value: 155.5, etapa: 'lla' },
+  { date: 'Mar 26',  value: 158.6, etapa: 'lla', isEstimate: true },   // Nuevo máximo 
 ];
 
 // ============================================================
