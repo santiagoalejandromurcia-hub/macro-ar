@@ -630,7 +630,7 @@ export const inflacionLargoPlazoData: Array<{
 // EMAE largo plazo — Serie desestacionalizada (puntos clave 2017-2026)
 // Fuente: Econométrica en base a INDEC
 // Hitos: nov-17 J×C ~152 · COVID 2020 ~137 · jun-22 pico azul ~152 ·
-//        dic-23 punto partida Milei · Mar-26* ~155 (nuevo máximo)
+//        dic-23 punto partida Milei · Mar-26* ~158 (nuevo máximo)
 // ============================================================
 export const emaeLargoPlazoData: Array<{
   date: string;
