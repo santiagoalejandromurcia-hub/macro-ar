@@ -51,8 +51,9 @@ const SECTION_GROUPS: SectionGroup[] = [
   {
     title: 'Contenido',
     links: [
-      { href: '/glosario',  label: 'Glosario', desc: 'Conceptos económicos explicados' },
+      { href: '/informes',  label: 'Informes',  desc: 'Análisis mensual de coyuntura macro · Edición N°1' },
       { href: '/articulos', label: 'Artículos', desc: 'Análisis y opinión' },
+      { href: '/glosario',  label: 'Glosario',  desc: 'Conceptos económicos explicados' },
     ],
   },
   {

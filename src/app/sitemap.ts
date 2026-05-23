@@ -1,5 +1,6 @@
 import { articles } from '@/data/articles';
 import { glosario } from '@/data/glosario';
+import { informes } from '@/data/informes';
 import type { MetadataRoute } from 'next';
 
 // ============================================================
@@ -90,6 +91,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8, // alto: nicho diferenciado (vinos + mostos INV)
     },
     {
+      url: `${BASE_URL}/informes`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9, // alto: producto diferenciado, indexación prioritaria
+    },
+    {
       url: `${BASE_URL}/articulos`,
       lastModified: now,
       changeFrequency: 'weekly',
@@ -146,5 +153,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...articlePages, ...glossaryPages];
+  // ─── Informes macroeconómicos ───
+  const informePages: MetadataRoute.Sitemap = informes.map((inf) => ({
+    url: `${BASE_URL}/informes/${inf.slug}`,
+    lastModified: new Date(inf.fecha),
+    changeFrequency: 'monthly' as const,
+    priority: 0.9, // alto: informe mensual diferenciado
+  }));
+
+  return [...staticPages, ...articlePages, ...glossaryPages, ...informePages];
 }

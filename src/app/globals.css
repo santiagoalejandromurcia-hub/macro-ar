@@ -408,3 +408,74 @@ button:focus-visible, a:focus-visible {
 /* Lion logo (aún referenciado por algunos componentes) */
 .lion-logo { transition: transform 0.3s ease; }
 .lion-logo:hover { transform: scale(1.1); }
+
+/* ════════════════════════════════════════════════════
+   INFORME MACROECONÓMICO — estilos de contenido
+   ════════════════════════════════════════════════════ */
+.informe-content p {
+  margin-bottom: 1rem;
+  color: var(--fg-1);
+  line-height: 1.75;
+}
+.informe-content h4 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--fg-0);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+}
+.informe-content ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.informe-content ul li {
+  padding-left: 1.25rem;
+  position: relative;
+  color: var(--fg-1);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.informe-content ul li::before {
+  content: '·';
+  position: absolute;
+  left: 0.25rem;
+  color: var(--celeste);
+  font-weight: 700;
+}
+.informe-content strong { color: var(--fg-0); }
+.informe-content em { color: var(--fg-2); font-style: italic; }
+.informe-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line-1);
+}
+.informe-content th {
+  background: var(--bg-2);
+  color: var(--fg-0);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--line-1);
+}
+.informe-content td {
+  padding: 0.45rem 0.75rem;
+  color: var(--fg-1);
+  border-bottom: 1px solid var(--line-1);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.775rem;
+}
+.informe-content tr:last-child td { border-bottom: none; }
+.informe-content tr:nth-child(even) td { background: oklch(0.18 0.016 250 / 0.5); }
