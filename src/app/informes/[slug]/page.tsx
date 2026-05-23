@@ -219,7 +219,7 @@ export default async function InformePage({ params }: Props) {
               Descargar informe (.docx)
             </a>
           </div>
-        </nav>
+        </footer>
 
         {/* Volver */}
         <div className="mt-8 pt-6 border-t border-[var(--line-1)]">
