@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import ChartDownloadWrapper from '@/components/ChartDownloadWrapper';
 import {
   ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine,
 } from 'recharts';
@@ -137,6 +138,7 @@ export default function BreakEvenContent() {
       </div>
 
       {/* ─── Gráfico de curvas ─── */}
+      <ChartDownloadWrapper title="Curvas de tasas y BEI implícita" fileName="break-even-curvas">
       <div className="glass p-4 sm:p-6">
         <div className="mb-4">
           <h2 className="text-lg font-semibold text-[var(--fg-0)] mb-1">
@@ -173,6 +175,7 @@ export default function BreakEvenContent() {
           </ComposedChart>
         </ResponsiveContainer>
       </div>
+      </ChartDownloadWrapper>
 
       {/* ─── Tabla con veredicto ─── */}
       <div>

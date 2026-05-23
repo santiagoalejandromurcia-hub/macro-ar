@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef, useState } from 'react';
 import {
   BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
@@ -68,16 +69,113 @@ function KpiCard({
   );
 }
 
+// ── Helpers de descarga de imagen ──────────────────────────
+function resolveCssVar(val: string): string {
+  if (!val.includes('var(')) return val;
+  return val.replace(/var\(([^)]+)\)/g, (_, name) => {
+    const r = getComputedStyle(document.documentElement).getPropertyValue(name.trim()).trim();
+    return r || '#888';
+  });
+}
+function inlineStyles(clone: SVGElement, original: SVGElement) {
+  const cEls = clone.querySelectorAll('*');
+  const oEls = original.querySelectorAll('*');
+  const ATTRS = ['fill', 'stroke', 'color', 'font-size', 'font-family', 'opacity'];
+  oEls.forEach((o, i) => {
+    const c = cEls[i] as SVGElement;
+    if (!c) return;
+    const cs = getComputedStyle(o);
+    ATTRS.forEach((a) => { const v = cs.getPropertyValue(a); if (v && v !== 'none') c.style.setProperty(a, resolveCssVar(v)); });
+    ['fill','stroke'].forEach((a) => { const r = (o as SVGElement).getAttribute(a); if (r?.startsWith('var(')) c.setAttribute(a, resolveCssVar(r)); });
+  });
+}
+async function downloadChartImage(
+  wrapperEl: HTMLDivElement, title: string, format: 'png' | 'jpg', fileName: string,
+) {
+  const svg = wrapperEl.querySelector('svg');
+  if (!svg) { alert('No se encontró el gráfico.'); return; }
+  const { width: W, height: H } = svg.getBoundingClientRect();
+  const PAD = 24; const HDR = 52; const FTR = 28;
+  const CW = Math.round(W) + PAD * 2; const CH = Math.round(H) + HDR + FTR + PAD;
+  const BG = resolveCssVar('var(--bg-1)') || '#1a2035';
+  const BG2 = resolveCssVar('var(--bg-2)') || '#1e2640';
+  const FG0 = resolveCssVar('var(--fg-0)') || '#f8f9fb';
+  const FG2 = resolveCssVar('var(--fg-2)') || '#8b9ab0';
+  const CEL = resolveCssVar('var(--celeste)') || '#5DC1E0';
+  const clone = svg.cloneNode(true) as SVGElement;
+  inlineStyles(clone, svg);
+  clone.setAttribute('width', String(Math.round(W)));
+  clone.setAttribute('height', String(Math.round(H)));
+  const blob = new Blob([new XMLSerializer().serializeToString(clone)], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const img = await new Promise<HTMLImageElement>((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+  const canvas = document.createElement('canvas');
+  canvas.width = CW * 2; canvas.height = CH * 2;
+  const ctx = canvas.getContext('2d')!; ctx.scale(2, 2);
+  ctx.fillStyle = BG; ctx.fillRect(0, 0, CW, CH);
+  ctx.fillStyle = CEL; ctx.fillRect(0, 0, CW, 3);
+  ctx.fillStyle = BG2; ctx.fillRect(0, 3, CW, HDR);
+  ctx.fillStyle = FG0; ctx.font = '600 13px -apple-system,Geist,sans-serif'; ctx.textBaseline = 'middle';
+  ctx.fillText(title, PAD, 3 + HDR / 2 - 5);
+  ctx.fillStyle = CEL; ctx.font = '400 10px -apple-system,"Geist Mono",monospace';
+  ctx.fillText('macrolibre.com', PAD, 3 + HDR / 2 + 10);
+  ctx.drawImage(img, PAD, 3 + HDR, Math.round(W), Math.round(H));
+  const fy = 3 + HDR + Math.round(H) + 6;
+  ctx.fillStyle = FG2; ctx.font = '400 9px -apple-system,"Geist Mono",monospace'; ctx.textBaseline = 'top';
+  ctx.fillText('MacroLibre · macrolibre.com · datos: MAGyP / INDEC', PAD, fy);
+  const fecha = new Date().toLocaleDateString('es-AR', { year:'numeric', month:'long', day:'numeric' });
+  ctx.fillText(fecha, CW - PAD - ctx.measureText(fecha).width, fy);
+  URL.revokeObjectURL(url);
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL(format === 'jpg' ? 'image/jpeg' : 'image/png', format === 'jpg' ? 0.92 : undefined);
+  a.download = `${fileName}.${format}`; a.click();
+}
+
 function ChartCard({
   title, subtitle, children, fuente,
 }: {
   title: string; subtitle?: string; children: React.ReactNode; fuente?: string;
 }) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [dl, setDl] = useState<'png'|'jpg'|null>(null);
+  const slug = title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+
+  async function handleDl(fmt: 'png'|'jpg') {
+    if (!wrapperRef.current || dl) return;
+    setDl(fmt);
+    try { await downloadChartImage(wrapperRef.current, title, fmt, `macrolibre-granos-${slug}`); }
+    finally { setDl(null); }
+  }
+
   return (
-    <div className="glass rounded-xl p-5">
-      <div className="mb-4">
-        <h2 className="text-[15px] font-semibold text-[var(--fg-0)]">{title}</h2>
-        {subtitle && <p className="text-[12px] text-[var(--fg-2)] mt-0.5">{subtitle}</p>}
+    <div ref={wrapperRef} className="glass rounded-xl p-5">
+      <div className="mb-4 flex items-start justify-between gap-3">
+        <div>
+          <h2 className="text-[15px] font-semibold text-[var(--fg-0)]">{title}</h2>
+          {subtitle && <p className="text-[12px] text-[var(--fg-2)] mt-0.5">{subtitle}</p>}
+        </div>
+        {/* Botones PNG / JPG */}
+        <div className="flex items-center gap-1 shrink-0">
+          {(['png','jpg'] as const).map((fmt) => (
+            <button
+              key={fmt}
+              onClick={() => handleDl(fmt)}
+              disabled={!!dl}
+              title={`Descargar como ${fmt.toUpperCase()}`}
+              className={`flex items-center gap-1 px-2 py-0.5 text-[10px] font-mono border rounded-lg transition-all
+                ${dl === fmt
+                  ? 'text-[var(--celeste)] border-[var(--celeste)]/40 bg-[var(--celeste)]/10 cursor-wait'
+                  : 'text-[var(--fg-3)] hover:text-[var(--celeste)] hover:bg-[var(--celeste)]/10 border-[var(--line-1)] hover:border-[var(--celeste)]/30'
+                }`}
+            >
+              {dl === fmt
+                ? <svg className="w-3 h-3 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M21 12a9 9 0 11-6.219-8.56" strokeLinecap="round"/></svg>
+                : <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 4v12m0 0l-4-4m4 4l4-4"/></svg>
+              }
+              {fmt.toUpperCase()}
+            </button>
+          ))}
+        </div>
       </div>
       {children}
       {fuente && (
