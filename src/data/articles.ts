@@ -20,6 +20,121 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: 'consumo-argentina-abril-2026',
+    title: '¿Es verdad que el consumo cae como dicen? La economía a dos velocidades',
+    author: 'Equipo MacroLibre',
+    authorRole: 'Análisis macroeconómico',
+    date: '23 de mayo de 2026',
+    summary:
+      'CAME marca 12 meses consecutivos de caída en ventas minoristas pyme (-3.5% acumulado) y los supermercados retroceden entre 5% y 13% real. Pero el consumo privado de cuentas nacionales tocó un máximo histórico (+4.1% YoY), el e-commerce crece más de 20% real y las billeteras virtuales explotaron +47.5%. ¿Quién tiene razón? Ninguno completamente: el consumo no cae, se mudó de canal.',
+    image: '🛒',
+    tags: ['Consumo', 'E-commerce', 'Salarios', 'EMAE', 'Política Económica'],
+    readTime: '8 min',
+    content: `## Resumen ejecutivo
+
+Los datos permiten sostener que mientras CAME registra 12 meses consecutivos de caída en ventas minoristas pyme (-3.5% acumulado al cuatrimestre) y supermercados y shoppings medidos por INDEC muestran bajas reales de entre 5.1% y 13.3% interanual, el consumo privado de cuentas nacionales alcanzó un máximo histórico en el cuarto trimestre de 2025 (+4.1% interanual) y el e-commerce crece a más de 20% real interanual.
+
+La estadística minorista tradicional está capturando sobre todo un canal, no el consumo total: el e-commerce ya representa 25% de las ventas de muchas empresas (Mid-Term CACE-Kantar), el canal online en supermercados crece 26.2% interanual contra 20.3% del salón físico, la vacancia comercial en CABA subió 30% interanual según la CAC y las billeteras virtuales y pagos con QR avanzaron 47.5% interanual en supermercados.
+
+La división relevante no es simplemente si hay o no hay consumo, sino **quién consume y a través de qué canales**: con salarios públicos 17% por debajo de noviembre de 2023, empleo público nacional -6% interanual y empresas estatales con 18.278 puestos menos, el ajuste se concentra en un segmento, mientras los bienes durables, el turismo emisivo y el comercio digital muestran expansión o niveles récord.
+
+## Hallazgos principales
+
+**1. La foto del comercio minorista tradicional es negativa, pero no agota el cuadro.** Según CAME, las ventas minoristas pyme cayeron 3.2% interanual real en abril de 2026 — el duodécimo mes consecutivo en baja — y acumulan un retroceso de 3.5% en el primer cuatrimestre. INDEC registra para marzo de 2026 caídas de 5.1% en supermercados, 7.2% en autoservicios mayoristas y 13.3% en shoppings (en este último caso la peor performance desde abril 2024).
+
+**2. Al mismo tiempo, el propio INDEC muestra que el consumo privado agregado está en máximos.** Las cuentas nacionales del 4T 2025 reportan +4.1% interanual y +1.7% desestacionalizado respecto del trimestre previo, alcanzando el máximo de toda la serie histórica iniciada en 2004. En el acumulado de 2025, el consumo privado creció 7.9%, impulsado por bienes durables, turismo emisivo y comercio online.
+
+**3. El e-commerce explica buena parte.** CACE facturó $35.3 billones en 2025 (+60% nominal contra inflación de 31.5%). En el primer cuatrimestre de 2026 Tiendanube reporta crecimiento del 20% interanual real. Mercado Libre tuvo en el 1T 2026 su mejor trimestre en cuatro años, con GMV en Argentina +41% real e ítems vendidos +35%.
+
+**4. Las estadísticas oficiales son honestas sobre lo que miden.** El INDEC informa que las ventas online en supermercados crecieron 26.2% nominal interanual en marzo, contra 20.3% del salón físico; pero ese canal online en grandes cadenas solo representa el 3.1% de la facturación total. El relevamiento de CAME se hace sobre 1.153 comercios físicos pyme, no captura el e-commerce puro.
+
+**5. La transformación de medios de pago confirma la migración digital.** En supermercados, la tarjeta de crédito ya explica el 44.9% de la facturación ($1.107 billones en marzo), el débito 24.8%, el efectivo solo 16.6% y "otros medios" (billeteras virtuales, QR, transferencias) 13.7% — pero esos otros medios crecieron 47.5% i.a., el segmento de mayor expansión. En mayoristas, billeteras y QR ya son el principal medio de pago.
+
+**6. Digitalización masiva.** Las extracciones en cajeros cayeron al piso histórico de 41.3 millones mensuales en febrero (-65.5% en cinco años). Según el BCRA, 29.5 millones de personas hicieron pagos digitales en el último trimestre de 2025. Las billeteras virtuales concentran ya $8 billones (6.3% de los depósitos del sistema, +60% i.a. nominal).
+
+**7. El reverso del e-commerce es la vacancia comercial.** Según el economista jefe de la Cámara Argentina de Comercio y Servicios, Matías Bolis Wilson: "Hay cada vez más locales vacíos en CABA. Aumentó 30% interanual la vacancia y eso tiene que ver con la lógica de cambio de forma de vender de los comerciantes, que se están volcando más al ecommerce".
+
+**8. El sector público es el ajuste; el privado y los durables, la otra cara.** El empleo en la Administración Pública Nacional cayó 6% i.a. en marzo de 2026, con 65.528 puestos menos desde diciembre 2023 (13% de la planta). Los salarios públicos están 17% por debajo del nivel pre-Milei. En contraste, el EMAE de marzo creció 5.5% i.a. con Pesca (+30.9%), Agro (+17.9%), Minas y Canteras (+16.3%, traccionado por Vaca Muerta) e Intermediación Financiera (+8.8%) liderando.
+
+## El e-commerce que no aparece en las mediciones tradicionales
+
+Mientras los canales tradicionales muestran retrocesos, el comercio digital exhibe una dinámica claramente expansiva:
+
+- **CACE Estudio Anual 2025**: facturación de $35.3 billones (+60% nominal, +27 puntos por encima de la inflación), 645 millones de unidades vendidas (+28%), ticket promedio $143.128, 1.34 millones de nuevos compradores online sumados al universo de 25 millones.
+- **Mid-Term CACE-Kantar (1S 2025)**: e-commerce con peso del 25% en ventas totales (vs. 15% en 2023).
+- **Mercado Libre 1T 2026**: USD 8.845 millones (+49% interanual). Argentina: GMV +41% en moneda constante, TPV de Mercado Pago +55%. Plan 2026: USD 3.400 millones de inversión y 1.900 nuevos puestos.
+- **Hot Sale 2026**: facturación de $673.000 millones, +19% nominal interanual, 93.4% de compras desde dispositivos móviles.
+- **Tiendanube 1C 2026**: crecimiento interanual del 20% real (la mitad del 40% del 1C 2025, pero muy por encima del minorista físico).
+- **Scentia consumo masivo - canal e-commerce**: +34.3% i.a. en marzo 2026. Participación del online en consumo masivo pasó de 6.3% en 2024 a 8.2% en marzo 2026.
+
+## Medios de pago: la huella estadística del cambio
+
+**Supermercados (marzo 2026):**
+- Tarjeta de crédito: 44.9% ($1.107 billones)
+- Tarjeta de débito: 24.8%
+- Efectivo: 16.6%
+- Otros (billeteras, QR, transferencias): 13.7% (+47.5% i.a., el segmento de mayor crecimiento)
+
+**Autoservicios mayoristas:**
+- Otros medios (billeteras, QR): 31.9% (+32.7% i.a.) — ya es el principal medio
+- Tarjeta de crédito: 26.8%
+- Efectivo: 25.6%
+
+Argentina lidera la región en adopción de pagos móviles, con 84% de usuarios que pagan con QR, un tercio del valor transaccionado en puntos físicos canalizado por billeteras digitales, y 39% de los pagos online concentrados en ese mismo instrumento (Global Payments Report 2026).
+
+## EMAE: una economía que avanza a dos velocidades
+
+El EMAE de marzo de 2026 creció 5.5% interanual y 3.5% mensual desestacionalizado, alcanzando un máximo histórico. Pero el dato agregado convive con fuerte heterogeneidad sectorial:
+
+**Sectores que más traccionan (i.a. marzo):**
+- Pesca: +30.9%
+- Agricultura, ganadería: +17.9%
+- Explotación de minas y canteras: +16.3%
+- Intermediación financiera: +8.8%
+- Construcción: +7.6%
+- Industria manufacturera: +4.6%
+
+**Único sector en caída:** Administración pública y defensa: -1.2%
+
+La producción petrolera apunta a un récord histórico en 2026: 54.5 millones de m³ de crudo, +16% i.a., con cerca de 70% del total proveniente de Vaca Muerta — dejando atrás la marca de 1998.
+
+## Salarios, empleo y la divergencia entre consumo público y privado
+
+El ajuste se concentra sobre todo en el Estado y en los trabajadores vinculados al sector público:
+
+- **Empleo público nacional**: -65.528 puestos desde diciembre 2023 (cierre febrero 2026), 13% de la planta. Empresas estatales: -18.278 empleados.
+- **Salarios reales sector público**: 17% por debajo de noviembre 2023. Un empleado nacional perdió el equivalente a 7.7 salarios mensuales en 27 meses (IARAF).
+- **Salarios reales sector privado registrado**: -1.3% real en marzo 2026 (séptimo mes consecutivo de caída), 4.8% por debajo de noviembre 2023.
+- **Mercado laboral**: desempleo de 7.5% en 4T 2025; pérdida de 194.200 puestos asalariados privados en dos años; trasvase a monotributo (+112.200).
+
+La caída de 5.1% interanual en consumo masivo medida por Scentia en marzo dialoga con otros dos datos. Por un lado, la mora en créditos a hogares trepó a 11.5%, el nivel más alto en 21 años. Por otro, crece la dependencia de promociones: 70% de los productos vendidos en grandes supermercados se comercializa con descuento o en cuotas.
+
+## Cuadro de indicadores
+
+| Indicador | Variación real i.a. | Período | Fuente |
+|---|---|---|---|
+| Ventas minoristas pyme | -3.2% | Abril 2026 | CAME |
+| Ventas minoristas pyme acumulado | -3.5% | Ene-Abr 2026 | CAME |
+| Supermercados | -5.1% | Marzo 2026 | INDEC |
+| Autoservicios mayoristas | -7.2% | Marzo 2026 | INDEC |
+| Shoppings | -13.3% | Marzo 2026 | INDEC |
+| Electrodomésticos | -12.4% | 1T 2026 | INDEC |
+| Consumo masivo | -5.1% | Marzo 2026 | Scentia |
+| Consumo aparente carne vacuna | -10% | Marzo 2026 | CICCRA |
+| Consumo privado cuentas nacionales | +4.1% | 4T 2025 | INDEC |
+| Mercado Libre GMV Argentina | +41% | 1T 2026 | MELI |
+| E-commerce Scentia (canal online) | +34.3% | Marzo 2026 | Scentia |
+| EMAE | +5.5% | Marzo 2026 | INDEC |
+
+## Conclusión
+
+El consumo argentino no está cayendo de manera homogénea: está mutando. Una parte se digitalizó (e-commerce +20-40% real), otra migró hacia bienes durables, turismo y servicios, mientras el comercio físico tradicional retrocede entre 3% y 13%.
+
+Las mediciones de CAME e INDEC supermercados/shoppings son correctas, pero capturan un canal — no el agregado. Cualquier lectura responsable del cuadro tiene que distinguir entre quién sufre el ajuste (empleados públicos, sector público en general, comercios físicos pyme) y quién muestra expansión (sectores transables, comercio digital, empresas exportadoras).
+
+La frase que mejor resume el momento la dijo De Pablo: el consumo no desapareció, cambió de canal y cambió de protagonistas.`,
+  },
+  {
     slug: 'universidad-gratuita-negocio-caro-argentina',
     title: 'La Universidad Gratuita Que Nadie Termina: El Negocio Más Caro de Argentina',
     author: 'Equipo MacroLibre',
