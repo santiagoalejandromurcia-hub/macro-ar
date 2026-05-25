@@ -117,8 +117,8 @@ function ExportArcs({ radius }: { radius: number }) {
     const t = clock.getElapsedTime();
     meshRefs.current.forEach((line, i) => {
       if (!line) return;
-      const mat = line.material as THREE.LineDashedMaterial;
-      // Cada arco desfasado en el tiempo
+      // dashOffset exists at runtime pero no está en los tipos de esta versión de Three.js
+      const mat = line.material as THREE.LineDashedMaterial & { dashOffset: number };
       mat.dashOffset = -(t * 0.4 + i * 0.5) % 2;
     });
   });
