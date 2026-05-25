@@ -42,15 +42,17 @@ function RiesgoPaisInnerChart() {
     area.setData(seriesData);
 
     // Markers: pico (rojo arriba), mínimo (verde abajo), actual (amarillo arriba)
+    // v5: position y shape deben ser el tipo exacto (literal), y price es obligatorio
     const markers: SeriesMarker<Time>[] = riesgoPaisData
       .filter((d) => d.highlight)
       .map((d) => ({
-        time: spanishToISO(d.date) as Time,
-        position: d.highlight === 'minimo' ? 'belowBar' : 'aboveBar',
+        time:  spanishToISO(d.date) as Time,
+        price: d.value,
+        position: (d.highlight === 'minimo' ? 'belowBar' : 'aboveBar') as SeriesMarker<Time>['position'],
         color:
           d.highlight === 'pico'   ? '#EF4444' :
           d.highlight === 'minimo' ? '#22C55E' : '#D4A843',
-        shape: 'circle',
+        shape: 'circle' as SeriesMarker<Time>['shape'],
         text: `${d.value} pb`,
         size: 1,
       }))
