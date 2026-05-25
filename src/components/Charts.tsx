@@ -27,4 +27,6 @@ export {
   // Histórico largo plazo
   InflacionLargoPlazoChart,
   EmaeLargoPlazoChart,
+  // Gasto Público
+  GastoPublicoChart,
 } from './charts/index';
