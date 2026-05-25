@@ -26,3 +26,6 @@ export { default as DeudaConsolidadaChart } from './DeudaConsolidadaChart';
 // Bloque "Histórico largo plazo"
 export { default as InflacionLargoPlazoChart } from './InflacionLargoPlazoChart';
 export { default as EmaeLargoPlazoChart } from './EmaeLargoPlazoChart';
+
+// Bloque "Gasto Público"
+export { default as GastoPublicoChart } from './GastoPublicoChart';

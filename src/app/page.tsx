@@ -9,7 +9,7 @@ import {
   InflacionMensualChart, InflacionInteranualChart, REMChart,
   ConsumoPrivadoChart, PBIDesestacionalizadoChart, PobrezaChart, ExportacionesChart,
   SalarioRealChart, DeudaPibChart, DeudaConsolidadaChart,
-  InflacionLargoPlazoChart, EmaeLargoPlazoChart,
+  InflacionLargoPlazoChart, EmaeLargoPlazoChart, GastoPublicoChart,
 } from '@/components/Charts';
 import Link from 'next/link';
 import SimuladorIA from '@/components/SimuladorIA';
@@ -114,11 +114,12 @@ export default function HomePage() {
           <SectionHeader
             id="fiscal"
             title="Equilibrio fiscal"
-            subtitle="Resultado primario, financiero y recaudación — Fuente: Min. Economía"
+            subtitle="Resultado primario, financiero, recaudación y gasto público — Fuente: Min. Economía"
             accent="sol"
           />
           <div className="space-y-6">
             <FiscalChart />
+            <GastoPublicoChart />
             <TaxTable />
           </div>
         </FadeSection>
