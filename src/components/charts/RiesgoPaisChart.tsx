@@ -7,7 +7,7 @@
  */
 
 import { useEffect, useRef } from 'react';
-import { createChart, AreaSeries } from 'lightweight-charts';
+import { createChart, AreaSeries, createSeriesMarkers } from 'lightweight-charts';
 import type { SeriesMarker, Time } from 'lightweight-charts';
 import ChartCard from '@/components/ChartCard';
 import { riesgoPaisData } from '@/data/macroData';
@@ -58,7 +58,7 @@ function RiesgoPaisInnerChart() {
       }))
       .sort((a, b) => String(a.time).localeCompare(String(b.time)));
 
-    area.setMarkers(markers);
+    createSeriesMarkers(area, markers);
     chart.timeScale().fitContent();
 
     const ro = new ResizeObserver(() => {
