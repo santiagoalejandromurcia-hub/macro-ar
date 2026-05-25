@@ -4,8 +4,9 @@
 
 /* ════════════════════════════════════════════════════
    FUENTES · Fraunces (display) + Geist (sans) + Geist Mono
+             + Syne (headlines) + Inter (body) + JetBrains Mono (números)
    ════════════════════════════════════════════════════ */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Geist+Mono:wght@300;400;500;600&family=Geist:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Geist+Mono:wght@300;400;500;600&family=Geist:wght@300;400;500;600;700&family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -43,8 +44,16 @@ html {
   --magenta:      oklch(0.68 0.22 350);
   --magenta-dim:  oklch(0.50 0.18 350);
 
+  /* Nuevos acentos MEGA redesign */
+  --gold:         oklch(0.76 0.18 78);   /* #F0A500 - CTA principal */
+  --gold-dim:     oklch(0.60 0.15 78);
+  --teal:         oklch(0.74 0.14 172);  /* #00C9A7 - acento positivo */
+  --teal-dim:     oklch(0.55 0.11 172);
+  --sky:          oklch(0.76 0.12 217);  /* #38BDF8 - acento informativo */
+  --sky-dim:      oklch(0.58 0.10 217);
+
   /* Semánticos */
-  --up:   oklch(0.76 0.16 155);
+  --up:   oklch(0.74 0.14 172);  /* teal en lugar de verde */
   --down: oklch(0.68 0.22 25);
   --flat: oklch(0.62 0.014 250);
 
@@ -135,9 +144,9 @@ body {
 ::-webkit-scrollbar-thumb { background: oklch(0.28 0.018 250 / 0.7); border-radius: 999px; }
 ::-webkit-scrollbar-thumb:hover { background: oklch(0.36 0.020 248 / 0.9); }
 
-/* Focus rings coherentes */
+/* Focus rings coherentes — gold */
 button:focus-visible, a:focus-visible {
-  outline: 2px solid oklch(0.78 0.15 230 / 0.8);
+  outline: 2px solid oklch(0.76 0.18 78 / 0.8);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -192,10 +201,10 @@ button:focus-visible, a:focus-visible {
 /* Números tabulares */
 .tnum { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum'; letter-spacing: -0.01em; }
 
-/* Live pulse dot verde por default */
+/* Live pulse dot teal por default */
 @keyframes pulseDot {
-  0%, 100% { box-shadow: 0 0 0 0 oklch(0.76 0.16 155 / 0.7); }
-  50%      { box-shadow: 0 0 0 6px oklch(0.76 0.16 155 / 0); }
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.74 0.14 172 / 0.7); }
+  50%      { box-shadow: 0 0 0 6px oklch(0.74 0.14 172 / 0); }
 }
 .live-dot {
   width: 6px; height: 6px; border-radius: 999px;
@@ -207,6 +216,27 @@ button:focus-visible, a:focus-visible {
   0%, 100% { box-shadow: 0 0 0 0 oklch(0.78 0.15 230 / 0.7); }
   50%      { box-shadow: 0 0 0 6px oklch(0.78 0.15 230 / 0); }
 }
+.live-dot.gold { background: var(--gold); animation-name: pulseGold; }
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.76 0.18 78 / 0.7); }
+  50%      { box-shadow: 0 0 0 6px oklch(0.76 0.18 78 / 0); }
+}
+.live-dot.teal { background: var(--teal); animation-name: pulseTeal; }
+@keyframes pulseTeal {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.74 0.14 172 / 0.7); }
+  50%      { box-shadow: 0 0 0 6px oklch(0.74 0.14 172 / 0); }
+}
+
+/* Gradient texto gold → teal (headlines MEGA redesign) */
+.gradient-text-gold {
+  background: linear-gradient(135deg, oklch(0.76 0.18 78), oklch(0.74 0.14 172));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+/* Glow gold */
+.glow-gold-lg { box-shadow: 0 0 32px -4px oklch(0.76 0.18 78 / 0.5), 0 0 64px -8px oklch(0.76 0.18 78 / 0.25); }
+.glow-teal    { box-shadow: 0 0 24px -4px oklch(0.74 0.14 172 / 0.45), 0 0 48px -8px oklch(0.74 0.14 172 / 0.25); }
 
 /* Flicker de números al actualizar */
 @keyframes flickerUp {

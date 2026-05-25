@@ -122,8 +122,20 @@ export default function Navbar() {
     return () => document.removeEventListener('keydown', handler);
   }, []);
 
+  // Ticker data — 5 indicadores clave
+  const TICKER_ITEMS = [
+    { label: 'USD Blue',    value: '$ 1.225',   change: '+0.4%',  up: true  },
+    { label: 'USD MEP',     value: '$ 1.198',   change: '+0.2%',  up: true  },
+    { label: 'IPC Abr',     value: '+3.7%',     change: 'mensual', up: null  },
+    { label: 'Reservas',    value: 'USD 27.4B',  change: '-0.1%',  up: false },
+    { label: 'Riesgo País', value: '612 pb',     change: '-8 pb',  up: true  },
+    { label: 'EMAE Mar',    value: '+4.2%',      change: 'i.a.',    up: true  },
+    { label: 'Dólar Oficial','value':'$ 1.040', change: '+0.1%',  up: true  },
+  ] as const;
+
   return (
-    <nav className="sticky top-0 z-40 border-b border-[var(--line-1)] bg-[oklch(0.12_0.018_250_/_0.85)] backdrop-blur-xl">
+    <div className="sticky top-0 z-40">
+    <nav className="border-b border-[var(--line-1)] bg-[oklch(0.12_0.018_250_/_0.85)] backdrop-blur-xl">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-4 lg:gap-8">
         {/* ── Wordmark ─────────────────────────────────── */}
         <Link href="/" className="flex items-center gap-2.5 group shrink-0">
@@ -317,13 +329,26 @@ export default function Navbar() {
             <span className="text-[11px] font-mono text-[var(--fg-2)] tnum">{clock}</span>
           </div>
 
-          {/* Auth state — UserMenu si logueado, botón Login si no */}
+          {/* Auth state — UserMenu si logueado, botón Login gold outline si no */}
           {status === 'authenticated' && session?.user ? (
             <UserMenu user={session.user} />
           ) : (
             <Link
               href="/login"
-              className="hidden sm:inline-flex items-center h-8 px-3.5 text-[12px] font-medium bg-[var(--celeste)] text-[var(--bg-0)] rounded-md hover:bg-[oklch(0.84_0.14_230)] transition"
+              className="hidden sm:inline-flex items-center h-8 px-3.5 text-[12px] font-semibold rounded-md transition-all duration-200"
+              style={{
+                color: 'var(--gold)',
+                border: '1px solid color-mix(in oklch, var(--gold) 45%, transparent)',
+                background: 'color-mix(in oklch, var(--gold) 8%, transparent)',
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.background = 'color-mix(in oklch, var(--gold) 18%, transparent)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'color-mix(in oklch, var(--gold) 65%, transparent)';
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.background = 'color-mix(in oklch, var(--gold) 8%, transparent)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'color-mix(in oklch, var(--gold) 45%, transparent)';
+              }}
             >
               Iniciar sesión
             </Link>
@@ -404,7 +429,12 @@ export default function Navbar() {
             <Link
               href="/contacto"
               onClick={() => setMobileOpen(false)}
-              className="mt-3 inline-flex items-center justify-center w-full h-9 px-3.5 text-[13px] font-medium bg-[var(--celeste)] text-[var(--bg-0)] rounded-md"
+              className="mt-3 inline-flex items-center justify-center w-full h-9 px-3.5 text-[13px] font-semibold rounded-md"
+              style={{
+                color: 'var(--gold)',
+                border: '1px solid color-mix(in oklch, var(--gold) 45%, transparent)',
+                background: 'color-mix(in oklch, var(--gold) 8%, transparent)',
+              }}
             >
               Ingresar
             </Link>
@@ -412,5 +442,33 @@ export default function Navbar() {
         </div>
       )}
     </nav>
+
+    {/* ── Ticker strip ─────────────────────────────── */}
+    <div
+      className="overflow-hidden border-b border-[var(--line-1)] h-7"
+      style={{ background: 'oklch(0.10 0.016 250 / 0.95)', backdropFilter: 'blur(8px)' }}
+    >
+      <div className="ticker-track flex items-center gap-0 whitespace-nowrap">
+        {/* Doble el array para loop continuo */}
+        {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
+          <span
+            key={i}
+            className="inline-flex items-center gap-2 px-5 h-7 text-[10px] font-mono uppercase tracking-wider border-r border-[var(--line-1)]"
+          >
+            <span className="text-[var(--fg-3)]">{item.label}</span>
+            <span className="text-[var(--fg-0)]">{item.value}</span>
+            {item.up !== null && (
+              <span style={{ color: item.up ? 'var(--teal)' : 'oklch(0.68 0.22 25)' }}>
+                {item.up ? '▲' : '▼'} {item.change}
+              </span>
+            )}
+            {item.up === null && (
+              <span className="text-[var(--fg-3)]">{item.change}</span>
+            )}
+          </span>
+        ))}
+      </div>
+    </div>
+    </div>
   );
 }

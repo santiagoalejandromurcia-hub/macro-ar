@@ -108,9 +108,18 @@ export default function Hero() {
         <div className="flex items-start justify-between flex-wrap gap-6 mb-10">
           {/* Bloque izquierdo: eyebrow + headline + sub + CTAs */}
           <div className="max-w-3xl">
+
+            {/* Eyebrow — badge animado */}
             <div className="flex items-center gap-3 mb-5">
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--celeste)]">
-                ◆ Estación macro
+              <span
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-[0.18em]"
+                style={{
+                  background: 'color-mix(in oklch, var(--gold) 12%, transparent)',
+                  border: '1px solid color-mix(in oklch, var(--gold) 30%, transparent)',
+                  color: 'var(--gold)',
+                }}
+              >
+                <span className="live-dot gold" aria-hidden /> Estación macro · en vivo
               </span>
               <span className="h-px w-12 bg-[var(--line-1)]" />
               <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--fg-2)]">
@@ -118,27 +127,72 @@ export default function Hero() {
               </span>
             </div>
 
-            <h1 className="font-display text-[44px] sm:text-[56px] lg:text-[72px] leading-[0.95] tracking-tight text-[var(--fg-0)]">
-              El pulso de la economía
+            {/* Headline con Syne */}
+            <h1
+              className="text-[44px] sm:text-[58px] lg:text-[76px] leading-[0.92] tracking-tight text-[var(--fg-0)]"
+              style={{ fontFamily: '"Syne", system-ui, sans-serif', fontWeight: 800 }}
+            >
+              El pulso de la
               <br />
-              argentina, <span className="italic text-[var(--celeste)]">en vivo</span>.
+              economía argentina,
+              <br />
+              <span
+                style={{
+                  background: 'linear-gradient(135deg, var(--gold) 0%, var(--teal) 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  fontStyle: 'italic',
+                }}
+              >
+                en vivo.
+              </span>
             </h1>
 
+            {/* Sub con badge "340+" */}
             <p className="mt-5 text-[14px] sm:text-[15px] text-[var(--fg-1)] max-w-xl leading-relaxed">
-              Serie en tiempo real de 340+ indicadores oficiales — INDEC, BCRA, Ministerio de
-              Economía — procesados, cruzados y graficados sin fricción.
+              <span
+                className="font-mono font-semibold mr-1.5"
+                style={{ color: 'var(--teal)' }}
+              >
+                340+
+              </span>
+              indicadores oficiales — INDEC, BCRA, Ministerio de Economía — procesados,
+              cruzados y graficados sin fricción.
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-3">
+            {/* CTAs */}
+            <div className="mt-7 flex flex-wrap gap-3">
               <a
                 href="#dashboard"
-                className="inline-flex items-center gap-2 h-10 px-4 rounded-md text-[13px] font-medium bg-[var(--celeste)] text-[var(--bg-0)] hover:bg-[oklch(0.84_0.14_230)] transition"
+                className="inline-flex items-center gap-2 h-10 px-5 rounded-lg text-[13px] font-semibold transition-all duration-200"
+                style={{
+                  background: 'var(--gold)',
+                  color: 'oklch(0.10 0.018 250)',
+                  boxShadow: '0 0 20px -4px oklch(0.76 0.18 78 / 0.5)',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.filter = 'brightness(1.12)')}
+                onMouseLeave={e => (e.currentTarget.style.filter = '')}
               >
                 Ver dashboard <span aria-hidden>→</span>
               </a>
               <a
                 href="#simulador"
-                className="inline-flex items-center gap-2 h-10 px-4 rounded-md text-[13px] text-[var(--fg-1)] bg-[var(--bg-1)]/80 backdrop-blur border border-[var(--line-1)] hover:border-[var(--celeste)]/40 hover:text-[var(--fg-0)] transition"
+                className="inline-flex items-center gap-2 h-10 px-5 rounded-lg text-[13px] font-medium transition-all duration-200"
+                style={{
+                  background: 'color-mix(in oklch, var(--teal) 10%, transparent)',
+                  color: 'var(--teal)',
+                  border: '1px solid color-mix(in oklch, var(--teal) 40%, transparent)',
+                  backdropFilter: 'blur(8px)',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = 'color-mix(in oklch, var(--teal) 18%, transparent)';
+                  e.currentTarget.style.borderColor = 'color-mix(in oklch, var(--teal) 60%, transparent)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = 'color-mix(in oklch, var(--teal) 10%, transparent)';
+                  e.currentTarget.style.borderColor = 'color-mix(in oklch, var(--teal) 40%, transparent)';
+                }}
               >
                 Preguntar a MacroBot
               </a>
@@ -149,7 +203,7 @@ export default function Hero() {
           <div className="glass rounded-xl p-4 w-full sm:w-[280px] font-mono text-[11px] backdrop-blur-md">
             <div className="flex items-center justify-between mb-3">
               <span className="uppercase tracking-wider text-[var(--fg-2)]">Sesión local</span>
-              <span className="live-dot celeste" aria-hidden />
+              <span className="live-dot teal" aria-hidden />
             </div>
             <div className="space-y-2">
               <div className="flex justify-between">
@@ -162,7 +216,7 @@ export default function Hero() {
               </div>
               <div className="flex justify-between">
                 <span className="text-[var(--fg-2)]">Uptime</span>
-                <span className="text-[var(--celeste)] tnum">{session.tickSecs}s</span>
+                <span className="tnum" style={{ color: 'var(--teal)' }}>{session.tickSecs}s</span>
               </div>
               <div className="h-px bg-[var(--line-1)] my-2" />
               <div className="flex justify-between">
@@ -171,7 +225,7 @@ export default function Hero() {
               </div>
               <div className="flex justify-between">
                 <span className="text-[var(--fg-2)]">Latencia</span>
-                <span className="text-[var(--up)] tnum">42ms</span>
+                <span className="tnum" style={{ color: 'var(--teal)' }}>42ms</span>
               </div>
             </div>
           </div>
@@ -180,13 +234,13 @@ export default function Hero() {
         {/* Leyenda inferior */}
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px] font-mono text-[var(--fg-2)] uppercase tracking-wider">
           <span className="flex items-center gap-2">
-            <span className="live-dot" aria-hidden /> Actualización 60s
+            <span className="live-dot teal" aria-hidden /> Actualización 60s
           </span>
           <span className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-sm bg-[var(--celeste)]" /> Fuente oficial
+            <span className="w-2 h-2 rounded-sm" style={{ background: 'var(--teal)' }} /> Fuente oficial
           </span>
           <span className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-sm bg-[var(--sol)]" /> Proyección
+            <span className="w-2 h-2 rounded-sm" style={{ background: 'var(--gold)' }} /> Proyección
           </span>
         </div>
       </div>

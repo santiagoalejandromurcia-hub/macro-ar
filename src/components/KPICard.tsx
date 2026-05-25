@@ -109,17 +109,37 @@ export default function KPICardComponent({
     [history, card.id, card.change]
   );
 
+  // Nuevo: colores trend usando tokens MEGA redesign
   const deltaColor = positive
-    ? 'oklch(0.76 0.16 155)'
+    ? 'var(--teal)'
     : negative
     ? 'oklch(0.68 0.22 25)'
     : 'var(--fg-2)';
 
+  const accentBorderColor = positive
+    ? 'var(--teal)'
+    : negative
+    ? 'oklch(0.68 0.22 25)'
+    : 'var(--gold)';
+
   return (
     <div
       className="glass glass-lift rounded-xl p-4 sm:p-5 relative overflow-hidden animate-fade-in"
-      style={{ animationDelay: `${index * 60}ms` }}
+      style={{
+        animationDelay: `${index * 60}ms`,
+        borderLeft: `3px solid ${accentBorderColor}`,
+      }}
     >
+      {/* Glow top bar — hereda el color del acento */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px pointer-events-none"
+        style={{
+          background: `linear-gradient(to right, transparent, ${accentBorderColor}, transparent)`,
+          opacity: 0.6,
+        }}
+        aria-hidden
+      />
+
       {/* Header */}
       <div className="relative flex items-start justify-between mb-2 gap-3">
         <div className="min-w-0">
@@ -137,7 +157,10 @@ export default function KPICardComponent({
       {/* Body */}
       <div className="relative flex items-end justify-between gap-3 mt-3">
         <div className="min-w-0">
-          <div className="font-display text-[28px] sm:text-[34px] leading-none tnum text-[var(--fg-0)]">
+          <div
+            className="text-[28px] sm:text-[34px] leading-none tnum text-[var(--fg-0)]"
+            style={{ fontFamily: '"JetBrains Mono", "Geist Mono", ui-monospace, monospace', fontWeight: 500 }}
+          >
             {displayValue}
           </div>
           <div className="mt-2 flex items-center gap-2 flex-wrap">

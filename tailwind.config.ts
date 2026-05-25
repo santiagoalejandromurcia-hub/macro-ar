@@ -37,9 +37,16 @@ const config: Config = {
           'sol-dim': 'oklch(0.62 0.12 85)',
           magenta: 'oklch(0.68 0.22 350)',
           'magenta-dim': 'oklch(0.50 0.18 350)',
+          // MEGA redesign
+          gold: 'oklch(0.76 0.18 78)',
+          'gold-dim': 'oklch(0.60 0.15 78)',
+          teal: 'oklch(0.74 0.14 172)',
+          'teal-dim': 'oklch(0.55 0.11 172)',
+          sky: 'oklch(0.76 0.12 217)',
+          'sky-dim': 'oklch(0.58 0.10 217)',
         },
         signal: {
-          up: 'oklch(0.76 0.16 155)',
+          up:   'oklch(0.74 0.14 172)', /* teal */
           down: 'oklch(0.68 0.22 25)',
           flat: 'oklch(0.62 0.014 250)',
         },
@@ -63,13 +70,19 @@ const config: Config = {
       },
       fontFamily: {
         // Fraunces para display editorial (Fortune / Bloomberg-like headlines)
-        display: ['"Fraunces"', 'ui-serif', 'Georgia', 'serif'],
+        display:   ['"Fraunces"', 'ui-serif', 'Georgia', 'serif'],
+        // Syne para headlines MEGA redesign — impacto visual máximo
+        syne:      ['"Syne"', 'system-ui', 'sans-serif'],
         // Geist como sans del producto
-        sans:    ['"Geist"', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        sans:      ['"Geist"', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        // Inter como body alternativo — legibilidad superior en texto largo
+        inter:     ['"Inter"', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
         // Geist Mono para etiquetas, timestamps, tickers
-        mono:    ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        mono:      ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        // JetBrains Mono para valores numéricos clave (KPI cards, precios)
+        jetbrains: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
         // Backcompat
-        serif:   ['"Fraunces"', 'ui-serif', 'Georgia', 'serif'],
+        serif:     ['"Fraunces"', 'ui-serif', 'Georgia', 'serif'],
       },
       boxShadow: {
         'glow-celeste':  '0 0 24px -4px oklch(0.78 0.15 230 / 0.45), 0 0 48px -8px oklch(0.78 0.15 230 / 0.25)',
