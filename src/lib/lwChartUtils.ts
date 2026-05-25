@@ -3,6 +3,8 @@
  * Conversión de fechas en español → ISO y opciones de tema oscuro.
  */
 
+import { ColorType } from 'lightweight-charts';
+
 const MESES: Record<string, string> = {
   Ene: '01', Feb: '02', Mar: '03', Abr: '04',
   May: '05', Jun: '06', Jul: '07', Ago: '08',
@@ -33,7 +35,7 @@ export function spanishToISO(date: string): string {
 export function macroChartOptions(width: number, height = 300) {
   return {
     layout: {
-      background: { type: 'solid' as const, color: 'transparent' },
+      background: { type: ColorType.Solid, color: 'transparent' },
       textColor: 'rgba(180, 195, 215, 0.65)',
       fontSize: 11,
       fontFamily: 'ui-monospace, "Cascadia Code", Menlo, monospace',
@@ -59,5 +61,5 @@ export function macroChartOptions(width: number, height = 300) {
     height,
     handleScroll: true,
     handleScale: true,
-  } as const;
+  };
 }
