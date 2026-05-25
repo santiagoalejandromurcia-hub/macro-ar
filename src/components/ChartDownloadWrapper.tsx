@@ -48,7 +48,14 @@ async function captureAndDownload(
   format: 'png' | 'jpg',
   fileName: string,
 ) {
-  const svg = wrapperEl.querySelector('svg');
+  const allSvgs = Array.from(wrapperEl.querySelectorAll('svg'));
+  const svg = allSvgs.length
+    ? allSvgs.reduce((biggest, current) => {
+        const b = biggest.getBoundingClientRect();
+        const c = current.getBoundingClientRect();
+        return c.width * c.height > b.width * b.height ? current : biggest;
+      })
+    : null;
   if (!svg) { alert('No se encontró el gráfico para exportar.'); return; }
 
   const { width: W, height: H } = svg.getBoundingClientRect();

@@ -152,7 +152,17 @@ async function captureChart(
   }
 
   // ── 2) Fallback: SVG de Recharts ─────────────────────
-  const svg = wrapperEl.querySelector('svg');
+  // querySelector devuelve el primero — que puede ser un ícono de botón.
+  // Tomamos el SVG con mayor área (el gráfico siempre es el más grande).
+  const allSvgs = Array.from(wrapperEl.querySelectorAll('svg'));
+  const svg = allSvgs.length
+    ? allSvgs.reduce((biggest, current) => {
+        const bRect = biggest.getBoundingClientRect();
+        const cRect = current.getBoundingClientRect();
+        return cRect.width * cRect.height > bRect.width * bRect.height ? current : biggest;
+      })
+    : null;
+
   if (!svg) {
     alert('No se encontró el gráfico para exportar.');
     return;
