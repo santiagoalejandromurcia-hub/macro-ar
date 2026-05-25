@@ -7,7 +7,7 @@
  */
 
 import { useState, useMemo, useEffect, useRef } from 'react';
-import { createChart } from 'lightweight-charts';
+import { createChart, LineSeries } from 'lightweight-charts';
 import ChartCard from '@/components/ChartCard';
 import { tcrData } from '@/data/macroData';
 import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
@@ -31,7 +31,7 @@ function TCRInnerChart({ data }: { data: TcrRow[] }) {
     const chart = createChart(el, macroChartOptions(el.clientWidth, 300));
 
     for (const s of SERIES_CONFIG) {
-      const series = chart.addLineSeries({
+      const series = chart.addSeries(LineSeries, {
         color: s.color,
         lineWidth: 2,
         priceLineVisible: false,

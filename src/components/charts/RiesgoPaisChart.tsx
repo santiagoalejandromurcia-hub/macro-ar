@@ -7,7 +7,7 @@
  */
 
 import { useEffect, useRef } from 'react';
-import { createChart } from 'lightweight-charts';
+import { createChart, AreaSeries } from 'lightweight-charts';
 import type { SeriesMarker, Time } from 'lightweight-charts';
 import ChartCard from '@/components/ChartCard';
 import { riesgoPaisData } from '@/data/macroData';
@@ -22,7 +22,7 @@ function RiesgoPaisInnerChart() {
 
     const chart = createChart(el, macroChartOptions(el.clientWidth, 300));
 
-    const area = chart.addAreaSeries({
+    const area = chart.addSeries(AreaSeries, {
       topColor:    'rgba(236, 72, 153, 0.28)',
       bottomColor: 'rgba(236, 72, 153, 0.02)',
       lineColor:   '#EC4899',

@@ -7,7 +7,7 @@
  */
 
 import { useEffect, useRef } from 'react';
-import { createChart } from 'lightweight-charts';
+import { createChart, LineSeries } from 'lightweight-charts';
 import { macroChartOptions } from '@/lib/lwChartUtils';
 import type { CalcOutput, InstrumentId } from '@/lib/calc/types';
 
@@ -36,7 +36,7 @@ export function CalcChart({ output }: Props) {
     for (const r of output.results) {
       if (!r.available || r.series.length === 0) continue;
 
-      const series = chart.addLineSeries({
+      const series = chart.addSeries(LineSeries, {
         color: COLORS[r.id] ?? '#74ACDF',
         lineWidth: 2,
         priceLineVisible: false,
