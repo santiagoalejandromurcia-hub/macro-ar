@@ -1,33 +1,83 @@
 'use client';
 
-import {
-  ComposedChart,
-  Area,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ReferenceDot,
-  ResponsiveContainer,
-} from 'recharts';
-import ChartCard from '@/components/ChartCard';
-import { useChartTheme, ThemedTooltip } from './useChartTheme';
-import { riesgoPaisData } from '@/data/macroData';
-
 /**
- * Riesgo País Argentina · EMBI+ → EMBIGD (puntos básicos)
- * Hitos: Dic-23 (1.907 pb, asunción Milei) · Dic-25 (540 pb, mínimo del ciclo) ·
- * Feb-26 (JP Morgan reclasifica de EMBI+ a EMBIGD) · Abr-26 (557 pb).
- * Fuente: JP Morgan / Ámbito / Rava.
+ * RiesgoPaisChart — EMBI+ → EMBIGD (puntos básicos)
+ * Migrado de Recharts a lightweight-charts v5.
+ * Area series con markers en pico, mínimo y dato actual.
  */
-export default function RiesgoPaisChart() {
-  const t = useChartTheme();
-  const csvData = riesgoPaisData as unknown as Record<string, unknown>[];
 
-  const last = riesgoPaisData[riesgoPaisData.length - 1];
-  const min = riesgoPaisData.find((d) => d.highlight === 'minimo');
-  const peak = riesgoPaisData.find((d) => d.highlight === 'pico');
+import { useEffect, useRef } from 'react';
+import { createChart } from 'lightweight-charts';
+import type { SeriesMarker, Time } from 'lightweight-charts';
+import ChartCard from '@/components/ChartCard';
+import { riesgoPaisData } from '@/data/macroData';
+import { spanishToISO, macroChartOptions } from '@/lib/lwChartUtils';
+
+function RiesgoPaisInnerChart() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const chart = createChart(el, macroChartOptions(el.clientWidth, 300));
+
+    const area = chart.addAreaSeries({
+      topColor:    'rgba(236, 72, 153, 0.28)',
+      bottomColor: 'rgba(236, 72, 153, 0.02)',
+      lineColor:   '#EC4899',
+      lineWidth: 2,
+      priceLineVisible: false,
+      lastValueVisible: true,
+      crosshairMarkerVisible: true,
+    });
+
+    const seriesData = riesgoPaisData
+      .map((d) => ({
+        time: spanishToISO(d.date) as Time,
+        value: d.value,
+      }))
+      .sort((a, b) => String(a.time).localeCompare(String(b.time)));
+
+    area.setData(seriesData);
+
+    // Markers: pico (rojo arriba), mínimo (verde abajo), actual (amarillo arriba)
+    const markers: SeriesMarker<Time>[] = riesgoPaisData
+      .filter((d) => d.highlight)
+      .map((d) => ({
+        time: spanishToISO(d.date) as Time,
+        position: d.highlight === 'minimo' ? 'belowBar' : 'aboveBar',
+        color:
+          d.highlight === 'pico'   ? '#EF4444' :
+          d.highlight === 'minimo' ? '#22C55E' : '#D4A843',
+        shape: 'circle',
+        text: `${d.value} pb`,
+        size: 1,
+      }))
+      .sort((a, b) => String(a.time).localeCompare(String(b.time)));
+
+    area.setMarkers(markers);
+    chart.timeScale().fitContent();
+
+    const ro = new ResizeObserver(() => {
+      chart.applyOptions({ width: el.clientWidth });
+    });
+    ro.observe(el);
+
+    return () => {
+      ro.disconnect();
+      chart.remove();
+    };
+  }, []);
+
+  return <div ref={containerRef} style={{ width: '100%', height: 300 }} />;
+}
+
+export default function RiesgoPaisChart() {
+  const csvData = riesgoPaisData as unknown as Record<string, unknown>[];
+  const last  = riesgoPaisData[riesgoPaisData.length - 1];
+  const min   = riesgoPaisData.find((d) => d.highlight === 'minimo');
+  const peak  = riesgoPaisData.find((d) => d.highlight === 'pico');
 
   return (
     <ChartCard
@@ -36,84 +86,7 @@ export default function RiesgoPaisChart() {
       csvData={csvData}
       csvFileName="riesgo-pais-2023-2026"
     >
-      <ResponsiveContainer width="100%" height={300}>
-        <ComposedChart data={riesgoPaisData} margin={{ top: 20, right: 10, left: -5, bottom: 5 }}>
-          <CartesianGrid {...t.grid} />
-          <XAxis dataKey="date" tick={{ ...t.axis, fontSize: 10 }} />
-          <YAxis tick={t.axis} domain={[0, 'auto']} unit=" pb" />
-          <Tooltip content={<ThemedTooltip />} />
-
-          <Area
-            type="monotone"
-            dataKey="value"
-            name="Riesgo país (pb)"
-            stroke="#EC4899"
-            fill="#EC4899"
-            fillOpacity={0.12}
-            strokeWidth={2.5}
-            dot={false}
-          />
-          <Line
-            type="monotone"
-            dataKey="value"
-            name="Tendencia"
-            stroke="#EC4899"
-            strokeWidth={0}
-            dot={{ r: 3, fill: '#EC4899' }}
-            legendType="none"
-          />
-
-          {peak && (
-            <ReferenceDot
-              x={peak.date}
-              y={peak.value}
-              r={6}
-              fill="#EF4444"
-              stroke="#fff"
-              strokeWidth={2}
-              label={{
-                value: `${peak.value} pb`,
-                position: 'top',
-                fill: t.textPrimary,
-                fontSize: 10,
-                fontWeight: 600,
-              }}
-            />
-          )}
-          {min && (
-            <ReferenceDot
-              x={min.date}
-              y={min.value}
-              r={6}
-              fill="#22C55E"
-              stroke="#fff"
-              strokeWidth={2}
-              label={{
-                value: `${min.value} pb`,
-                position: 'top',
-                fill: t.textPrimary,
-                fontSize: 10,
-                fontWeight: 600,
-              }}
-            />
-          )}
-          <ReferenceDot
-            x={last.date}
-            y={last.value}
-            r={6}
-            fill="#D4A843"
-            stroke="#fff"
-            strokeWidth={2}
-            label={{
-              value: `${last.value} pb`,
-              position: 'top',
-              fill: t.textPrimary,
-              fontSize: 10,
-              fontWeight: 600,
-            }}
-          />
-        </ComposedChart>
-      </ResponsiveContainer>
+      <RiesgoPaisInnerChart />
 
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono text-theme-muted">
         {peak && (

@@ -1,16 +1,69 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+/**
+ * TCRChart — Tipo de Cambio (Oficial, Blue, MEP)
+ * Migrado de Recharts a lightweight-charts v5.
+ * Soporta zoom/pan nativo y selector de período existente.
+ */
+
+import { useState, useMemo, useEffect, useRef } from 'react';
+import { createChart } from 'lightweight-charts';
 import ChartCard from '@/components/ChartCard';
-import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { tcrData } from '@/data/macroData';
 import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
+import { spanishToISO, macroChartOptions } from '@/lib/lwChartUtils';
+
+const SERIES_CONFIG = [
+  { key: 'oficial' as const, color: '#74ACDF', title: 'Oficial' },
+  { key: 'blue'    as const, color: '#22C55E', title: 'Blue'    },
+  { key: 'mep'     as const, color: '#D4A843', title: 'MEP'     },
+] as const;
+
+type TcrRow = (typeof tcrData)[number];
+
+function TCRInnerChart({ data }: { data: TcrRow[] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const chart = createChart(el, macroChartOptions(el.clientWidth, 300));
+
+    for (const s of SERIES_CONFIG) {
+      const series = chart.addLineSeries({
+        color: s.color,
+        lineWidth: 2,
+        priceLineVisible: false,
+        lastValueVisible: true,
+        title: s.title,
+      });
+
+      series.setData(
+        data
+          .map((d) => ({ time: spanishToISO(d.date) as `${number}-${number}-${number}`, value: d[s.key] }))
+          .sort((a, b) => a.time.localeCompare(b.time)),
+      );
+    }
+
+    chart.timeScale().fitContent();
+
+    const ro = new ResizeObserver(() => {
+      chart.applyOptions({ width: el.clientWidth });
+    });
+    ro.observe(el);
+
+    return () => {
+      ro.disconnect();
+      chart.remove();
+    };
+  }, [data]);
+
+  return <div ref={containerRef} style={{ width: '100%', height: 300 }} />;
+}
 
 export default function TCRChart() {
-  const t = useChartTheme();
   const [period, setPeriod] = useState(0);
-
   const displayData = useMemo(() => filterByPeriod(tcrData, period), [period]);
   const csvData = displayData as unknown as Record<string, unknown>[];
 
@@ -24,18 +77,7 @@ export default function TCRChart() {
       csvData={csvData}
       csvFileName="tipo-de-cambio"
     >
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={displayData} margin={{ top: 5, right: 10, left: -15, bottom: 5 }}>
-          <CartesianGrid {...t.grid} />
-          <XAxis dataKey="date" tick={t.axis} />
-          <YAxis tick={t.axis} />
-          <Tooltip content={<ThemedTooltip />} />
-          <Legend wrapperStyle={{ fontSize: 12, color: t.textSecondary }} />
-          <Line type="monotone" dataKey="oficial" name="Oficial" stroke="#74ACDF" strokeWidth={2} dot={false} />
-          <Line type="monotone" dataKey="blue" name="Blue" stroke="#22C55E" strokeWidth={2} dot={false} />
-          <Line type="monotone" dataKey="mep" name="MEP" stroke="#D4A843" strokeWidth={2} dot={false} strokeDasharray="5 3" />
-        </LineChart>
-      </ResponsiveContainer>
+      <TCRInnerChart data={displayData} />
     </ChartCard>
   );
 }

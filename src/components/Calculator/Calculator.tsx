@@ -1,10 +1,8 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
-} from 'recharts';
+import { useState } from 'react';
 import type { CalcOutput, InstrumentId, InstrumentResult } from '@/lib/calc/types';
+import { CalcChart } from './CalcChart';
 
 // ════════════════════════════════════════════════════
 // Calculator · ¿Dólar, Plazo Fijo o Bonos?
@@ -48,6 +46,7 @@ function colorFor(id: InstrumentId): string {
   return INSTRUMENTS.find((i) => i.id === id)?.color ?? '#74ACDF';
 }
 
+// useMemo aún usado por ResultRow vía colorFor
 export default function Calculator() {
   const [monto, setMonto] = useState<number>(1_000_000);
   const [from, setFrom] = useState<string>(DEFAULT_FROM);
@@ -86,22 +85,6 @@ export default function Calculator() {
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
     );
   }
-
-  // Armar dataset unificado para el chart
-  const chartData = useMemo(() => {
-    if (!output) return [];
-    const buckets = new Map<string, Record<string, number | string>>();
-    for (const r of output.results) {
-      for (const p of r.series) {
-        const key = p.date.slice(0, 7);
-        if (!buckets.has(key)) buckets.set(key, { date: key });
-        buckets.get(key)![r.id] = p.value;
-      }
-    }
-    return Array.from(buckets.values()).sort((a, b) =>
-      String(a.date).localeCompare(String(b.date))
-    );
-  }, [output]);
 
   const winner = output?.results.find((r) => r.available);
 
@@ -230,52 +213,12 @@ export default function Calculator() {
             </div>
           )}
 
-          {/* Chart */}
+          {/* Chart — TradingView style con zoom/pan */}
           <div className="glass p-4 md:p-5">
             <div className="text-[11px] font-mono uppercase tracking-wider text-[var(--fg-2)] mb-3">
-              Evolución del capital (nominal, ARS)
+              Evolución del capital (nominal, ARS) · Scroll para zoom · Arrastrá para mover
             </div>
-            <div className="w-full h-[320px]">
-              <ResponsiveContainer>
-                <LineChart data={chartData} margin={{ top: 8, right: 16, bottom: 0, left: 0 }}>
-                  <CartesianGrid stroke="rgba(255,255,255,0.04)" />
-                  <XAxis
-                    dataKey="date"
-                    tick={{ fill: 'var(--fg-2)', fontSize: 11, fontFamily: 'var(--font-mono)' }}
-                    tickLine={false}
-                    axisLine={{ stroke: 'var(--line-1)' }}
-                  />
-                  <YAxis
-                    tick={{ fill: 'var(--fg-2)', fontSize: 11, fontFamily: 'var(--font-mono)' }}
-                    tickFormatter={(v) => `${(Number(v) / 1_000_000).toFixed(1)}M`}
-                    tickLine={false}
-                    axisLine={{ stroke: 'var(--line-1)' }}
-                  />
-                  <Tooltip
-                    contentStyle={{
-                      background: 'var(--bg-1)',
-                      border: '1px solid var(--line-1)',
-                      borderRadius: 8,
-                      fontSize: 12,
-                    }}
-                    formatter={(v: number) => [`$${formatARS(v)}`, '']}
-                  />
-                  <Legend wrapperStyle={{ fontSize: 12, fontFamily: 'var(--font-mono)' }} />
-                  {output.results.filter((r) => r.available).map((r) => (
-                    <Line
-                      key={r.id}
-                      type="monotone"
-                      dataKey={r.id}
-                      name={r.label}
-                      stroke={colorFor(r.id)}
-                      strokeWidth={2}
-                      dot={false}
-                      connectNulls
-                    />
-                  ))}
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
+            <CalcChart output={output} />
           </div>
 
           {/* Tabla comparativa */}

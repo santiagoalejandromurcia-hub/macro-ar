@@ -1,0 +1,421 @@
+================================================================================
+  MACROLIBRE — GUÍA DE TRABAJO CON PAQUETES INSTALADOS
+  Generada: Mayo 2026 | Stack: Next.js 15 · React 19 · TypeScript · Tailwind
+================================================================================
+
+DIAGNÓSTICO DEL SITIO (macrolibre.com)
+────────────────────────────────────────
+FORTALEZAS:
+  + Datos reales y actualizados (INDEC, BCRA, Min. Economía)
+  + Diseño oscuro consistente con variables CSS propias
+  + Secciones bien organizadas (dashboard, actividad, fiscal, externo, precios)
+  + Hero con globo 3D único
+  + Calculadora de instrumentos financieros
+  + Simulador macro con sliders
+  + Artículos + glosario + newsletter → flywheel de contenido
+
+OPORTUNIDADES DE MEJORA:
+  - KPI cards muestran "Static" y "0,0" antes de cargar (sin skeleton)
+  - Los charts de Recharts son funcionales pero sin animación de entrada
+  - El globo 3D no muestra datos georreferenciados
+  - No hay transiciones entre páginas
+  - La calculadora de instrumentos podría tener gráfico interactivo tipo TradingView
+  - Los números en KPIs no tienen animación de conteo al cargar
+  - Mobile: algunos charts se ven comprimidos
+  - No hay comando rápido (⌘K está en el navbar pero no implementado visualmente)
+
+================================================================================
+  PAQUETES INSTALADOS Y PLAN DE IMPLEMENTACIÓN
+================================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. FRAMER MOTION — Animaciones
+   npm: framer-motion ^11
+   Docs: https://www.framer.com/motion/
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DÓNDE USAR EN MACROLIBRE:
+
+A) KPICard.tsx — Animar número cuando cambia el valor
+   -------------------------------------------------------
+   import { motion, AnimatePresence } from 'framer-motion'
+
+   // Envolver el valor del KPI:
+   <motion.span
+     key={value}
+     initial={{ opacity: 0, y: -8 }}
+     animate={{ opacity: 1, y: 0 }}
+     transition={{ duration: 0.3 }}
+   >
+     {value}
+   </motion.span>
+
+B) Secciones del home — Reveal al hacer scroll
+   -------------------------------------------------------
+   const fadeUp = {
+     hidden: { opacity: 0, y: 30 },
+     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+   }
+
+   <motion.section
+     variants={fadeUp}
+     initial="hidden"
+     whileInView="visible"
+     viewport={{ once: true, margin: "-100px" }}
+   >
+     {/* contenido de la sección */}
+   </motion.section>
+
+   Aplicar en page.tsx a cada <section id="actividad">, <section id="fiscal">, etc.
+
+C) ChartCard.tsx — Aparición suave al cargar
+   -------------------------------------------------------
+   <motion.div
+     initial={{ opacity: 0, scale: 0.98 }}
+     animate={{ opacity: 1, scale: 1 }}
+     transition={{ duration: 0.4, ease: "easeOut" }}
+   >
+     {children}
+   </motion.div>
+
+D) Navbar — Indicador activo animado
+   -------------------------------------------------------
+   // Usar layoutId para que el underline "se deslice" entre items activos
+   <motion.div layoutId="nav-indicator" className="..." />
+
+PRIORIDAD: ALTA — impacto visual inmediato, 2-3 horas de trabajo
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. SWR — Data fetching con caché inteligente
+   npm: swr ^2.3
+   Docs: https://swr.vercel.app/
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DÓNDE USAR EN MACROLIBRE:
+
+A) Reemplazar useLiveData.ts completamente
+   -------------------------------------------------------
+   // ANTES (src/hooks/useLiveData.ts — probablemente usa useEffect + fetch manual)
+
+   // DESPUÉS con SWR:
+   import useSWR from 'swr'
+
+   const fetcher = (url: string) => fetch(url).then(r => r.json())
+
+   export function useLiveKPIs() {
+     const { data, error, isLoading } = useSWR('/api/kpis', fetcher, {
+       refreshInterval: 60000,      // actualizar cada 60s (igual que ahora)
+       revalidateOnFocus: true,      // actualizar cuando el usuario vuelve a la tab
+       dedupingInterval: 30000,      // no re-fetchar si ya hay dato fresco
+     })
+     return { data, error, isLoading }
+   }
+
+   // Para el dólar blue (más volátil, refresh más rápido):
+   export function useDolarBlue() {
+     const { data } = useSWR('/api/dolar', fetcher, {
+       refreshInterval: 30000,
+     })
+     return data
+   }
+
+B) Beneficio clave para MacroLibre:
+   - Si el usuario navega a /inflacion y vuelve al home, los KPIs
+     no re-fetchan — usan el caché. Experiencia instantánea.
+   - Si la API de dólar falla, SWR muestra el último dato conocido
+     en vez de mostrar "0,0" o error.
+
+PRIORIDAD: ALTA — mejora UX sin cambiar el diseño
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. LIGHTWEIGHT-CHARTS (TradingView) — Gráfico financiero interactivo
+   npm: lightweight-charts ^5
+   Docs: https://tradingview.github.io/lightweight-charts/
+   GitHub: https://github.com/tradingview/lightweight-charts
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DÓNDE USAR EN MACROLIBRE:
+
+A) Calculadora de instrumentos (/calculadora) — el más importante
+   -------------------------------------------------------
+   Reemplazar el chart actual con un gráfico tipo TradingView donde:
+   - Eje X = fechas
+   - Líneas = cada instrumento seleccionado (dólar, plazo fijo, LECAP, etc.)
+   - Tooltip interactivo al hover con los valores exactos
+   - Zoom con scroll del mouse
+
+   // Nuevo componente: src/components/charts/InstrumentChart.tsx
+   'use client'
+   import { createChart, ColorType } from 'lightweight-charts'
+   import { useEffect, useRef } from 'react'
+
+   export function InstrumentChart({ series }: { series: ChartSeries[] }) {
+     const chartRef = useRef<HTMLDivElement>(null)
+
+     useEffect(() => {
+       if (!chartRef.current) return
+       const chart = createChart(chartRef.current, {
+         layout: {
+           background: { type: ColorType.Solid, color: 'transparent' },
+           textColor: 'var(--fg-2)',
+         },
+         grid: {
+           vertLines: { color: 'var(--line-1)' },
+           horzLines: { color: 'var(--line-1)' },
+         },
+         width: chartRef.current.clientWidth,
+         height: 320,
+       })
+       // agregar series...
+       return () => chart.remove()
+     }, [series])
+
+     return <div ref={chartRef} />
+   }
+
+B) TCRChart.tsx — Tipo de cambio (oficial, blue, MEP)
+   Tres líneas superpuestas con zoom. Ideal para este chart.
+
+C) RiesgoPaisChart.tsx
+   Serie temporal con área sombreada. Tiene el mismo patrón.
+
+PRIORIDAD: ALTA para /calculadora — diferenciador de producto
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. @NIVO — Charts avanzados
+   npm: @nivo/core @nivo/line @nivo/bar @nivo/stream @nivo/axes
+   Docs: https://nivo.rocks/
+   GitHub: https://github.com/plouc/nivo
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+NOTA: Nivo usa React < 19 en peer deps. Funciona con --legacy-peer-deps.
+Usarlo con 'use client' siempre (Nivo no es SSR compatible).
+
+DÓNDE USAR EN MACROLIBRE:
+
+A) InflacionLargoPlazoChart.tsx — el chart más importante del sitio
+   -------------------------------------------------------
+   Reemplazar Recharts LineChart con @nivo/line:
+
+   import { ResponsiveLine } from '@nivo/line'
+
+   <ResponsiveLine
+     data={data}
+     margin={{ top: 20, right: 20, bottom: 50, left: 60 }}
+     xScale={{ type: 'time', format: '%Y-%m', precision: 'month' }}
+     yFormat=" >-.1f"
+     axisBottom={{ format: '%Y', tickRotation: -45 }}
+     enableArea={true}
+     areaOpacity={0.15}
+     colors={['var(--celeste)']}
+     theme={nivoTheme}  // crear objeto con colores de MacroLibre
+     tooltip={CustomTooltip}
+     animate={true}
+     motionConfig="gentle"
+   />
+
+B) EmaeLargoPlazoChart.tsx — actividad económica
+   Usar @nivo/line con anotaciones de gobierno (J×C, Fernández, Milei)
+   Via la prop layers con un layer custom para las bandas verticales.
+
+C) FiscalChart.tsx — resultado primario y financiero
+   Usar @nivo/bar con barras apiladas y línea superpuesta.
+
+D) REMChart.tsx — expectativas de inflación
+   Usar @nivo/stream para mostrar el "flujo" de expectativas.
+
+IMPLEMENTACIÓN DEL TEMA:
+   // src/lib/nivoTheme.ts
+   export const nivoTheme = {
+     background: 'transparent',
+     text: { fill: 'var(--fg-2)', fontSize: 11 },
+     grid: { line: { stroke: 'var(--line-1)', strokeWidth: 1 } },
+     axis: {
+       ticks: { text: { fill: 'var(--fg-2)' } },
+       legend: { text: { fill: 'var(--fg-1)' } },
+     },
+     tooltip: {
+       container: {
+         background: 'var(--bg-1)',
+         border: '1px solid var(--line-1)',
+         borderRadius: 6,
+         color: 'var(--fg-0)',
+       },
+     },
+   }
+
+PRIORIDAD: MEDIA — mejora visual importante pero requiere refactor de charts
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. @TREMOR/REACT — Dashboard UI components
+   npm: @tremor/react ^3.18
+   Docs: https://tremor.so/docs
+   GitHub: https://github.com/tremorlabs/tremor
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+NOTA: Tremor también requiere --legacy-peer-deps con React 19.
+Importar siempre con 'use client'.
+
+DÓNDE USAR EN MACROLIBRE:
+
+A) KPICard.tsx — reemplazar con Tremor Metric + Card
+   -------------------------------------------------------
+   import { Card, Metric, Text, BadgeDelta, Flex, Grid } from '@tremor/react'
+
+   <Card decoration="top" decorationColor="blue">
+     <Flex justifyContent="between" alignItems="start">
+       <Text>{label}</Text>
+       <BadgeDelta deltaType={delta > 0 ? "increase" : "decrease"}>
+         {deltaLabel}
+       </BadgeDelta>
+     </Flex>
+     <Metric>{value}</Metric>
+     <Text className="mt-1 text-xs">{source}</Text>
+   </Card>
+
+   Aplicar en: LiveKPIGrid.tsx
+
+B) Páginas de indicadores (/indicadores/inflacion-argentina, etc.)
+   Usar Tremor AreaChart para los charts de página individual.
+   Son más rápidos de implementar que Recharts y Nivo.
+
+C) Servicios (/servicios)
+   Usar Tremor Card + List para los planes de precios (PYME, Auditoría, Advisory).
+
+PRIORIDAD: MEDIA — impacto en páginas secundarias y KPIs
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. GLOBE.GL — Globo 3D con datos
+   npm: globe.gl ^2.41
+   Docs: https://globe.gl/
+   GitHub: https://github.com/vasturiano/globe.gl
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DÓNDE USAR EN MACROLIBRE:
+
+A) Hero.tsx — reemplazar ArgentinaGlobe3D
+   -------------------------------------------------------
+   globe.gl permite agregar puntos, arcos y labels sobre el globo.
+   Ideas para MacroLibre:
+   - Puntos de color en provincias con su aporte al PBI
+   - Arcos animados mostrando exportaciones (Argentina → destinos)
+   - Label flotante sobre Buenos Aires con el dólar blue en vivo
+
+   'use client'
+   import Globe from 'globe.gl'
+   import { useEffect, useRef } from 'react'
+
+   export function MacroGlobe() {
+     const mountRef = useRef<HTMLDivElement>(null)
+
+     useEffect(() => {
+       if (!mountRef.current) return
+       const globe = Globe()(mountRef.current)
+         .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+         .backgroundColor('rgba(0,0,0,0)')
+         .pointsData(provinciasPBI)
+         .pointColor(() => 'var(--celeste)')
+         .pointAltitude('pbi_share')
+         .pointRadius(0.4)
+
+       return () => globe._destructor?.()
+     }, [])
+
+     return <div ref={mountRef} style={{ width: '100%', height: '500px' }} />
+   }
+
+NOTA: globe.gl usa Three.js internamente. Dado que ya tenés
+@react-three/fiber instalado, podés usar react-globe.gl en vez
+de la API imperativa si preferís el estilo React.
+
+PRIORIDAD: BAJA-MEDIA — diferenciador visual, requiere datos de provincias
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. MEJORAS SIN PAQUETES NUEVOS (oportunidades detectadas en el código)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A) SKELETON LOADING en KPIs
+   Los KPIs muestran "Static" y "0,0" hasta que carga la API.
+   Solución: Tailwind animate-pulse skeleton en KPICard.tsx
+
+   {isLoading ? (
+     <div className="h-8 w-24 bg-[var(--bg-2)] rounded animate-pulse" />
+   ) : (
+     <span>{value}</span>
+   )}
+
+B) useCountUp.ts — YA EXISTE, no se usa en LiveKPIGrid
+   El hook está en src/hooks/useCountUp.ts pero no se aplica
+   en los KPI cards. Solo conectarlo.
+
+C) ⌘K COMMAND PALETTE
+   El navbar muestra "Buscar IPC, dólar, reservas…⌘K" pero no hay
+   implementación. Usar el paquete cmdk (sin instalación extra, muy liviano):
+   npm install cmdk
+   Permite buscar secciones, indicadores, artículos del glosario.
+
+D) PÁGINA /inflacion — enriquecer
+   Tiene la ruta pero poca data. Podría ser la página más importante del sitio
+   para SEO ("inflacion argentina 2026" → alta intención de búsqueda).
+   Agregar: IPC por rubro (alimentos, indumentaria, etc.), tabla histórica,
+   comparativa con países LATAM.
+
+E) OPEN GRAPH DINÁMICO por indicador
+   Ya tienen opengraph-image.tsx. Podrían generar OG dinámico para cada
+   sección: /indicadores/inflacion → imagen con el dato actual.
+   Usando next/og (ya incluido en Next.js 15).
+
+F) API /v1/snapshot — ya existe
+   src/app/api/v1/snapshot/route.ts sugiere que están construyendo una API
+   pública. Documentarla en /proxys y promocionarla → atrae desarrolladores
+   y mejora SEO técnico.
+
+================================================================================
+  ORDEN DE IMPLEMENTACIÓN RECOMENDADO
+================================================================================
+
+SEMANA 1 — Quick wins (alto impacto, bajo esfuerzo):
+  1. SWR en useLiveData.ts → eliminar "0,0" al cargar
+  2. Skeleton loading en KPICard.tsx
+  3. useCountUp.ts en LiveKPIGrid (ya está escrito, solo conectar)
+  4. Framer Motion en KPICard + secciones del home (reveal on scroll)
+
+SEMANA 2 — Charts financieros:
+  5. lightweight-charts en /calculadora (mayor diferenciador)
+  6. lightweight-charts en TCRChart.tsx y RiesgoPaisChart.tsx
+
+SEMANA 3 — Charts avanzados:
+  7. Crear nivoTheme.ts
+  8. Nivo en InflacionLargoPlazoChart.tsx
+  9. Nivo en EmaeLargoPlazoChart.tsx
+
+SEMANA 4 — UI polish:
+  10. Tremor en KPICard.tsx (o mantener diseño propio con Framer)
+  11. cmdk para la búsqueda ⌘K
+  12. Globe.gl en Hero (si los datos de provincias están disponibles)
+
+================================================================================
+  RECURSOS ÚTILES
+================================================================================
+
+Nivo playground (testear charts online): https://nivo.rocks/line/
+Tremor components: https://tremor.so/docs/components/card
+lightweight-charts ejemplos: https://tradingview.github.io/lightweight-charts/docs/
+Framer Motion ejemplos: https://www.framer.com/motion/examples/
+SWR patterns avanzados: https://swr.vercel.app/docs/advanced/performance
+
+APIs de datos que ya usa MacroLibre:
+  - Dólar: https://bluelytics.com.ar/#!/developer
+  - ArgentinaDatos: https://argentinadatos.com/
+  - BCRA: https://www.bcra.gob.ar/BCRAyVos/Estadisticas_i.asp
+  - INDEC: https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos
+
+================================================================================
+  FIN DE GUÍA
+================================================================================
