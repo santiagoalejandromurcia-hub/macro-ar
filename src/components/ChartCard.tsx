@@ -71,8 +71,11 @@ function inlineStyles(clone: SVGElement, original: SVGElement) {
 }
 
 // ─────────────────────────────────────────────────────────
-// Captura el gráfico y lo descarga como PNG o JPG
-// Agrega fondo MacroLibre + watermark en el pie
+// Captura el gráfico y lo descarga como PNG o JPG.
+// Soporta:
+//   • lightweight-charts  → <canvas> (detectado primero)
+//   • Recharts legacy     → <svg>
+// Agrega fondo MacroLibre + watermark en el pie.
 // ─────────────────────────────────────────────────────────
 async function captureChart(
   wrapperEl: HTMLDivElement,
@@ -80,7 +83,75 @@ async function captureChart(
   format: 'png' | 'jpg',
   fileName: string,
 ) {
-  // 1) Buscar el SVG de Recharts dentro del wrapper
+  const PADDING  = 24;
+  const HEADER_H = 52;
+  const FOOTER_H = 28;
+
+  const BG    = resolveCssVar('var(--bg-1)')    || '#1a2035';
+  const BG2   = resolveCssVar('var(--bg-2)')    || '#1e2640';
+  const FG0   = resolveCssVar('var(--fg-0)')    || '#f8f9fb';
+  const FG2   = resolveCssVar('var(--fg-2)')    || '#8b9ab0';
+  const GOLD  = resolveCssVar('var(--gold)')    || '#F0A500';
+
+  // ── 1) Intentar capturar canvas de lightweight-charts ──
+  const lwCanvas = wrapperEl.querySelector('canvas') as HTMLCanvasElement | null;
+
+  if (lwCanvas) {
+    const W = lwCanvas.width  || lwCanvas.offsetWidth  || 800;
+    const H = lwCanvas.height || lwCanvas.offsetHeight || 350;
+
+    const CANVAS_W = W + PADDING * 2;
+    const CANVAS_H = H + HEADER_H + FOOTER_H + PADDING;
+
+    const out = document.createElement('canvas');
+    out.width  = CANVAS_W;
+    out.height = CANVAS_H;
+    const ctx = out.getContext('2d')!;
+
+    // Fondo
+    ctx.fillStyle = BG;
+    ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+
+    // Borde superior gold
+    ctx.fillStyle = GOLD;
+    ctx.fillRect(0, 0, CANVAS_W, 3);
+
+    // Header
+    ctx.fillStyle = BG2;
+    ctx.fillRect(0, 3, CANVAS_W, HEADER_H);
+
+    ctx.fillStyle = FG0;
+    ctx.font = `600 13px "Geist", "Helvetica Neue", sans-serif`;
+    ctx.textBaseline = 'middle';
+    ctx.fillText(title, PADDING, 3 + HEADER_H / 2 - 5);
+
+    ctx.fillStyle = GOLD;
+    ctx.font = `400 10px "Geist Mono", monospace`;
+    ctx.fillText('macrolibre.com', PADDING, 3 + HEADER_H / 2 + 10);
+
+    // Gráfico (canvas de lw-charts dibujado directamente)
+    ctx.drawImage(lwCanvas, PADDING, 3 + HEADER_H, W, H);
+
+    // Footer
+    const footerY = 3 + HEADER_H + H + 6;
+    ctx.fillStyle = FG2;
+    ctx.font = `400 9px "Geist Mono", monospace`;
+    ctx.textBaseline = 'top';
+    ctx.fillText('MacroLibre · macrolibre.com · datos: INDEC / BCRA / MAGyP', PADDING, footerY);
+    const fecha = new Date().toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
+    const dateW = ctx.measureText(fecha).width;
+    ctx.fillText(fecha, CANVAS_W - PADDING - dateW, footerY);
+
+    const mimeType = format === 'jpg' ? 'image/jpeg' : 'image/png';
+    const quality  = format === 'jpg' ? 0.92 : undefined;
+    const a = document.createElement('a');
+    a.href     = out.toDataURL(mimeType, quality);
+    a.download = `${fileName}.${format}`;
+    a.click();
+    return;
+  }
+
+  // ── 2) Fallback: SVG de Recharts ─────────────────────
   const svg = wrapperEl.querySelector('svg');
   if (!svg) {
     alert('No se encontró el gráfico para exportar.');
@@ -91,20 +162,9 @@ async function captureChart(
   const W = Math.round(svgRect.width)  || 800;
   const H = Math.round(svgRect.height) || 350;
 
-  const PADDING    = 24;
-  const HEADER_H   = 52;   // título + subtítulo arriba
-  const FOOTER_H   = 28;   // watermark abajo
-  const CANVAS_W   = W + PADDING * 2;
-  const CANVAS_H   = H + HEADER_H + FOOTER_H + PADDING;
+  const CANVAS_W = W + PADDING * 2;
+  const CANVAS_H = H + HEADER_H + FOOTER_H + PADDING;
 
-  // Fondo y colores del tema
-  const BG    = resolveCssVar('var(--bg-1)')  || '#1a2035';
-  const BG2   = resolveCssVar('var(--bg-2)')  || '#1e2640';
-  const FG0   = resolveCssVar('var(--fg-0)')  || '#f8f9fb';
-  const FG2   = resolveCssVar('var(--fg-2)')  || '#8b9ab0';
-  const CEL   = resolveCssVar('var(--celeste)') || '#5DC1E0';
-
-  // 2) Clonar SVG e inlinear estilos
   const clone = svg.cloneNode(true) as SVGElement;
   inlineStyles(clone, svg);
   clone.setAttribute('width',  String(W));
@@ -121,65 +181,48 @@ async function captureChart(
     i.src     = svgUrl;
   });
 
-  // 3) Dibujar en canvas
   const canvas  = document.createElement('canvas');
-  canvas.width  = CANVAS_W * 2; // retina
+  canvas.width  = CANVAS_W * 2;
   canvas.height = CANVAS_H * 2;
-  canvas.style.width  = `${CANVAS_W}px`;
-  canvas.style.height = `${CANVAS_H}px`;
   const ctx = canvas.getContext('2d')!;
   ctx.scale(2, 2);
 
-  // Fondo principal
   ctx.fillStyle = BG;
   ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
 
-  // Borde superior coloreado
-  ctx.fillStyle = CEL;
+  ctx.fillStyle = GOLD;
   ctx.fillRect(0, 0, CANVAS_W, 3);
 
-  // Franja header
   ctx.fillStyle = BG2;
   ctx.fillRect(0, 3, CANVAS_W, HEADER_H);
 
-  // Título
-  ctx.fillStyle  = FG0;
-  ctx.font       = `600 13px -apple-system, "Geist", "Helvetica Neue", sans-serif`;
+  ctx.fillStyle = FG0;
+  ctx.font = `600 13px "Geist", "Helvetica Neue", sans-serif`;
   ctx.textBaseline = 'middle';
   ctx.fillText(title, PADDING, 3 + HEADER_H / 2 - 5);
 
-  // Subtítulo (MacroLibre.com)
-  ctx.fillStyle  = CEL;
-  ctx.font       = `400 10px -apple-system, "Geist Mono", monospace`;
+  ctx.fillStyle = GOLD;
+  ctx.font = `400 10px "Geist Mono", monospace`;
   ctx.fillText('macrolibre.com', PADDING, 3 + HEADER_H / 2 + 10);
 
-  // Gráfico SVG
   ctx.drawImage(img, PADDING, 3 + HEADER_H, W, H);
 
-  // Footer watermark
   const footerY = 3 + HEADER_H + H + 6;
   ctx.fillStyle = FG2;
-  ctx.font      = `400 9px -apple-system, "Geist Mono", monospace`;
+  ctx.font = `400 9px "Geist Mono", monospace`;
   ctx.textBaseline = 'top';
-  ctx.fillText(
-    `MacroLibre · macrolibre.com · datos: INDEC / BCRA / MAGyP`,
-    PADDING,
-    footerY,
-  );
-  // Fecha
+  ctx.fillText('MacroLibre · macrolibre.com · datos: INDEC / BCRA / MAGyP', PADDING, footerY);
   const fecha = new Date().toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
   const dateW = ctx.measureText(fecha).width;
   ctx.fillText(fecha, CANVAS_W - PADDING - dateW, footerY);
 
   URL.revokeObjectURL(svgUrl);
 
-  // 4) Descargar
   const mimeType = format === 'jpg' ? 'image/jpeg' : 'image/png';
   const quality  = format === 'jpg' ? 0.92 : undefined;
-  const dataUrl  = canvas.toDataURL(mimeType, quality);
-  const a        = document.createElement('a');
-  a.href         = dataUrl;
-  a.download     = `${fileName}.${format}`;
+  const a = document.createElement('a');
+  a.href     = canvas.toDataURL(mimeType, quality);
+  a.download = `${fileName}.${format}`;
   a.click();
 }
 
