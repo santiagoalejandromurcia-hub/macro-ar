@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { KPICard } from '@/data/macroData';
 import Sparkline from './Sparkline';
 import { useCountUp } from '@/hooks/useCountUp';
@@ -77,11 +78,13 @@ export default function KPICardComponent({
   card,
   index,
   isLive = false,
+  isLoading = false,
   history,
 }: {
   card: KPICard;
   index: number;
   isLive?: boolean;
+  isLoading?: boolean;
   history?: number[];
 }) {
   const { prefix, number, suffix, decimals } = useMemo(() => splitValue(card.value), [card.value]);
@@ -122,13 +125,38 @@ export default function KPICardComponent({
     ? 'oklch(0.68 0.22 25)'
     : 'var(--gold)';
 
+  if (isLoading) {
+    return (
+      <div
+        className="glass rounded-xl p-4 sm:p-5 relative overflow-hidden"
+        style={{ borderLeft: `3px solid var(--line-1)` }}
+      >
+        {/* Skeleton placeholders */}
+        <div className="flex items-start justify-between mb-2 gap-3">
+          <div className="space-y-1.5 flex-1">
+            <div className="skeleton h-2.5 w-16 rounded" />
+            <div className="skeleton h-3.5 w-32 rounded" />
+          </div>
+          <div className="skeleton h-2.5 w-10 rounded" />
+        </div>
+        <div className="flex items-end justify-between gap-3 mt-4">
+          <div className="space-y-2">
+            <div className="skeleton h-8 w-24 rounded" />
+            <div className="skeleton h-3 w-16 rounded" />
+          </div>
+          <div className="skeleton h-12 w-[45%] rounded" />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div
-      className="glass glass-lift rounded-xl p-4 sm:p-5 relative overflow-hidden animate-fade-in"
-      style={{
-        animationDelay: `${index * 60}ms`,
-        borderLeft: `3px solid ${accentBorderColor}`,
-      }}
+    <motion.div
+      className="glass glass-lift rounded-xl p-4 sm:p-5 relative overflow-hidden"
+      style={{ borderLeft: `3px solid ${accentBorderColor}` }}
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.06, ease: [0.2, 0.7, 0.2, 1] }}
     >
       {/* Glow top bar — hereda el color del acento */}
       <div
@@ -158,10 +186,21 @@ export default function KPICardComponent({
       <div className="relative flex items-end justify-between gap-3 mt-3">
         <div className="min-w-0">
           <div
-            className="text-[28px] sm:text-[34px] leading-none tnum text-[var(--fg-0)]"
+            className="text-[28px] sm:text-[34px] leading-none tnum text-[var(--fg-0)] overflow-hidden"
             style={{ fontFamily: '"JetBrains Mono", "Geist Mono", ui-monospace, monospace', fontWeight: 500 }}
           >
-            {displayValue}
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={displayValue}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.25, ease: 'easeOut' }}
+                style={{ display: 'inline-block' }}
+              >
+                {displayValue}
+              </motion.span>
+            </AnimatePresence>
           </div>
           <div className="mt-2 flex items-center gap-2 flex-wrap">
             {!flat && (
@@ -195,6 +234,6 @@ export default function KPICardComponent({
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

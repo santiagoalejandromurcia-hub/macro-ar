@@ -16,6 +16,7 @@ import SimuladorIA from '@/components/SimuladorIA';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import Hero from '@/components/hero/Hero';
 import ServicesSection from '@/components/Services/ServicesSection';
+import FadeSection from '@/components/FadeSection';
 
 export default function HomePage() {
   const latestArticles = articles.slice(0, 3);
@@ -27,7 +28,7 @@ export default function HomePage() {
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         {/* ════════ DASHBOARD ════════ */}
-        <section id="dashboard" className="mt-4">
+        <FadeSection id="dashboard" className="mt-4">
           <SectionHeader
             id="dashboard"
             title="Dashboard en vivo"
@@ -41,10 +42,10 @@ export default function HomePage() {
             </div>
             <RiesgoPaisVivo />
           </div>
-        </section>
+        </FadeSection>
 
         {/* ════════ ACTIVIDAD ════════ */}
-        <section id="actividad" className="mt-20">
+        <FadeSection id="actividad" className="mt-20">
           <SectionHeader
             id="actividad"
             title="Actividad económica"
@@ -62,10 +63,10 @@ export default function HomePage() {
               <ConsumoPrivadoChart />
             </div>
           </div>
-        </section>
+        </FadeSection>
 
         {/* ════════ CONSUMO Y POBREZA ════════ */}
-        <section id="bienestar" className="mt-20">
+        <FadeSection id="bienestar" className="mt-20">
           <SectionHeader
             id="bienestar"
             title="Consumo y pobreza"
@@ -75,10 +76,10 @@ export default function HomePage() {
           <div className="space-y-6">
             <PobrezaChart />
           </div>
-        </section>
+        </FadeSection>
 
         {/* ════════ SALARIO Y DEUDA ════════ */}
-        <section id="salarios-deuda" className="mt-20">
+        <FadeSection id="salarios-deuda" className="mt-20">
           <SectionHeader
             id="salarios-deuda"
             title="Salarios y deuda pública"
@@ -93,10 +94,10 @@ export default function HomePage() {
             </div>
             <DeudaConsolidadaChart />
           </div>
-        </section>
+        </FadeSection>
 
         {/* ════════ HISTÓRICO LARGO PLAZO ════════ */}
-        <section id="historico" className="mt-20">
+        <FadeSection id="historico" className="mt-20">
           <SectionHeader
             id="historico"
             title="Mirada histórica"
@@ -106,10 +107,10 @@ export default function HomePage() {
           <div className="space-y-6">
             <InflacionLargoPlazoChart />
           </div>
-        </section>
+        </FadeSection>
 
         {/* ════════ FISCAL ════════ */}
-        <section id="fiscal" className="mt-20">
+        <FadeSection id="fiscal" className="mt-20">
           <SectionHeader
             id="fiscal"
             title="Equilibrio fiscal"
@@ -120,10 +121,10 @@ export default function HomePage() {
             <FiscalChart />
             <TaxTable />
           </div>
-        </section>
+        </FadeSection>
 
         {/* ════════ EXTERNO ════════ */}
-        <section id="externo" className="mt-20">
+        <FadeSection id="externo" className="mt-20">
           <SectionHeader
             id="externo"
             title="Sector externo"
@@ -138,10 +139,10 @@ export default function HomePage() {
             </div>
             <RiesgoPaisChart />
           </div>
-        </section>
+        </FadeSection>
 
         {/* ════════ PRECIOS ════════ */}
-        <section id="precios" className="mt-20">
+        <FadeSection id="precios" className="mt-20">
           <SectionHeader
             id="precios"
             title="Precios e inflación"
@@ -155,10 +156,10 @@ export default function HomePage() {
             </div>
             <REMChart />
           </div>
-        </section>
+        </FadeSection>
 
         {/* ════════ CALCULADORA ════════ */}
-        <section id="calculadora-teaser" className="mt-20">
+        <FadeSection id="calculadora-teaser" className="mt-20">
           <div className="glass glass-lift p-6 md:p-8 grid grid-cols-1 md:grid-cols-5 gap-6 items-center overflow-hidden relative">
             <div
               aria-hidden
@@ -199,25 +200,25 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-        </section>
+        </FadeSection>
 
         {/* ════════ SIMULADOR IA ════════ */}
-        <section id="simulador" className="mt-20">
+        <FadeSection id="simulador" className="mt-20">
           <SimuladorIA />
-        </section>
+        </FadeSection>
 
         {/* ════════ SERVICIOS ════════ */}
-        <section className="mt-20">
+        <FadeSection className="mt-20">
           <ServicesSection />
-        </section>
+        </FadeSection>
 
         {/* ════════ NEWSLETTER ════════ */}
-        <section id="newsletter" className="mt-20">
+        <FadeSection id="newsletter" className="mt-20">
           <NewsletterSignup />
-        </section>
+        </FadeSection>
 
         {/* ════════ ARTÍCULOS ════════ */}
-        <section className="mt-20">
+        <FadeSection className="mt-20">
           <SectionHeader
             id="articulos-preview"
             title="Artículos destacados"
@@ -264,7 +265,7 @@ export default function HomePage() {
               Ver todos los artículos <span aria-hidden>→</span>
             </Link>
           </div>
-        </section>
+        </FadeSection>
       </div>
     </>
   );
