@@ -43,6 +43,16 @@ const WORLD_NODES = [
   { lat: 22.32,  lng: 114.17 },  // Hong Kong
 ];
 
+// Destinos de exportación de Argentina (principales socios comerciales)
+const EXPORT_DESTINATIONS = [
+  { lat: 30.90,  lng: 121.44 },  // Shanghai (China — principal destino)
+  { lat: 51.51,  lng: -0.13  },  // Londres (Unión Europea)
+  { lat: 40.71,  lng: -74.00 },  // Nueva York (EEUU)
+  { lat: -23.55, lng: -46.63 },  // São Paulo (Brasil)
+  { lat: 19.43,  lng: -99.13 },  // CDMX (México)
+  { lat: 48.85,  lng:   2.35 },  // París (Europa)
+];
+
 function latLngToVector3(lat: number, lng: number, radius: number): THREE.Vector3 {
   const phi = (90 - lat) * (Math.PI / 180);
   const theta = (lng + 180) * (Math.PI / 180);
@@ -84,6 +94,65 @@ function CityDots({ radius }: { radius: number }) {
   );
 }
 
+// ─── Arcos de exportación: Buenos Aires → destinos ──────────
+function ExportArcs({ radius }: { radius: number }) {
+  const BA = { lat: -34.61, lng: -58.38 }; // Buenos Aires
+  const progressRef = useRef(0);
+
+  // Genera puntos intermedios a lo largo de un gran círculo con altura
+  const arcs = useMemo(() => {
+    return EXPORT_DESTINATIONS.map((dest) => {
+      const start = latLngToVector3(BA.lat, BA.lng, radius * 1.01);
+      const end   = latLngToVector3(dest.lat, dest.lng, radius * 1.01);
+      const mid   = start.clone().add(end).normalize().multiplyScalar(radius * 1.45);
+      const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
+      return curve.getPoints(60);
+    });
+  }, [radius]);
+
+  // Una línea por arco con geometría que anima su dashOffset
+  const meshRefs = useRef<(THREE.Line | null)[]>([]);
+
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
+    meshRefs.current.forEach((line, i) => {
+      if (!line) return;
+      const mat = line.material as THREE.LineDashedMaterial;
+      // Cada arco desfasado en el tiempo
+      mat.dashOffset = -(t * 0.4 + i * 0.5) % 2;
+    });
+  });
+
+  return (
+    <>
+      {arcs.map((points, i) => {
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+        return (
+          <primitive
+            key={i}
+            object={
+              (() => {
+                const mat = new THREE.LineDashedMaterial({
+                  color: '#F0A500', // gold
+                  linewidth: 1,
+                  dashSize: 0.18,
+                  gapSize: 0.12,
+                  transparent: true,
+                  opacity: 0.65,
+                });
+                const line = new THREE.Line(geometry, mat);
+                line.computeLineDistances();
+                meshRefs.current[i] = line;
+                return line;
+              })()
+            }
+          />
+        );
+      })}
+    </>
+  );
+}
+
 // ─── Globo con textura realista de Tierra ───────────────────
 function EarthGlobe() {
   const groupRef = useRef<THREE.Group>(null);
@@ -121,6 +190,7 @@ function EarthGlobe() {
       </Sphere>
 
       <CityDots radius={radius} />
+      <ExportArcs radius={radius} />
     </group>
   );
 }

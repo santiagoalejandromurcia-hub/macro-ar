@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import LionToggle from './LionToggle';
 import UserMenu from './UserMenu';
+import CommandPalette from './CommandPalette';
 
 // ════════════════════════════════════════════════════
 // Navbar MacroLibre · estilo BCRA con dropdown "Secciones"
@@ -91,6 +92,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [sectionsOpen, setSectionsOpen] = useState(false);
   const [mercadosOpen, setMercadosOpen] = useState(false);
+  const [cmdOpen, setCmdOpen] = useState(false);
   const sectionsRef = useRef<HTMLDivElement>(null);
   const mercadosRef = useRef<HTMLDivElement>(null);
   const clock = useClock();
@@ -110,12 +112,18 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  // ESC → cerrar dropdowns
+  // ESC → cerrar dropdowns y palette
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setSectionsOpen(false);
         setMercadosOpen(false);
+        setCmdOpen(false);
+      }
+      // ⌘K (Mac) o Ctrl+K (Windows/Linux) → abrir command palette
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setCmdOpen((v) => !v);
       }
     };
     document.addEventListener('keydown', handler);
@@ -124,6 +132,9 @@ export default function Navbar() {
 
   return (
     <div className="sticky top-0 z-40">
+    {/* ⌘K Command Palette */}
+    <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} />
+
     <nav className="border-b border-[var(--line-1)] bg-[oklch(0.12_0.018_250_/_0.85)] backdrop-blur-xl">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 h-14 flex items-center gap-4 lg:gap-8">
         {/* ── Wordmark ─────────────────────────────────── */}
@@ -297,18 +308,19 @@ export default function Navbar() {
 
         {/* ── Right cluster ────────────────────────────── */}
         <div className="ml-auto flex items-center gap-2 sm:gap-3">
-          {/* Search */}
+          {/* Search — abre CommandPalette */}
           <button
             type="button"
-            className="hidden md:flex items-center gap-2.5 h-8 px-2.5 text-[12px] text-[var(--fg-2)] bg-[var(--bg-1)] border border-[var(--line-1)] rounded-md hover:border-[var(--celeste)]/40 transition"
-            aria-label="Buscar"
+            onClick={() => setCmdOpen(true)}
+            className="hidden md:flex items-center gap-2.5 h-8 px-2.5 text-[12px] text-[var(--fg-2)] bg-[var(--bg-1)] border border-[var(--line-1)] rounded-md hover:border-[var(--gold)]/40 hover:text-[var(--fg-1)] transition"
+            aria-label="Buscar (⌘K)"
           >
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <circle cx="11" cy="11" r="7" />
               <path d="m21 21-4.3-4.3" />
             </svg>
             <span className="font-mono">Buscar IPC, dólar, reservas…</span>
-            <span className="ml-4 font-mono text-[10px] px-1.5 py-0.5 bg-[var(--bg-2)] border border-[var(--line-1)] rounded">⌘K</span>
+            <span className="ml-4 font-mono text-[10px] px-1.5 py-0.5 bg-[var(--bg-2)] border border-[var(--line-1)] rounded" style={{ color: 'var(--gold)' }}>⌘K</span>
           </button>
 
           {/* Status */}
