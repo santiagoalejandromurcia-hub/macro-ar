@@ -14,6 +14,7 @@ import {
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { salarioRealData } from '@/data/macroData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 /**
  * Salario Real — Base Nov-23 = 100
@@ -23,17 +24,21 @@ import { salarioRealData } from '@/data/macroData';
  */
 export default function SalarioRealChart() {
   const t = useChartTheme();
-  const csvData = salarioRealData as unknown as Record<string, unknown>[];
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'salario', salarioRealData, (raw) => raw as typeof salarioRealData,
+  );
+  const csvData = liveData as unknown as Record<string, unknown>[];
 
   return (
     <ChartCard
       title="Salario Real"
-      subtitle="Base Nov-23 = 100 · Mensual · Fuente: INDEC SIPA + EIL"
+      subtitle={isLive ? `Base Nov-23 = 100 · Actualizado ${updatedAt} · INDEC` : 'Base Nov-23 = 100 · Mensual · Fuente: INDEC SIPA + EIL'}
+      isLive={isLive}
       csvData={csvData}
       csvFileName="salario-real"
     >
       <ResponsiveContainer width="100%" height={340}>
-        <LineChart data={salarioRealData} margin={{ top: 10, right: 10, left: -10, bottom: 5 }}>
+        <LineChart data={liveData} margin={{ top: 10, right: 10, left: -10, bottom: 5 }}>
           <CartesianGrid {...t.grid} />
           <XAxis dataKey="date" tick={t.axis} interval={2} />
           <YAxis tick={t.axis} domain={[75, 130]} />

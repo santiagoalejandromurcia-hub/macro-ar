@@ -6,18 +6,23 @@ import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { tradeData } from '@/data/macroData';
 import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 export default function TradeChart() {
   const t = useChartTheme();
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'trade', tradeData, (raw) => raw as typeof tradeData,
+  );
   const [period, setPeriod] = useState(0);
 
-  const displayData = useMemo(() => filterByPeriod(tradeData, period), [period]);
+  const displayData = useMemo(() => filterByPeriod(liveData, period), [liveData, period]);
   const csvData = displayData as unknown as Record<string, unknown>[];
 
   return (
     <ChartCard
       title="Balanza Comercial"
-      subtitle="Exportaciones vs Importaciones (USD M) + Saldo · Fuente: INDEC"
+      subtitle={isLive ? `Exp. vs Imp. (USD M) · Actualizado ${updatedAt} · INDEC` : 'Exportaciones vs Importaciones (USD M) + Saldo · Fuente: INDEC'}
+      isLive={isLive}
       periods={[...MONTHLY_PERIODS]}
       selectedPeriod={period}
       onPeriodChange={setPeriod}

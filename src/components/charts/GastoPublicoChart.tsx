@@ -14,6 +14,7 @@ import {
 } from 'recharts';
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme } from './useChartTheme';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 /**
  * Gasto Primario Nacional — % del PIB (mensual, acumulado 12m)
@@ -21,7 +22,7 @@ import { useChartTheme } from './useChartTheme';
  * Hitos: CFK final → Macri → Alberto (pandemia) → Milei ajuste
  */
 
-const data = [
+const gastoPublicoFallback = [
   // ── CFK final ──────────────────────────────
   { date: 'Ene 15', value: 27.5 }, { date: 'Abr 15', value: 26.8 },
   { date: 'Jul 15', value: 27.4 }, { date: 'Oct 15', value: 28.2 },
@@ -82,7 +83,10 @@ function CustomTooltip({ active, payload, label }: {
 
 export default function GastoPublicoChart() {
   const t = useChartTheme();
-  const csvData = data.map((d) => ({
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'gasto-publico', gastoPublicoFallback, (raw) => raw as typeof gastoPublicoFallback,
+  );
+  const csvData = liveData.map((d) => ({
     Período: d.date,
     'Gasto Primario % PIB': d.value,
   })) as unknown as Record<string, unknown>[];
@@ -90,13 +94,14 @@ export default function GastoPublicoChart() {
   return (
     <ChartCard
       title="Gasto Primario Nacional — % del PIB"
-      subtitle="Mensual · 2015–2026 · Acumulado 12 meses · Fuente: IARAF / Min. Economía / INDEC"
+      subtitle={isLive ? `Acumulado 12 meses · Actualizado ${updatedAt} · Min. Economía` : 'Mensual · 2015–2026 · Acumulado 12 meses · Fuente: IARAF / Min. Economía / INDEC'}
+      isLive={isLive}
       csvData={csvData}
       csvFileName="gasto-primario-pbi"
       imageFileName="gasto-primario-pbi"
     >
       <ResponsiveContainer width="100%" height={360}>
-        <AreaChart data={data} margin={{ top: 10, right: 16, left: -4, bottom: 5 }}>
+        <AreaChart data={liveData} margin={{ top: 10, right: 16, left: -4, bottom: 5 }}>
           <defs>
             <linearGradient id="gastoFill" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%"   stopColor="#74ACDF" stopOpacity={0.3} />

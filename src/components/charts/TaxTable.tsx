@@ -3,11 +3,20 @@
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme } from './useChartTheme';
 import { taxData } from '@/data/macroData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 export default function TaxTable() {
   const t = useChartTheme();
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'arca', taxData, (raw) => raw as typeof taxData,
+  );
+
   return (
-    <ChartCard title="Recaudación Tributaria Nacional" subtitle="Acumulado 2025 · En millones de ARS">
+    <ChartCard
+      title="Recaudación Tributaria Nacional"
+      subtitle={isLive ? `Acumulado · Actualizado ${updatedAt} · ARCA` : 'Acumulado 2025 · En millones de ARS'}
+      isLive={isLive}
+    >
       <div className="overflow-x-auto -mx-2">
         <table className="w-full text-sm min-w-[500px]">
           <thead>
@@ -19,7 +28,7 @@ export default function TaxTable() {
             </tr>
           </thead>
           <tbody>
-            {taxData.map((row) => (
+            {liveData.map((row) => (
               <tr
                 key={row.concepto}
                 className={`border-b border-theme ${row.concepto === 'TOTAL' ? 'font-semibold' : ''}`}

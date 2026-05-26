@@ -5,19 +5,27 @@ import { ComposedChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { fiscalData } from '@/data/macroData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
 
 export default function FiscalChart() {
   const t = useChartTheme();
   const [period, setPeriod] = useState(0);
 
-  const displayData = useMemo(() => filterByPeriod(fiscalData, period), [period]);
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'fiscal',
+    fiscalData,
+    (raw) => raw as typeof fiscalData,
+  );
+
+  const displayData = useMemo(() => filterByPeriod(liveData, period), [liveData, period]);
   const csvData = displayData as unknown as Record<string, unknown>[];
 
   return (
     <ChartCard
       title="Resultado Fiscal — Primario y Financiero"
-      subtitle="% del PIB · Acumulado 12 meses · Fuente: Min. Economía"
+      subtitle={isLive ? `% del PIB · Actualizado ${updatedAt} · Min. Economía` : '% del PIB · Acumulado 12 meses · Fuente: Min. Economía'}
+      isLive={isLive}
       periods={[...MONTHLY_PERIODS]}
       selectedPeriod={period}
       onPeriodChange={setPeriod}

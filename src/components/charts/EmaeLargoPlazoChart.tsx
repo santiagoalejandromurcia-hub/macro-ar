@@ -15,6 +15,7 @@ import {
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { emaeLargoPlazoData } from '@/data/macroData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 /**
  * Actividad Económica EMAE — Largo plazo, serie desestacionalizada.
@@ -24,17 +25,21 @@ import { emaeLargoPlazoData } from '@/data/macroData';
  */
 export default function EmaeLargoPlazoChart() {
   const t = useChartTheme();
-  const csvData = emaeLargoPlazoData as unknown as Record<string, unknown>[];
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'emae-largo-plazo', emaeLargoPlazoData, (raw) => raw as typeof emaeLargoPlazoData,
+  );
+  const csvData = liveData as unknown as Record<string, unknown>[];
 
   return (
     <ChartCard
       title='Actividad Económica EMAE · "Nuevo máximo"'
-      subtitle="Serie desestacionalizada · Fuente: Econométrica en base a INDEC"
+      subtitle={isLive ? `Serie desestacionalizada · Actualizado ${updatedAt} · INDEC` : 'Serie desestacionalizada · Fuente: Econométrica en base a INDEC'}
+      isLive={isLive}
       csvData={csvData}
       csvFileName="emae-largo-plazo"
     >
       <ResponsiveContainer width="100%" height={360}>
-        <ComposedChart data={emaeLargoPlazoData} margin={{ top: 20, right: 10, left: -10, bottom: 5 }}>
+        <ComposedChart data={liveData} margin={{ top: 20, right: 10, left: -10, bottom: 5 }}>
           <defs>
             <linearGradient id="emaeLPFill" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#A78BFA" stopOpacity={0.30} />

@@ -15,6 +15,7 @@ import {
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { exportacionesData } from '@/data/macroData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 /**
  * Exportaciones de Argentina — USD miles de millones (anual).
@@ -23,17 +24,21 @@ import { exportacionesData } from '@/data/macroData';
  */
 export default function ExportacionesChart() {
   const t = useChartTheme();
-  const csvData = exportacionesData as unknown as Record<string, unknown>[];
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'exportaciones', exportacionesData, (raw) => raw as typeof exportacionesData,
+  );
+  const csvData = liveData as unknown as Record<string, unknown>[];
 
   return (
     <ChartCard
       title="Exportaciones de Argentina"
-      subtitle="USD miles de millones · Anual 2016–2026e · Fuente: Econométrica en base a INDEC"
+      subtitle={isLive ? `USD miles de millones · Actualizado ${updatedAt} · INDEC` : 'USD miles de millones · Anual 2016–2026e · Fuente: Econométrica en base a INDEC'}
+      isLive={isLive}
       csvData={csvData}
       csvFileName="exportaciones"
     >
       <ResponsiveContainer width="100%" height={340}>
-        <BarChart data={exportacionesData} margin={{ top: 25, right: 10, left: -10, bottom: 5 }}>
+        <BarChart data={liveData} margin={{ top: 25, right: 10, left: -10, bottom: 5 }}>
           <CartesianGrid {...t.grid} />
           <XAxis dataKey="year" tick={t.axis} />
           <YAxis tick={t.axis} domain={[0, 110]} unit=" MM" />
@@ -41,7 +46,7 @@ export default function ExportacionesChart() {
           <ReferenceLine y={100} stroke="#22C55E" strokeDasharray="3 3" label={{ value: 'USD 100 MM', position: 'insideTopRight', fill: '#22C55E', fontSize: 10 }} />
 
           <Bar dataKey="value" name="Exportaciones (USD MM)" radius={[6, 6, 0, 0]}>
-            {exportacionesData.map((d, i) => (
+            {liveData.map((d, i) => (
               <Cell
                 key={i}
                 fill={d.isEstimate ? '#22C55E' : '#74ACDF'}

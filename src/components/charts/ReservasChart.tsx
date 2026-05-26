@@ -5,22 +5,15 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { reservasData } from '@/data/macroData';
-import { useLiveData } from '@/hooks/useLiveData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
-
-interface ReservasPoint { date: string; value: number }
-
-function transformReservas(json: unknown): ReservasPoint[] {
-  const j = json as { data?: ReservasPoint[] };
-  return j?.data?.length ? j.data : reservasData;
-}
 
 export default function ReservasChart() {
   const t = useChartTheme();
   const [period, setPeriod] = useState(0);
 
-  const { data, isLive, lastUpdate } = useLiveData<ReservasPoint[]>(
-    '/api/reservas', reservasData, transformReservas, { refreshInterval: 3600 * 1000 }
+  const { data, isLive, updatedAt } = useIndicatorData(
+    'reservas', reservasData, (raw) => raw as typeof reservasData,
   );
 
   const displayData = useMemo(() => filterByPeriod(data, period), [data, period]);
@@ -29,7 +22,7 @@ export default function ReservasChart() {
   return (
     <ChartCard
       title="Reservas Internacionales BCRA"
-      subtitle={isLive ? `USD millones · Brutas · Actualizado ${lastUpdate} · Fuente: BCRA` : 'USD millones · Brutas'}
+      subtitle={isLive ? `USD millones · Brutas · Actualizado ${updatedAt} · BCRA` : 'USD millones · Brutas'}
       isLive={isLive}
       periods={[...MONTHLY_PERIODS]}
       selectedPeriod={period}

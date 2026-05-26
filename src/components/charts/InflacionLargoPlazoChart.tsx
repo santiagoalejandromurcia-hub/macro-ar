@@ -15,6 +15,7 @@ import {
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { inflacionLargoPlazoData } from '@/data/macroData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 /**
  * Inflación Argentina 1990-2026 — Var. % interanual.
@@ -25,7 +26,10 @@ import { inflacionLargoPlazoData } from '@/data/macroData';
  */
 export default function InflacionLargoPlazoChart() {
   const t = useChartTheme();
-  const csvData = inflacionLargoPlazoData as unknown as Record<string, unknown>[];
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'inflacion-largo-plazo', inflacionLargoPlazoData, (raw) => raw as typeof inflacionLargoPlazoData,
+  );
+  const csvData = liveData as unknown as Record<string, unknown>[];
 
   const colorFor = (h?: string) => {
     if (h === 'pico-1991') return '#D4A843';
@@ -37,19 +41,20 @@ export default function InflacionLargoPlazoChart() {
   return (
     <ChartCard
       title='Inflación Argentina · "Frenar una hiper, respetando contratos"'
-      subtitle="Var. % interanual · 1990–2026 · Fuente: Econométrica en base a INDEC (Bevaqua/CABA 2007-2015)"
+      subtitle={isLive ? `Var. % interanual · Actualizado ${updatedAt} · INDEC` : 'Var. % interanual · 1990–2026 · Fuente: Econométrica en base a INDEC (Bevaqua/CABA 2007-2015)'}
+      isLive={isLive}
       csvData={csvData}
       csvFileName="inflacion-1990-2026"
     >
       <ResponsiveContainer width="100%" height={360}>
-        <ComposedChart data={inflacionLargoPlazoData} margin={{ top: 20, right: 10, left: -5, bottom: 5 }}>
+        <ComposedChart data={liveData} margin={{ top: 20, right: 10, left: -5, bottom: 5 }}>
           <CartesianGrid {...t.grid} />
           <XAxis dataKey="year" tick={{ ...t.axis, fontSize: 9 }} interval={1} />
           <YAxis tick={t.axis} domain={[0, 350]} unit="%" />
           <Tooltip content={<ThemedTooltip />} />
 
           <Bar dataKey="value" name="Inflación interanual %" radius={[3, 3, 0, 0]}>
-            {inflacionLargoPlazoData.map((d, i) => (
+            {liveData.map((d, i) => (
               <Cell key={i} fill={colorFor(d.highlight)} />
             ))}
           </Bar>

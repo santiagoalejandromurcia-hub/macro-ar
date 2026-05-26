@@ -14,6 +14,7 @@ import {
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { consumoPrivadoData } from '@/data/macroData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 /**
  * Consumo Privado — Serie desestacionalizada (Base I-17 = 100)
@@ -23,17 +24,21 @@ import { consumoPrivadoData } from '@/data/macroData';
  */
 export default function ConsumoPrivadoChart() {
   const t = useChartTheme();
-  const csvData = consumoPrivadoData as unknown as Record<string, unknown>[];
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'consumo', consumoPrivadoData, (raw) => raw as typeof consumoPrivadoData,
+  );
+  const csvData = liveData as unknown as Record<string, unknown>[];
 
   return (
     <ChartCard
       title="Consumo Privado — Serie desestacionalizada"
-      subtitle="Base I-17 = 100 · Trimestral 2017–2025 · Fuente: Econométrica en base a INDEC"
+      subtitle={isLive ? `Base I-17 = 100 · Actualizado ${updatedAt} · INDEC` : 'Base I-17 = 100 · Trimestral 2017–2025 · Fuente: Econométrica en base a INDEC'}
+      isLive={isLive}
       csvData={csvData}
       csvFileName="consumo-privado"
     >
       <ResponsiveContainer width="100%" height={340}>
-        <ComposedChart data={consumoPrivadoData} margin={{ top: 10, right: 10, left: -10, bottom: 5 }}>
+        <ComposedChart data={liveData} margin={{ top: 10, right: 10, left: -10, bottom: 5 }}>
           <defs>
             <linearGradient id="consumoFill" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#A78BFA" stopOpacity={0.25} />

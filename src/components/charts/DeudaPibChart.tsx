@@ -14,6 +14,7 @@ import {
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { deudaPibData } from '@/data/macroData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 /**
  * Deuda Pública Total — % del PIB (mensual).
@@ -23,17 +24,21 @@ import { deudaPibData } from '@/data/macroData';
  */
 export default function DeudaPibChart() {
   const t = useChartTheme();
-  const csvData = deudaPibData as unknown as Record<string, unknown>[];
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'deuda', deudaPibData, (raw) => raw as typeof deudaPibData,
+  );
+  const csvData = liveData as unknown as Record<string, unknown>[];
 
   return (
     <ChartCard
       title="Deuda Pública Total"
-      subtitle="% del PIB · Mensual · MM 12m · Fuente: Min. Economía"
+      subtitle={isLive ? `% del PIB · Actualizado ${updatedAt} · Min. Economía` : '% del PIB · Mensual · MM 12m · Fuente: Min. Economía'}
+      isLive={isLive}
       csvData={csvData}
       csvFileName="deuda-pib"
     >
       <ResponsiveContainer width="100%" height={340}>
-        <AreaChart data={deudaPibData} margin={{ top: 10, right: 10, left: -10, bottom: 5 }}>
+        <AreaChart data={liveData} margin={{ top: 10, right: 10, left: -10, bottom: 5 }}>
           <defs>
             <linearGradient id="deudaFill" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#EF4444" stopOpacity={0.3} />

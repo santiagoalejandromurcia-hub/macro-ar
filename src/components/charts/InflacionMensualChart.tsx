@@ -5,22 +5,15 @@ import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { inflacionData } from '@/data/macroData';
-import { useLiveData } from '@/hooks/useLiveData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
-
-interface InflacionPoint { date: string; mensual: number; interanual?: number | null; nucleo?: number | null }
-
-function transformInflacion(json: unknown): InflacionPoint[] {
-  const j = json as { data?: InflacionPoint[] };
-  return j?.data?.length ? j.data : inflacionData;
-}
 
 export default function InflacionMensualChart() {
   const t = useChartTheme();
   const [period, setPeriod] = useState(0);
 
-  const { data, isLive, lastUpdate } = useLiveData<InflacionPoint[]>(
-    '/api/inflacion', inflacionData, transformInflacion, { refreshInterval: 86400 * 1000 }
+  const { data, isLive, updatedAt } = useIndicatorData(
+    'inflacion', inflacionData, (raw) => raw as typeof inflacionData,
   );
 
   const displayData = useMemo(() => filterByPeriod(data, period), [data, period]);
@@ -29,7 +22,7 @@ export default function InflacionMensualChart() {
   return (
     <ChartCard
       title="IPC — Inflación Mensual"
-      subtitle={isLive ? `Nivel general y núcleo (%) · Actualizado ${lastUpdate} · Fuente: INDEC` : 'Nivel general y núcleo (%)'}
+      subtitle={isLive ? `Nivel general y núcleo (%) · Actualizado ${updatedAt} · INDEC` : 'Nivel general y núcleo (%)'}
       isLive={isLive}
       periods={[...MONTHLY_PERIODS]}
       selectedPeriod={period}

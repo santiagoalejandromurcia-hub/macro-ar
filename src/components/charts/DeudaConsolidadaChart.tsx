@@ -14,6 +14,7 @@ import {
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { deudaConsolidadaData, deudaConsolidadaHistoricos } from '@/data/macroData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 /**
  * Deuda Pública Consolidada — Tesoro + BCRA · USD MM.
@@ -24,17 +25,21 @@ import { deudaConsolidadaData, deudaConsolidadaHistoricos } from '@/data/macroDa
  */
 export default function DeudaConsolidadaChart() {
   const t = useChartTheme();
-  const csvData = deudaConsolidadaData as unknown as Record<string, unknown>[];
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'deuda-consolidada', deudaConsolidadaData, (raw) => raw as typeof deudaConsolidadaData,
+  );
+  const csvData = liveData as unknown as Record<string, unknown>[];
 
   return (
     <ChartCard
       title="Deuda Pública Consolidada (Tesoro + BCRA)"
-      subtitle="USD miles de millones · Fuente: Min. Economía + BCRA"
+      subtitle={isLive ? `USD miles de millones · Actualizado ${updatedAt} · Min. Economía` : 'USD miles de millones · Fuente: Min. Economía + BCRA'}
+      isLive={isLive}
       csvData={csvData}
       csvFileName="deuda-consolidada"
     >
       <ResponsiveContainer width="100%" height={360}>
-        <BarChart data={deudaConsolidadaData} margin={{ top: 25, right: 10, left: -10, bottom: 5 }}>
+        <BarChart data={liveData} margin={{ top: 25, right: 10, left: -10, bottom: 5 }}>
           <CartesianGrid {...t.grid} />
           <XAxis dataKey="period" tick={t.axis} />
           <YAxis tick={t.axis} domain={[0, 600]} />

@@ -15,6 +15,7 @@ import {
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { pobrezaData } from '@/data/macroData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 const ETAPA_COLORS: Record<string, string> = {
   jxc: '#D4A843',  // amarillo
@@ -29,17 +30,21 @@ const ETAPA_COLORS: Record<string, string> = {
  */
 export default function PobrezaChart() {
   const t = useChartTheme();
-  const csvData = pobrezaData as unknown as Record<string, unknown>[];
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'pobreza', pobrezaData, (raw) => raw as typeof pobrezaData,
+  );
+  const csvData = liveData as unknown as Record<string, unknown>[];
 
   return (
     <ChartCard
       title="Pobreza en Argentina"
-      subtitle="% de la población · Semestral 2016–2025 · Fuente: Econométrica en base a INDEC"
+      subtitle={isLive ? `% de la población · Actualizado ${updatedAt} · INDEC` : '% de la población · Semestral 2016–2025 · Fuente: Econométrica en base a INDEC'}
+      isLive={isLive}
       csvData={csvData}
       csvFileName="pobreza"
     >
       <ResponsiveContainer width="100%" height={340}>
-        <BarChart data={pobrezaData} margin={{ top: 20, right: 10, left: -15, bottom: 5 }}>
+        <BarChart data={liveData} margin={{ top: 20, right: 10, left: -15, bottom: 5 }}>
           <CartesianGrid {...t.grid} />
           <XAxis dataKey="period" tick={t.axis} interval={1} />
           <YAxis tick={t.axis} domain={[0, 60]} unit="%" />
@@ -47,7 +52,7 @@ export default function PobrezaChart() {
           <ReferenceLine y={40} stroke={t.refLine} strokeDasharray="2 4" />
 
           <Bar dataKey="value" name="Pobreza (%)" radius={[4, 4, 0, 0]}>
-            {pobrezaData.map((d, i) => (
+            {liveData.map((d, i) => (
               <Cell key={i} fill={ETAPA_COLORS[d.etapa] ?? '#94A3B8'} />
             ))}
             <LabelList

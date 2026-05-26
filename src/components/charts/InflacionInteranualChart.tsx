@@ -5,22 +5,15 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { inflacionData } from '@/data/macroData';
-import { useLiveData } from '@/hooks/useLiveData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
-
-interface InflacionPoint { date: string; mensual: number; interanual?: number | null; nucleo?: number | null }
-
-function transformInflacion(json: unknown): InflacionPoint[] {
-  const j = json as { data?: InflacionPoint[] };
-  return j?.data?.length ? j.data : inflacionData;
-}
 
 export default function InflacionInteranualChart() {
   const t = useChartTheme();
   const [period, setPeriod] = useState(0);
 
-  const { data, isLive, lastUpdate } = useLiveData<InflacionPoint[]>(
-    '/api/inflacion', inflacionData, transformInflacion, { refreshInterval: 86400 * 1000 }
+  const { data, isLive, updatedAt } = useIndicatorData(
+    'inflacion', inflacionData, (raw) => raw as typeof inflacionData,
   );
 
   const displayData = useMemo(() => filterByPeriod(data, period), [data, period]);
@@ -29,7 +22,7 @@ export default function InflacionInteranualChart() {
   return (
     <ChartCard
       title="IPC — Inflación Interanual"
-      subtitle={isLive ? `Var. % vs mismo mes del año anterior · Actualizado ${lastUpdate}` : 'Var. % respecto al mismo mes del año anterior'}
+      subtitle={isLive ? `Var. % vs mismo mes del año anterior · Actualizado ${updatedAt}` : 'Var. % respecto al mismo mes del año anterior'}
       isLive={isLive}
       periods={[...MONTHLY_PERIODS]}
       selectedPeriod={period}

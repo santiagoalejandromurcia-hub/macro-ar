@@ -4,13 +4,25 @@ import { ComposedChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { remData } from '@/data/macroData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 export default function REMChart() {
   const t = useChartTheme();
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'rem', remData, (raw) => raw as typeof remData,
+  );
+  const csvData = liveData as unknown as Record<string, unknown>[];
+
   return (
-    <ChartCard title="Inflación Esperada — REM (BCRA)" subtitle="Expectativas IPC mensual (%) · Fuente: REM feb-26 e INDEC">
+    <ChartCard
+      title="Inflación Esperada — REM (BCRA)"
+      subtitle={isLive ? `Expectativas IPC mensual (%) · Actualizado ${updatedAt} · BCRA` : 'Expectativas IPC mensual (%) · Fuente: REM feb-26 e INDEC'}
+      isLive={isLive}
+      csvData={csvData}
+      csvFileName="rem-inflacion-esperada"
+    >
       <ResponsiveContainer width="100%" height={320}>
-        <ComposedChart data={remData} margin={{ top: 5, right: 10, left: -15, bottom: 5 }}>
+        <ComposedChart data={liveData} margin={{ top: 5, right: 10, left: -15, bottom: 5 }}>
           <CartesianGrid {...t.grid} />
           <XAxis dataKey="period" tick={t.axis} />
           <YAxis tick={t.axis} domain={[0.5, 4]} />

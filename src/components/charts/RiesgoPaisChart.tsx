@@ -11,9 +11,10 @@ import { createChart, AreaSeries, createSeriesMarkers } from 'lightweight-charts
 import type { SeriesMarker, Time } from 'lightweight-charts';
 import ChartCard from '@/components/ChartCard';
 import { riesgoPaisData } from '@/data/macroData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 import { spanishToISO, macroChartOptions } from '@/lib/lwChartUtils';
 
-function RiesgoPaisInnerChart() {
+function RiesgoPaisInnerChart({ data }: { data: typeof riesgoPaisData }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ function RiesgoPaisInnerChart() {
       crosshairMarkerVisible: true,
     });
 
-    const seriesData = riesgoPaisData
+    const seriesData = data
       .map((d) => ({
         time: spanishToISO(d.date) as Time,
         value: d.value,
@@ -43,7 +44,7 @@ function RiesgoPaisInnerChart() {
 
     // Markers: pico (rojo arriba), mínimo (verde abajo), actual (amarillo arriba)
     // v5: position y shape deben ser el tipo exacto (literal), y price es obligatorio
-    const markers: SeriesMarker<Time>[] = riesgoPaisData
+    const markers: SeriesMarker<Time>[] = data
       .filter((d) => d.highlight)
       .map((d) => ({
         time:  spanishToISO(d.date) as Time,
@@ -70,25 +71,29 @@ function RiesgoPaisInnerChart() {
       ro.disconnect();
       chart.remove();
     };
-  }, []);
+  }, [data]);
 
   return <div ref={containerRef} style={{ width: '100%', height: 300 }} />;
 }
 
 export default function RiesgoPaisChart() {
-  const csvData = riesgoPaisData as unknown as Record<string, unknown>[];
-  const last  = riesgoPaisData[riesgoPaisData.length - 1];
-  const min   = riesgoPaisData.find((d) => d.highlight === 'minimo');
-  const peak  = riesgoPaisData.find((d) => d.highlight === 'pico');
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'riesgo-pais', riesgoPaisData, (raw) => raw as typeof riesgoPaisData,
+  );
+  const csvData = liveData as unknown as Record<string, unknown>[];
+  const last  = liveData[liveData.length - 1];
+  const min   = liveData.find((d) => d.highlight === 'minimo');
+  const peak  = liveData.find((d) => d.highlight === 'pico');
 
   return (
     <ChartCard
       title="Riesgo País · EMBI+ → EMBIGD"
-      subtitle="Puntos básicos · 2023-2026 · Fuente: JP Morgan (en feb-26 reclasificación a EMBIGD)"
+      subtitle={isLive ? `Puntos básicos · Actualizado ${updatedAt} · JP Morgan` : 'Puntos básicos · 2023-2026 · Fuente: JP Morgan (en feb-26 reclasificación a EMBIGD)'}
+      isLive={isLive}
       csvData={csvData}
       csvFileName="riesgo-pais-2023-2026"
     >
-      <RiesgoPaisInnerChart />
+      <RiesgoPaisInnerChart data={liveData} />
 
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono text-theme-muted">
         {peak && (

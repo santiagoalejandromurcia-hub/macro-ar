@@ -10,6 +10,7 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import { createChart, LineSeries } from 'lightweight-charts';
 import ChartCard from '@/components/ChartCard';
 import { tcrData } from '@/data/macroData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
 import { spanishToISO, macroChartOptions } from '@/lib/lwChartUtils';
 
@@ -64,13 +65,17 @@ function TCRInnerChart({ data }: { data: TcrRow[] }) {
 
 export default function TCRChart() {
   const [period, setPeriod] = useState(0);
-  const displayData = useMemo(() => filterByPeriod(tcrData, period), [period]);
+  const { data: liveData, isLive, updatedAt } = useIndicatorData(
+    'tcr', tcrData, (raw) => raw as typeof tcrData,
+  );
+  const displayData = useMemo(() => filterByPeriod(liveData, period), [liveData, period]);
   const csvData = displayData as unknown as Record<string, unknown>[];
 
   return (
     <ChartCard
       title="Tipo de Cambio"
-      subtitle="Oficial, Blue y MEP (ARS/USD) · Fuente: BCRA · Bluelytics"
+      subtitle={isLive ? `Oficial, Blue y MEP (ARS/USD) · Actualizado ${updatedAt} · BCRA` : 'Oficial, Blue y MEP (ARS/USD) · Fuente: BCRA · Bluelytics'}
+      isLive={isLive}
       periods={[...MONTHLY_PERIODS]}
       selectedPeriod={period}
       onPeriodChange={setPeriod}
