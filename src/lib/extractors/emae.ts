@@ -1,60 +1,45 @@
-// Fuente: ArgentinaDatos — EMAE mensual
-// Se publica entre los días 20-26 de cada mes
+// ============================================================
+// EMAE — Estimador Mensual de Actividad Económica
+// Fuente: datos.gob.ar — API oficial del gobierno argentino
+//
+// Series VERIFICADAS (actualizadas a 2026):
+//   EMAE original     (base 2004): 143.3_NO_PR_2004_A_21
+//   EMAE desest.      (base 2004): 143.3_NO_PR_2004_A_31
+//   EMAE tendencia    (base 2004): 143.3_ICE_SER_VM_2004_A_31
+// ============================================================
 
-interface ApiItem { fecha: string; valor: number; variacionInteranual?: number }
+import { fetchDatosGobAr, fmtMes } from '@/lib/datos-gob-ar';
 
-function fmt(fechaStr: string): string {
-  const d = new Date(fechaStr);
-  const mes = d.toLocaleString('es-AR', { month: 'short' });
-  const anio = String(d.getFullYear()).slice(2);
-  return `${mes.charAt(0).toUpperCase() + mes.slice(1)} '${anio}`;
-}
-
-async function tryFetch(url: string): Promise<ApiItem[] | null> {
-  try {
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return Array.isArray(data) ? data : (data?.data ?? null);
-  } catch { return null; }
-}
+const EMAE_ORIGINAL  = '143.3_NO_PR_2004_A_21';
+const EMAE_DESEST    = '143.3_NO_PR_2004_A_31';
 
 export async function fetchEmae(): Promise<unknown | null> {
-  const endpoints = [
-    'https://api.argentinadatos.com/v2/indec/emae',
-    'https://api.argentinadatos.com/v1/indec/emae',
-  ];
+  const json = await fetchDatosGobAr(`${EMAE_ORIGINAL},${EMAE_DESEST}`, 48);
+  if (!json || json.data.length === 0) return null;
 
-  let raw: ApiItem[] | null = null;
-  for (const url of endpoints) {
-    raw = await tryFetch(url);
-    if (raw && raw.length > 0) break;
-  }
-  if (!raw || raw.length === 0) return null;
+  // datos.gob.ar devuelve sort=desc → invertimos para orden cronológico
+  const rows = [...json.data].reverse();
 
-  return raw.slice(-36).map((item) => ({
-    date:                fmt(item.fecha),
-    value:               item.valor,
-    variacionInteranual: item.variacionInteranual ?? null,
-  }));
+  return rows
+    .filter(([, original]) => original !== null)
+    .map(([fecha, original, desest]) => ({
+      date:  fmtMes(fecha),
+      value: +(original as number).toFixed(2),
+      trend: desest !== null ? +(desest as number).toFixed(2) : null,
+    }));
 }
 
 export async function fetchEmaeLargoPlazo(): Promise<unknown | null> {
-  const endpoints = [
-    'https://api.argentinadatos.com/v2/indec/emae',
-    'https://api.argentinadatos.com/v1/indec/emae',
-  ];
+  // Serie más larga: últimos 120 meses (~10 años)
+  const json = await fetchDatosGobAr(`${EMAE_ORIGINAL},${EMAE_DESEST}`, 120);
+  if (!json || json.data.length === 0) return null;
 
-  let raw: ApiItem[] | null = null;
-  for (const url of endpoints) {
-    raw = await tryFetch(url);
-    if (raw && raw.length > 0) break;
-  }
-  if (!raw || raw.length === 0) return null;
+  const rows = [...json.data].reverse();
 
-  return raw.map((item) => ({
-    date:  fmt(item.fecha),
-    value: item.valor,
-    trend: item.valor, // la API no siempre incluye tendencia
-  }));
+  return rows
+    .filter(([, v]) => v !== null)
+    .map(([fecha, original]) => ({
+      date:  fmtMes(fecha),
+      value: +(original as number).toFixed(2),
+    }));
 }

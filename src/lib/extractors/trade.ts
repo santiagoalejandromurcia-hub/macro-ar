@@ -1,44 +1,33 @@
-// Fuente: ArgentinaDatos — Intercambio Comercial Argentino (ICA)
+// ============================================================
+// Comercio Exterior — Exportaciones e Importaciones
+// Fuente: datos.gob.ar — API oficial del gobierno argentino
+//
+// Series VERIFICADAS (actualizadas a feb-2026):
+//   Exportaciones total FOB (mensual, USD M): 75.3_IETG_0_M_31
+//   Importaciones total CIF (mensual, USD M): 76.3_ITG_0_M_17
+// ============================================================
 
-interface ApiItem { fecha: string; exportaciones?: number; importaciones?: number; valor?: number }
+import { fetchDatosGobAr, fmtMes } from '@/lib/datos-gob-ar';
 
-function fmt(fechaStr: string): string {
-  const d = new Date(fechaStr);
-  const mes = d.toLocaleString('es-AR', { month: 'short' });
-  const anio = String(d.getFullYear()).slice(2);
-  return `${mes.charAt(0).toUpperCase() + mes.slice(1)} '${anio}`;
-}
-
-async function tryFetch(url: string): Promise<ApiItem[] | null> {
-  try {
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return Array.isArray(data) ? data : (data?.data ?? null);
-  } catch { return null; }
-}
+const EXPORTS_ID = '75.3_IETG_0_M_31';
+const IMPORTS_ID = '76.3_ITG_0_M_17';
 
 export async function fetchTrade(): Promise<unknown | null> {
-  const [exports_, imports_] = await Promise.all([
-    tryFetch('https://api.argentinadatos.com/v1/indec/ica/exportaciones'),
-    tryFetch('https://api.argentinadatos.com/v1/indec/ica/importaciones'),
-  ]);
+  const json = await fetchDatosGobAr(`${EXPORTS_ID},${IMPORTS_ID}`, 36);
+  if (!json || json.data.length === 0) return null;
 
-  if (!exports_ || exports_.length === 0) return null;
+  const rows = [...json.data].reverse();
 
-  const importMap: Record<string, number> = {};
-  (imports_ ?? []).forEach((i) => {
-    importMap[i.fecha] = i.valor ?? i.importaciones ?? 0;
-  });
-
-  return exports_.slice(-24).map((item) => {
-    const exp = item.valor ?? item.exportaciones ?? 0;
-    const imp = importMap[item.fecha] ?? 0;
-    return {
-      month:   fmt(item.fecha),
-      exports: exp,
-      imports: imp,
-      balance: exp - imp,
-    };
-  });
+  return rows
+    .filter(([, exp]) => exp !== null)
+    .map(([fecha, exp, imp]) => {
+      const exports_ = Math.round(exp as number);
+      const imports_ = imp !== null ? Math.round(imp as number) : 0;
+      return {
+        month:   fmtMes(fecha),
+        exports: exports_,
+        imports: imports_,
+        balance: exports_ - imports_,
+      };
+    });
 }

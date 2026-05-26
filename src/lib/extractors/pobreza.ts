@@ -1,36 +1,47 @@
-// Fuente: ArgentinaDatos — Pobreza e Indigencia (EPH semestral)
+// ============================================================
+// Pobreza e Indigencia — EPH Continua (semestral)
+// Fuente: datos.gob.ar — API oficial del gobierno argentino
+//
+// Series VERIFICADAS (actualizadas a 2025-2026):
+//   Pobreza personas TOTAL nacional: 64.2_POBLACION_NUA_0_0_34_74
+//   (devuelve valor decimal: 0.282 = 28.2%)
+//
+// Nota: la EPH es semestral y se publica en abril y octubre.
+// Colores por gobierno: jxc (Macri) / fdt (Alberto) / lla (Milei).
+// ============================================================
 
-interface ApiItem { fecha: string; valor: number; tipo?: string }
+import { fetchDatosGobAr } from '@/lib/datos-gob-ar';
 
-function fmt(fechaStr: string): string {
-  const d = new Date(fechaStr);
-  const semestre = d.getMonth() < 6 ? '1S' : '2S';
-  return `${semestre} ${d.getFullYear()}`;
+const POBREZA_PERSONAS = '64.2_POBLACION_NUA_0_0_34_74';
+
+function fmtSemestre(fechaStr: string): string {
+  const [year, month] = fechaStr.split('-').map(Number);
+  // datos.gob.ar usa el primer día del semestre: ene=primer sem, jul=segundo sem
+  const sem = month <= 6 ? 'I' : 'II';
+  return `${sem}-${year}`;
 }
 
-async function tryFetch(url: string): Promise<ApiItem[] | null> {
-  try {
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return Array.isArray(data) ? data : (data?.data ?? null);
-  } catch { return null; }
+function etapaFor(year: number, month: number): string {
+  if (year < 2020 || (year === 2019 && month > 6)) return 'jxc';
+  if (year < 2024 || (year === 2023 && month > 6)) return 'fdt';
+  return 'lla';
 }
 
 export async function fetchPobreza(): Promise<unknown | null> {
-  const [pobreza, indigencia] = await Promise.all([
-    tryFetch('https://api.argentinadatos.com/v1/indec/pobreza'),
-    tryFetch('https://api.argentinadatos.com/v1/indec/indigencia'),
-  ]);
+  const json = await fetchDatosGobAr(POBREZA_PERSONAS, 40);
+  if (!json || json.data.length === 0) return null;
 
-  if (!pobreza || pobreza.length === 0) return null;
+  const rows = [...json.data].reverse();
 
-  const indigMap: Record<string, number> = {};
-  (indigencia ?? []).forEach((i) => { indigMap[i.fecha] = i.valor; });
-
-  return pobreza.map((item) => ({
-    period:     fmt(item.fecha),
-    pobreza:    item.valor,
-    indigencia: indigMap[item.fecha] ?? null,
-  }));
+  return rows
+    .filter(([, pob]) => pob !== null)
+    .map(([fecha, pobreza]) => {
+      const [year, month] = fecha.split('-').map(Number);
+      return {
+        period:    fmtSemestre(fecha),
+        value:     +((pobreza as number) * 100).toFixed(1), // 0.282 → 28.2
+        indigencia: null, // Serie específica no disponible en datos.gob.ar
+        etapa:     etapaFor(year, month),
+      };
+    });
 }
