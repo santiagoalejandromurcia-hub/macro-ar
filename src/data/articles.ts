@@ -854,4 +854,118 @@ La ironía es completa: el instrumento diseñado para protegerte de la inflació
 ---
 *Datos: INDEC, BCRA (REM mayo 2026), BNA, comparador oficial de tasas bcra.gob.ar. Período: 2 de enero al 15 de mayo de 2026.*`,
   },
+  {
+    slug: 'turismo-argentino-2026',
+    title: 'El Turismo Argentino Cambió de Dirección: Más Extranjeros, Menos Argentinos Afuera y el Mundial que Viene',
+    author: 'Equipo MacroLibre',
+    authorRole: 'Análisis macroeconómico',
+    date: '26 de mayo de 2026',
+    summary:
+      'Entre enero y abril de 2026, ingresaron 2,1 millones de turistas no residentes (+9,8%) mientras las salidas de argentinos cayeron 10,3%. El déficit de la cuenta Servicios se recortó 27% interanual. La balanza turística se invierte — y el Mundial que viene es el próximo test para las reservas.',
+    image: '✈️',
+    tags: ['Turismo', 'Balanza Cambiaria', 'Sector Externo', 'BCRA', 'Mundial 2026'],
+    readTime: '9 min',
+    content: `## El termómetro que pocos miran
+
+Hay un termómetro económico que pocas personas miran pero que dice mucho sobre la salud de un país: la balanza turística.
+
+Durante décadas, Argentina fue un país que exportaba turistas y sus dólares al mundo, mientras recibía relativamente pocos extranjeros. El patrón era simple y costoso: los argentinos se iban a Brasil, Miami o Europa, y el Banco Central perdía divisas.
+
+En 2026, ese patrón se está invirtiendo — y los números son concretos.
+
+## El giro estructural: menos argentinos afuera, más extranjeros adentro
+
+Entre enero y el 14 de abril de 2026 ingresaron **2.125.041 turistas no residentes**, un crecimiento del **9,8% interanual**. Al mismo tiempo, las salidas de argentinos al exterior cayeron **10,3%**.
+
+El efecto combinado es directo sobre las reservas. El déficit de la cuenta Servicios del balance cambiario se recortó a **USD 2.208 millones en el primer trimestre de 2026** — una mejora del **27% interanual**, equivalente a **USD 816 millones menos de sangría de divisas** que en el mismo período de 2025.
+
+Para entender la magnitud: USD 816 millones menos de fuga turística en un trimestre es más que las reservas que generó el blanqueo de capitales en muchas semanas. Y se logró sin ninguna ley especial — simplemente por el cambio en los precios relativos y el nuevo perfil del viajero argentino.
+
+## ¿Por qué caen los viajes al exterior?
+
+La respuesta tiene nombre y moneda. El flujo de argentinos a Brasil cayó **14,72% en el primer trimestre**, explicado por la apreciación nominal del real brasileño frente al peso de aproximadamente **51% interanual** entre octubre 2024 y octubre 2025, que volvió el destino mucho más caro en pesos.
+
+Brasil, el destino de playa favorito del argentino medio, se convirtió en un lujo. Y el argentino, pragmático como siempre, ajustó el destino.
+
+## El feriado del 25 de Mayo: un termómetro del turismo doméstico
+
+El fin de semana largo del 25 de Mayo movilizó **1.440.120 turistas** con un impacto económico directo de **$339.880 millones** — gasto diario promedio de $112.385 y estadía de 2,1 noches.
+
+El dato de cantidad es positivo. Pero hay un matiz importante que los titulares suelen ignorar.
+
+En cantidad de viajeros el feriado mostró un crecimiento del 9,1% respecto al comparable de 2023, pero el **gasto real cayó 9,9%** — porque el feriado de 2023 tuvo cuatro días contra tres en 2026.
+
+Mirando el panorama más amplio del año: en los **cinco fines de semana largos de 2026**, se movilizaron **9.380.840 turistas** con un gasto de **$2.621.963 millones** — un crecimiento del 27,7% en cantidad y 45,9% en gasto respecto al mismo período de 2025.
+
+El turismo doméstico está activo. Pero el patrón cambió: escapadas más cortas, decisiones de último momento, destinos más cercanos. El argentino no dejó de viajar — aprendió a viajar diferente.
+
+Es la homeostasis aplicada al turismo: cuando el sistema no puede mantener el patrón anterior (viaje internacional largo y caro), encuentra un nuevo equilibrio (escapada corta y nacional).
+
+## El extranjero que llega: de dónde viene y qué hace
+
+Los principales mercados emisores del turismo receptivo aéreo en el primer trimestre fueron **Europa con el 27,8%**, seguido por **Estados Unidos y Canadá con el 21,7%**, y **Brasil con el 17,2%**.
+
+El dato europeo y norteamericano es el más valioso desde el punto de vista de divisas: un turista europeo o estadounidense gasta en dólares o euros, y trae dólares reales al sistema. Un turista brasileño o regional trae menos poder de gasto en términos absolutos.
+
+El primer trimestre de 2026 generó **USD 912,5 millones de divisas** por gasto de turistas no residentes en Argentina.
+
+¿Qué hacen cuando llegan? Gastronomía encabeza con el **66,8%** de actividades realizadas, seguida por espacios culturales con el **61,7%**, espectáculos culturales con el **30,6%** y parques nacionales con el **27,3%**.
+
+Buenos Aires sigue concentrando la llegada: CABA captó el **68,5% de las pernoctaciones** de no residentes en marzo, con una estadía promedio de **6,1 noches**. Pero hay un dato que anticipa una tendencia positiva: los pasajeros internacionales directos desde el interior crecieron **43% interanual** en marzo — Rosario creció 73%, Córdoba 64% y Jujuy 48%.
+
+El turismo receptivo está dejando de ser solo un fenómeno porteño.
+
+## El boom aéreo: récords que no se ven en el debate político
+
+Mientras el debate político se concentra en salarios y tipo de cambio, el sector aéreo está rompiendo marcas silenciosamente.
+
+**Abril 2026 fue el mejor abril histórico** en pasajeros con **3.906.057**, un crecimiento del 1% interanual. El acumulado del primer cuatrimestre alcanzó **17.897.992 pasajeros**, también récord para ese período.
+
+Los pasajeros internacionales directos desde el interior crecieron **35% interanual** en abril, superando el récord previo de 2018.
+
+Si el sistema circulatorio de la economía turística fueran las rutas aéreas, lo que está pasando en 2026 es que el cuerpo está desarrollando capilares nuevos — conexiones directas desde ciudades del interior que antes solo podían acceder al turismo internacional pasando por Buenos Aires. Eso no solo distribuye el beneficio, sino que reduce costos y tiempos para el viajero y para el país.
+
+## El precio: Argentina cara en dólares, barata para europeos
+
+Con el peso apreciado, viajar desde Argentina se encareció: Brasil subió **15% en términos reales** medido contra el dólar MEP, la zona euro **14%**, Suiza **13%**. Solo Estados Unidos subió apenas **1%** — dato crítico de cara al Mundial 2026.
+
+Pero la misma apreciación del peso tiene el efecto inverso para el extranjero que viene: Argentina sigue siendo competitiva en precio para el turista europeo o norteamericano. Las tarifas medias-altas de hoteles porteños se ubican en **USD 76,59**, contra USD 105,86 en San Pablo y USD 105,38 en Santiago de Chile.
+
+Buenos Aires es aproximadamente un **30% más barata** que sus competidores regionales directos para el turista de dólares. Esa brecha de precio es uno de los drivers más concretos del crecimiento receptivo.
+
+## La amenaza que viene: el Mundial y las divisas
+
+Ningún análisis del turismo argentino en 2026 estaría completo sin mencionar el elefante en la habitación.
+
+Las estimaciones de Focus Market para Naranja X colocan el costo del viaje al Mundial 2026 para un hincha argentino entre **USD 7.700 y USD 7.900** — equivalente a aproximadamente **10 salarios netos promedio**.
+
+Multiplicá ese número por los cientos de miles de argentinos que están planificando o ya tienen reservado el viaje, y la presión sobre las reservas del BCRA en junio y julio se vuelve una variable macroeconómica relevante, no solo un dato de viajes.
+
+El mismo fenómeno que hizo caer el turismo emisivo regular — el peso más caro en dólares — no opera con el mismo freno cuando se trata del Mundial. La demanda es inelástica al precio: el hincha argentino va aunque cueste caro. Ese es un riesgo concreto para el frente cambiario del segundo trimestre.
+
+## El problema invisible: el apagón de los datos
+
+Hay un dato administrativo que pasa casi desapercibido pero que tiene implicancias serias para cualquier análisis del sector.
+
+La Secretaría de Turismo, encabezada por Daniel Scioli, **no renovó el convenio con el INDEC**. El último informe de la Encuesta de Ocupación Hotelera publicado corresponde a noviembre de 2025. El propio informe oficial señala que "este informe constituye el último del sector bajo el actual esquema de difusión".
+
+Sin EOH no hay tasa de ocupación oficial nacional. Sin datos de ocupación no hay manera de medir con precisión si el boom receptivo que muestran los datos migratorios se traduce en pernoctaciones reales y en ingresos para el sector hotelero formal.
+
+Una política pública sin datos es como un piloto de avión sin instrumentos: podés estar volando bien o en picada, y la diferencia solo la descubrís cuando ya es tarde.
+
+El Gobierno tiene un discurso de apertura y transparencia de datos en muchos frentes. La decisión de cortar la EOH va exactamente en la dirección contraria en uno de los sectores con mayor potencial de crecimiento.
+
+## La foto completa
+
+El turismo argentino en mayo de 2026 presenta una imagen que merece leerse sin simplificarla ni en sentido positivo ni negativo.
+
+**Lo positivo es real:** el receptivo crece, el emisivo cae, la balanza cambiaria turística mejora 27% interanual, los aeropuertos rompen récords y el extranjero encuentra en Argentina una combinación de precio, cultura y naturaleza que pocos destinos regionales pueden igualar.
+
+**Lo complejo también es real:** el turismo doméstico ajusta hacia escapadas más cortas y gasto más contenido, la falta de datos oficiales limita el diagnóstico preciso, el encarecimiento relativo de destinos regionales desincentiva el viaje exterior pero también señala una pérdida de poder adquisitivo real, y el Mundial se acerca como una prueba de fuego para las reservas.
+
+La balanza turística es, en definitiva, un espejo de la economía más amplia. Cuando el país tiene precios competitivos, instituciones estables y una oferta cultural y natural de clase mundial, el mundo viene a verlo. Argentina tiene los últimos dos. El primero sigue siendo el desafío.
+
+---
+*Fuente: Ámbito Financiero en base a INDEC, Ministerio de Turismo, BCRA, Focus Market / Naranja X. Mayo 2026.*`,
+  },
 ];
