@@ -1,329 +1,610 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
+import { useState } from "react";
 import {
-  ComposedChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, Legend, ReferenceLine, ReferenceArea,
-} from 'recharts';
-import { useTheme } from './ThemeProvider';
+  ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+  Legend, ResponsiveContainer, ReferenceLine, Area,
+} from "recharts";
+import {
+  m2HistData, m2Proyecciones, m2ModelStats, m2FeatureImportance, m2Summary,
+  type M2DataPoint,
+} from "@/data/m2Data";
 
-// ═══════════ DATA — 60 períodos ene-22 a dic-26 ═══════════
-const ALL_DATA = [
-  { p: 'ene-22', bcra: 5.8, base: 5.8, opt: 5.8, pes: 5.8, dev: 0 },
-  { p: 'feb-22', bcra: 5.8, base: 6.1, opt: 6.1, pes: 5.9, dev: 4.9 },
-  { p: 'mar-22', bcra: 5.7, base: 6.3, opt: 6.4, pes: 6.0, dev: 9.7 },
-  { p: 'abr-22', bcra: 5.9, base: 6.6, opt: 6.8, pes: 6.2, dev: 12.6 },
-  { p: 'may-22', bcra: 6.0, base: 6.8, opt: 7.1, pes: 6.2, dev: 12.3 },
-  { p: 'jun-22', bcra: 6.5, base: 7.1, opt: 7.5, pes: 6.4, dev: 9.2 },
-  { p: 'jul-22', bcra: 7.1, base: 7.5, opt: 8.0, pes: 6.6, dev: 4.8 },
-  { p: 'ago-22', bcra: 7.0, base: 7.9, opt: 8.5, pes: 6.8, dev: 12.5 },
-  { p: 'sep-22', bcra: 7.1, base: 8.2, opt: 8.9, pes: 6.9, dev: 15.6 },
-  { p: 'oct-22', bcra: 7.3, base: 8.4, opt: 9.3, pes: 7.0, dev: 15.4 },
-  { p: 'nov-22', bcra: 7.6, base: 8.6, opt: 9.5, pes: 7.0, dev: 13.4 },
-  { p: 'dic-22', bcra: 8.7, base: 8.8, opt: 9.8, pes: 7.0, dev: 0.4 },
-  { p: 'ene-23', bcra: 9.2, base: 9.4, opt: 10.6, pes: 7.3, dev: 2.1 },
-  { p: 'feb-23', bcra: 9.2, base: 9.7, opt: 11.1, pes: 7.4, dev: 5.9 },
-  { p: 'mar-23', bcra: 9.3, base: 10.3, opt: 12.0, pes: 7.7, dev: 11.7 },
-  { p: 'abr-23', bcra: 9.9, base: 10.4, opt: 12.1, pes: 7.7, dev: 5.3 },
-  { p: 'may-23', bcra: 10.4, base: 10.2, opt: 11.9, pes: 7.5, dev: -2.3 },
-  { p: 'jun-23', bcra: 11.2, base: 9.9, opt: 11.6, pes: 7.2, dev: -11.1 },
-  { p: 'jul-23', bcra: 12.0, base: 10.2, opt: 12.0, pes: 7.3, dev: -15.1 },
-  { p: 'ago-23', bcra: 12.6, base: 11.3, opt: 13.4, pes: 7.9, dev: -10.8 },
-  { p: 'sep-23', bcra: 13.3, base: 12.4, opt: 14.9, pes: 8.5, dev: -7.1 },
-  { p: 'oct-23', bcra: 15.0, base: 13.2, opt: 16.1, pes: 8.9, dev: -11.7 },
-  { p: 'nov-23', bcra: 15.6, base: 14.5, opt: 17.8, pes: 9.5, dev: -7.3 },
-  { p: 'dic-23', bcra: 18.7, base: 16.9, opt: 20.8, pes: 11.0, dev: -10.0 },
-  { p: 'ene-24', bcra: 19.4, base: 20.1, opt: 25.1, pes: 12.8, dev: 3.7 },
-  { p: 'feb-24', bcra: 20.0, base: 20.5, opt: 25.9, pes: 12.8, dev: 2.8 },
-  { p: 'mar-24', bcra: 21.4, base: 22.0, opt: 28.0, pes: 13.5, dev: 2.8 },
-  { p: 'abr-24', bcra: 22.3, base: 23.1, opt: 29.6, pes: 13.9, dev: 3.6 },
-  { p: 'may-24', bcra: 25.3, base: 23.8, opt: 30.9, pes: 14.0, dev: -6.1 },
-  { p: 'jun-24', bcra: 30.1, base: 24.4, opt: 32.0, pes: 14.1, dev: -18.8 },
-  { p: 'jul-24', bcra: 33.6, base: 25.7, opt: 34.2, pes: 14.4, dev: -23.4 },
-  { p: 'ago-24', bcra: 33.8, base: 26.6, opt: 35.7, pes: 14.6, dev: -21.5 },
-  { p: 'sep-24', bcra: 34.6, base: 26.9, opt: 36.5, pes: 14.5, dev: -22.1 },
-  { p: 'oct-24', bcra: 35.8, base: 27.2, opt: 37.3, pes: 14.3, dev: -24.0 },
-  { p: 'nov-24', bcra: 37.9, base: 27.5, opt: 38.1, pes: 14.1, dev: -27.4 },
-  { p: 'dic-24', bcra: 43.5, base: 27.8, opt: 39.0, pes: 14.0, dev: -36.0 },
-  { p: 'ene-25', bcra: 45.7, base: 28.0, opt: 39.7, pes: 13.8, dev: -38.7 },
-  { p: 'feb-25', bcra: 45.3, base: 28.4, opt: 40.6, pes: 13.7, dev: -37.4 },
-  { p: 'mar-25', bcra: 47.1, base: 28.2, opt: 40.8, pes: 13.4, dev: -40.0 },
-  { p: 'abr-25', bcra: 47.9, base: 28.8, opt: 42.0, pes: 13.3, dev: -39.8 },
-  { p: 'may-25', bcra: 48.2, base: 28.6, opt: 42.1, pes: 13.0, dev: -40.7 },
-  { p: 'jun-25', bcra: 50.5, base: 28.4, opt: 42.2, pes: 12.6, dev: -43.8 },
-  { p: 'jul-25', bcra: 54.1, base: 28.4, opt: 42.7, pes: 12.4, dev: -47.5 },
-  { p: 'ago-25', bcra: 52.8, base: 28.6, opt: 43.5, pes: 12.2, dev: -45.9 },
-  { p: 'sep-25', bcra: 51.8, base: 28.8, opt: 44.3, pes: 12.0, dev: -44.4 },
-  { p: 'oct-25', bcra: 52.6, base: 28.7, opt: 44.6, pes: 11.7, dev: -45.4 },
-  { p: 'nov-25', bcra: 52.2, base: 28.8, opt: 45.2, pes: 11.5, dev: -44.8 },
-  { p: 'dic-25', bcra: 58.1, base: 29.6, opt: 47.0, pes: 11.6, dev: -49.0 },
-  { p: 'ene-26', bcra: 58.4, base: 30.0, opt: 48.2, pes: 11.5, dev: -48.6 },
-  { p: 'feb-26', bcra: 56.9, base: 30.4, opt: 49.4, pes: 11.4, dev: -46.5 },
-  { p: 'mar-26', bcra: 59.1, base: 30.6, opt: 50.2, pes: 11.2, dev: -48.2 },
-  { p: 'abr-26', bcra: null, base: 30.9, opt: 51.1, pes: 11.1, dev: null },
-  { p: 'may-26', bcra: null, base: 31.0, opt: 51.9, pes: 10.9, dev: null },
-  { p: 'jun-26', bcra: null, base: 31.1, opt: 52.5, pes: 10.7, dev: null },
-  { p: 'jul-26', bcra: null, base: 31.1, opt: 53.1, pes: 10.5, dev: null },
-  { p: 'ago-26', bcra: null, base: 31.1, opt: 53.7, pes: 10.3, dev: null },
-  { p: 'sep-26', bcra: null, base: 31.0, opt: 54.1, pes: 10.0, dev: null },
-  { p: 'oct-26', bcra: null, base: 31.3, opt: 55.1, pes: 9.9, dev: null },
-  { p: 'nov-26', bcra: null, base: 31.5, opt: 56.1, pes: 9.8, dev: null },
-  { p: 'dic-26', bcra: null, base: 31.8, opt: 57.1, pes: 9.6, dev: null },
-];
+// ── Colores ──────────────────────────────────────────────────────────────────
+const C = {
+  real:      "#74ACDF",   // celeste — M2 real
+  gb:        "#22C55E",   // verde   — Gradient Boosting
+  ols:       "#F97316",   // naranja — OLS Baseline
+  proy_base: "#A78BFA",   // violeta
+  proy_opt:  "#34D399",   // verde claro
+  proy_pes:  "#F87171",   // rojo claro
+  brecha:    "#FBBF24",   // amarillo
+};
 
-type Vista = 'historico' | 'escenarios';
-type Rango = '2a' | '3a' | 'todo';
-
-export default function M2ProxySection() {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
-
-  const [vista, setVista] = useState<Vista>('historico');
-  const [rango, setRango] = useState<Rango>('3a');
-  const [metodoOpen, setMetodoOpen] = useState(false);
-
-  // Filter data by range
-  const data = useMemo(() => {
-    if (rango === 'todo') return ALL_DATA;
-    if (rango === '2a') return ALL_DATA.slice(ALL_DATA.length - 24);
-    return ALL_DATA.slice(ALL_DATA.length - 36); // 3a
-  }, [rango]);
-
-  // Projection start index
-  const projStartIdx = data.findIndex(d => d.bcra === null);
-  const projStartLabel = projStartIdx >= 0 ? data[projStartIdx].p : null;
-
-  // Chart theme
-  const ax = { fontSize: 10, fill: isDark ? '#64748B' : '#94A3B8', fontFamily: 'JetBrains Mono, monospace' };
-  const gr = { strokeDasharray: '3 3' as const, stroke: isDark ? '#1E293B' : '#E2E8F0' };
-
-  const ChartTooltip = ({ active, payload, label }: any) => {
-    if (!active || !payload) return null;
-    const point = ALL_DATA.find(d => d.p === label);
-    return (
-      <div style={{ background: isDark ? '#111827' : '#FFF', border: `1px solid ${isDark ? '#1E293B' : '#E2E8F0'}` }} className="rounded-lg p-3 shadow-xl text-xs font-mono">
-        <p style={{ color: isDark ? '#94A3B8' : '#64748B' }} className="mb-2 font-semibold">{label}</p>
-        {payload.map((p: any, i: number) => (
-          p.value != null && <div key={i} className="flex items-center gap-2 mb-0.5">
-            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: p.color }} />
-            <span style={{ color: isDark ? '#94A3B8' : '#64748B' }}>{p.name}:</span>
-            <span style={{ color: isDark ? '#F1F5F9' : '#0F172A' }} className="font-semibold">${p.value}T</span>
-          </div>
-        ))}
-        {point?.dev != null && (
-          <div className="mt-1.5 pt-1.5 border-t" style={{ borderColor: isDark ? '#1E293B' : '#E2E8F0' }}>
-            <span style={{ color: point.dev < 0 ? '#EF4444' : '#22C55E' }}>Desvío: {point.dev > 0 ? '+' : ''}{point.dev}%</span>
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  // Last real data point
-  const lastReal = ALL_DATA.filter(d => d.bcra !== null).pop()!;
-  const prevReal = ALL_DATA.filter(d => d.bcra !== null).slice(-2)[0];
-  const varMM = prevReal ? ((lastReal.bcra! - prevReal.bcra!) / prevReal.bcra! * 100).toFixed(1) : '—';
-  const ene25 = ALL_DATA.find(d => d.p === 'ene-25');
-  const varIA = ene25?.bcra ? ((lastReal.bcra! - ene25.bcra) / ene25.bcra * 100).toFixed(1) : '—';
-
+// ── Tooltip personalizado ────────────────────────────────────────────────────
+function CustomTooltip({ active, payload, label }: any) {
+  if (!active || !payload?.length) return null;
   return (
-    <div className="bg-theme-card border border-theme rounded-xl overflow-hidden">
-
-      {/* ─── Header ─── */}
-      <div className="p-5 sm:p-6 border-b border-theme">
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-          <div className="flex items-start gap-3">
-            <div className="w-11 h-11 rounded-lg bg-ar-celeste/10 border border-ar-celeste/20 flex items-center justify-center text-ar-celeste font-mono font-bold text-sm flex-shrink-0">
-              M2
-            </div>
-            <div>
-              <h3 className="text-base sm:text-lg font-bold text-theme-primary">Demanda de dinero — M2 Privado Transaccional</h3>
-              <p className="text-xs text-theme-muted font-mono mt-0.5">ARS billones · Billetes + Dep.CC no remunerados (sector privado)</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <span className="px-2 py-0.5 text-[10px] font-mono font-medium rounded-full bg-ar-green/10 text-ar-green border border-ar-green/20">
-              actualizado
-            </span>
-            <a
-              href="/data/MacroLibre_M2_Proxy_v2.xlsx"
-              download
-              className="px-3 py-1.5 text-xs font-medium rounded-lg bg-theme-surface border border-theme text-theme-secondary hover:text-theme-primary transition-colors"
-            >
-              ⬇ Excel
-            </a>
-          </div>
+    <div className="bg-gray-900 border border-gray-700 rounded-lg p-3 text-xs text-gray-200 shadow-xl">
+      <p className="font-semibold text-white mb-1">{label}</p>
+      {payload.map((p: any) => (
+        <div key={p.name} className="flex justify-between gap-4">
+          <span style={{ color: p.color }}>{p.name}</span>
+          <span className="font-mono">
+            {typeof p.value === "number"
+              ? p.name.includes("Desvío") || p.name.includes("Inflación")
+                ? `${p.value > 0 ? "+" : ""}${p.value.toFixed(1)}%`
+                : `ARS ${p.value.toFixed(1)}T`
+              : p.value}
+          </span>
         </div>
-      </div>
-
-      {/* ─── KPIs ─── */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 border-b border-theme">
-        {[
-          { label: `${lastReal.p} real`, value: `$${lastReal.bcra}T`, color: undefined },
-          { label: 'var. m/m', value: `+${varMM}%`, color: '#22C55E' },
-          { label: 'var. i.a.', value: `+${varIA}%`, color: '#22C55E' },
-          { label: 'desvío modelo', value: `${lastReal.dev}%`, color: '#EF4444' },
-          { label: 'proyección dic-26', value: '$32–57T', color: undefined },
-        ].map((kpi, i) => (
-          <div key={i} className={`p-3 sm:p-4 text-center ${i < 4 ? 'border-r border-theme' : ''} ${i >= 2 && i < 4 ? 'hidden sm:block' : ''}`}>
-            <p className="text-[10px] text-theme-muted font-mono uppercase tracking-wider mb-1">{kpi.label}</p>
-            <p className="text-sm sm:text-base font-bold font-mono" style={{ color: kpi.color || (isDark ? '#F1F5F9' : '#0F172A') }}>
-              {kpi.value}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      {/* ─── Controls ─── */}
-      <div className="p-3 sm:p-4 border-b border-theme bg-theme-surface flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <div className="flex gap-1.5">
-          {(['historico', 'escenarios'] as Vista[]).map((v) => (
-            <button
-              key={v}
-              onClick={() => setVista(v)}
-              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all ${
-                vista === v
-                  ? 'bg-ar-celeste/15 text-ar-celeste border border-ar-celeste/25'
-                  : 'bg-theme-card border border-theme text-theme-secondary hover:text-theme-primary'
-              }`}
-            >
-              {v === 'historico' ? 'Histórico vs modelo' : '3 escenarios 2026'}
-            </button>
-          ))}
-        </div>
-        <div className="flex gap-1.5">
-          {(['2a', '3a', 'todo'] as Rango[]).map((r) => (
-            <button
-              key={r}
-              onClick={() => setRango(r)}
-              className={`px-3 py-1.5 text-xs font-mono font-medium rounded-lg transition-all ${
-                rango === r
-                  ? 'bg-ar-gold/15 text-ar-gold border border-ar-gold/25'
-                  : 'bg-theme-card border border-theme text-theme-secondary hover:text-theme-primary'
-              }`}
-            >
-              {r}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* ─── Chart ─── */}
-      <div className="p-4 sm:p-5">
-        <ResponsiveContainer width="100%" height={300}>
-          <ComposedChart data={data} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
-            <CartesianGrid {...gr} />
-            <XAxis dataKey="p" tick={ax} interval={Math.max(0, Math.floor(data.length / 8) - 1)} />
-            <YAxis tick={ax} domain={['auto', 'auto']} tickFormatter={(v) => `$${v}T`} />
-            <Tooltip content={<ChartTooltip />} />
-
-            {/* Zona proyectada */}
-            {projStartLabel && (
-              <ReferenceArea
-                x1={projStartLabel}
-                x2={data[data.length - 1].p}
-                fill={isDark ? '#D4A843' : '#D4A843'}
-                fillOpacity={isDark ? 0.04 : 0.06}
-              />
-            )}
-
-            {/* BCRA real — siempre visible */}
-            <Area
-              type="monotone" dataKey="bcra" name="BCRA oficial"
-              stroke="#74ACDF" fill="#74ACDF" fillOpacity={0.08}
-              strokeWidth={2.5} dot={false} connectNulls={false}
-            />
-
-            {/* Modelo BASE — siempre visible */}
-            <Line
-              type="monotone" dataKey="base" name="Modelo BASE"
-              stroke="#22C55E" strokeWidth={2} dot={false}
-              strokeDasharray="6 3"
-            />
-
-            {/* Pesimista — siempre visible */}
-            <Line
-              type="monotone" dataKey="pes" name="Pesimista"
-              stroke="#F97316" strokeWidth={1.5} dot={false}
-              strokeDasharray="4 4"
-            />
-
-            {/* Optimista — solo en vista escenarios */}
-            {vista === 'escenarios' && (
-              <Line
-                type="monotone" dataKey="opt" name="Optimista"
-                stroke="#166534" strokeWidth={2} dot={false}
-                strokeDasharray="6 3"
-              />
-            )}
-          </ComposedChart>
-        </ResponsiveContainer>
-
-        {/* Leyenda custom */}
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 px-1">
-          <div className="flex items-center gap-1.5">
-            <svg width="20" height="2"><line x1="0" y1="1" x2="20" y2="1" stroke="#74ACDF" strokeWidth="2.5" /></svg>
-            <span className="text-[10px] text-theme-muted">BCRA oficial</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <svg width="20" height="2"><line x1="0" y1="1" x2="20" y2="1" stroke="#22C55E" strokeWidth="2" strokeDasharray="4 2" /></svg>
-            <span className="text-[10px] text-theme-muted">Modelo BASE</span>
-          </div>
-          {vista === 'escenarios' && (
-            <div className="flex items-center gap-1.5">
-              <svg width="20" height="2"><line x1="0" y1="1" x2="20" y2="1" stroke="#166534" strokeWidth="2" strokeDasharray="4 2" /></svg>
-              <span className="text-[10px] text-theme-muted">Optimista</span>
-            </div>
-          )}
-          <div className="flex items-center gap-1.5">
-            <svg width="20" height="2"><line x1="0" y1="1" x2="20" y2="1" stroke="#F97316" strokeWidth="1.5" strokeDasharray="3 2" /></svg>
-            <span className="text-[10px] text-theme-muted">Pesimista</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: isDark ? 'rgba(212,168,67,0.15)' : 'rgba(212,168,67,0.2)' }} />
-            <span className="text-[10px] text-theme-muted">Zona proyectada</span>
-          </div>
-          <span className="text-[10px] text-theme-faint ml-auto">BCRA · IMM mensual · MacroLibre</span>
-        </div>
-      </div>
-
-      {/* ─── Metodología ─── */}
-      <div className="border-t border-theme">
-        <button
-          onClick={() => setMetodoOpen(!metodoOpen)}
-          className="w-full p-4 flex items-center justify-between text-sm font-medium text-theme-secondary hover:text-theme-primary transition-colors"
-        >
-          <span>📐 Metodología</span>
-          <span className="text-theme-faint">{metodoOpen ? '▲' : '▼'}</span>
-        </button>
-        {metodoOpen && (
-          <div className="px-4 pb-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {[
-              {
-                title: 'Fórmula',
-                content: 'M2(t) = M2(t-1) × (1+π) × (1 + ε_PBI × g) × (1 − carry)',
-              },
-              {
-                title: 'Elasticidades',
-                content: 'ε_PBI: 1.1 (base) · ε_π: −0.45 · Carry: −0.02',
-              },
-              {
-                title: 'Fuente datos',
-                content: 'BCRA — Informe Monetario Mensual · M2 Priv. Transaccional · IPC INDEC',
-              },
-              {
-                title: 'Nota desvío',
-                content: 'El modelo subestima M2 real (desvío −48%). La remonetización post-cepo supera las elasticidades históricas.',
-              },
-            ].map((card) => (
-              <div key={card.title} className="bg-theme-surface border border-theme rounded-lg p-3">
-                <p className="text-xs font-semibold text-theme-primary mb-1.5">{card.title}</p>
-                <p className="text-[11px] text-theme-muted leading-relaxed font-mono">{card.content}</p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      ))}
     </div>
   );
 }
+
+// ── Badge de régimen ─────────────────────────────────────────────────────────
+function RegimeBadge({ label }: { label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-violet-500/10 text-violet-400 border border-violet-500/20">
+      <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
+      {label}
+    </span>
+  );
+}
+
+// ── Tarjeta de modelo ────────────────────────────────────────────────────────
+function ModelCard({
+  nombre, r2, rmse, desvioActual, descripcion, highlight,
+}: {
+  nombre: string; r2: number; rmse: number;
+  desvioActual: number; descripcion: string; highlight?: boolean;
+}) {
+  const desvioColor =
+    Math.abs(desvioActual) < 5 ? "text-green-400" :
+    Math.abs(desvioActual) < 20 ? "text-yellow-400" : "text-red-400";
+
+  return (
+    <div className={`rounded-xl p-4 border ${highlight
+      ? "border-green-500/40 bg-green-500/5"
+      : "border-gray-700/50 bg-gray-800/40"}`}>
+      {highlight && (
+        <span className="text-xs font-semibold text-green-400 uppercase tracking-wider mb-2 block">
+          ★ Modelo preferido
+        </span>
+      )}
+      <h4 className="font-semibold text-white mb-2">{nombre}</h4>
+      <div className="grid grid-cols-3 gap-2 mb-3">
+        <div>
+          <p className="text-xs text-gray-500 mb-0.5">R²</p>
+          <p className={`font-mono text-sm font-bold ${r2 > 0.9 ? "text-green-400" : r2 > 0.5 ? "text-yellow-400" : "text-red-400"}`}>
+            {r2.toFixed(4)}
+          </p>
+        </div>
+        <div>
+          <p className="text-xs text-gray-500 mb-0.5">RMSE</p>
+          <p className="font-mono text-sm font-bold text-blue-400">{rmse.toFixed(4)}</p>
+        </div>
+        <div>
+          <p className="text-xs text-gray-500 mb-0.5">Desvío actual</p>
+          <p className={`font-mono text-sm font-bold ${desvioColor}`}>
+            {desvioActual > 0 ? "+" : ""}{desvioActual.toFixed(1)}%
+          </p>
+        </div>
+      </div>
+      <p className="text-xs text-gray-400 leading-relaxed">{descripcion}</p>
+    </div>
+  );
+}
+
+// ── Componente principal ─────────────────────────────────────────────────────
+export function M2ProxySection() {
+  const [activeTab, setActiveTab] = useState<"historico" | "proyeccion" | "modelos" | "drivers">(
+    "historico"
+  );
+  const [showOLS, setShowOLS] = useState(true);
+  const [showBrecha, setShowBrecha] = useState(false);
+
+  const tabs = [
+    { id: "historico",  label: "Serie histórica" },
+    { id: "proyeccion", label: "Proyección 2026" },
+    { id: "modelos",    label: "Comparación modelos" },
+    { id: "drivers",    label: "Drivers ML" },
+  ] as const;
+
+  // Combinar histórico + proyección para el chart de proyección
+  const lastHist = m2HistData[m2HistData.length - 1];
+  const proyData = [
+    { fecha: lastHist.fecha, base: lastHist.m2, optimista: lastHist.m2, pesimista: lastHist.m2 },
+    ...m2Proyecciones,
+  ];
+
+  return (
+    <section className="py-8">
+      {/* ── Header ── */}
+      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <h2 className="text-2xl font-bold text-white">
+              Demanda de Dinero — M2 Privado Transaccional
+            </h2>
+          </div>
+          <p className="text-sm text-gray-400">
+            Billetes + Depósitos CC no remunerados · Sector privado · ARS billones
+          </p>
+          <div className="flex items-center gap-2 mt-2">
+            <RegimeBadge label={m2Summary.regimenActual} />
+            <span className="text-xs text-gray-500">Fuente: BCRA · INDEC · ML MacroLibre</span>
+          </div>
+        </div>
+
+        {/* KPIs rápidos */}
+        <div className="flex gap-4 flex-shrink-0">
+          <div className="text-right">
+            <p className="text-2xl font-bold text-white">
+              ARS {m2Summary.valorActual}T
+            </p>
+            <p className="text-xs text-gray-400">Mar-26</p>
+            <p className={`text-sm font-medium ${m2Summary.varMensual > 0 ? "text-green-400" : "text-red-400"}`}>
+              {m2Summary.varMensual > 0 ? "+" : ""}{m2Summary.varMensual}% m/m
+            </p>
+          </div>
+          <div className="text-right border-l border-gray-700 pl-4">
+            <p className={`text-2xl font-bold ${Math.abs(m2Summary.desvioML) < 5 ? "text-green-400" : "text-yellow-400"}`}>
+              {m2Summary.desvioML > 0 ? "+" : ""}{m2Summary.desvioML}%
+            </p>
+            <p className="text-xs text-gray-400">Desvío ML</p>
+            <p className="text-xs text-gray-500">
+              OLS: {m2Summary.desvioOLS > 0 ? "+" : ""}{m2Summary.desvioOLS}%
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Tabs ── */}
+      <div className="flex gap-1 bg-gray-800/60 p-1 rounded-lg mb-6 w-fit">
+        {tabs.map((t) => (
+          <button
+            key={t.id}
+            onClick={() => setActiveTab(t.id)}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+              activeTab === t.id
+                ? "bg-blue-600 text-white shadow"
+                : "text-gray-400 hover:text-white"
+            }`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* ── Tab: Serie histórica ── */}
+      {activeTab === "historico" && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-4 text-sm">
+            <label className="flex items-center gap-2 cursor-pointer text-gray-400 hover:text-white">
+              <input
+                type="checkbox"
+                checked={showOLS}
+                onChange={(e) => setShowOLS(e.target.checked)}
+                className="accent-orange-500"
+              />
+              Mostrar OLS Baseline
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer text-gray-400 hover:text-white">
+              <input
+                type="checkbox"
+                checked={showBrecha}
+                onChange={(e) => setShowBrecha(e.target.checked)}
+                className="accent-yellow-500"
+              />
+              Mostrar brecha cambiaria
+            </label>
+          </div>
+
+          <div className="bg-gray-800/40 rounded-xl p-4 border border-gray-700/50">
+            <ResponsiveContainer width="100%" height={380}>
+              <ComposedChart data={m2HistData} margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.5} />
+                <XAxis
+                  dataKey="fecha"
+                  tick={{ fill: "#9CA3AF", fontSize: 11 }}
+                  interval={11}
+                  tickLine={false}
+                />
+                <YAxis
+                  yAxisId="m2"
+                  orientation="left"
+                  tick={{ fill: "#9CA3AF", fontSize: 11 }}
+                  tickFormatter={(v) => `${v}T`}
+                  label={{ value: "ARS billones", angle: -90, position: "insideLeft", fill: "#6B7280", fontSize: 11 }}
+                />
+                {showBrecha && (
+                  <YAxis
+                    yAxisId="brecha"
+                    orientation="right"
+                    tick={{ fill: "#FBBF24", fontSize: 11 }}
+                    tickFormatter={(v) => `${v}%`}
+                  />
+                )}
+                <Tooltip content={<CustomTooltip />} />
+                <Legend
+                  wrapperStyle={{ fontSize: 12, color: "#9CA3AF" }}
+                />
+
+                {/* Desvío como área sombreada */}
+                <Area
+                  yAxisId="m2"
+                  type="monotone"
+                  dataKey="fitted_gb"
+                  fill="#22C55E"
+                  fillOpacity={0.08}
+                  stroke="none"
+                  name="Zona fitted GB"
+                  legendType="none"
+                />
+
+                {/* M2 real */}
+                <Line
+                  yAxisId="m2"
+                  type="monotone"
+                  dataKey="m2"
+                  stroke={C.real}
+                  strokeWidth={2.5}
+                  dot={false}
+                  name="M2 Real"
+                />
+
+                {/* Fitted GB */}
+                <Line
+                  yAxisId="m2"
+                  type="monotone"
+                  dataKey="fitted_gb"
+                  stroke={C.gb}
+                  strokeWidth={2}
+                  strokeDasharray="6 2"
+                  dot={false}
+                  name="Fitted GB"
+                />
+
+                {/* Fitted OLS */}
+                {showOLS && (
+                  <Line
+                    yAxisId="m2"
+                    type="monotone"
+                    dataKey="fitted_ols"
+                    stroke={C.ols}
+                    strokeWidth={1.5}
+                    strokeDasharray="4 4"
+                    dot={false}
+                    name="Fitted OLS"
+                  />
+                )}
+
+                {/* Brecha cambiaria */}
+                {showBrecha && (
+                  <Bar
+                    yAxisId="brecha"
+                    dataKey="brecha"
+                    fill={C.brecha}
+                    opacity={0.4}
+                    name="Brecha %"
+                  />
+                )}
+
+                {/* Hitos */}
+                <ReferenceLine
+                  x="Dic 23"
+                  yAxisId="m2"
+                  stroke="#F87171"
+                  strokeDasharray="3 3"
+                  label={{ value: "Shock Milei", fill: "#F87171", fontSize: 10, position: "top" }}
+                />
+                <ReferenceLine
+                  x="Ene 25"
+                  yAxisId="m2"
+                  stroke="#A78BFA"
+                  strokeDasharray="3 3"
+                  label={{ value: "Remonetiz.", fill: "#A78BFA", fontSize: 10, position: "top" }}
+                />
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Insight box */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4">
+              <h4 className="text-sm font-semibold text-blue-300 mb-2">
+                ¿Por qué el OLS dice -48%?
+              </h4>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                El modelo OLS fue calibrado en la era 2010-2022 de alta emisión y
+                alta inflación. Proyecta un M2 muy elevado para 2026 porque no
+                "sabe" que estamos en un régimen de desinflación con brecha
+                cambiaria → 0. El modelo ML sí lo captura: el desvío real es solo{" "}
+                <span className="text-green-400 font-semibold">
+                  {m2Summary.desvioML}%
+                </span>.
+              </p>
+            </div>
+            <div className="bg-violet-500/5 border border-violet-500/20 rounded-xl p-4">
+              <h4 className="text-sm font-semibold text-violet-300 mb-2">
+                Régimen actual: Remonetización
+              </h4>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                El modelo de Markov Switching (quantEcon) identifica un nuevo régimen
+                desde 2025: mayor elasticidad al TC real (brecha → 0 aumenta demanda
+                de pesos) y menor sensibilidad a inflación que en 2020-2023. El M2
+                se mueve principalmente por tendencia y confianza cambiaria.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Tab: Proyección ── */}
+      {activeTab === "proyeccion" && (
+        <div className="space-y-4">
+          <div className="bg-gray-800/40 rounded-xl p-4 border border-gray-700/50">
+            <p className="text-sm text-gray-400 mb-4">
+              Proyección M2 nominal (Gradient Boosting · 3 escenarios · Abr–Dic 2026)
+            </p>
+            <ResponsiveContainer width="100%" height={320}>
+              <ComposedChart data={proyData} margin={{ top: 5, right: 20, bottom: 5, left: 10 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.5} />
+                <XAxis dataKey="fecha" tick={{ fill: "#9CA3AF", fontSize: 11 }} tickLine={false} />
+                <YAxis
+                  tick={{ fill: "#9CA3AF", fontSize: 11 }}
+                  tickFormatter={(v) => `${v}T`}
+                  domain={["auto", "auto"]}
+                />
+                <Tooltip content={<CustomTooltip />} />
+                <Legend wrapperStyle={{ fontSize: 12, color: "#9CA3AF" }} />
+
+                <Line type="monotone" dataKey="optimista" stroke={C.proy_opt} strokeWidth={2}
+                  strokeDasharray="6 2" dot={false} name="Optimista" />
+                <Line type="monotone" dataKey="base" stroke={C.proy_base} strokeWidth={2.5}
+                  dot={false} name="Base" />
+                <Line type="monotone" dataKey="pesimista" stroke={C.proy_pes} strokeWidth={2}
+                  strokeDasharray="4 4" dot={false} name="Pesimista" />
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Tabla de proyecciones */}
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-gray-500 text-xs border-b border-gray-700">
+                  <th className="text-left py-2 px-3">Mes</th>
+                  <th className="text-right py-2 px-3 text-green-400">Optimista</th>
+                  <th className="text-right py-2 px-3 text-violet-400">Base</th>
+                  <th className="text-right py-2 px-3 text-red-400">Pesimista</th>
+                </tr>
+              </thead>
+              <tbody>
+                {m2Proyecciones.map((p) => (
+                  <tr key={p.fecha} className="border-b border-gray-800 hover:bg-gray-800/30">
+                    <td className="py-2 px-3 text-gray-300 font-mono">{p.fecha}</td>
+                    <td className="py-2 px-3 text-right text-green-400 font-mono">ARS {p.optimista}T</td>
+                    <td className="py-2 px-3 text-right text-violet-400 font-mono font-semibold">ARS {p.base}T</td>
+                    <td className="py-2 px-3 text-right text-red-400 font-mono">ARS {p.pesimista}T</td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr className="text-xs text-gray-500 mt-2">
+                  <td colSpan={4} className="pt-3 px-3">
+                    Optimista: inflación 1.5%/mes, brecha→0 · Base: 2.5%, brecha estable ·
+                    Pesimista: 4.0%, rebrecha
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* ── Tab: Comparación modelos ── */}
+      {activeTab === "modelos" && (
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {m2ModelStats.map((m) => (
+              <ModelCard
+                key={m.nombre}
+                {...m}
+                highlight={m.nombre === m2Summary.modeloPreferido}
+              />
+            ))}
+          </div>
+
+          {/* Tabla comparativa */}
+          <div className="bg-gray-800/40 rounded-xl p-4 border border-gray-700/50">
+            <h4 className="text-sm font-semibold text-white mb-3">
+              Comparación de métricas in-sample (Feb 2010 – Mar 2026)
+            </h4>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm font-mono">
+                <thead>
+                  <tr className="text-gray-500 text-xs border-b border-gray-700">
+                    <th className="text-left py-2">Modelo</th>
+                    <th className="text-right py-2">R²</th>
+                    <th className="text-right py-2">RMSE</th>
+                    <th className="text-right py-2">Desvío Mar-26</th>
+                    <th className="text-right py-2">Variables</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-gray-800">
+                    <td className="py-2 text-orange-400">OLS Baseline</td>
+                    <td className="py-2 text-right text-red-400">0.1793</td>
+                    <td className="py-2 text-right text-red-400">0.2797</td>
+                    <td className="py-2 text-right text-red-400">-37.6%</td>
+                    <td className="py-2 text-right text-gray-400">4</td>
+                  </tr>
+                  <tr className="border-b border-gray-800">
+                    <td className="py-2 text-gray-300">OLS Completo</td>
+                    <td className="py-2 text-right text-yellow-400">0.2414</td>
+                    <td className="py-2 text-right text-yellow-400">0.2690</td>
+                    <td className="py-2 text-right text-yellow-400">-30.0%</td>
+                    <td className="py-2 text-right text-gray-400">8</td>
+                  </tr>
+                  <tr className="border-b border-gray-800">
+                    <td className="py-2 text-blue-400">Random Forest</td>
+                    <td className="py-2 text-right text-green-400">0.9795</td>
+                    <td className="py-2 text-right text-green-400">0.0442</td>
+                    <td className="py-2 text-right text-yellow-400">-8.1%</td>
+                    <td className="py-2 text-right text-gray-400">8</td>
+                  </tr>
+                  <tr className="border-b border-gray-800 bg-green-500/5">
+                    <td className="py-2 text-green-400 font-semibold">Gradient Boosting ★</td>
+                    <td className="py-2 text-right text-green-400 font-bold">0.9999</td>
+                    <td className="py-2 text-right text-green-400 font-bold">0.0023</td>
+                    <td className="py-2 text-right text-green-400 font-bold">-0.4%</td>
+                    <td className="py-2 text-right text-gray-400">8</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 text-violet-400">Markov Switching</td>
+                    <td className="py-2 text-right text-green-400">0.9894</td>
+                    <td className="py-2 text-right text-green-400">0.0318</td>
+                    <td className="py-2 text-right text-green-400">-1.3%</td>
+                    <td className="py-2 text-right text-gray-400">8 × 5 reg.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Tab: Drivers ML ── */}
+      {activeTab === "drivers" && (
+        <div className="space-y-4">
+          <div className="bg-gray-800/40 rounded-xl p-4 border border-gray-700/50">
+            <h4 className="text-sm font-semibold text-white mb-4">
+              Importancia de variables — Gradient Boosting (feature importance)
+            </h4>
+            <div className="space-y-3">
+              {m2FeatureImportance.map((f) => (
+                <div key={f.variable} className="flex items-center gap-3">
+                  <span className="text-xs text-gray-400 w-40 flex-shrink-0">{f.variable}</span>
+                  <div className="flex-1 bg-gray-700 rounded-full h-2 overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-blue-500 to-green-500 transition-all"
+                      style={{ width: `${(f.importancia * 100).toFixed(1)}%` }}
+                    />
+                  </div>
+                  <span className="text-xs font-mono text-gray-300 w-12 text-right">
+                    {(f.importancia * 100).toFixed(1)}%
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Interpretación económica */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-gray-800/40 rounded-xl p-4 border border-gray-700/50">
+              <h4 className="text-sm font-semibold text-white mb-3">Interpretación económica</h4>
+              <ul className="space-y-2 text-xs text-gray-400">
+                <li className="flex gap-2">
+                  <span className="text-blue-400 font-semibold w-4">①</span>
+                  <span>
+                    <span className="text-white">Tendencia temporal</span> — driver principal.
+                    Captura la monetización estructural de largo plazo de la economía argentina.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-blue-400 font-semibold w-4">②</span>
+                  <span>
+                    <span className="text-white">Brecha cambiaria</span> — cuando la brecha blue/oficial
+                    es alta, los agentes huyen del peso. Cuando converge a 0 (como ahora), el M2 sube.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-blue-400 font-semibold w-4">③</span>
+                  <span>
+                    <span className="text-white">Actividad (EMAE)</span> — elasticidad positiva estándar
+                    de demanda de dinero. Más transacciones → más M2.
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-blue-400 font-semibold w-4">④</span>
+                  <span>
+                    <span className="text-white">Inflación y tasa real</span> — efecto negativo.
+                    Inflación alta → huida del peso. Tasa real positiva → sustitución por depósitos
+                    remunerados fuera del M2T.
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-800/40 rounded-xl p-4 border border-gray-700/50">
+              <h4 className="text-sm font-semibold text-white mb-3">Metodología ML</h4>
+              <div className="space-y-2 text-xs text-gray-400">
+                <p>
+                  <span className="text-green-400 font-medium">Gradient Boosting</span> (sklearn):
+                  300 estimators · depth 4 · lr 0.05. Entrena sobre log(M2 real) con 8 features.
+                  Captura no-linealidades y quiebres estructurales (cepos, devaluaciones).
+                </p>
+                <p>
+                  <span className="text-violet-400 font-medium">Markov Switching</span>: 5 regímenes
+                  identificados (2010-17, crisis 2018-19, pandemia 2020-22, shock 2023-24,
+                  remonetización 2025+). OLS por régimen, inspirado en
+                  <code className="text-gray-300 mx-1">quantecon.MarkovChain</code>.
+                </p>
+                <p>
+                  <span className="text-yellow-400 font-medium">EconML</span>: análisis causal de
+                  efectos heterogéneos (brecha como "tratamiento", M2 como outcome). Confirma
+                  que el efecto causal de la brecha sobre M2 es negativo y no lineal.
+                </p>
+                <p className="text-gray-600">
+                  Datos: 194 obs. mensuales (Feb 2010 – Mar 2026). Variables: EMAE, IPC,
+                  TC oficial/blue, BADLAR, brecha, trend. Fuentes: BCRA · INDEC · Ámbito.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Metodología colapsable ── */}
+      <details className="mt-6 bg-gray-800/30 rounded-xl border border-gray-700/50">
+        <summary className="px-4 py-3 text-sm text-gray-400 cursor-pointer hover:text-white select-none">
+          📐 Metodología ▼
+        </summary>
+        <div className="px-4 pb-4 text-xs text-gray-400 leading-relaxed space-y-2">
+          <p>
+            <strong className="text-white">Modelo base:</strong>{" "}
+            OLS log-lineal: ln(M2/P) = α + β₁·ln(Y) + β₂·π + β₃·Δe + β₄·t + ε.
+            R² = 0.18. Calibrado 2010-2022. Asume relación estable entre variables,
+            por eso sobreestima el M2 en el régimen actual.
+          </p>
+          <p>
+            <strong className="text-white">Modelo ML:</strong>{" "}
+            Gradient Boosting (scikit-learn) sobre las mismas variables más brecha cambiaria,
+            tasa real y aceleración inflacionaria. R² = 0.9999. Aprende los quiebres
+            estructurales sin necesidad de modelarlos explícitamente.
+          </p>
+          <p>
+            <strong className="text-white">Markov Switching:</strong>{" "}
+            Inspirado en la librería quantEcon de Python (Sargent & Stachurski).
+            5 regímenes identificados manualmente según contexto macroeconómico.
+            OLS separado por régimen. R² = 0.989.
+          </p>
+          <p>
+            <strong className="text-white">EconML:</strong>{" "}
+            Causal Forest DML (Double ML) para estimar el efecto causal heterogéneo
+            de la brecha cambiaria sobre la demanda de dinero, controlando por actividad
+            e inflación. Confirma que el efecto es no lineal y mayor en el régimen actual.
+          </p>
+          <p className="text-gray-500">
+            Código open-source disponible en ml/m2_ml_model.py · Actualización mensual · Mar-2026
+          </p>
+        </div>
+      </details>
+    </section>
+  );
+}
+
+export default M2ProxySection;
