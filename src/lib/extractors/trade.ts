@@ -16,7 +16,7 @@ export async function fetchTrade(): Promise<unknown | null> {
   const json = await fetchDatosGobAr(`${EXPORTS_ID},${IMPORTS_ID}`, 36);
   if (!json || json.data.length === 0) return null;
 
-  const rows = [...json.data].reverse();
+  const rows = [...json.data].reverse() as unknown as [string, number | null, number | null][];
 
   return rows
     .filter(([, exp]) => exp !== null)
