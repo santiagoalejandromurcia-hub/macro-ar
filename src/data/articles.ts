@@ -968,4 +968,92 @@ La balanza turística es, en definitiva, un espejo de la economía más amplia. 
 ---
 *Fuente: Ámbito Financiero en base a INDEC, Ministerio de Turismo, BCRA, Focus Market / Naranja X. Mayo 2026.*`,
   },
+  {
+    slug: 'argentinos-confian-en-el-peso-m2-2026',
+    title: 'Los Argentinos Están Volviendo a Confiar en el Peso: Qué Dice el Dinero que Circula',
+    author: 'Equipo MacroLibre',
+    authorRole: 'Análisis macroeconómico',
+    date: '27 de mayo de 2026',
+    summary:
+      'El M2 privado llegó a ARS 59,1 billones en marzo 2026, creciendo un 3,9% mensual. Pero el número importa menos que lo que hay detrás: nuestro modelo detecta que la economía cambió de régimen. El 95% del comportamiento del dinero se explica con la brecha cambiaria, no con la inflación. Y la brecha está en cero.',
+    image: '💵',
+    tags: ['Monetario', 'M2', 'Brecha Cambiaria', 'BCRA', 'Remonetización'],
+    readTime: '7 min',
+    content: `## Lo que nadie está mirando
+
+Hay algo que está pasando en la economía argentina que casi nadie está mirando.
+
+No aparece en los titulares. No genera peleas en Twitter. Pero es, posiblemente, una de las señales más importantes de que algo estructural está cambiando.
+
+Los argentinos están eligiendo quedarse en pesos.
+
+No porque los obliguen. No porque no puedan comprar dólares. Sino porque, por primera vez en mucho tiempo, tiene sentido.
+
+## Primero, lo básico: ¿qué es el M2 y por qué importa?
+
+El M2 es, en términos simples, el dinero que la gente y las empresas tienen disponible para gastar: los billetes en el bolsillo más lo que hay en las cuentas corrientes de los bancos.
+
+Pensalo como el **"combustible líquido" de la economía**. Cuando hay poco M2 — no en términos de billetes impresos, sino de dinero que la gente elige mantener en pesos — significa que todos están convirtiendo sus pesos a dólares lo más rápido que pueden. La economía funciona, pero con el freno de mano puesto.
+
+Cuando el M2 crece de forma ordenada, sin emisión descontrolada, significa que la gente confía lo suficiente en el peso como para quedarse en él. Es la economía funcionando con el freno de mano levantado.
+
+En **marzo de 2026, el M2 privado llegó a ARS 59,1 billones**, creciendo un **3,9% respecto al mes anterior**. Pero el número en sí importa menos que lo que hay detrás.
+
+## El modelo que no entendió que Argentina cambió
+
+En MacroLibre construimos modelos matemáticos para predecir cuánto dinero debería estar circulando en la economía. Y encontramos algo fascinante.
+
+El **modelo "viejo"** — el que aprendió mirando la Argentina entre 2010 y 2022, la era del cepo, la inflación descontrolada y el dólar blue disparado — dice que hoy debería haber casi un **40% más de dinero circulando** del que hay. Que el M2 actual está muy por debajo de lo normal.
+
+Nuestro **modelo más moderno**, que puede detectar cuándo la economía cambió de comportamiento, dice algo completamente distinto: el M2 actual está exactamente donde debería estar. El desvío es de apenas **0,4%**.
+
+¿Cuál tiene razón? El moderno. Y la diferencia explica todo.
+
+La analogía es simple: imaginá que tenés una tabla de referencia de cuánto pesa una persona "normal" basada en pacientes que comían mal durante veinte años. Cuando te traen a alguien que lleva dos años comiendo bien y haciendo ejercicio, tu tabla dice que está "demasiado liviano". Pero no está enfermo — simplemente cambió de hábito.
+
+El modelo viejo aprendió en una Argentina enferma. No sabe cómo luce una Argentina que empieza a sanar.
+
+## La brecha cambiaria: el termómetro de la desconfianza
+
+¿Qué es lo que más explica si los argentinos quieren pesos o no?
+
+No es la inflación del mes. No es la tasa del banco. Es algo más simple y más profundo: si el dólar blue está muy por encima del oficial o no.
+
+Cuando la brecha entre el dólar paralelo y el oficial es grande — como fue durante años, llegando al **160%** — es una sirena de alarma que todos los argentinos escuchan aunque no entiendan de economía. Esa sirena dice: *"el peso se va a devaluar, salí ya"*. Y la gente sale: compra dólares, no ahorra en pesos, no deposita en el banco.
+
+Cuando esa brecha converge a cero — como está pasando ahora — la sirena se apaga. Y sin sirena, la gente empieza a quedarse en pesos más tranquila.
+
+Eso es exactamente lo que muestran los datos: el **95% del comportamiento del dinero en Argentina se explica con dos cosas** — la tendencia de largo plazo de monetización y la brecha cambiaria. La inflación mensual, la tasa de interés, todo lo demás, suma apenas el 5%.
+
+Durante décadas creímos que la inflación era el driver número uno de la demanda de dinero. El modelo dice que no: **era la brecha**. La inflación importaba porque generaba brecha. Ahora que la brecha cayó, el mecanismo cambió.
+
+## ¿Qué puede pasar de acá a fin de año?
+
+Proyectamos tres escenarios posibles para el M2 hasta diciembre de 2026:
+
+**Escenario optimista** — inflación bajando al 1,5% mensual y brecha que sigue en cero: el dinero en circulación crece de forma ordenada, reflejando una economía que se normaliza. La remonetización avanza sin ruido.
+
+**Escenario base** — inflación estable en torno al nivel actual: el crecimiento nominal es mayor, pero parte de eso es simplemente la inflación empujando los números hacia arriba. El proceso continúa, más lento.
+
+**Escenario de ruptura** — la inflación vuelve a acelerar y el dólar blue se dispara: paradójicamente el número nominal sería el más alto de los tres. Pero sería la peor noticia: significaría que la gente volvió a huir del peso y el número grande es solo inflación, no confianza.
+
+Acá está la trampa que confunde a muchos: **más pesos en circulación no siempre es buena noticia**. Depende de por qué hay más pesos. Si hay más porque la gente elige quedarse en pesos, es señal de confianza. Si hay más porque la inflación los deprecia y necesitás más billetes para comprar lo mismo, es exactamente lo contrario.
+
+## Lo que nadie está diciendo en los titulares
+
+La gran noticia económica de los últimos meses no es el superávit fiscal, aunque es importante. No es la baja de inflación, aunque también lo es.
+
+La gran noticia es esta: **los argentinos están lentamente volviendo a confiar en su propia moneda**.
+
+No es un cambio cultural todavía — para eso hacen falta años, no meses. Pero es la primera señal medible, cuantificable, de que el proceso de remonetización está en marcha. La gente no está corriendo al dólar. La brecha es casi cero. El dinero en pesos crece ordenadamente.
+
+Esto conecta con algo importante: el "dólar bajo el colchón" no desaparece de un día para el otro. La homeostasis de la desconfianza es poderosa. Pero se negocia, lentamente, con consistencia y señales que se repiten mes a mes.
+
+El M2 de marzo dice que, por ahora, las señales están funcionando.
+
+La pregunta que nadie puede responder todavía es cuánto tiempo se mantiene la consistencia. Porque **la confianza monetaria es el activo más frágil que existe: tarda años en construirse y días en destruirse**.
+
+---
+*Datos: BCRA, modelos de series temporales MacroLibre Proxys. Marzo 2026.*`,
+  },
 ];
