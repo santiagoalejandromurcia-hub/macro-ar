@@ -1,4 +1,4 @@
-'''use client''';
+'use client';
 
 // ════════════════════════════════════════════════════
 // LiveKPIGrid — Grid principal de KPIs del dashboard
@@ -7,8 +7,8 @@
 // DolarBlueVivo y RiesgoPaisVivo, componentes separados.
 // ════════════════════════════════════════════════════
 
-import KPICardComponent from '''./KPICard''';
-import { kpiCards } from '''@/data/macroData''';
+import KPICardComponent from './KPICard';
+import { kpiCards } from '@/data/macroData';
 
 export default function LiveKPIGrid() {
   return (
