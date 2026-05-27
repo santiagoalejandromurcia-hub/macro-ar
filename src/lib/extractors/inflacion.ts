@@ -53,7 +53,7 @@ export async function fetchInflacion(): Promise<unknown | null> {
   const rows = [...json.data].reverse();
 
   // Calcular interanual: (nivel_actual / nivel_12_meses_atras) - 1
-  return rows
+  return (rows as unknown as [string, number | null, number | null][])
     .filter(([, varM]) => varM !== null)
     .slice(-36)
     .map(([fecha, varMensual], i, arr) => {
