@@ -325,7 +325,7 @@ export function ExpectativasSection() {
         </h1>
         <p className="text-sm text-gray-400 mt-1">
           Curva de expectativas implícita en el REM-BCRA · {expSummary.periodo} ·{" "}
-          <span className="text-gray-500">VAR(2) Wild Bootstrap · UNCuyo 2026</span>
+          <span className="text-gray-500">VAR(2) Wild Bootstrap · UC 2026</span>
         </p>
         <div className="mt-2 flex flex-wrap gap-2">
           <Badge label={anclada ? "Expectativas ancladas" : "Desanclaje activo"} color={anclada ? "#10b981" : "#ef4444"} />
@@ -389,7 +389,7 @@ export function ExpectativasSection() {
           <p><span className="font-semibold text-white">Paso 1 — Nelson-Siegel Diebold-Li:</span> Se fitea el modelo NS con λ=1.0 a las 5 expectativas del REM-BCRA (0.5y, 1y, 1.5y, 2y, 2.5y) por OLS cada mes. Se extrapola la curva a 3 años como proxy de expectativas de largo plazo (pi_exp_3y).</p>
           <p><span className="font-semibold text-white">Paso 2 — VAR(2) estructural:</span> VAR con 6 variables (fiscal, IPC i.a., BADLAR, π_exp_3y, Δtc, log-EMBI), p=2 lags seleccionados por BIC. Identificación por Cholesky (fiscal más exógeno, expectativas más endógenas).</p>
           <p><span className="font-semibold text-white">Paso 3 — Wild Bootstrap:</span> 2000 réplicas Rademacher para inferencia robusta a heterocedasticidad (ARCH-LM confirma efectos ARCH significativos en 4 de 6 variables). IC al 68% y 90%.</p>
-          <p className="text-xs text-gray-500">Tesis: "Determinantes del desanclaje de expectativas de inflación en Argentina" · Santiago Murcia · Lic. Economía, UNCuyo 2026 · Datos: BCRA, INDEC, Minecon, JP Morgan vía Ámbito · Oct 2016 – Feb 2026 · 113 obs.</p>
+          <p className="text-xs text-gray-500">Tesis: "Determinantes del desanclaje de expectativas de inflación en Argentina" · Santiago Murcia · Lic. Economía, UC 2026 · Datos: BCRA, INDEC, Minecon, JP Morgan vía Ámbito · Oct 2016 – Feb 2026 · 113 obs.</p>
         </div>
       </details>
     </section>
