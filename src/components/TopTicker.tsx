@@ -17,13 +17,13 @@ interface TickerItem {
 }
 
 const fallback: TickerItem[] = [
-  { label: 'DÓLAR BLUE',      value: '$1.440',    delta: 0.5,  source: 'BLUELYTICS' },
-  { label: 'RIESGO PAÍS',     value: '508 pb',    delta: -1.2, source: 'JP MORGAN' },
-  { label: 'INFLACIÓN MENS.', value: '1.9%',      delta: -1.0, source: 'INDEC' },
-  { label: 'RESERVAS BCRA',   value: 'USD 34,56M', delta: 1.8,  source: 'BCRA' },
-  { label: 'EMAE YoY',        value: '+4.1%',     delta: 4.1,  source: 'INDEC' },
-  { label: 'PBI Real YoY',    value: '+2.6%',     delta: 2.6,  source: 'INDEC' },
-  { label: 'TAMAR',           value: '17.16% n.a.', delta: 0, source: 'BCRA' },
+  { label: 'DÓLAR BLUE',      value: '$1.440',      delta: 0.5,  source: 'BLUELYTICS' },
+  { label: 'RIESGO PAÍS',     value: '508 pb',       delta: -1.2, source: 'JP MORGAN' },
+  { label: 'INFLACIÓN MENS.', value: '2.6%',         delta: -0.8, source: 'INDEC' },
+  { label: 'RESERVAS BCRA',   value: 'USD 46.088M',  delta: 1.8,  source: 'BCRA' },
+  { label: 'EMAE YoY',        value: '+5.5%',        delta: 0.3,  source: 'INDEC' },
+  { label: 'PBI Real YoY',    value: '+3.8%',        delta: 3.8,  source: 'INDEC' },
+  { label: 'TAMAR',           value: '22.94% n.a.',  delta: 0,    source: 'BCRA' },
 ];
 
 function itemsFromKpis(kpis: { id: string; value: string; change: number }[]): TickerItem[] {
