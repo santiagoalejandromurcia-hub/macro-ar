@@ -1,4 +1,4 @@
-// Auto-generado desde tesis NSS-VAR — Santiago Murcia (UNCuyo 2026)
+// Auto-generado desde tesis NSS-VAR — Santiago Murcia (UC 2026)
 // Datos: REM-BCRA, INDEC, BCRA, Ministerio de Economía, JP Morgan
 
 export interface ExpHistPoint {
