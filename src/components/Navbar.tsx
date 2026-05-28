@@ -44,9 +44,12 @@ const SECTION_GROUPS: SectionGroup[] = [
   {
     title: 'Herramientas',
     links: [
-      { href: '/calculadora', label: 'Calculadora histórica', desc: '¿Dólar, plazo fijo o bonos?' },
-      { href: '/break-even',  label: 'Break-Even Inflacionario', desc: 'CER vs tasa fija por plazo' },
-      { href: '/proxys',      label: 'Proxys macro', desc: 'Datasets descargables' },
+      { href: '/calculadora',  label: 'Calculadora histórica',    desc: '¿Dólar, plazo fijo o bonos?' },
+      { href: '/break-even',   label: 'Break-Even Inflacionario', desc: 'CER vs tasa fija por plazo' },
+      { href: '/proxys',         label: 'Proxys macro',              desc: 'Hub de indicadores alternativos' },
+      { href: '/proxys/m2',      label: '↳ M2 Privado (ML)',         desc: 'Gradient Boosting · demanda de dinero' },
+      { href: '/expectativas',   label: '↳ Expectativas inflación',   desc: 'NSS + VAR(2) sobre el REM-BCRA' },
+      { href: '/dolarizacion',   label: '↳ Dolarización de portafolios', desc: '% depósitos USD · confianza en el peso' },
     ],
   },
   {
