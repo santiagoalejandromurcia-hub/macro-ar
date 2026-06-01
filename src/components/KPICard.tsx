@@ -91,7 +91,7 @@ export default function KPICardComponent({
 
   const animated = useCountUp({
     to: number ?? 0,
-    duration: 300,
+    duration: 1400,
     decimals,
     delay: index * 60,
   });
@@ -129,7 +129,6 @@ export default function KPICardComponent({
     return (
       <div
         className="glass rounded-xl p-4 sm:p-5 relative overflow-hidden"
-        style={{ borderLeft: `3px solid var(--line-1)` }}
       >
         {/* Skeleton placeholders */}
         <div className="flex items-start justify-between mb-2 gap-3">
@@ -144,8 +143,10 @@ export default function KPICardComponent({
             <div className="skeleton h-8 w-24 rounded" />
             <div className="skeleton h-3 w-16 rounded" />
           </div>
-          <div className="skeleton h-12 w-[45%] rounded" />
+          <div className="skeleton h-14 w-[45%] rounded" />
         </div>
+        {/* Skeleton accent bar */}
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--line-1)] opacity-40" />
       </div>
     );
   }
@@ -153,7 +154,6 @@ export default function KPICardComponent({
   return (
     <motion.div
       className="glass glass-lift rounded-xl p-4 sm:p-5 relative overflow-hidden"
-      style={{ borderLeft: `3px solid ${accentBorderColor}` }}
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.06, ease: [0.2, 0.7, 0.2, 1] }}
@@ -163,8 +163,15 @@ export default function KPICardComponent({
         className="absolute top-0 left-0 right-0 h-px pointer-events-none"
         style={{
           background: `linear-gradient(to right, transparent, ${accentBorderColor}, transparent)`,
-          opacity: 0.6,
+          opacity: 0.75,
         }}
+        aria-hidden
+      />
+
+      {/* Accent bottom bar — reemplaza el borde lateral */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-[2px] pointer-events-none"
+        style={{ background: accentBorderColor, opacity: 0.65 }}
         aria-hidden
       />
 
@@ -178,7 +185,9 @@ export default function KPICardComponent({
         </div>
         <div className="shrink-0 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[var(--fg-2)]">
           {isLive && <span className="live-dot" aria-hidden />}
-          <span>{isLive ? 'Live' : 'Static'}</span>
+          <span style={{ color: isLive ? 'var(--up)' : undefined }}>
+            {isLive ? 'En vivo' : (card.updatedAt ?? 'Estático')}
+          </span>
         </div>
       </div>
 
@@ -228,9 +237,9 @@ export default function KPICardComponent({
           <Sparkline
             data={sparkData}
             width={160}
-            height={48}
+            height={56}
             sign={flat ? 'neutral' : positive ? 'positive' : 'negative'}
-            className="w-full h-12"
+            className="w-full h-14"
           />
         </div>
       </div>
