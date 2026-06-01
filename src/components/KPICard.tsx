@@ -91,7 +91,7 @@ export default function KPICardComponent({
 
   const animated = useCountUp({
     to: number ?? 0,
-    duration: 1400,
+    duration: 300,
     decimals,
     delay: index * 60,
   });
