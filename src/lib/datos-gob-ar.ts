@@ -13,7 +13,7 @@
 const BASE = 'https://apis.datos.gob.ar/series/api/series/';
 
 export interface DatosGobArResponse {
-  data: [string, number | null][];
+  data: [string, ...(number | null)[]][];
   meta: Array<{
     id: string;
     units?: string;
