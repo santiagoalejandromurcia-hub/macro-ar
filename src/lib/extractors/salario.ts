@@ -25,7 +25,7 @@ export async function fetchSalario(): Promise<unknown | null> {
   if (!json || json.data.length === 0) return null;
 
   // datos.gob.ar devuelve sort=desc → invertimos para orden cronológico
-  const rows = [...json.data].reverse() as unknown as [string, number | null, number | null, number | null][];
+  const rows = [...json.data].reverse();
 
   // Encontrar la base Nov-23 (2023-11-01)
   const novIdx = rows.findIndex(([fecha]) => fecha.startsWith('2023-11'));
