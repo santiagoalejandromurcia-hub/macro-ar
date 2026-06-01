@@ -1,11 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface RiesgoData {
   valor: number;
   fecha: string;
 }
+
+// ══════════════════════════════════════════════════════
+// RiesgoPaisVivo — rediseño 2026
+// Lenguaje visual unificado con KPICard y DolarBlueVivo.
+// ══════════════════════════════════════════════════════
 
 export default function RiesgoPaisVivo() {
   const [data, setData] = useState<RiesgoData | null>(null);
@@ -15,7 +21,6 @@ export default function RiesgoPaisVivo() {
   useEffect(() => {
     async function fetchRiesgo() {
       try {
-        // Usamos nuestro propio API route (evita CORS y aplica caché del servidor)
         const res = await fetch('/api/riesgo-pais');
         if (!res.ok) throw new Error('API error');
         const json = await res.json();
@@ -26,54 +31,138 @@ export default function RiesgoPaisVivo() {
           setPrev({ valor: json.anterior.valor, fecha: json.anterior.fecha });
         }
       } catch {
-        // Silencioso — se queda vacío
+        // Silencioso
       } finally {
         setLoading(false);
       }
     }
 
     fetchRiesgo();
-    // Actualizar cada 10 minutos
     const interval = setInterval(fetchRiesgo, 10 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
-  if (loading || !data) return null;
+  if (loading) {
+    return (
+      <div className="glass rounded-xl p-4 sm:p-5 relative overflow-hidden animate-pulse">
+        <div className="flex items-center justify-between mb-3">
+          <div className="skeleton h-2.5 w-20 rounded" />
+          <div className="skeleton h-2.5 w-10 rounded" />
+        </div>
+        <div className="skeleton h-2.5 w-24 rounded mb-2" />
+        <div className="skeleton h-7 w-28 rounded mb-2" />
+        <div className="skeleton h-2.5 w-32 rounded" />
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--line-1)] opacity-40" />
+      </div>
+    );
+  }
+
+  if (!data) return null;
 
   const cambio = prev ? data.valor - prev.valor : 0;
-  const cambioPct = prev ? ((cambio / prev.valor) * 100).toFixed(1) : '0';
-  const isDown = cambio <= 0;
+  const cambioPct = prev && prev.valor > 0
+    ? ((cambio / prev.valor) * 100).toFixed(1)
+    : '0';
+
+  // Para riesgo país: baja = positivo (bueno)
+  const isBetter = cambio <= 0;
+  const deltaColor = isBetter ? 'var(--up)' : 'var(--down)';
+  const accentColor = isBetter ? 'var(--up)' : 'var(--down)';
 
   return (
-    <div className="card-hover bg-theme-card border border-theme rounded-xl p-4 sm:p-5 relative overflow-hidden animate-fade-in">
+    <motion.div
+      className="glass glass-lift rounded-xl p-4 sm:p-5 relative overflow-hidden"
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, delay: 0.18, ease: [0.2, 0.7, 0.2, 1] }}
+    >
+      {/* Glow top bar */}
       <div
-        className={`absolute top-0 left-0 right-0 h-[2px] ${
-          isDown
-            ? 'bg-gradient-to-r from-ar-green/80 to-ar-green/0'
-            : 'bg-gradient-to-r from-ar-red/80 to-ar-red/0'
-        }`}
+        className="absolute top-0 left-0 right-0 h-px pointer-events-none"
+        style={{
+          background: `linear-gradient(to right, transparent, ${accentColor}, transparent)`,
+          opacity: 0.75,
+        }}
+        aria-hidden
       />
 
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-xl sm:text-2xl">🌍</span>
-        <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-full bg-ar-green/10 text-ar-green font-mono">
-          <span className="w-1.5 h-1.5 rounded-full bg-ar-green animate-pulse" />
+      {/* Header: fuente + EN VIVO */}
+      <div className="flex items-center justify-between mb-3">
+        <span
+          className="font-mono text-[10px] uppercase tracking-wider"
+          style={{ color: 'var(--fg-3)' }}
+        >
+          OFICIAL · JP MORGAN
+        </span>
+        <span
+          className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider"
+          style={{ color: 'var(--up)' }}
+        >
+          <span className="live-dot" aria-hidden />
           EN VIVO
         </span>
       </div>
 
-      <p className="text-[10px] sm:text-xs text-theme-muted uppercase tracking-wider font-medium mb-1">RIESGO PAÍS</p>
-      <p className="text-lg sm:text-2xl font-bold text-theme-primary tracking-tight mb-1 font-mono">{data.valor} pb</p>
-
-      <div className="flex items-center gap-1.5">
-        <span className={`inline-flex items-center gap-0.5 text-[10px] sm:text-xs font-mono font-medium ${isDown ? 'text-ar-green' : 'text-ar-red'}`}>
-          {isDown ? '▼' : '▲'} {Math.abs(cambio)} pb ({cambioPct}%)
-        </span>
-      </div>
-
-      <p className="text-[9px] sm:text-[10px] text-theme-faint mt-1">
-        EMBI+ JP Morgan · {data.fecha}
+      {/* Title */}
+      <p
+        className="font-mono text-[10px] uppercase tracking-wider mb-1.5"
+        style={{ color: 'var(--fg-2)' }}
+      >
+        RIESGO PAÍS
       </p>
-    </div>
+
+      {/* Value */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={data.valor}
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 8 }}
+          transition={{ duration: 0.22, ease: 'easeOut' }}
+          className="tnum"
+          style={{
+            fontFamily: '"JetBrains Mono", "Geist Mono", ui-monospace, monospace',
+            fontWeight: 500,
+            fontSize: 'clamp(20px, 3vw, 26px)',
+            lineHeight: 1,
+            color: 'var(--fg-0)',
+            letterSpacing: '-0.02em',
+          }}
+        >
+          {data.valor.toLocaleString('es-AR')} pb
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Delta badge */}
+      {cambio !== 0 && (
+        <div className="mt-2 flex items-center gap-2">
+          <span
+            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-mono text-[10px] tnum"
+            style={{
+              background: `color-mix(in oklch, ${deltaColor} 15%, transparent)`,
+              color: deltaColor,
+              border: `1px solid color-mix(in oklch, ${deltaColor} 25%, transparent)`,
+            }}
+          >
+            {isBetter ? '▼' : '▲'} {Math.abs(cambio)} pb ({cambioPct}%)
+          </span>
+        </div>
+      )}
+
+      {/* Timestamp */}
+      <p
+        className="font-mono text-[9px] mt-2"
+        style={{ color: 'var(--fg-3)' }}
+      >
+        EMBI+ · {data.fecha}
+      </p>
+
+      {/* Accent bottom bar */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-[2px] pointer-events-none"
+        style={{ background: accentColor, opacity: 0.65 }}
+        aria-hidden
+      />
+    </motion.div>
   );
 }
