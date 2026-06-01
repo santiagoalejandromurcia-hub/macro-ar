@@ -56,7 +56,7 @@ export const kpiCards: KPICard[] = [
   {
     id: 'reservas',
     title: 'Reservas BCRA',
-    value: 'USD 46,088M',
+    value: 'USD 47.874M',
     change: 1.8,
     changeLabel: 'vs. Dic 2025',
     icon: '🏦',
@@ -64,7 +64,7 @@ export const kpiCards: KPICard[] = [
   {
     id: 'tamar',
     title: 'TAMAR Diaria',
-    value: '22.94% n.a.',
+    value: '23.00% n.a.',
     change: 0,
     changeLabel: 'Tasa activa mercado bancos privados · BCRA',
     unit: '% n.a.',
