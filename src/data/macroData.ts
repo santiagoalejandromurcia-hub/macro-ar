@@ -16,6 +16,10 @@ export interface KPICard {
   changeLabel: string;
   unit?: string;
   icon: string;
+  /** Texto corto para mostrar en lugar de "Static", ej: "Abr 26" o "hace 2 días" */
+  updatedAt?: string;
+  /** Fuente OFICIAL que publica el dato, ej: "INDEC", "MECON" */
+  source?: string;
 }
 
 export const kpiCards: KPICard[] = [
@@ -27,6 +31,8 @@ export const kpiCards: KPICard[] = [
     changeLabel: 'var. i.a. (Mar 26)',
     unit: 'Índice 2004=100',
     icon: '📊',
+    updatedAt: 'Mar 26',
+    source: 'INDEC',
   },
   {
     id: 'pbi',
@@ -35,6 +41,8 @@ export const kpiCards: KPICard[] = [
     change: 3.8,
     changeLabel: 'var. interanual (Q4-25)',
     icon: '📈',
+    updatedAt: 'Q4-25',
+    source: 'INDEC',
   },
   {
     id: 'inflacion',
@@ -43,6 +51,8 @@ export const kpiCards: KPICard[] = [
     change: -0.8,
     changeLabel: 'Abr 26 (vs Mar 3.4%)',
     icon: '🏷️',
+    updatedAt: 'Abr 26',
+    source: 'INDEC',
   },
   {
     id: 'superavit',
@@ -52,6 +62,8 @@ export const kpiCards: KPICard[] = [
     changeLabel: '1T 26 (Ene-Mar) % del PIB',
     unit: '% PIB',
     icon: '✅',
+    updatedAt: '1T-26',
+    source: 'MECON',
   },
   {
     id: 'reservas',
@@ -60,6 +72,8 @@ export const kpiCards: KPICard[] = [
     change: 1.8,
     changeLabel: 'vs. Dic 2025',
     icon: '🏦',
+    updatedAt: 'Abr 26',
+    source: 'BCRA',
   },
   {
     id: 'tamar',
@@ -69,6 +83,8 @@ export const kpiCards: KPICard[] = [
     changeLabel: 'Tasa activa mercado bancos privados · BCRA',
     unit: '% n.a.',
     icon: '📉',
+    updatedAt: 'hoy',
+    source: 'BCRA',
   },
 ];
 
