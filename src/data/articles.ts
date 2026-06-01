@@ -975,7 +975,7 @@ La balanza turística es, en definitiva, un espejo de la economía más amplia. 
     authorRole: 'Análisis macroeconómico',
     date: '27 de mayo de 2026',
     summary:
-      'El M2 privado llegó a ARS 59,1 billones en marzo 2026, creciendo un 3,9% mensual. Pero el número importa menos que lo que hay detrás: nuestro modelo detecta que la economía cambió de régimen. El 95% del comportamiento del dinero se explica con la brecha cambiaria, no con la inflación. Y la brecha está en cero.',
+      'El M2 privado llegó a ARS 59,1 billones en marzo 2026, creciendo un 3,9% mensual. Nuestro modelo detecta que la economía cambió de régimen: el 95% del comportamiento del dinero se explica con la brecha cambiaria, no con la inflación. Y la brecha está en cero.',
     image: '💵',
     tags: ['Monetario', 'M2', 'Brecha Cambiaria', 'BCRA', 'Remonetización'],
     readTime: '7 min',
@@ -989,7 +989,7 @@ Los argentinos están eligiendo quedarse en pesos.
 
 No porque los obliguen. No porque no puedan comprar dólares. Sino porque, por primera vez en mucho tiempo, tiene sentido.
 
-## Primero, lo básico: ¿qué es el M2 y por qué importa?
+## ¿Qué es el M2 y por qué importa?
 
 El M2 es, en términos simples, el dinero que la gente y las empresas tienen disponible para gastar: los billetes en el bolsillo más lo que hay en las cuentas corrientes de los bancos.
 
@@ -1003,11 +1003,9 @@ En **marzo de 2026, el M2 privado llegó a ARS 59,1 billones**, creciendo un **3
 
 En MacroLibre construimos modelos matemáticos para predecir cuánto dinero debería estar circulando en la economía. Y encontramos algo fascinante.
 
-El **modelo "viejo"** — el que aprendió mirando la Argentina entre 2010 y 2022, la era del cepo, la inflación descontrolada y el dólar blue disparado — dice que hoy debería haber casi un **40% más de dinero circulando** del que hay. Que el M2 actual está muy por debajo de lo normal.
+El **modelo "viejo"** — el que aprendió mirando la Argentina entre 2010 y 2022, la era del cepo, la inflación descontrolada y el dólar blue disparado — dice que hoy debería haber casi un **40% más de dinero circulando** del que hay.
 
 Nuestro **modelo más moderno**, que puede detectar cuándo la economía cambió de comportamiento, dice algo completamente distinto: el M2 actual está exactamente donde debería estar. El desvío es de apenas **0,4%**.
-
-¿Cuál tiene razón? El moderno. Y la diferencia explica todo.
 
 La analogía es simple: imaginá que tenés una tabla de referencia de cuánto pesa una persona "normal" basada en pacientes que comían mal durante veinte años. Cuando te traen a alguien que lleva dos años comiendo bien y haciendo ejercicio, tu tabla dice que está "demasiado liviano". Pero no está enfermo — simplemente cambió de hábito.
 
@@ -1019,7 +1017,7 @@ El modelo viejo aprendió en una Argentina enferma. No sabe cómo luce una Argen
 
 No es la inflación del mes. No es la tasa del banco. Es algo más simple y más profundo: si el dólar blue está muy por encima del oficial o no.
 
-Cuando la brecha entre el dólar paralelo y el oficial es grande — como fue durante años, llegando al **160%** — es una sirena de alarma que todos los argentinos escuchan aunque no entiendan de economía. Esa sirena dice: *"el peso se va a devaluar, salí ya"*. Y la gente sale: compra dólares, no ahorra en pesos, no deposita en el banco.
+Cuando la brecha entre el dólar paralelo y el oficial es grande — como fue durante años, llegando al **160%** — es una sirena de alarma que todos los argentinos escuchan aunque no entiendan de economía. Esa sirena dice: *"el peso se va a devaluar, salí ya"*. Y la gente sale.
 
 Cuando esa brecha converge a cero — como está pasando ahora — la sirena se apaga. Y sin sirena, la gente empieza a quedarse en pesos más tranquila.
 
@@ -1031,13 +1029,13 @@ Durante décadas creímos que la inflación era el driver número uno de la dema
 
 Proyectamos tres escenarios posibles para el M2 hasta diciembre de 2026:
 
-**Escenario optimista** — inflación bajando al 1,5% mensual y brecha que sigue en cero: el dinero en circulación crece de forma ordenada, reflejando una economía que se normaliza. La remonetización avanza sin ruido.
+**Escenario optimista** — inflación bajando al 1,5% mensual y brecha en cero: el dinero crece de forma ordenada, reflejando una economía que se normaliza. La remonetización avanza sin ruido.
 
-**Escenario base** — inflación estable en torno al nivel actual: el crecimiento nominal es mayor, pero parte de eso es simplemente la inflación empujando los números hacia arriba. El proceso continúa, más lento.
+**Escenario base** — inflación estable en torno al nivel actual: el crecimiento nominal es mayor, pero parte de eso es simplemente la inflación empujando los números. El proceso continúa, más lento.
 
-**Escenario de ruptura** — la inflación vuelve a acelerar y el dólar blue se dispara: paradójicamente el número nominal sería el más alto de los tres. Pero sería la peor noticia: significaría que la gente volvió a huir del peso y el número grande es solo inflación, no confianza.
+**Escenario de ruptura** — la inflación vuelve a acelerar y el dólar blue se dispara: paradójicamente el número nominal sería el más alto de los tres. Pero sería la peor noticia: la gente volvió a huir del peso y el número grande es solo inflación, no confianza.
 
-Acá está la trampa que confunde a muchos: **más pesos en circulación no siempre es buena noticia**. Depende de por qué hay más pesos. Si hay más porque la gente elige quedarse en pesos, es señal de confianza. Si hay más porque la inflación los deprecia y necesitás más billetes para comprar lo mismo, es exactamente lo contrario.
+Acá está la trampa que confunde a muchos: **más pesos en circulación no siempre es buena noticia**. Depende de por qué hay más pesos.
 
 ## Lo que nadie está diciendo en los titulares
 
@@ -1045,15 +1043,105 @@ La gran noticia económica de los últimos meses no es el superávit fiscal, aun
 
 La gran noticia es esta: **los argentinos están lentamente volviendo a confiar en su propia moneda**.
 
-No es un cambio cultural todavía — para eso hacen falta años, no meses. Pero es la primera señal medible, cuantificable, de que el proceso de remonetización está en marcha. La gente no está corriendo al dólar. La brecha es casi cero. El dinero en pesos crece ordenadamente.
-
-Esto conecta con algo importante: el "dólar bajo el colchón" no desaparece de un día para el otro. La homeostasis de la desconfianza es poderosa. Pero se negocia, lentamente, con consistencia y señales que se repiten mes a mes.
+No es un cambio cultural todavía — para eso hacen falta años, no meses. Pero es la primera señal medible, cuantificable, de que el proceso de remonetización está en marcha.
 
 El M2 de marzo dice que, por ahora, las señales están funcionando.
 
 La pregunta que nadie puede responder todavía es cuánto tiempo se mantiene la consistencia. Porque **la confianza monetaria es el activo más frágil que existe: tarda años en construirse y días en destruirse**.
 
 ---
-*Datos: BCRA, modelos de series temporales MacroLibre Proxys. Marzo 2026.*`,
+*Datos: BCRA, modelos de series temporales MacroLibre. Marzo 2026.*`,
+  },
+  {
+    slug: 'reforma-ley-sociedades-sturzenegger-2026',
+    title: 'La Ley que Mataba Empresas en el Papel: Por Qué la Reforma de Sturzenegger es Histórica',
+    author: 'Equipo MacroLibre',
+    authorRole: 'Análisis macroeconómico',
+    date: '29 de mayo de 2026',
+    summary:
+      'Argentina tiene una Ley General de Sociedades de 1972 — dictada bajo Lanusse, antes de internet y los celulares — que regula hoy cada startup, PyME y fondo de inversión. El proyecto de Sturzenegger la reforma de raíz: estatuto sobre ley, digitalización total, IGJ sin poder discrecional, criptoactivos como capital y sociedades gestionadas por IA con personalidad jurídica.',
+    image: '⚖️',
+    tags: ['Desregulación', 'Reforma Societaria', 'IGJ', 'Política Económica', 'Inversión'],
+    readTime: '10 min',
+    content: `## Una ley de la dictadura para una economía del siglo XXI
+
+En Argentina, para abrir una empresa legalmente, necesitás un escribano, un contador, un abogado, semanas de trámites, una dirección física registrada, un objeto social específico detallado, libros contables físicos rubricados y la aprobación discrecional de un funcionario de la IGJ que puede rechazarte por cualquier motivo.
+
+Todo eso para decirle al mundo que querés producir algo.
+
+Es como si para poder correr una maratón te exigieran primero llenar 47 formularios, presentarlos en papel, esperar la aprobación de un inspector, y especificar exactamente cuántos pasos por minuto vas a dar y en qué dirección.
+
+Esa es la Ley General de Sociedades de 1972. La que el Gobierno de Milei acaba de mandar al Congreso para reformar de raíz.
+
+El proyecto fue presentado por el ministro de Desregulación Federico Sturzenegger, quien señaló que la iniciativa busca modificar la histórica Ley General de Sociedades impulsada durante la presidencia de Alejandro Lanusse. Lanusse. Un dictador. 1972. Cuando no existía internet, las computadoras personales, los celulares, las criptomonedas, la inteligencia artificial ni el trabajo remoto.
+
+Con esa ley — con modificaciones parciales pero la misma lógica de fondo — se rige hoy cada empresa que se constituye en Argentina.
+
+Sturzenegger la describió sin eufemismos: *"El proyecto nos mueve de un régimen rígido y anacrónico, construido sobre la desconfianza al sector privado, a un marco moderno basado en la autonomía, la libertad y la desregulación."*
+
+La palabra clave es **desconfianza**. La ley actual parte de la premisa de que los privados van a hacer algo malo si el Estado no los vigila. La reforma parte de la premisa contraria: los privados saben mejor que el Estado cómo organizar sus propios negocios.
+
+## El cambio central: el estatuto manda, la ley es el plan B
+
+Hoy la ley le dice a las empresas cómo tienen que funcionar. El estatuto — el contrato entre los socios — puede hacer pocas cosas por fuera de lo que la ley permite.
+
+Con la reforma se invierte la lógica: **las normas de la ley pasan a ser supletorias, el estatuto manda**. Las restricciones estatales serán excepcionales y de interpretación restrictiva. Los registros públicos no podrán dictar resoluciones que limiten lo que la ley permite.
+
+La analogía más clara: hoy la ley es como un reglamento de convivencia de edificio donde el administrador decide todo — cuándo podés hacer ruido, cómo tenés que pintar la puerta, qué podés hacer en tu departamento. La reforma convierte ese reglamento en una guía mínima de convivencia: el resto lo deciden los dueños entre ellos.
+
+## Los cambios concretos
+
+**El objeto social deja de ser una trampa burocrática.** Hoy una empresa tiene que detallar exactamente a qué se va a dedicar. Si querés hacer algo nuevo, necesitás modificar el estatuto, pagar escribano, esperar aprobación. La reforma elimina esa restricción: si el estatuto no especifica un objeto concreto, se entenderá que la empresa podrá realizar "cualquier actividad lícita". *"Esto es esencial en un mundo tan cambiante como el que vivimos"*, dijo Sturzenegger.
+
+Pensalo así: hoy tenés que decirle al Estado que vas a ser panadero antes de abrir el local. Si después querés vender también café, necesitás permiso. La reforma dice: si no aclarás que solo hacés pan, podés hacer lo que quieras que sea legal.
+
+**Todo se digitaliza.** La reforma habilita domicilio electrónico, libros digitales, asambleas a distancia y constitución de empresas mediante firma digital o electrónica. *"Con este proyecto, el expediente en papel queda en la historia"*, afirmó Sturzenegger. En 2026, que para constituir una empresa todavía haya que ir a una oficina pública con papeles firmados ante escribano es exactamente tan absurdo como suena.
+
+**La IGJ pierde poder discrecional.** Este es quizás el cambio más importante y el menos mencionado. La IGJ tiene hoy un poder enorme para rechazar, demorar y condicionar trámites de forma arbitraria. Con la reforma, los registros públicos no podrán dictar resoluciones que limiten lo que la ley permite. Se acaba el "porque yo digo que no". Si la ley lo permite, el registro tiene que aprobarlo.
+
+**Criptoactivos como capital.** Por primera vez en la historia legal argentina, un emprendedor podrá aportar Bitcoin, tokens o cualquier activo digital como capital de una sociedad. Reconocimiento legal de una realidad que ya existe hace años en la economía real.
+
+## La parte que nadie esperaba: sociedades gestionadas por inteligencia artificial
+
+Este es el punto más futurista y el más significativo para entender la ambición de la reforma.
+
+La reforma incluirá nuevas figuras jurídicas vinculadas a la economía digital y la inteligencia artificial. Entre ellas, la **"Sociedad Automatizada"**, operada mediante algoritmos o IA sin requerir empleados para su operación ordinaria, y las **DAO** — organizaciones autónomas descentralizadas con participaciones tokenizadas y registros en blockchain. Ambas tendrían *"personalidad jurídica plena y responsabilidad limitada"*.
+
+Una DAO es, en términos simples, una empresa que funciona con código. Las reglas están escritas en un programa informático que se ejecuta automáticamente, sin que ninguna persona específica tome decisiones. Hoy en Argentina eso es legalmente un limbo. Con esta reforma, tendría el mismo estatus legal que una SA o una SRL.
+
+Para justificar la apuesta, Sturzenegger citó el caso de Irlanda, que construyó durante años un régimen legal favorable para compañías tecnológicas. *"Pretendemos esa misma atracción global para Argentina en lo que hace a las empresas de IA"*, aseguró.
+
+Irlanda tiene 5 millones de habitantes y atrae las sedes europeas de Apple, Google y Meta. No por el clima — por las reglas. Si Argentina puede hacer lo mismo con empresas de IA y cripto, el impacto en inversión y empleo calificado sería transformador.
+
+## El argumento de los críticos
+
+La oposición va a argumentar que menos controles es igual a más fraude, más evasión, más abuso. Es el argumento de siempre y merece una respuesta honesta.
+
+El problema con ese argumento es que confunde **control burocrático previo** con **responsabilidad legal posterior**. La ley actual pone trabas antes de que la empresa funcione — como revisar el bolso de todos los que entran a un supermercado por si acaso alguno va a robar. La alternativa es dejar entrar libremente pero aplicar consecuencias duras para el que efectivamente robe.
+
+Lo segundo es más eficiente, más justo y produce menos daño colateral sobre los honestos.
+
+Además, el argumento choca con un dato empírico contundente: Argentina tiene uno de los marcos regulatorios más restrictivos de la región para constituir empresas — y también uno de los niveles más altos de economía informal. **La burocracia no previene el fraude. Solo encarece la legalidad hasta que los honestos también se van a la informalidad.**
+
+## El contexto: una pieza de un rompecabezas mayor
+
+Esta reforma no llega sola. Sturzenegger la enmarcó como parte de "un conjunto de reformas muy profundas" junto al Súper RIGI y otras iniciativas.
+
+El mensaje que Argentina está mandando al mundo en 2026 es consistente: superávit fiscal, inflación bajando, reservas acumulándose, brecha cambiaria en cero, y ahora un marco legal para empresas que compite con los mejores del mundo.
+
+Cada una de esas piezas por separado es importante. Todas juntas forman algo que Argentina no tuvo en décadas: **un argumento creíble para el inversor que está eligiendo dónde poner su capital**.
+
+## Lo que viene: el debate en el Congreso
+
+El proyecto ingresó por el Senado el 29 de mayo de 2026. El tratamiento legislativo se espera para la segunda quincena de junio.
+
+El debate va a ser intenso. La oposición kirchnerista va a gritar "desregulación al servicio del capital". La respuesta correcta es simple: la regulación actual no protege a los trabajadores ni a los consumidores. Solo protege a los burócratas que cobran por aprobar trámites y a los incumbentes que no quieren competencia nueva.
+
+Una ley que facilita abrir empresas es una ley que facilita crear empleo. No hay manera de crear trabajo sin primero poder crear la empresa que lo va a generar.
+
+La reforma de la Ley de Sociedades no es un tecnicismo jurídico. Es la diferencia entre una Argentina que le pone trabas a quien quiere producir y una Argentina que le da la bienvenida.
+
+---
+*Fuentes: Perfil, Ámbito Financiero, El Economista, La Derecha Diario, Roadshow. Mayo 2026.*`,
   },
 ];
