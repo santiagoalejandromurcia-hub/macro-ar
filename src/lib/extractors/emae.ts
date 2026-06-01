@@ -20,7 +20,7 @@ export async function fetchEmae(): Promise<unknown | null> {
   // datos.gob.ar devuelve sort=desc → invertimos para orden cronológico
   const rows = [...json.data].reverse();
 
-  return (rows as unknown as [string, number | null, number | null][])
+  return rows
     .filter(([, original]) => original !== null)
     .map(([fecha, original, desest]) => ({
       date:  fmtMes(fecha),
