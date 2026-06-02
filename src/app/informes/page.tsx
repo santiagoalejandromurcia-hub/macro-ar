@@ -3,7 +3,7 @@ import { informes } from '@/data/informes';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Informes Macroeconómicos — MacroLibre',
+  title: 'Informes Macroeconómicos Argentina',
   description:
     'Informes mensuales de análisis y coyuntura macroeconómica argentina. Proyecciones de inflación, tipo de cambio, actividad, sector externo y fiscal. Datos oficiales de INDEC, BCRA y Ministerio de Economía.',
   keywords: [
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     'macroeconomía argentina informe mensual',
   ],
   openGraph: {
-    title: 'Informes Macroeconómicos — MacroLibre',
+    title: 'Informes Macroeconómicos Argentina — MacroLibre',
     description: 'Análisis mensual de coyuntura: inflación, actividad, sector externo y fiscal.',
     url: 'https://macrolibre.com/informes',
     type: 'website',

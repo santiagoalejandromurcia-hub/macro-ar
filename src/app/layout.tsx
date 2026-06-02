@@ -70,6 +70,8 @@ const ORG_JSON_LD = {
   sameAs: [
     'https://www.instagram.com/macrolibre/',
     'https://www.linkedin.com/in/macrolibre/',
+    'https://x.com/SantoLibre_',
+    'https://github.com/santiagoalejandromurcia-hub/macro-ar',
   ],
 };
 

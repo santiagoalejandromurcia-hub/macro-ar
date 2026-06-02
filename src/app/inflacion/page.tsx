@@ -5,7 +5,7 @@ import {
 import InflacionMayoristaChart from '@/components/InflacionMayoristaChart';
 
 export const metadata = {
-  title: 'Inflación — MacroLibre',
+  title: 'Inflación Argentina en tiempo real — IPC, IPIM y REM',
   description: 'IPC mensual, interanual, núcleo, inflación mayorista (IPIM) y expectativas REM del BCRA. Datos actualizados de Argentina.',
 };
 

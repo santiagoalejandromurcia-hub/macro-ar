@@ -19,7 +19,8 @@ const AI_BOTS = [
   'GPTBot',              // OpenAI (ChatGPT)
   'ChatGPT-User',        // OpenAI cuando el usuario clickea un link
   'OAI-SearchBot',       // OpenAI Search
-  'ClaudeBot',           // Anthropic (Claude)
+  'ClaudeBot',           // Anthropic (Claude) — entrenamiento
+  'Claude-SearchBot',    // Anthropic — citación/retrieval en tiempo real (≠ entrenamiento)
   'Claude-Web',          // Anthropic cuando el usuario clickea un link
   'anthropic-ai',        // Anthropic legacy
   'PerplexityBot',       // Perplexity AI
