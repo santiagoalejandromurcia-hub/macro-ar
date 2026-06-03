@@ -22,18 +22,9 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ════════ HERO (full-bleed) ════════ */}
-      <Hero />
-
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         {/* ════════ MACRO TERMINAL ════════ */}
         <FadeSection id="dashboard" className="mt-4">
-          <SectionHeader
-            id="dashboard"
-            title="Dashboard en vivo"
-            subtitle="Principales indicadores macroeconómicos · actualización cada 60s"
-            accent="celeste"
-          />
           <MacroTerminal />
         </FadeSection>
 
