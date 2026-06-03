@@ -17,6 +17,8 @@ import NewsletterSignup from '@/components/NewsletterSignup';
 import Hero from '@/components/hero/Hero';
 import ServicesSection from '@/components/Services/ServicesSection';
 import FadeSection from '@/components/FadeSection';
+import dynamic from 'next/dynamic';
+const EmbiDashboard = dynamic(() => import('@/components/EmbiDashboard'), { ssr: false });
 
 export default function HomePage() {
   const latestArticles = articles.slice(0, 3);
@@ -139,6 +141,7 @@ export default function HomePage() {
               <TCRChart />
             </div>
             <RiesgoPaisChart />
+            <EmbiDashboard />
           </div>
         </FadeSection>
 
