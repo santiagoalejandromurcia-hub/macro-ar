@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { EmbiResponse, BondResult } from '@/app/api/embi/route';
+import type { EmbiResponse } from '@/app/api/embi/route';
+type BondResult = EmbiResponse['bonds'][number];
 
 // ══════════════════════════════════════════════════════════════
 // EmbiDashboard — EMBI calculado internamente
@@ -92,12 +93,23 @@ function BondRow({ bond, index }: { bond: BondResult; index: number }) {
         </span>
       </td>
 
-      {/* Spread */}
+      {/* Spread actual + delta vs cierre */}
       <td className="py-2.5 text-right">
-        {bond.spread !== null
-          ? <SpreadBadge spread={bond.spread} />
-          : <span className="font-mono text-[9px] text-[var(--fg-3)]">amort.</span>
-        }
+        {bond.spread !== null ? (
+          <div className="space-y-0.5">
+            <SpreadBadge spread={bond.spread} />
+            {bond.spreadClose !== null && bond.spread !== bond.spreadClose && (
+              <div
+                className="font-mono text-[9px] tnum"
+                style={{ color: bond.spread < bond.spreadClose ? 'var(--teal)' : 'oklch(0.68 0.22 25)' }}
+              >
+                {bond.spread < bond.spreadClose ? '▼' : '▲'} {Math.abs(bond.spread - bond.spreadClose)} pb
+              </div>
+            )}
+          </div>
+        ) : (
+          <span className="font-mono text-[9px] text-[var(--fg-3)]">amort.</span>
+        )}
       </td>
     </motion.tr>
   );
@@ -232,19 +244,25 @@ export default function EmbiDashboard() {
               {data.embi.toLocaleString('es-AR')}
             </motion.div>
           </AnimatePresence>
-          <div className="pb-1 space-y-1">
+          <div className="pb-1 space-y-1.5">
             <div className="font-mono text-[10px] text-[var(--fg-2)] uppercase">pb · EMBIGD</div>
-            {delta !== 0 && (
+            {/* Variación desde cierre = Spread_BT_ahora − Spread_BT_cierre */}
+            {data.embiDelta !== null && data.embiDelta !== 0 && (
               <span
                 className="inline-flex items-center gap-1 px-1.5 py-px rounded font-mono text-[10px] tnum"
                 style={{
-                  color: isBetter ? 'var(--teal)' : 'oklch(0.68 0.22 25)',
-                  background: `color-mix(in oklch, ${isBetter ? 'var(--teal)' : 'oklch(0.68 0.22 25)'} 14%, transparent)`,
-                  border: `1px solid color-mix(in oklch, ${isBetter ? 'var(--teal)' : 'oklch(0.68 0.22 25)'} 28%, transparent)`,
+                  color: data.embiDelta <= 0 ? 'var(--teal)' : 'oklch(0.68 0.22 25)',
+                  background: `color-mix(in oklch, ${data.embiDelta <= 0 ? 'var(--teal)' : 'oklch(0.68 0.22 25)'} 14%, transparent)`,
+                  border: `1px solid color-mix(in oklch, ${data.embiDelta <= 0 ? 'var(--teal)' : 'oklch(0.68 0.22 25)'} 28%, transparent)`,
                 }}
               >
-                {isBetter ? '▼' : '▲'} {Math.abs(delta)} pb
+                {data.embiDelta <= 0 ? '▼' : '▲'} {Math.abs(data.embiDelta)} pb vs cierre
               </span>
+            )}
+            {data.embiClose !== null && (
+              <div className="font-mono text-[9px] text-[var(--fg-3)]">
+                Cierre: {data.embiClose} pb
+              </div>
             )}
           </div>
         </div>
