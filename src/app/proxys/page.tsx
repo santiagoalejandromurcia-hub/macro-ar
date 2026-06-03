@@ -1,11 +1,8 @@
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import M2ProxySection from '@/components/M2ProxySection';
 import SectionHeader from '@/components/SectionHeader';
-
-// Client components — cargados dinámicamente para evitar SSR
-const BreakEvenContent = dynamic(() => import('@/app/break-even/BreakEvenContent'), { ssr: false });
-const GranosContent    = dynamic(() => import('@/app/granos/GranosContent'),    { ssr: false });
+import BreakEvenContent from '@/app/break-even/BreakEvenContent';
+import GranosContent from '@/app/granos/GranosContent';
 
 export const metadata = {
   title: 'Proxys Macroeconómicos — MacroLibre',
