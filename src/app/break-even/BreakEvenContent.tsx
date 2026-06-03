@@ -1,28 +1,84 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import ChartDownloadWrapper from '@/components/ChartDownloadWrapper';
 import {
   ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine,
 } from 'recharts';
 import {
   bonosNominales, bonosReales, remEsperado, senderoMensualBEI, ACTUALIZADO_AL, FUENTE_BONOS,
+  type Bond,
 } from '@/data/breakEven';
 import {
   construirCurvaBEI, diasHastaVto, type BeiPunto,
 } from '@/lib/breakEven';
+import type { BreakEvenLiveResponse } from '@/app/api/break-even/route';
 
 // ============================================================
 // Componente principal Break-Even — interactivo
+// Precios actualizados en tiempo real desde data912.com
+// TIRs nominales derivadas de precios live; TIRs CER guardadas.
 // ============================================================
+
+/** Mezcla las TIRs y precios live sobre los arrays estáticos */
+function applyLivePrices(
+  bonds: Bond[],
+  live: BreakEvenLiveResponse,
+  useImpliedTir: boolean,
+): Bond[] {
+  return bonds.map((b) => {
+    const lp = live.prices[b.ticker];
+    if (!lp) return b;
+    return {
+      ...b,
+      precioArs:   lp.precioArsLive,
+      tirAnualPct: useImpliedTir && lp.tirImplicita !== null
+        ? lp.tirImplicita
+        : b.tirAnualPct,
+    };
+  });
+}
 
 export default function BreakEvenContent() {
   const hoy = useMemo(() => new Date(), []);
+  const [liveData, setLiveData] = useState<BreakEvenLiveResponse | null>(null);
+  const [liveTs, setLiveTs]     = useState<string | null>(null);
+
+  // Fetch precios live cada 5 minutos
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await fetch('/api/break-even', { cache: 'no-store' });
+        if (!res.ok) return;
+        const json: BreakEvenLiveResponse = await res.json();
+        setLiveData(json);
+        setLiveTs(
+          new Date().toLocaleTimeString('es-AR', {
+            hour: '2-digit', minute: '2-digit',
+            timeZone: 'America/Argentina/Buenos_Aires',
+          }),
+        );
+      } catch { /* fallback silencioso */ }
+    };
+    load();
+    const id = setInterval(load, 5 * 60 * 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Aplicar datos live si están disponibles
+  const nominalesEfectivos = useMemo(
+    () => liveData ? applyLivePrices(bonosNominales, liveData, true)  : bonosNominales,
+    [liveData],
+  );
+  const realesEfectivos = useMemo(
+    () => liveData ? applyLivePrices(bonosReales, liveData, false) : bonosReales,
+    [liveData],
+  );
 
   // Curva BEI completa por bucket
   const curva = useMemo(
-    () => construirCurvaBEI(bonosNominales, bonosReales, remEsperado, hoy),
-    [hoy],
+    () => construirCurvaBEI(nominalesEfectivos, realesEfectivos, remEsperado, hoy),
+    [nominalesEfectivos, realesEfectivos, hoy],
   );
 
   // Filtrar solo buckets con datos
@@ -104,8 +160,17 @@ export default function BreakEvenContent() {
             </tbody>
           </table>
         </div>
-        <p className="text-[11px] text-[var(--fg-3)] mt-3 text-right">
-          Fuente: BCRA REM · Curva CER vs nominal — Actualizado {ACTUALIZADO_AL}
+        <p className="text-[11px] text-[var(--fg-3)] mt-3 text-right flex items-center justify-end gap-2">
+          {liveTs ? (
+            <>
+              <span className="live-dot teal" aria-hidden />
+              <span style={{ color: 'var(--teal)' }}>Precios live {liveTs} · TIR nominal implícita</span>
+              <span className="opacity-50">·</span>
+              <span>TIR CER estimada al {ACTUALIZADO_AL}</span>
+            </>
+          ) : (
+            <>Fuente: BCRA REM · Curva CER vs nominal — Estático {ACTUALIZADO_AL}</>
+          )}
         </p>
       </div>
 
