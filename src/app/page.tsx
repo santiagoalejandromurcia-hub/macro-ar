@@ -1,8 +1,6 @@
 import { articles } from '@/data/articles';
-import LiveKPIGrid from '@/components/LiveKPIGrid';
+import MacroTerminal from '@/components/terminal/MacroTerminal';
 import SectionHeader from '@/components/SectionHeader';
-import DolarBlueVivo from '@/components/DolarBlueVivo';
-import RiesgoPaisVivo from '@/components/RiesgoPaisVivo';
 import {
   PBIBarChart, SectorChart, FiscalChart, TaxTable,
   TradeChart, ReservasChart, TCRChart, RiesgoPaisChart,
@@ -28,7 +26,7 @@ export default function HomePage() {
       <Hero />
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        {/* ════════ DASHBOARD ════════ */}
+        {/* ════════ MACRO TERMINAL ════════ */}
         <FadeSection id="dashboard" className="mt-4">
           <SectionHeader
             id="dashboard"
@@ -36,13 +34,7 @@ export default function HomePage() {
             subtitle="Principales indicadores macroeconómicos · actualización cada 60s"
             accent="celeste"
           />
-          <LiveKPIGrid />
-          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            <div className="md:col-span-2 lg:col-span-3">
-              <DolarBlueVivo />
-            </div>
-            <RiesgoPaisVivo />
-          </div>
+          <MacroTerminal />
         </FadeSection>
 
         {/* ════════ ACTIVIDAD ════════ */}
