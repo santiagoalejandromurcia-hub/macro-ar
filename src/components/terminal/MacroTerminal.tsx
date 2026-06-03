@@ -148,14 +148,14 @@ export default function MacroTerminal() {
 
   const S: Record<string, CSSProperties> = {
     wrap:   { fontFamily:'"JetBrains Mono","Geist Mono",ui-monospace,monospace', background:'var(--bg-0)', border:'1px solid var(--line-1)', borderRadius:4, overflow:'hidden' },
-    hdr:    { display:'flex', alignItems:'center', justifyContent:'space-between', padding:'8px 16px', background:'var(--bg-1)', borderBottom:'1px solid var(--line-1)' },
-    tabs:   { display:'flex', padding:'0 16px', borderBottom:'1px solid var(--line-1)', background:'var(--bg-0)' },
-    body:   { display:'grid', gridTemplateColumns:'1fr 380px' },
+    hdr:    { display:'flex', alignItems:'center', justifyContent:'space-between', padding:'11px 22px', background:'var(--bg-1)', borderBottom:'1px solid var(--line-1)' },
+    tabs:   { display:'flex', padding:'0 22px', borderBottom:'1px solid var(--line-1)', background:'var(--bg-0)' },
+    body:   { display:'grid', gridTemplateColumns:'1fr 480px' },
     left:   { borderRight:'1px solid var(--line-1)' },
-    colHdr: { display:'grid', gridTemplateColumns:'1fr 130px 160px 90px', padding:'6px 16px', borderBottom:'1px solid var(--line-1)', fontSize:9, letterSpacing:'0.1em', color:'var(--fg-3)', background:'var(--bg-1)' },
-    footer: { padding:'6px 16px', borderTop:'1px solid var(--line-1)', fontSize:9, color:'var(--fg-3)', display:'flex', justifyContent:'space-between', background:'var(--bg-1)' },
+    colHdr: { display:'grid', gridTemplateColumns:'1fr 150px 180px 110px', padding:'8px 22px', borderBottom:'1px solid var(--line-1)', fontSize:10, letterSpacing:'0.1em', color:'var(--fg-2)', background:'var(--bg-1)' },
+    footer: { padding:'8px 22px', borderTop:'1px solid var(--line-1)', fontSize:10, color:'var(--fg-2)', display:'flex', justifyContent:'space-between', background:'var(--bg-1)' },
     right:  { display:'flex', flexDirection:'column' },
-    cWrap:  { flex:1, padding:'12px 16px 8px', borderBottom:'1px solid var(--line-1)' },
+    cWrap:  { flex:1, padding:'16px 20px 12px', borderBottom:'1px solid var(--line-1)' },
   };
 
   return (
@@ -164,13 +164,13 @@ export default function MacroTerminal() {
       {/* header */}
       <div style={S.hdr}>
         <div style={{ display:'flex', alignItems:'center', gap:10 }}>
-          <span style={{ fontSize:10, letterSpacing:'0.12em', color:'var(--celeste)', fontWeight:600 }}>◆ MACRO TERMINAL</span>
+          <span style={{ fontSize:12, letterSpacing:'0.12em', color:'var(--celeste)', fontWeight:600 }}>◆ MACRO TERMINAL</span>
           <span style={{ color:'var(--line-1)' }}>|</span>
-          <span style={{ fontSize:9, color:'var(--fg-3)', letterSpacing:'0.06em' }}>INDEC · BCRA · MECON · JP MORGAN</span>
+          <span style={{ fontSize:11, color:'var(--fg-2)', letterSpacing:'0.06em' }}>INDEC · BCRA · MECON · JP MORGAN</span>
         </div>
-        <div style={{ display:'flex', alignItems:'center', gap:16, fontSize:9, color:'var(--fg-3)' }}>
+        <div style={{ display:'flex', alignItems:'center', gap:20, fontSize:11, color:'var(--fg-2)' }}>
           <span>UPTIME <span style={{ color:'var(--teal)' }}>{uptime}s</span></span>
-          <span>FUENTES <span style={{ color:'var(--fg-1)' }}>14 / 14</span></span>
+          <span>FUENTES <span style={{ color:'var(--fg-0)' }}>14 / 14</span></span>
           <span style={{ display:'flex', alignItems:'center', gap:5, color:'var(--up)' }}>
             <span className="live-dot" aria-hidden /> EN VIVO
           </span>
@@ -181,10 +181,10 @@ export default function MacroTerminal() {
       <div style={S.tabs}>
         {TABS.map(t => (
           <button key={t} onClick={() => setTab(t)} style={{
-            padding:'7px 14px', fontSize:10, letterSpacing:'0.08em', fontFamily:'inherit',
+            padding:'10px 18px', fontSize:12, letterSpacing:'0.08em', fontFamily:'inherit',
             background:'transparent', border:'none',
             borderBottom: t === tab ? '2px solid var(--celeste)' : '2px solid transparent',
-            color: t === tab ? 'var(--celeste)' : 'var(--fg-3)',
+            color: t === tab ? 'var(--celeste)' : 'var(--fg-2)',
             fontWeight: t === tab ? 600 : 400,
             cursor:'pointer', transition:'color 120ms', marginBottom:-1,
           }}>
@@ -213,10 +213,10 @@ export default function MacroTerminal() {
               ))}
 
               {visible.some(r => r.isLive) && (
-                <div style={{ padding:'4px 16px', fontSize:9, letterSpacing:'0.12em', color:'var(--fg-3)',
+                <div style={{ padding:'6px 22px', fontSize:10, letterSpacing:'0.12em', color:'var(--fg-2)',
                   background:'color-mix(in oklch, var(--up) 6%, transparent)',
                   borderTop:'1px solid var(--line-1)', borderBottom:'1px solid var(--line-1)',
-                  display:'flex', alignItems:'center', gap:6 }}>
+                  display:'flex', alignItems:'center', gap:7 }}>
                   <span className="live-dot" aria-hidden /> TIEMPO REAL
                 </div>
               )}
@@ -237,11 +237,11 @@ export default function MacroTerminal() {
         {/* RIGHT — chart + live strip */}
         <div style={S.right}>
           <div style={S.cWrap}>
-            <div style={{ fontSize:9, letterSpacing:'0.1em', color:'var(--fg-3)', marginBottom:10, display:'flex', justifyContent:'space-between' }}>
+            <div style={{ fontSize:11, letterSpacing:'0.1em', color:'var(--fg-2)', marginBottom:12, display:'flex', justifyContent:'space-between' }}>
               <span>{chart.title}</span>
               <span style={{ color:chart.colorHex }}>━━</span>
             </div>
-            <ResponsiveContainer width="100%" height={180}>
+            <ResponsiveContainer width="100%" height={240}>
               <AreaChart data={chart.data} margin={{ top:4, right:4, left:-20, bottom:0 }}>
                 <defs>
                   <linearGradient id={`tg-${tab}`} x1="0" y1="0" x2="0" y2="1">
@@ -275,23 +275,23 @@ function Row({ row, hovered, onHover }: { row: SnapshotRow; hovered: boolean; on
       onMouseEnter={() => onHover(row.id)}
       onMouseLeave={() => onHover(null)}
       style={{
-        display:'grid', gridTemplateColumns:'1fr 130px 160px 90px',
-        padding:'7px 16px', borderBottom:'1px solid var(--line-1)',
-        background: hovered ? 'color-mix(in oklch, var(--celeste) 6%, transparent)' : 'transparent',
+        display:'grid', gridTemplateColumns:'1fr 150px 180px 110px',
+        padding:'11px 22px', borderBottom:'1px solid var(--line-1)',
+        background: hovered ? 'color-mix(in oklch, var(--celeste) 8%, transparent)' : 'transparent',
         transition:'background 80ms', cursor:'default', alignItems:'center',
       }}
     >
-      <span style={{ fontSize:11, color: row.isLive ? 'var(--fg-1)' : 'var(--fg-0)', display:'flex', alignItems:'center', gap:6 }}>
+      <span style={{ fontSize:13, color: row.isLive ? '#c9d1d9' : '#e6edf3', display:'flex', alignItems:'center', gap:8 }}>
         {row.isLive && <span className="live-dot" style={{ flexShrink:0 }} aria-hidden />}
         {row.label}
       </span>
-      <span style={{ fontSize:12, fontWeight:600, color:'var(--fg-0)', textAlign:'right', letterSpacing:'-0.01em', fontVariantNumeric:'tabular-nums' }}>
+      <span style={{ fontSize:15, fontWeight:600, color:'#ffffff', textAlign:'right', letterSpacing:'-0.01em', fontVariantNumeric:'tabular-nums' }}>
         {row.value}
       </span>
-      <span style={{ fontSize:10, textAlign:'right', ...SIGN_COLOR[row.sign] }}>
+      <span style={{ fontSize:12, textAlign:'right', ...SIGN_COLOR[row.sign] }}>
         {row.deltaMes ?? '—'}
       </span>
-      <span style={{ fontSize:9, textAlign:'right', color:'var(--fg-3)', letterSpacing:'0.06em' }}>
+      <span style={{ fontSize:10, textAlign:'right', color:'var(--fg-2)', letterSpacing:'0.06em' }}>
         {row.fuente}
       </span>
     </div>
@@ -313,12 +313,12 @@ function LiveStrip({ dolar, riesgo, riesgoPrev }: { dolar: DolarData | null; rie
   return (
     <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', background:'var(--bg-1)' }}>
       {items.map((item, i) => (
-        <div key={item.label} style={{ padding:'10px 14px', borderRight: i%2===0 ? '1px solid var(--line-1)' : 'none', borderBottom: i<2 ? '1px solid var(--line-1)' : 'none' }}>
-          <div style={{ fontSize:8, letterSpacing:'0.10em', color:'var(--fg-3)', marginBottom:4, display:'flex', alignItems:'center', gap:4 }}>
+        <div key={item.label} style={{ padding:'14px 20px', borderRight: i%2===0 ? '1px solid var(--line-1)' : 'none', borderBottom: i<2 ? '1px solid var(--line-1)' : 'none' }}>
+          <div style={{ fontSize:10, letterSpacing:'0.10em', color:'var(--fg-2)', marginBottom:6, display:'flex', alignItems:'center', gap:5 }}>
             <span className="live-dot" aria-hidden />{item.label}
           </div>
-          <div style={{ fontSize:14, fontWeight:600, color:item.color, letterSpacing:'-0.01em', fontVariantNumeric:'tabular-nums' }}>{item.value}</div>
-          {item.sub && <div style={{ fontSize:9, color:'var(--fg-3)', marginTop:2 }}>{item.sub}</div>}
+          <div style={{ fontSize:20, fontWeight:600, color:item.color, letterSpacing:'-0.02em', fontVariantNumeric:'tabular-nums' }}>{item.value}</div>
+          {item.sub && <div style={{ fontSize:11, color:'var(--fg-2)', marginTop:3 }}>{item.sub}</div>}
         </div>
       ))}
     </div>
