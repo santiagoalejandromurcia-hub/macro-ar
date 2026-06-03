@@ -217,7 +217,7 @@ const SIGN_COLOR: Record<DeltaSign, CSSProperties> = {
 // ─── tooltip ─────────────────────────────────────────────────────
 function TermTooltip({ active, payload, label, unit }: {
   active?: boolean;
-  payload?: Array<{ dataKey?: string; value?: unknown }>;
+  payload?: Array<{ dataKey?: string | number; value?: unknown }>;
   label?: string;
   unit?: string;
 }) {
