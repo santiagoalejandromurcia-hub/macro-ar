@@ -6,7 +6,17 @@ import {
   Tooltip, ResponsiveContainer, CartesianGrid,
 } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
-import { emaeData, inflacionData, reservasData, fiscalData } from '@/data/macroData';
+import {
+  emaeData, inflacionData, reservasData, fiscalData,
+  inflacionMayoristaData, remData,
+} from '@/data/macroData';
+import { preciosFOB } from '@/data/granos';
+import { bonosNominales, bonosReales, remEsperado } from '@/data/breakEven';
+import { construirCurvaBEI } from '@/lib/breakEven';
+
+// ══════════════════════════════════════════════════════════════════
+// MacroTerminal — Bloomberg-style dashboard
+// ══════════════════════════════════════════════════════════════════
 
 type Tab = 'TODOS' | 'ACTIVIDAD' | 'PRECIOS' | 'EXTERNO' | 'FISCAL';
 type DeltaSign = 'pos' | 'neg' | 'flat' | 'live';
@@ -28,6 +38,10 @@ interface SnapshotRow {
   isLive?: boolean;
 }
 
+// ─── helpers ─────────────────────────────────────────────────────
+function last<T>(arr: T[]): T { return arr[arr.length - 1]; }
+function prev<T>(arr: T[]): T { return arr[arr.length - 2]; }
+
 function buildRows(
   dolar: DolarData | null,
   riesgo: RiesgoData | null,
@@ -39,13 +53,103 @@ function buildRows(
       : null;
   const riesgoDelta = riesgo && riesgoPrev ? riesgo.valor - riesgoPrev.valor : null;
 
+  // IPC helpers
+  const ipcL = last(inflacionData);
+  const ipcP = prev(inflacionData);
+  const ipimL = last(inflacionMayoristaData);
+  const ipimP = prev(inflacionMayoristaData);
+  const fobL = last(preciosFOB);
+  const fobP = prev(preciosFOB);
+  const fwIdx = remData.findIndex(r => r.actual === null);
+  const remFw = remData.filter(r => r.actual === null);
+
   return [
-    { id: 'emae',      label: 'EMAE',               value: '+5.5%',        deltaMes: '▲ +0.30%',    sign: 'pos',  fuente: 'INDEC',     tabs: ['TODOS','ACTIVIDAD'] },
-    { id: 'pbi',       label: 'PBI Real',            value: '+3.8%',        deltaMes: '▲ var. Q4-25', sign: 'pos', fuente: 'INDEC',     tabs: ['TODOS','ACTIVIDAD'] },
-    { id: 'inflacion', label: 'Inflación IPC',       value: '2.6%',         deltaMes: '▼ -0.80%',    sign: 'neg',  fuente: 'INDEC',     tabs: ['TODOS','PRECIOS'] },
-    { id: 'superavit', label: 'Superávit Primario',  value: '0.5%',         deltaMes: '▼ -0.90%',    sign: 'neg',  fuente: 'MECON',     tabs: ['TODOS','FISCAL'] },
-    { id: 'reservas',  label: 'Reservas BCRA',       value: 'USD 47.874M',  deltaMes: '▲ +1.80%',    sign: 'pos',  fuente: 'BCRA',      tabs: ['TODOS','EXTERNO'] },
-    { id: 'tamar',     label: 'TAMAR',               value: '23.00% n.a.',  deltaMes: '— sin cambio', sign: 'flat', fuente: 'BCRA',      tabs: ['TODOS','PRECIOS','FISCAL'] },
+    // ── ACTIVIDAD ─────────────────────────────────────────────
+    { id: 'emae',      label: 'EMAE',               value: '+5.5%',        deltaMes: '▲ +0.30%',    sign: 'pos',  fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
+    { id: 'pbi',       label: 'PBI Real',            value: '+3.8%',        deltaMes: '▲ var. Q4-25', sign: 'pos', fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
+
+    // ── PRECIOS: IPC ──────────────────────────────────────────
+    { id: 'inflacion', label: 'Inflación IPC',  value: `${ipcL.mensual.toFixed(1)}%`,
+      deltaMes: `▼ -0.80%`, sign: 'neg', fuente: 'INDEC', tabs: ['TODOS','PRECIOS'] },
+    {
+      id: 'ipc-interanual', label: 'IPC Interanual',
+      value: `${ipcL.interanual.toFixed(1)}%`,
+      deltaMes: (() => {
+        const d = ipcL.interanual - ipcP.interanual;
+        return `${d > 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)} pp`;
+      })(),
+      sign: ipcL.interanual <= ipcP.interanual ? 'pos' : 'neg',
+      fuente: 'INDEC', tabs: ['PRECIOS'],
+    },
+    {
+      id: 'ipc-nucleo', label: 'IPC Núcleo',
+      value: `${ipcL.nucleo.toFixed(1)}%`,
+      deltaMes: (() => {
+        const d = ipcL.nucleo - ipcP.nucleo;
+        return `${d > 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)} pp`;
+      })(),
+      sign: ipcL.nucleo <= ipcP.nucleo ? 'pos' : 'neg',
+      fuente: 'INDEC', tabs: ['PRECIOS'],
+    },
+    {
+      id: 'ipim', label: 'IPIM Mayorista',
+      value: `${ipimL.mensual.toFixed(1)}%`,
+      deltaMes: (() => {
+        const d = ipimL.mensual - ipimP.mensual;
+        return `${d > 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)} pp`;
+      })(),
+      sign: ipimL.mensual <= ipimP.mensual ? 'pos' : 'neg',
+      fuente: 'INDEC', tabs: ['TODOS','PRECIOS'],
+    },
+
+    // ── FISCAL / PRECIOS ──────────────────────────────────────
+    { id: 'superavit', label: 'Superávit Primario', value: '0.5%',  deltaMes: '▼ -0.90%', sign: 'neg',  fuente: 'MECON', tabs: ['TODOS','FISCAL'] },
+    { id: 'reservas',  label: 'Reservas BCRA',       value: 'USD 47.874M', deltaMes: '▲ +1.80%', sign: 'pos', fuente: 'BCRA',  tabs: ['TODOS','EXTERNO'] },
+    { id: 'tamar',     label: 'TAMAR',               value: '23.00% n.a.', deltaMes: '— sin cambio', sign: 'flat', fuente: 'BCRA', tabs: ['TODOS','PRECIOS','FISCAL'] },
+
+    // ── REM ───────────────────────────────────────────────────
+    {
+      id: 'rem-prox', label: 'REM próx. mes',
+      value: fwIdx >= 0 ? `${remData[fwIdx].mediana.toFixed(1)}%` : '—',
+      deltaMes: remFw.length >= 2
+        ? `+1m ${remFw[0].mediana.toFixed(1)}% / +2m ${remFw[1].mediana.toFixed(1)}%`
+        : null,
+      sign: 'flat', fuente: 'BCRA REM', tabs: ['PRECIOS'],
+    },
+
+    // ── PRECIOS AGRARIOS FOB ──────────────────────────────────
+    {
+      id: 'fob-soja', label: 'Soja FOB',
+      value: `USD ${fobL.soja}`,
+      deltaMes: (() => {
+        const d = ((fobL.soja / fobP.soja) - 1) * 100;
+        return `${d >= 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)}% m/m`;
+      })(),
+      sign: fobL.soja >= fobP.soja ? 'pos' : 'neg',
+      fuente: 'MAGyP', tabs: ['PRECIOS'],
+    },
+    {
+      id: 'fob-maiz', label: 'Maíz FOB',
+      value: `USD ${fobL.maiz}`,
+      deltaMes: (() => {
+        const d = ((fobL.maiz / fobP.maiz) - 1) * 100;
+        return `${d >= 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)}% m/m`;
+      })(),
+      sign: fobL.maiz >= fobP.maiz ? 'pos' : 'neg',
+      fuente: 'MAGyP', tabs: ['PRECIOS'],
+    },
+    {
+      id: 'fob-trigo', label: 'Trigo FOB',
+      value: `USD ${fobL.trigo}`,
+      deltaMes: (() => {
+        const d = ((fobL.trigo / fobP.trigo) - 1) * 100;
+        return `${d >= 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)}% m/m`;
+      })(),
+      sign: fobL.trigo >= fobP.trigo ? 'pos' : 'neg',
+      fuente: 'MAGyP', tabs: ['PRECIOS'],
+    },
+
+    // ── LIVE ─────────────────────────────────────────────────
     {
       id: 'dolar-blue', label: 'Dólar Blue', isLive: true,
       value: dolar ? `$${dolar.blue.value_sell.toLocaleString('es-AR')}` : '—',
@@ -75,15 +179,34 @@ function buildRows(
   ];
 }
 
-function getChartConfig(tab: Tab) {
+// ─── chart config ─────────────────────────────────────────────────
+interface ChartConfig {
+  data: Array<Record<string, unknown>>;
+  key: string;
+  colorHex: string;
+  colorHex2?: string;   // segunda serie (PRECIOS: núcleo)
+  unit: string;
+  title: string;
+}
+
+function getChartConfig(tab: Tab): ChartConfig {
   switch (tab) {
-    case 'PRECIOS':  return { data: inflacionData.slice(-16),                                         key: 'mensual',  colorHex: '#f85149', unit: '%',    title: 'IPC MENSUAL (%)' };
-    case 'EXTERNO':  return { data: reservasData.slice(-14),                                          key: 'value',    colorHex: '#74ACDF', unit: 'M',    title: 'RESERVAS BCRA (USD M)' };
-    case 'FISCAL':   return { data: fiscalData.slice(-14).map(d => ({ date: d.period, value: d.primario })), key: 'value', colorHex: '#F0A500', unit: '% PIB', title: 'RESULTADO PRIMARIO (% PIB)' };
-    default:         return { data: emaeData.slice(-16).map(d => ({ date: d.date, value: d.value })), key: 'value',    colorHex: '#00C9A7', unit: '',     title: 'EMAE — ÍNDICE 2004=100' };
+    case 'PRECIOS':
+      return {
+        data: inflacionData.slice(-18).map(d => ({ date: d.date, mensual: d.mensual, nucleo: d.nucleo })),
+        key: 'mensual', colorHex: '#f85149', colorHex2: '#D4A843',
+        unit: '%', title: 'IPC MENSUAL + NÚCLEO (%)',
+      };
+    case 'EXTERNO':
+      return { data: reservasData.slice(-14), key: 'value', colorHex: '#74ACDF', unit: 'M', title: 'RESERVAS BCRA (USD M)' };
+    case 'FISCAL':
+      return { data: fiscalData.slice(-14).map(d => ({ date: d.period, value: d.primario })), key: 'value', colorHex: '#F0A500', unit: '% PIB', title: 'RESULTADO PRIMARIO (% PIB)' };
+    default:
+      return { data: emaeData.slice(-16).map(d => ({ date: d.date, value: d.value })), key: 'value', colorHex: '#00C9A7', unit: '', title: 'EMAE — ÍNDICE 2004=100' };
   }
 }
 
+// ─── sign colors ─────────────────────────────────────────────────
 const SIGN_COLOR: Record<DeltaSign, CSSProperties> = {
   pos:  { color: 'var(--teal)' },
   neg:  { color: 'var(--down)' },
@@ -91,28 +214,34 @@ const SIGN_COLOR: Record<DeltaSign, CSSProperties> = {
   live: { color: 'var(--celeste)' },
 };
 
+// ─── tooltip ─────────────────────────────────────────────────────
 function TermTooltip({ active, payload, label, unit }: {
   active?: boolean;
-  payload?: Array<{ value?: unknown }>;
+  payload?: Array<{ dataKey?: string; value?: unknown }>;
   label?: string;
   unit?: string;
 }) {
   if (!active || !payload?.length) return null;
   return (
     <div style={{ background:'var(--bg-1)', border:'1px solid var(--line-1)', padding:'6px 10px', fontFamily:'inherit', fontSize:11, borderRadius:2 }}>
-      <div style={{ color:'var(--fg-3)', marginBottom:2 }}>{label}</div>
-      <div style={{ color:'var(--teal)' }}>{String(payload[0].value)}{unit}</div>
+      <div style={{ color:'var(--fg-3)', marginBottom:3 }}>{label}</div>
+      {payload.map((p, i) => (
+        <div key={i} style={{ color: i === 0 ? 'var(--teal)' : '#D4A843', marginBottom:1 }}>
+          {String(p.value)}{unit}
+        </div>
+      ))}
     </div>
   );
 }
 
+// ══════════════════════════════════════════════════════════════════
 export default function MacroTerminal() {
-  const [tab, setTab]             = useState<Tab>('TODOS');
-  const [dolar, setDolar]         = useState<DolarData | null>(null);
-  const [riesgo, setRiesgo]       = useState<RiesgoData | null>(null);
-  const [riesgoPrev, setPrev]     = useState<RiesgoData | null>(null);
-  const [uptime, setUptime]       = useState(0);
-  const [hovered, setHovered]     = useState<string | null>(null);
+  const [tab, setTab]         = useState<Tab>('TODOS');
+  const [dolar, setDolar]     = useState<DolarData | null>(null);
+  const [riesgo, setRiesgo]   = useState<RiesgoData | null>(null);
+  const [riesgoPrev, setPrev] = useState<RiesgoData | null>(null);
+  const [uptime, setUptime]   = useState(0);
+  const [hovered, setHovered] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -140,6 +269,14 @@ export default function MacroTerminal() {
   const visible = useMemo(() => rows.filter(r => r.tabs.includes(tab)), [rows, tab]);
   const chart   = useMemo(() => getChartConfig(tab), [tab]);
 
+  // BEI — solo se computa cuando el tab es PRECIOS
+  const beiCurva = useMemo(() => {
+    if (tab !== 'PRECIOS') return null;
+    return construirCurvaBEI(bonosNominales, bonosReales, remEsperado, new Date())
+      .filter(p => p.beiPct !== null)
+      .slice(0, 4);
+  }, [tab]);
+
   const now     = new Date();
   const timeStr = now.toLocaleTimeString('es-AR', { hour:'2-digit', minute:'2-digit' });
   const dateStr = now.toLocaleDateString('es-AR', { day:'numeric', month:'short', year:'numeric' });
@@ -158,6 +295,9 @@ export default function MacroTerminal() {
     cWrap:  { flex:1, padding:'16px 20px 12px', borderBottom:'1px solid var(--line-1)' },
   };
 
+  // altura del chart — más chico cuando hay BEI para que todo quepa
+  const chartH = tab === 'PRECIOS' && beiCurva && beiCurva.length > 0 ? 200 : 240;
+
   return (
     <div style={S.wrap}>
 
@@ -170,7 +310,7 @@ export default function MacroTerminal() {
         </div>
         <div style={{ display:'flex', alignItems:'center', gap:20, fontSize:11, color:'var(--fg-2)' }}>
           <span>UPTIME <span style={{ color:'var(--teal)' }}>{uptime}s</span></span>
-          <span>FUENTES <span style={{ color:'var(--fg-0)' }}>14 / 14</span></span>
+          <span>FUENTES <span style={{ color:'var(--fg-0)' }}>17 / 17</span></span>
           <span style={{ display:'flex', alignItems:'center', gap:5, color:'var(--up)' }}>
             <span className="live-dot" aria-hidden /> EN VIVO
           </span>
@@ -234,20 +374,31 @@ export default function MacroTerminal() {
           </div>
         </div>
 
-        {/* RIGHT — chart + live strip */}
+        {/* RIGHT — chart + BEI (solo PRECIOS) + live strip */}
         <div style={S.right}>
+
+          {/* chart */}
           <div style={S.cWrap}>
             <div style={{ fontSize:11, letterSpacing:'0.1em', color:'var(--fg-2)', marginBottom:12, display:'flex', justifyContent:'space-between' }}>
               <span>{chart.title}</span>
-              <span style={{ color:chart.colorHex }}>━━</span>
+              <span>
+                <span style={{ color:chart.colorHex }}>━━</span>
+                {chart.colorHex2 && <span style={{ color:chart.colorHex2, marginLeft:8 }}>━━</span>}
+              </span>
             </div>
-            <ResponsiveContainer width="100%" height={240}>
+            <ResponsiveContainer width="100%" height={chartH}>
               <AreaChart data={chart.data} margin={{ top:4, right:4, left:-20, bottom:0 }}>
                 <defs>
                   <linearGradient id={`tg-${tab}`} x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%"  stopColor={chart.colorHex} stopOpacity={0.3} />
                     <stop offset="90%" stopColor={chart.colorHex} stopOpacity={0} />
                   </linearGradient>
+                  {chart.colorHex2 && (
+                    <linearGradient id={`tg2-${tab}`} x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%"  stopColor={chart.colorHex2} stopOpacity={0.2} />
+                      <stop offset="90%" stopColor={chart.colorHex2} stopOpacity={0} />
+                    </linearGradient>
+                  )}
                 </defs>
                 <CartesianGrid strokeDasharray="2 4" stroke="var(--chart-grid)" strokeOpacity={0.5} vertical={false} />
                 <XAxis dataKey="date" tick={{ fontSize:8, fill:'var(--fg-3)', fontFamily:'inherit' }} tickLine={false} axisLine={false} interval="preserveStartEnd" />
@@ -258,18 +409,68 @@ export default function MacroTerminal() {
                   )}
                   cursor={{ stroke:'var(--line-1)', strokeWidth:1, strokeDasharray:'3 3' }}
                 />
-                <Area type="monotone" dataKey={chart.key} stroke={chart.colorHex} strokeWidth={1.5} fill={`url(#tg-${tab})`} dot={false} activeDot={{ r:3, fill:chart.colorHex, strokeWidth:0 }} animationDuration={500} />
+                <Area type="monotone" dataKey={chart.key} stroke={chart.colorHex} strokeWidth={1.5}
+                  fill={`url(#tg-${tab})`} dot={false}
+                  activeDot={{ r:3, fill:chart.colorHex, strokeWidth:0 }}
+                  animationDuration={500}
+                />
+                {chart.colorHex2 && (
+                  <Area type="monotone" dataKey="nucleo" stroke={chart.colorHex2} strokeWidth={1.5}
+                    fill={`url(#tg2-${tab})`} dot={false}
+                    activeDot={{ r:3, fill:chart.colorHex2, strokeWidth:0 }}
+                    animationDuration={500}
+                  />
+                )}
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <LiveStrip dolar={dolar} riesgo={riesgo} riesgoPrev={riesgoPrev} />
+
+          {/* BEI breakeven — solo cuando tab = PRECIOS */}
+          {tab === 'PRECIOS' && beiCurva && beiCurva.length > 0 && (
+            <div style={{ padding:'12px 20px 10px', borderBottom:'1px solid var(--line-1)', background:'var(--bg-0)' }}>
+              <div style={{ fontSize:10, letterSpacing:'0.10em', color:'var(--fg-2)', marginBottom:8 }}>
+                BEI — BREAKEVEN INFLACIONARIO (anual)
+              </div>
+              <div style={{ display:'grid', gridTemplateColumns:`repeat(${beiCurva.length},1fr)` }}>
+                {beiCurva.map((p, i) => {
+                  const c = p.veredicto === 'cer'  ? 'var(--teal)'
+                          : p.veredicto === 'fija' ? '#f85149'
+                          : 'var(--fg-0)';
+                  return (
+                    <div key={p.bucket.id} style={{
+                      padding:'8px 10px', textAlign:'center',
+                      borderRight: i < beiCurva.length - 1 ? '1px solid var(--line-1)' : 'none',
+                    }}>
+                      <div style={{ fontSize:9, color:'var(--fg-3)', marginBottom:4, letterSpacing:'0.06em' }}>
+                        {p.bucket.label}
+                      </div>
+                      <div style={{ fontSize:16, fontWeight:600, color:c, fontVariantNumeric:'tabular-nums' }}>
+                        {p.beiPct!.toFixed(1)}%
+                      </div>
+                      {p.remPct !== null && (
+                        <div style={{ fontSize:9, color:'var(--fg-3)', marginTop:2 }}>
+                          REM {p.remPct.toFixed(1)}%
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* live strip — tab-aware */}
+          <LiveStrip tab={tab} dolar={dolar} riesgo={riesgo} riesgoPrev={riesgoPrev} />
         </div>
       </div>
     </div>
   );
 }
 
-function Row({ row, hovered, onHover }: { row: SnapshotRow; hovered: boolean; onHover: (id: string | null) => void }) {
+// ─── Row ──────────────────────────────────────────────────────────
+function Row({ row, hovered, onHover }: {
+  row: SnapshotRow; hovered: boolean; onHover: (id: string | null) => void
+}) {
   return (
     <div
       onMouseEnter={() => onHover(row.id)}
@@ -298,16 +499,31 @@ function Row({ row, hovered, onHover }: { row: SnapshotRow; hovered: boolean; on
   );
 }
 
-function LiveStrip({ dolar, riesgo, riesgoPrev }: { dolar: DolarData | null; riesgo: RiesgoData | null; riesgoPrev: RiesgoData | null }) {
+// ─── LiveStrip — tab-aware ────────────────────────────────────────
+function LiveStrip({ tab, dolar, riesgo, riesgoPrev }: {
+  tab: Tab;
+  dolar: DolarData | null;
+  riesgo: RiesgoData | null;
+  riesgoPrev: RiesgoData | null;
+}) {
   const brecha = dolar && dolar.blue.value_sell > 0 && dolar.oficial.value_sell > 0
     ? (dolar.blue.value_sell / dolar.oficial.value_sell - 1) * 100 : null;
   const rd = riesgo && riesgoPrev ? riesgo.valor - riesgoPrev.valor : null;
 
-  const items = [
+  const ipcL  = last(inflacionData);
+  const ipcP  = prev(inflacionData);
+  const ipimL = last(inflacionMayoristaData);
+
+  const items = tab === 'PRECIOS' ? [
+    { label:'IPC MENSUAL',    value:`${ipcL.mensual.toFixed(1)}%`,    sub:`${ipcL.date} · INDEC`,          color:'#f85149' },
+    { label:'IPC INTERANUAL', value:`${ipcL.interanual.toFixed(1)}%`, sub: ipcL.interanual < ipcP.interanual ? '▼ desacelerando' : '▲ acelerando', color:'var(--teal)' },
+    { label:'NÚCLEO',         value:`${ipcL.nucleo.toFixed(1)}%`,     sub:`vs IPC ${ipcL.mensual.toFixed(1)}%`, color:'#D4A843' },
+    { label:'IPIM MENS.',     value:`${ipimL.mensual.toFixed(1)}%`,   sub:`i.a. ${ipimL.interanual.toFixed(1)}%`, color:'var(--celeste)' },
+  ] : [
     { label:'DÓLAR BLUE',    value: dolar ? `$${dolar.blue.value_sell.toLocaleString('es-AR')}` : '—',    sub: dolar ? `Compra $${dolar.blue.value_buy.toLocaleString('es-AR')}` : null,    color:'var(--teal)' },
     { label:'DÓLAR OFICIAL', value: dolar ? `$${dolar.oficial.value_sell.toLocaleString('es-AR')}` : '—', sub: dolar ? `Compra $${dolar.oficial.value_buy.toLocaleString('es-AR')}` : null, color:'var(--celeste)' },
-    { label:'BRECHA',        value: brecha !== null ? `${brecha>0?'+':''}${brecha.toFixed(1)}%` : '—',     sub:'Blue vs Oficial',                                                             color: brecha !== null && brecha>5 ? 'var(--down)' : 'var(--fg-2)' },
-    { label:'RIESGO PAÍS',   value: riesgo ? `${riesgo.valor} pb` : '—',                                  sub: rd !== null ? `${rd>0?'▲':'▼'} ${Math.abs(rd)} pb` : null,                   color: rd !== null ? (rd<=0 ? 'var(--teal)' : 'var(--down)') : 'var(--fg-2)' },
+    { label:'BRECHA',        value: brecha !== null ? `${brecha>0?'+':''}${brecha.toFixed(1)}%` : '—',    sub:'Blue vs Oficial', color: brecha !== null && brecha>5 ? 'var(--down)' : 'var(--fg-2)' },
+    { label:'RIESGO PAÍS',   value: riesgo ? `${riesgo.valor} pb` : '—',                                 sub: rd !== null ? `${rd>0?'▲':'▼'} ${Math.abs(rd)} pb` : null, color: rd !== null ? (rd<=0 ? 'var(--teal)' : 'var(--down)') : 'var(--fg-2)' },
   ];
 
   return (
