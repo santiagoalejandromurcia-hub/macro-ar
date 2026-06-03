@@ -4,7 +4,6 @@ import { useState, useEffect, useMemo, type CSSProperties } from 'react';
 import {
   AreaChart, Area, XAxis, YAxis,
   Tooltip, ResponsiveContainer, CartesianGrid,
-  type TooltipProps,
 } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
 import { emaeData, inflacionData, reservasData, fiscalData } from '@/data/macroData';
@@ -92,12 +91,17 @@ const SIGN_COLOR: Record<DeltaSign, CSSProperties> = {
   live: { color: 'var(--celeste)' },
 };
 
-function TermTooltip(p: TooltipProps<number, string> & { unit?: string }) {
-  if (!p.active || !p.payload?.length) return null;
+function TermTooltip({ active, payload, label, unit }: {
+  active?: boolean;
+  payload?: Array<{ value: unknown }>;
+  label?: string;
+  unit?: string;
+}) {
+  if (!active || !payload?.length) return null;
   return (
     <div style={{ background:'var(--bg-1)', border:'1px solid var(--line-1)', padding:'6px 10px', fontFamily:'inherit', fontSize:11, borderRadius:2 }}>
-      <div style={{ color:'var(--fg-3)', marginBottom:2 }}>{p.label}</div>
-      <div style={{ color:'var(--teal)' }}>{p.payload[0].value}{p.unit}</div>
+      <div style={{ color:'var(--fg-3)', marginBottom:2 }}>{label}</div>
+      <div style={{ color:'var(--teal)' }}>{String(payload[0].value)}{unit}</div>
     </div>
   );
 }
@@ -248,7 +252,12 @@ export default function MacroTerminal() {
                 <CartesianGrid strokeDasharray="2 4" stroke="var(--chart-grid)" strokeOpacity={0.5} vertical={false} />
                 <XAxis dataKey="date" tick={{ fontSize:8, fill:'var(--fg-3)', fontFamily:'inherit' }} tickLine={false} axisLine={false} interval="preserveStartEnd" />
                 <YAxis                tick={{ fontSize:8, fill:'var(--fg-3)', fontFamily:'inherit' }} tickLine={false} axisLine={false} width={42} />
-                <Tooltip content={(p) => <TermTooltip {...p} unit={chart.unit} />} cursor={{ stroke:'var(--line-1)', strokeWidth:1, strokeDasharray:'3 3' }} />
+                <Tooltip
+                  content={({ active, payload, label }) => (
+                    <TermTooltip active={active} payload={payload} label={label as string | undefined} unit={chart.unit} />
+                  )}
+                  cursor={{ stroke:'var(--line-1)', strokeWidth:1, strokeDasharray:'3 3' }}
+                />
                 <Area type="monotone" dataKey={chart.key} stroke={chart.colorHex} strokeWidth={1.5} fill={`url(#tg-${tab})`} dot={false} activeDot={{ r:3, fill:chart.colorHex, strokeWidth:0 }} animationDuration={500} />
               </AreaChart>
             </ResponsiveContainer>
