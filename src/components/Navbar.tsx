@@ -46,6 +46,7 @@ const SECTION_GROUPS: SectionGroup[] = [
     links: [
       { href: '/calculadora', label: 'Calculadora histórica', desc: '¿Dólar, plazo fijo o bonos?' },
       { href: '/break-even',  label: 'Break-Even Inflacionario', desc: 'CER vs tasa fija por plazo' },
+      { href: '/migracion',   label: 'Migración Interna', desc: 'VAR + Gravity: AMBA→Interior 2024-2029' },
       { href: '/proxys',      label: 'Proxys macro', desc: 'Datasets descargables' },
     ],
   },
