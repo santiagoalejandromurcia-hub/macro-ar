@@ -6,11 +6,28 @@ Stack: Next.js 15, TypeScript, Tailwind CSS, Recharts.
 
 ---
 
+## Repo y carpetas (canónico)
+
+| Qué | Dónde |
+|-----|-------|
+| **Carpeta local** | `~/macro-arg` (esta) |
+| **Repo GitHub** | [macro-ar](https://github.com/santiagoalejandromurcia-hub/macro-ar) |
+| **Producción** | [macrolibre.com](https://macrolibre.com) |
+
+Carpetas deprecadas (no usar):
+
+- `macro-arg-push` — copia previa al deploy; contenido migrado acá
+- `macro-arg-local` — workspace editorial suelto; `CONTEXTO/` ya está en este repo
+- `macroarg` — prototipo Next 16 abandonado; solo se rescató `ml/` e `INVESTMENT_THESIS.md`
+
+---
+
 ## Correr en local
 
 Requisito: Node.js LTS (https://nodejs.org).
 
 ```bash
+cd ~/macro-arg
 npm install
 npm run dev
 ```
@@ -35,6 +52,8 @@ git push
 
 ```
 macro-arg/
+├── ml/                           Modelos Python (proxy M2, análisis causal)
+├── private/                      Docs internos (no públicos)
 ├── src/
 │   ├── app/
 │   │   ├── page.tsx              Dashboard (home)

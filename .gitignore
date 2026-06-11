@@ -28,3 +28,7 @@ tscheck.tmp.json
 # Directorios internos que no deben subirse
 .codex/
 .nvm/
+
+# Python ML
+ml/__pycache__/
+*.pyc

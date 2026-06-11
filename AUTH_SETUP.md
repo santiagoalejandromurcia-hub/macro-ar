@@ -7,7 +7,7 @@ Esta guía te lleva paso a paso por la configuración del sistema de login (Goog
 ## 0. Instalar dependencias
 
 ```bash
-cd ~/Desktop/macro-arg
+cd ~/macro-arg
 npm install
 ```
 
