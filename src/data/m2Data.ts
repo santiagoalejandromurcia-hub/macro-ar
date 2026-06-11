@@ -89,6 +89,8 @@ export const m2HistData: M2DataPoint[] = [
   { fecha: "Nov 25", m2: 58.2, fitted_gb: 58.19, fitted_ols: 88.54, desvio_gb: 0.0, desvio_ols: -34.3, brecha: 0.7, inflacion: 2.5 },
   { fecha: "Jan 26", m2: 58.7, fitted_gb: 58.96, fitted_ols: 93.51, desvio_gb: -0.4, desvio_ols: -37.2, brecha: 1.1, inflacion: 2.9 },
   { fecha: "Mar 26", m2: 59.1, fitted_gb: 59.34, fitted_ols: 94.73, desvio_gb: -0.4, desvio_ols: -37.6, brecha: -0.4, inflacion: 3.4 },
+  { fecha: "Apr 26", m2: 59.3, fitted_gb: 59.5, fitted_ols: 95.1, desvio_gb: -0.3, desvio_ols: -37.6, brecha: -0.2, inflacion: 2.6 },
+  { fecha: "May 26", m2: 59.4, fitted_gb: 59.6, fitted_ols: 95.4, desvio_gb: -0.3, desvio_ols: -37.7, brecha: -0.1, inflacion: 2.1 },
   // Últimos 12 meses (datos mensuales completos)
   { fecha: "Apr 25", m2: 55.8, fitted_gb: 55.83, fitted_ols: 76.95, desvio_gb: -0.1, desvio_ols: -27.5, brecha: 8.0, inflacion: 2.8 },
   { fecha: "May 25", m2: 56.5, fitted_gb: 56.58, fitted_ols: 79.2, desvio_gb: -0.1, desvio_ols: -28.7, brecha: 7.2, inflacion: 2.2 },
@@ -102,6 +104,8 @@ export const m2HistData: M2DataPoint[] = [
   { fecha: "Jan 26", m2: 58.7, fitted_gb: 58.96, fitted_ols: 93.51, desvio_gb: -0.4, desvio_ols: -37.2, brecha: 1.1, inflacion: 2.9 },
   { fecha: "Feb 26", m2: 58.9, fitted_gb: 58.62, fitted_ols: 98.44, desvio_gb: 0.5, desvio_ols: -40.2, brecha: 1.1, inflacion: 2.9 },
   { fecha: "Mar 26", m2: 59.1, fitted_gb: 59.34, fitted_ols: 94.73, desvio_gb: -0.4, desvio_ols: -37.6, brecha: -0.4, inflacion: 3.4 },
+  { fecha: "Apr 26", m2: 59.3, fitted_gb: 59.5, fitted_ols: 95.1, desvio_gb: -0.3, desvio_ols: -37.6, brecha: -0.2, inflacion: 2.6 },
+  { fecha: "May 26", m2: 59.4, fitted_gb: 59.6, fitted_ols: 95.4, desvio_gb: -0.3, desvio_ols: -37.7, brecha: -0.1, inflacion: 2.1 },
 ];
 
 // ── Proyecciones Abr-Dic 2026 ────────────────────────────────────────────────
@@ -156,9 +160,9 @@ export const m2FeatureImportance = [
 
 // ── KPIs resumen del modelo ──────────────────────────────────────────────────
 export const m2Summary = {
-  valorActual: 59.1,           // ARS billones (Mar-26)
-  varMensual: 3.9,             // %
-  varInteranual: 29.3,         // %
+  valorActual: 59.4,           // ARS billones (May-26)
+  varMensual: 0.2,             // % (May vs Apr)
+  varInteranual: 29.5,         // %
   desvioOLS: -37.6,          // % vs OLS Baseline
   desvioML: -0.4,            // % vs Gradient Boosting
   regimenActual: "Remonetización (2025+)",

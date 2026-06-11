@@ -19,10 +19,10 @@ interface TickerItem {
 const fallback: TickerItem[] = [
   { label: 'DÓLAR BLUE',      value: '$1.420',    delta: 0.5,  source: 'BLUELYTICS' },
   { label: 'RIESGO PAÍS',     value: '842 pb',    delta: -1.2, source: 'JP MORGAN' },
-  { label: 'INFLACIÓN MENS.', value: '2.7%',      delta: -0.4, source: 'INDEC' },
+  { label: 'INFLACIÓN MENS.', value: '2.1%',      delta: -0.5, source: 'INDEC' },
   { label: 'RESERVAS BCRA',   value: 'USD 38.4K M', delta: 0.3, source: 'BCRA' },
   { label: 'EMAE YoY',        value: '+5.2%',     delta: 0.6,  source: 'INDEC' },
-  { label: 'IPC NÚCLEO',      value: '2.4%',      delta: -0.3, source: 'INDEC' },
+  { label: 'IPC NÚCLEO',      value: '1.9%',      delta: -0.4, source: 'INDEC' },
   { label: 'MERVAL',          value: '2.4M pts',  delta: 1.8,  source: 'BYMA' },
 ];
 

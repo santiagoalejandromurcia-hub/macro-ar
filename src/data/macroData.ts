@@ -47,11 +47,11 @@ export const kpiCards: KPICard[] = [
   {
     id: 'inflacion',
     title: 'Inflación Mensual',
-    value: '2.6%',
-    change: -0.8,
-    changeLabel: 'Abr 26 (vs Mar 3.4%)',
+    value: '2.1%',
+    change: -0.5,
+    changeLabel: 'May 26 (vs Abr 2.6%)',
     icon: '🏷️',
-    updatedAt: 'Abr 26',
+    updatedAt: 'May 26',
     source: 'INDEC',
   },
   {
@@ -271,7 +271,8 @@ export const inflacionData = [
   { date: 'Feb 26', mensual: 2.9, interanual: 33.1, nucleo: 3.2 },
   { date: 'Mar 26', mensual: 3.4, interanual: 32.6, nucleo: 3.2 }, 
   { date: 'Abr 26', mensual: 2.6, interanual: 32.4, nucleo: 2.3 },
-    // ← ÚLTIMO INDEC (15/04/2026) · Q1-26: 9.4% acum.
+  { date: 'May 26', mensual: 2.1, interanual: 33.2, nucleo: 1.9 },
+    // ← ÚLTIMO INDEC (12/06/2026) · Ene-May 26: 14.7% acum.
 ];
 
 // REM — Expectativas inflación (BCRA) — Fuente: REM feb-26 e INDEC
@@ -281,7 +282,7 @@ export const remData = [
   { period: 'Feb 26', mediana: 2.9, actual: null, r25: 2.2, r75: 2.8, r10: 1.9, r90: 3.1 },
   { period: 'Mar 26', mediana: 3.4, actual: null, r25: 1.9, r75: 2.6, r10: 1.6, r90: 2.9 },
   { period: 'Abr 26', mediana: 2.6, actual: null, r25: 1.6, r75: 2.3, r10: 1.3, r90: 2.7 },
-  { period: 'May 26', mediana: 2.3, actual: null, r25: 1.5, r75: 2.2, r10: 1.2, r90: 2.5 },
+  { period: 'May 26', mediana: 2.3, actual: 2.1, r25: 1.5, r75: 2.2, r10: 1.2, r90: 2.5 },
   { period: 'Jun 26', mediana: 2.1, actual: null, r25: 1.4, r75: 2.1, r10: 1.1, r90: 2.4 },
   { period: 'Jul 26', mediana: 2.0, actual: null, r25: 1.2, r75: 1.9, r10: 1.0, r90: 2.2 },
   { period: 'Ago 26', mediana: 1.8, actual: null, r25: 1.1, r75: 1.8, r10: 0.9, r90: 2.0 },
@@ -638,7 +639,7 @@ export const inflacionLargoPlazoData: Array<{
   { year: 'Abr-24', value: 289.4, highlight: 'pico-2024' },
   { year: '2024', value: 117.8 },
   { year: '2025', value:  31.5 },
-  { year: 'Abril-26', value:  32.4, highlight: 'actual' },
+  { year: 'Mayo-26', value:  33.2, highlight: 'actual' },
 
 ];
 

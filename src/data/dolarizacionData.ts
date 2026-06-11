@@ -135,7 +135,10 @@ export const dolarizacionData: DolarizacionPoint[] = [
   { fecha: "2025-11", dolarOf: 9.47, dolarBlue: 9.58, depUsd: 20743, ipc: 31.4 },
   { fecha: "2025-12", dolarOf: 9.53, dolarBlue: 9.63, depUsd: 20800, ipc: 31.5 },
   { fecha: "2026-01", dolarOf: 9.4, dolarBlue: 9.49, depUsd: 21000, ipc: 32.4 },
-  { fecha: "2026-02", dolarOf: 9.04, dolarBlue: 9.12, depUsd: 21200, ipc: 33.1 }
+  { fecha: "2026-02", dolarOf: 9.04, dolarBlue: 9.12, depUsd: 21200, ipc: 33.1 },
+  { fecha: "2026-03", dolarOf: 9.1, dolarBlue: 9.18, depUsd: 21350, ipc: 32.6 },
+  { fecha: "2026-04", dolarOf: 9.0, dolarBlue: 9.04, depUsd: 21400, ipc: 32.4 },
+  { fecha: "2026-05", dolarOf: 8.95, dolarBlue: 9.0, depUsd: 21500, ipc: 33.2 },
 ];
 
 export const dolarizacionSummary: DolarizacionSummary = {

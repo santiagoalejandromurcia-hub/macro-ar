@@ -350,7 +350,7 @@ function TabContexto() {
           <li>• <span className="text-white">Sep 2018:</span> dolarización pico de 36.7% — crisis cambiaria, BCRA sube tasas al 60% TNA.</li>
           <li>• <span className="text-white">2019–2021:</span> dolarización alta y estable pese al cepo. Brecha ensanchada actúa como proxy de desconfianza.</li>
           <li>• <span className="text-white">Nov 2023:</span> mínimo histórico de 7.5% justo antes de la devaluación Milei — el dato de TC oficial subestimaba el verdadero valor.</li>
-          <li>• <span className="text-white">Feb 2026:</span> 9.0% — confianza en el peso en máximos desde 2016, IPC i.a. convergiendo a 33%.</li>
+          <li>• <span className="text-white">May 2026:</span> 9.0% — confianza en el peso en máximos desde 2016, IPC i.a. en 33,2%.</li>
         </ul>
       </div>
     </div>

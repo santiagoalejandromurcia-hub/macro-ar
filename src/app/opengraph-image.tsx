@@ -26,7 +26,7 @@ export default async function Image() {
   // Si querés OG con datos en vivo más adelante, hay que mover esto a una
   // route handler /api/og que fetchee el endpoint público.
   const stats = [
-    { k: 'Inflación mar', v: '3.4%', color: DOWN },
+    { k: 'Inflación may', v: '2.1%', color: DOWN },
     { k: 'Reservas BCRA', v: 'USD 46Bn', color: UP },
     { k: 'Riesgo país', v: '535 pb', color: ACCENT },
     { k: 'Dólar blue', v: '$1.450', color: GOLD },

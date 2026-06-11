@@ -130,7 +130,7 @@ Si el IPIM se acelera mientras el IPC se desacelera, suele ser señal de que vie
     faq: [
       {
         q: '¿Cuánto fue la inflación de marzo 2026?',
-        a: 'La inflación mensual de marzo de 2026 fue del 3.4%, con un acumulado interanual del 32.6%. Datos actualizados disponibles en MacroLibre.',
+        a: 'La inflación mensual de mayo de 2026 fue del 2.1%, con un acumulado interanual del 33.2% y núcleo del 1.9%. Datos actualizados disponibles en MacroLibre.',
       },
       {
         q: '¿Cuál es la diferencia entre inflación mensual e interanual?',

@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     'inflación argentina 2026',
     'inflación marzo 2026',
     'inflación abril 2026',
+    'inflación mayo 2026',
     'IPIM argentina',
     'inflación mayorista argentina',
     'REM BCRA expectativas inflación',
@@ -38,8 +39,8 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: '¿Cuál fue la inflación mensual en Argentina en abril 2026?',
-    a: 'La inflación mensual de abril 2026 fue del 3.4% según el IPC del INDEC, con una variación interanual acumulada del 36.5%. El componente núcleo (que excluye precios regulados y estacionales) se ubicó en 3.1%.',
+    q: '¿Cuál fue la inflación mensual en Argentina en mayo 2026?',
+    a: 'La inflación mensual de mayo 2026 fue del 2.1% según el IPC del INDEC, con una variación interanual del 33.2%. El componente núcleo se ubicó en 1.9%. El acumulado enero–mayo 2026 es 14.7%.',
   },
   {
     q: '¿Qué es el IPC Argentina?',
