@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, type CSSProperties } from 'react';
+import { useState, useEffect, useMemo, useCallback, type CSSProperties } from 'react';
 import {
   AreaChart, Area, XAxis, YAxis,
   Tooltip, ResponsiveContainer, CartesianGrid,
@@ -8,7 +8,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   emaeData, inflacionData, reservasData, fiscalData,
-  inflacionMayoristaData, remData,
+  inflacionMayoristaData, remData, pbiData, tcrData, riesgoPaisData,
 } from '@/data/macroData';
 import { preciosFOB } from '@/data/granos';
 import { bonosNominales, bonosReales, remEsperado } from '@/data/breakEven';
@@ -16,6 +16,10 @@ import { construirCurvaBEI } from '@/lib/breakEven';
 
 // ══════════════════════════════════════════════════════════════════
 // MacroTerminal — Bloomberg-style dashboard
+//   · filas clickeables → grafican su serie histórica
+//   · sparklines inline por indicador
+//   · atajos de teclado: 1-5 tabs · ESC deselecciona
+//   · responsive (stack en mobile)
 // ══════════════════════════════════════════════════════════════════
 
 type Tab = 'TODOS' | 'ACTIVIDAD' | 'PRECIOS' | 'EXTERNO' | 'FISCAL';
@@ -42,6 +46,33 @@ interface SnapshotRow {
 function last<T>(arr: T[]): T { return arr[arr.length - 1]; }
 function prev<T>(arr: T[]): T { return arr[arr.length - 2]; }
 
+// ─── series por fila: alimenta sparklines y el gráfico al click ──
+interface RowSeries {
+  title: string;
+  unit: string;
+  color: string;
+  data: { date: string; value: number }[];
+}
+
+const ROW_SERIES: Record<string, RowSeries> = {
+  'emae':           { title: 'EMAE — ÍNDICE 2004=100',        unit: '',        color: '#00C9A7', data: emaeData.map(d => ({ date: d.date, value: d.value })) },
+  'pbi':            { title: 'PBI — VAR. INTERANUAL (%)',     unit: '%',       color: '#00C9A7', data: pbiData.map(d => ({ date: d.quarter, value: d.yoy })) },
+  'inflacion':      { title: 'IPC MENSUAL (%)',               unit: '%',       color: '#f85149', data: inflacionData.map(d => ({ date: d.date, value: d.mensual })) },
+  'ipc-interanual': { title: 'IPC INTERANUAL (%)',            unit: '%',       color: '#f85149', data: inflacionData.map(d => ({ date: d.date, value: d.interanual })) },
+  'ipc-nucleo':     { title: 'IPC NÚCLEO MENSUAL (%)',        unit: '%',       color: '#D4A843', data: inflacionData.map(d => ({ date: d.date, value: d.nucleo })) },
+  'ipim':           { title: 'IPIM MAYORISTA MENSUAL (%)',    unit: '%',       color: '#A78BFA', data: inflacionMayoristaData.map(d => ({ date: d.date, value: d.mensual })) },
+  'superavit':      { title: 'RESULTADO PRIMARIO (% PIB)',    unit: '% PIB',   color: '#F0A500', data: fiscalData.map(d => ({ date: d.period, value: d.primario })) },
+  'reservas':       { title: 'RESERVAS BCRA (USD M)',         unit: 'M',       color: '#74ACDF', data: reservasData.map(d => ({ date: d.date, value: d.value })) },
+  'rem-prox':       { title: 'REM — MEDIANA ESPERADA (%)',    unit: '%',       color: '#38BDF8', data: remData.map(d => ({ date: d.period, value: d.mediana })) },
+  'fob-soja':       { title: 'SOJA FOB (USD/tn)',             unit: ' USD/tn', color: '#22C55E', data: preciosFOB.map(d => ({ date: d.mes, value: d.soja })) },
+  'fob-maiz':       { title: 'MAÍZ FOB (USD/tn)',             unit: ' USD/tn', color: '#F0A500', data: preciosFOB.map(d => ({ date: d.mes, value: d.maiz })) },
+  'fob-trigo':      { title: 'TRIGO FOB (USD/tn)',            unit: ' USD/tn', color: '#D4A843', data: preciosFOB.map(d => ({ date: d.mes, value: d.trigo })) },
+  'dolar-blue':     { title: 'DÓLAR BLUE (ARS)',              unit: ' ARS',    color: '#00C9A7', data: tcrData.map(d => ({ date: d.date, value: d.blue })) },
+  'dolar-oficial':  { title: 'DÓLAR OFICIAL (ARS)',           unit: ' ARS',    color: '#74ACDF', data: tcrData.map(d => ({ date: d.date, value: d.oficial })) },
+  'brecha':         { title: 'BRECHA CAMBIARIA (%)',          unit: '%',       color: '#F0A500', data: tcrData.map(d => ({ date: d.date, value: Number((((d.blue / d.oficial) - 1) * 100).toFixed(1)) })) },
+  'riesgo':         { title: 'RIESGO PAÍS — EMBI (pb)',       unit: ' pb',     color: '#f85149', data: riesgoPaisData.map(d => ({ date: d.date, value: d.value })) },
+};
+
 function buildRows(
   dolar: DolarData | null,
   riesgo: RiesgoData | null,
@@ -53,7 +84,6 @@ function buildRows(
       : null;
   const riesgoDelta = riesgo && riesgoPrev ? riesgo.valor - riesgoPrev.valor : null;
 
-  // IPC helpers
   const ipcL = last(inflacionData);
   const ipcP = prev(inflacionData);
   const ipimL = last(inflacionMayoristaData);
@@ -102,7 +132,7 @@ function buildRows(
       fuente: 'INDEC', tabs: ['TODOS','PRECIOS'],
     },
 
-    // ── FISCAL / PRECIOS ──────────────────────────────────────
+    // ── FISCAL / EXTERNO ──────────────────────────────────────
     { id: 'superavit', label: 'Superávit Primario', value: '0.5%',  deltaMes: '▼ -0.90%', sign: 'neg',  fuente: 'MECON', tabs: ['TODOS','FISCAL'] },
     { id: 'reservas',  label: 'Reservas BCRA',       value: 'USD 47.874M', deltaMes: '▲ +1.80%', sign: 'pos', fuente: 'BCRA',  tabs: ['TODOS','EXTERNO'] },
     { id: 'tamar',     label: 'TAMAR',               value: '23.00% n.a.', deltaMes: '— sin cambio', sign: 'flat', fuente: 'BCRA', tabs: ['TODOS','PRECIOS','FISCAL'] },
@@ -234,14 +264,35 @@ function TermTooltip({ active, payload, label, unit }: {
   );
 }
 
+// ─── mini sparkline (SVG puro, sin dependencias) ─────────────────
+function MiniSpark({ data, color }: { data: number[]; color: string }) {
+  if (data.length < 2) return null;
+  const w = 64, h = 18;
+  const min = Math.min(...data), max = Math.max(...data);
+  const range = max - min || 1;
+  const pts = data
+    .map((v, i) => `${((i / (data.length - 1)) * w).toFixed(1)},${(h - 2 - ((v - min) / range) * (h - 4)).toFixed(1)}`)
+    .join(' ');
+  return (
+    <svg className="mt-spark" width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden style={{ opacity: 0.8, flexShrink: 0 }}>
+      <polyline points={pts} fill="none" stroke={color} strokeWidth={1.2} strokeLinejoin="round" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 // ══════════════════════════════════════════════════════════════════
 export default function MacroTerminal() {
-  const [tab, setTab]         = useState<Tab>('TODOS');
+  const [tab, setTabRaw]      = useState<Tab>('TODOS');
+  const [selRow, setSelRow]   = useState<string | null>(null);
   const [dolar, setDolar]     = useState<DolarData | null>(null);
   const [riesgo, setRiesgo]   = useState<RiesgoData | null>(null);
   const [riesgoPrev, setPrev] = useState<RiesgoData | null>(null);
   const [uptime, setUptime]   = useState(0);
+  const [now, setNow]         = useState<Date | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
+
+  // cambiar de tab limpia la selección de fila
+  const setTab = useCallback((t: Tab) => { setTabRaw(t); setSelRow(null); }, []);
 
   useEffect(() => {
     async function load() {
@@ -260,14 +311,44 @@ export default function MacroTerminal() {
     return () => clearInterval(id);
   }, []);
 
+  // tick de 1s: uptime + reloj en vivo (now arranca en null para evitar
+  // mismatch de hidratación SSR/cliente)
   useEffect(() => {
-    const id = setInterval(() => setUptime(n => n + 1), 1000);
+    setNow(new Date());
+    const id = setInterval(() => { setUptime(n => n + 1); setNow(new Date()); }, 1000);
     return () => clearInterval(id);
+  }, []);
+
+  // atajos de teclado: 1-5 cambian tab · ESC deselecciona fila
+  useEffect(() => {
+    const TABS_K: Tab[] = ['TODOS','ACTIVIDAD','PRECIOS','EXTERNO','FISCAL'];
+    function onKey(e: KeyboardEvent) {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      if (e.key >= '1' && e.key <= '5') {
+        setTabRaw(TABS_K[Number(e.key) - 1]);
+        setSelRow(null);
+      } else if (e.key === 'Escape') {
+        setSelRow(null);
+      }
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, []);
 
   const rows    = useMemo(() => buildRows(dolar, riesgo, riesgoPrev), [dolar, riesgo, riesgoPrev]);
   const visible = useMemo(() => rows.filter(r => r.tabs.includes(tab)), [rows, tab]);
-  const chart   = useMemo(() => getChartConfig(tab), [tab]);
+
+  // gráfico: fila seleccionada > default del tab
+  const chart = useMemo<ChartConfig>(() => {
+    if (selRow && ROW_SERIES[selRow]) {
+      const s = ROW_SERIES[selRow];
+      return { data: s.data.slice(-18), key: 'value', colorHex: s.color, unit: s.unit, title: s.title };
+    }
+    return getChartConfig(tab);
+  }, [tab, selRow]);
+  const chartKey = selRow ?? tab; // id único para gradientes
 
   // BEI — solo se computa cuando el tab es PRECIOS
   const beiCurva = useMemo(() => {
@@ -277,21 +358,18 @@ export default function MacroTerminal() {
       .slice(0, 4);
   }, [tab]);
 
-  const now     = new Date();
-  const timeStr = now.toLocaleTimeString('es-AR', { hour:'2-digit', minute:'2-digit' });
-  const dateStr = now.toLocaleDateString('es-AR', { day:'numeric', month:'short', year:'numeric' });
+  const timeStr = now ? now.toLocaleTimeString('es-AR', { hour:'2-digit', minute:'2-digit', second:'2-digit' }) : '--:--:--';
+  const dateStr = now ? now.toLocaleDateString('es-AR', { day:'numeric', month:'short', year:'numeric' }) : '';
 
   const TABS: Tab[] = ['TODOS','ACTIVIDAD','PRECIOS','EXTERNO','FISCAL'];
 
   const S: Record<string, CSSProperties> = {
     wrap:   { fontFamily:'"JetBrains Mono","Geist Mono",ui-monospace,monospace', background:'var(--bg-0)', border:'1px solid var(--line-1)', borderRadius:4, overflow:'hidden' },
-    hdr:    { display:'flex', alignItems:'center', justifyContent:'space-between', padding:'11px 22px', background:'var(--bg-1)', borderBottom:'1px solid var(--line-1)' },
-    tabs:   { display:'flex', padding:'0 22px', borderBottom:'1px solid var(--line-1)', background:'var(--bg-0)' },
-    body:   { display:'grid', gridTemplateColumns:'1fr 480px' },
-    left:   { borderRight:'1px solid var(--line-1)' },
-    colHdr: { display:'grid', gridTemplateColumns:'1fr 150px 180px 110px', padding:'8px 22px', borderBottom:'1px solid var(--line-1)', fontSize:10, letterSpacing:'0.1em', color:'var(--fg-2)', background:'var(--bg-1)' },
-    footer: { padding:'8px 22px', borderTop:'1px solid var(--line-1)', fontSize:10, color:'var(--fg-2)', display:'flex', justifyContent:'space-between', background:'var(--bg-1)' },
-    right:  { display:'flex', flexDirection:'column' },
+    hdr:    { display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:8, padding:'11px 22px', background:'var(--bg-1)', borderBottom:'1px solid var(--line-1)' },
+    tabs:   { display:'flex', padding:'0 22px', borderBottom:'1px solid var(--line-1)', background:'var(--bg-0)', overflowX:'auto' },
+    left:   { borderRight:'1px solid var(--line-1)', minWidth:0 },
+    footer: { padding:'8px 22px', borderTop:'1px solid var(--line-1)', fontSize:10, color:'var(--fg-2)', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:4, background:'var(--bg-1)' },
+    right:  { display:'flex', flexDirection:'column', minWidth:0 },
     cWrap:  { flex:1, padding:'16px 20px 12px', borderBottom:'1px solid var(--line-1)' },
   };
 
@@ -300,17 +378,33 @@ export default function MacroTerminal() {
 
   return (
     <div style={S.wrap}>
+      {/* responsive: stack en mobile, ocultar fuente/sparkline */}
+      <style>{`
+        .mt-body { display:grid; grid-template-columns: 1fr 480px; }
+        .mt-grid { display:grid; grid-template-columns: 1fr 150px 180px 110px; align-items:center; }
+        @media (max-width: 1024px) {
+          .mt-body { grid-template-columns: 1fr; }
+          .mt-left { border-right: none !important; border-bottom: 1px solid var(--line-1); }
+        }
+        @media (max-width: 640px) {
+          .mt-grid { grid-template-columns: 1fr 110px 120px; }
+          .mt-grid > :nth-child(4) { display:none; }
+          .mt-spark { display:none; }
+          .mt-hdr-meta { display:none !important; }
+        }
+      `}</style>
 
       {/* header */}
       <div style={S.hdr}>
-        <div style={{ display:'flex', alignItems:'center', gap:10 }}>
+        <div style={{ display:'flex', alignItems:'center', gap:10, flexWrap:'wrap' }}>
           <span style={{ fontSize:12, letterSpacing:'0.12em', color:'var(--celeste)', fontWeight:600 }}>◆ MACRO TERMINAL</span>
-          <span style={{ color:'var(--line-1)' }}>|</span>
-          <span style={{ fontSize:11, color:'var(--fg-2)', letterSpacing:'0.06em' }}>INDEC · BCRA · MECON · JP MORGAN</span>
+          <span className="mt-hdr-meta" style={{ color:'var(--line-1)' }}>|</span>
+          <span className="mt-hdr-meta" style={{ fontSize:11, color:'var(--fg-2)', letterSpacing:'0.06em' }}>INDEC · BCRA · MECON · JP MORGAN</span>
         </div>
         <div style={{ display:'flex', alignItems:'center', gap:20, fontSize:11, color:'var(--fg-2)' }}>
-          <span>UPTIME <span style={{ color:'var(--teal)' }}>{uptime}s</span></span>
-          <span>FUENTES <span style={{ color:'var(--fg-0)' }}>17 / 17</span></span>
+          <span className="mt-hdr-meta" suppressHydrationWarning>{timeStr} <span style={{ color:'var(--fg-3)' }}>ART</span></span>
+          <span className="mt-hdr-meta">UPTIME <span style={{ color:'var(--teal)' }}>{uptime}s</span></span>
+          <span className="mt-hdr-meta">FUENTES <span style={{ color:'var(--fg-0)' }}>17 / 17</span></span>
           <span style={{ display:'flex', alignItems:'center', gap:5, color:'var(--up)' }}>
             <span className="live-dot" aria-hidden /> EN VIVO
           </span>
@@ -319,10 +413,10 @@ export default function MacroTerminal() {
 
       {/* tabs */}
       <div style={S.tabs}>
-        {TABS.map(t => (
-          <button key={t} onClick={() => setTab(t)} style={{
+        {TABS.map((t, i) => (
+          <button key={t} onClick={() => setTab(t)} title={`Atajo: tecla ${i + 1}`} style={{
             padding:'10px 18px', fontSize:12, letterSpacing:'0.08em', fontFamily:'inherit',
-            background:'transparent', border:'none',
+            background:'transparent', border:'none', whiteSpace:'nowrap',
             borderBottom: t === tab ? '2px solid var(--celeste)' : '2px solid transparent',
             color: t === tab ? 'var(--celeste)' : 'var(--fg-2)',
             fontWeight: t === tab ? 600 : 400,
@@ -334,11 +428,11 @@ export default function MacroTerminal() {
       </div>
 
       {/* body */}
-      <div style={S.body}>
+      <div className="mt-body">
 
         {/* LEFT — snapshot */}
-        <div style={S.left}>
-          <div style={S.colHdr}>
+        <div className="mt-left" style={S.left}>
+          <div className="mt-grid" style={{ padding:'8px 22px', borderBottom:'1px solid var(--line-1)', fontSize:10, letterSpacing:'0.1em', color:'var(--fg-2)', background:'var(--bg-1)' }}>
             <span>INDICADOR</span>
             <span style={{ textAlign:'right' }}>VALOR</span>
             <span style={{ textAlign:'right' }}>Δ MES / ESTADO</span>
@@ -349,7 +443,10 @@ export default function MacroTerminal() {
             <motion.div key={tab} initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }} transition={{ duration:0.15 }}>
 
               {visible.filter(r => !r.isLive).map(row => (
-                <Row key={row.id} row={row} hovered={hovered===row.id} onHover={setHovered} />
+                <Row key={row.id} row={row} hovered={hovered===row.id} selected={selRow===row.id}
+                  onHover={setHovered}
+                  onSelect={ROW_SERIES[row.id] ? () => setSelRow(s => s === row.id ? null : row.id) : undefined}
+                />
               ))}
 
               {visible.some(r => r.isLive) && (
@@ -362,15 +459,18 @@ export default function MacroTerminal() {
               )}
 
               {visible.filter(r => r.isLive).map(row => (
-                <Row key={row.id} row={row} hovered={hovered===row.id} onHover={setHovered} />
+                <Row key={row.id} row={row} hovered={hovered===row.id} selected={selRow===row.id}
+                  onHover={setHovered}
+                  onSelect={ROW_SERIES[row.id] ? () => setSelRow(s => s === row.id ? null : row.id) : undefined}
+                />
               ))}
 
             </motion.div>
           </AnimatePresence>
 
           <div style={S.footer}>
-            <span>{dateStr} · {timeStr} ART</span>
-            <span>macrolibre.com</span>
+            <span suppressHydrationWarning>{dateStr} · {timeStr} ART</span>
+            <span style={{ color:'var(--fg-3)' }}>▸ click en una fila para graficar · 1-5 cambia tab</span>
           </div>
         </div>
 
@@ -379,22 +479,31 @@ export default function MacroTerminal() {
 
           {/* chart */}
           <div style={S.cWrap}>
-            <div style={{ fontSize:11, letterSpacing:'0.1em', color:'var(--fg-2)', marginBottom:12, display:'flex', justifyContent:'space-between' }}>
-              <span>{chart.title}</span>
-              <span>
+            <div style={{ fontSize:11, letterSpacing:'0.1em', color:'var(--fg-2)', marginBottom:12, display:'flex', justifyContent:'space-between', alignItems:'center', gap:8 }}>
+              <span style={{ minWidth:0, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{chart.title}</span>
+              <span style={{ display:'flex', alignItems:'center', gap:8, flexShrink:0 }}>
+                {selRow && (
+                  <button onClick={() => setSelRow(null)} style={{
+                    background:'transparent', border:'1px solid var(--line-1)', borderRadius:2,
+                    color:'var(--fg-2)', fontSize:9, fontFamily:'inherit', letterSpacing:'0.08em',
+                    padding:'2px 8px', cursor:'pointer',
+                  }}>
+                    ✕ VOLVER
+                  </button>
+                )}
                 <span style={{ color:chart.colorHex }}>━━</span>
-                {chart.colorHex2 && <span style={{ color:chart.colorHex2, marginLeft:8 }}>━━</span>}
+                {chart.colorHex2 && <span style={{ color:chart.colorHex2 }}>━━</span>}
               </span>
             </div>
             <ResponsiveContainer width="100%" height={chartH}>
               <AreaChart data={chart.data} margin={{ top:4, right:4, left:-20, bottom:0 }}>
                 <defs>
-                  <linearGradient id={`tg-${tab}`} x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient id={`tg-${chartKey}`} x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%"  stopColor={chart.colorHex} stopOpacity={0.3} />
                     <stop offset="90%" stopColor={chart.colorHex} stopOpacity={0} />
                   </linearGradient>
                   {chart.colorHex2 && (
-                    <linearGradient id={`tg2-${tab}`} x1="0" y1="0" x2="0" y2="1">
+                    <linearGradient id={`tg2-${chartKey}`} x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%"  stopColor={chart.colorHex2} stopOpacity={0.2} />
                       <stop offset="90%" stopColor={chart.colorHex2} stopOpacity={0} />
                     </linearGradient>
@@ -402,7 +511,7 @@ export default function MacroTerminal() {
                 </defs>
                 <CartesianGrid strokeDasharray="2 4" stroke="var(--chart-grid)" strokeOpacity={0.5} vertical={false} />
                 <XAxis dataKey="date" tick={{ fontSize:8, fill:'var(--fg-3)', fontFamily:'inherit' }} tickLine={false} axisLine={false} interval="preserveStartEnd" />
-                <YAxis                tick={{ fontSize:8, fill:'var(--fg-3)', fontFamily:'inherit' }} tickLine={false} axisLine={false} width={42} />
+                <YAxis                tick={{ fontSize:8, fill:'var(--fg-3)', fontFamily:'inherit' }} tickLine={false} axisLine={false} width={42} domain={['auto','auto']} />
                 <Tooltip
                   content={({ active, payload, label }) => (
                     <TermTooltip active={active} payload={payload} label={label as string | undefined} unit={chart.unit} />
@@ -410,13 +519,13 @@ export default function MacroTerminal() {
                   cursor={{ stroke:'var(--line-1)', strokeWidth:1, strokeDasharray:'3 3' }}
                 />
                 <Area type="monotone" dataKey={chart.key} stroke={chart.colorHex} strokeWidth={1.5}
-                  fill={`url(#tg-${tab})`} dot={false}
+                  fill={`url(#tg-${chartKey})`} dot={false}
                   activeDot={{ r:3, fill:chart.colorHex, strokeWidth:0 }}
                   animationDuration={500}
                 />
                 {chart.colorHex2 && (
                   <Area type="monotone" dataKey="nucleo" stroke={chart.colorHex2} strokeWidth={1.5}
-                    fill={`url(#tg2-${tab})`} dot={false}
+                    fill={`url(#tg2-${chartKey})`} dot={false}
                     activeDot={{ r:3, fill:chart.colorHex2, strokeWidth:0 }}
                     animationDuration={500}
                   />
@@ -468,23 +577,45 @@ export default function MacroTerminal() {
 }
 
 // ─── Row ──────────────────────────────────────────────────────────
-function Row({ row, hovered, onHover }: {
-  row: SnapshotRow; hovered: boolean; onHover: (id: string | null) => void
+function Row({ row, hovered, selected, onHover, onSelect }: {
+  row: SnapshotRow;
+  hovered: boolean;
+  selected: boolean;
+  onHover: (id: string | null) => void;
+  onSelect?: () => void;
 }) {
+  const series = ROW_SERIES[row.id];
+  const spark = series ? series.data.slice(-14).map(d => d.value) : null;
+
   return (
     <div
+      className="mt-grid"
       onMouseEnter={() => onHover(row.id)}
       onMouseLeave={() => onHover(null)}
+      onClick={onSelect}
+      role={onSelect ? 'button' : undefined}
+      tabIndex={onSelect ? 0 : undefined}
+      onKeyDown={onSelect ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect(); } } : undefined}
+      title={onSelect ? 'Click para graficar la serie histórica' : undefined}
       style={{
-        display:'grid', gridTemplateColumns:'1fr 150px 180px 110px',
         padding:'11px 22px', borderBottom:'1px solid var(--line-1)',
-        background: hovered ? 'color-mix(in oklch, var(--celeste) 8%, transparent)' : 'transparent',
-        transition:'background 80ms', cursor:'default', alignItems:'center',
+        borderLeft: selected ? '2px solid var(--celeste)' : '2px solid transparent',
+        background: selected
+          ? 'color-mix(in oklch, var(--celeste) 12%, transparent)'
+          : hovered ? 'color-mix(in oklch, var(--celeste) 8%, transparent)' : 'transparent',
+        transition:'background 80ms, border-color 80ms',
+        cursor: onSelect ? 'pointer' : 'default',
       }}
     >
-      <span style={{ fontSize:13, color: row.isLive ? '#c9d1d9' : '#e6edf3', display:'flex', alignItems:'center', gap:8 }}>
+      <span style={{ fontSize:13, color: row.isLive ? '#c9d1d9' : '#e6edf3', display:'flex', alignItems:'center', gap:8, minWidth:0 }}>
         {row.isLive && <span className="live-dot" style={{ flexShrink:0 }} aria-hidden />}
-        {row.label}
+        <span style={{ overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{row.label}</span>
+        {selected && <span style={{ color:'var(--celeste)', fontSize:10, flexShrink:0 }}>▸ GRAFICANDO</span>}
+        {series && spark && spark.length >= 2 && (
+          <span style={{ marginLeft:'auto', display:'flex' }}>
+            <MiniSpark data={spark} color={series.color} />
+          </span>
+        )}
       </span>
       <span style={{ fontSize:15, fontWeight:600, color:'#ffffff', textAlign:'right', letterSpacing:'-0.01em', fontVariantNumeric:'tabular-nums' }}>
         {row.value}
