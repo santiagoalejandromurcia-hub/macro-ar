@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 // ════════════════════════════════════════════════════
 // ServicesSection · 4 cards de servicios B2B
@@ -41,7 +44,7 @@ const SERVICES: ServiceItem[] = [
       'Plan de optimización priorizado',
     ],
     accent: 'sol',
-    price: 'ARS 750.000 · único',
+    price: 'ARS 550.000 · único',
   },
   {
     id: 'consultoria-macro',
@@ -89,12 +92,15 @@ export default function ServicesSection() {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
-        {SERVICES.map((s) => {
+        {SERVICES.map((s, i) => {
           const { color, bg } = accentStyle(s.accent);
           return (
-            <article
+            <motion.article
               key={s.id}
               className="glass glass-lift p-5 md:p-6 flex flex-col gap-3 relative overflow-hidden"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: i * 0.06, ease: [0.2, 0.7, 0.2, 1] }}
             >
               <div
                 className="absolute top-0 left-0 right-0 h-px"
@@ -132,7 +138,7 @@ export default function ServicesSection() {
               >
                 Ver detalle <span aria-hidden>→</span>
               </Link>
-            </article>
+            </motion.article>
           );
         })}
       </div>

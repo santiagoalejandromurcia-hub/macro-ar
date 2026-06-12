@@ -70,7 +70,7 @@ const ROW_SERIES: Record<string, RowSeries> = {
   'dolar-blue':     { title: 'DÓLAR BLUE (ARS)',              unit: ' ARS',    color: '#00C9A7', data: tcrData.map(d => ({ date: d.date, value: d.blue })) },
   'dolar-oficial':  { title: 'DÓLAR OFICIAL (ARS)',           unit: ' ARS',    color: '#74ACDF', data: tcrData.map(d => ({ date: d.date, value: d.oficial })) },
   'brecha':         { title: 'BRECHA CAMBIARIA (%)',          unit: '%',       color: '#F0A500', data: tcrData.map(d => ({ date: d.date, value: Number((((d.blue / d.oficial) - 1) * 100).toFixed(1)) })) },
-  'riesgo':         { title: 'RIESGO PAÍS — EMBI (pb)',       unit: ' pb',     color: '#f85149', data: riesgoPaisData.map(d => ({ date: d.date, value: d.value })) },
+  'riesgo':         { title: 'RIESGO PAÍS (mercado / calc GD35+)', unit: ' pb', color: '#f85149', data: riesgoPaisData.map(d => ({ date: d.date, value: d.value })) },
 };
 
 function buildRows(
@@ -200,7 +200,7 @@ function buildRows(
       fuente: 'CALC.', tabs: ['TODOS','EXTERNO'],
     },
     {
-      id: 'riesgo', label: 'Riesgo País', isLive: true,
+      id: 'riesgo', label: 'Riesgo País (spot)', isLive: true,
       value: riesgo ? `${riesgo.valor.toLocaleString('es-AR')} pb` : '—',
       deltaMes: riesgoDelta !== null ? `${riesgoDelta > 0 ? '▲' : '▼'} ${Math.abs(riesgoDelta)} pb` : null,
       sign: riesgoDelta !== null ? (riesgoDelta <= 0 ? 'pos' : 'neg') : 'flat',
@@ -297,12 +297,20 @@ export default function MacroTerminal() {
   useEffect(() => {
     async function load() {
       try {
-        const [dr, rr] = await Promise.all([fetch('/api/dolar'), fetch('/api/riesgo-pais')]);
+        const [dr, er] = await Promise.all([fetch('/api/dolar'), fetch('/api/embi')]);
         if (dr.ok) setDolar(await dr.json());
-        if (rr.ok) {
-          const j = await rr.json();
-          if (j.ultimo)   setRiesgo({ valor: j.ultimo.valor,   fecha: j.ultimo.fecha });
-          if (j.anterior) setPrev  ({ valor: j.anterior.valor, fecha: j.anterior.fecha });
+        if (er.ok) {
+          const j = await er.json();
+          // Usar el cálculo propio (live prices GD35+ etc.) como "riesgo país real"
+          // en lugar del índice JP Morgan publicado (que viene con lag vía ArgentinaDatos)
+          if (typeof j.embi === 'number') {
+            setRiesgo({ valor: j.embi, fecha: j.timestamp ? j.timestamp.slice(0,10) : new Date().toISOString().slice(0,10) });
+          }
+          if (typeof j.embiClose === 'number') {
+            setPrev({ valor: j.embiClose, fecha: 'cierre ayer' });
+          } else {
+            setPrev(null);
+          }
         }
       } catch { /* silencioso */ }
     }
@@ -654,7 +662,7 @@ function LiveStrip({ tab, dolar, riesgo, riesgoPrev }: {
     { label:'DÓLAR BLUE',    value: dolar ? `$${dolar.blue.value_sell.toLocaleString('es-AR')}` : '—',    sub: dolar ? `Compra $${dolar.blue.value_buy.toLocaleString('es-AR')}` : null,    color:'var(--teal)' },
     { label:'DÓLAR OFICIAL', value: dolar ? `$${dolar.oficial.value_sell.toLocaleString('es-AR')}` : '—', sub: dolar ? `Compra $${dolar.oficial.value_buy.toLocaleString('es-AR')}` : null, color:'var(--celeste)' },
     { label:'BRECHA',        value: brecha !== null ? `${brecha>0?'+':''}${brecha.toFixed(1)}%` : '—',    sub:'Blue vs Oficial', color: brecha !== null && brecha>5 ? 'var(--down)' : 'var(--fg-2)' },
-    { label:'RIESGO PAÍS',   value: riesgo ? `${riesgo.valor} pb` : '—',                                 sub: rd !== null ? `${rd>0?'▲':'▼'} ${Math.abs(rd)} pb` : null, color: rd !== null ? (rd<=0 ? 'var(--teal)' : 'var(--down)') : 'var(--fg-2)' },
+    { label:'RIESGO PAÍS (spot GD35+)', value: riesgo ? `${riesgo.valor} pb` : '—', sub: rd !== null ? `${rd>0?'▲':'▼'} ${Math.abs(rd)} pb` : null, color: rd !== null ? (rd<=0 ? 'var(--teal)' : 'var(--down)') : 'var(--fg-2)' },
   ];
 
   return (

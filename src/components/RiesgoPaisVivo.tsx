@@ -21,14 +21,17 @@ export default function RiesgoPaisVivo() {
   useEffect(() => {
     async function fetchRiesgo() {
       try {
-        const res = await fetch('/api/riesgo-pais');
+        // Cambiado a /api/embi (cálculo con precios live de GD35 + spread)
+        // para mostrar el valor "de mercado" que la gente ve en herramientas como BondTerminal (~433 pb).
+        // El feed anterior (ArgentinaDatos) es el índice JP Morgan publicado (con algo de lag).
+        const res = await fetch('/api/embi');
         if (!res.ok) throw new Error('API error');
         const json = await res.json();
-        if (json.ultimo) {
-          setData({ valor: json.ultimo.valor, fecha: json.ultimo.fecha });
+        if (typeof json.embi === 'number') {
+          setData({ valor: json.embi, fecha: json.timestamp ? json.timestamp.slice(0, 10) : new Date().toISOString().slice(0, 10) });
         }
-        if (json.anterior) {
-          setPrev({ valor: json.anterior.valor, fecha: json.anterior.fecha });
+        if (typeof json.embiClose === 'number') {
+          setPrev({ valor: json.embiClose, fecha: 'cierre' });
         }
       } catch {
         // Silencioso
@@ -38,7 +41,7 @@ export default function RiesgoPaisVivo() {
     }
 
     fetchRiesgo();
-    const interval = setInterval(fetchRiesgo, 10 * 60 * 1000);
+    const interval = setInterval(fetchRiesgo, 5 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -154,7 +157,7 @@ export default function RiesgoPaisVivo() {
         className="font-mono text-[9px] mt-2"
         style={{ color: 'var(--fg-3)' }}
       >
-        EMBI+ · {data.fecha}
+        EMBIGD spot (GD35+) · {data.fecha}
       </p>
 
       {/* Accent bottom bar */}

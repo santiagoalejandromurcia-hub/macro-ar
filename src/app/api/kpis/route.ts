@@ -39,23 +39,43 @@ export async function GET() {
     }
   } catch { /* silent */ }
 
-  // ── Riesgo País (ArgentinaDatos) ────────────────────────────
+  // ── Riesgo País (cálculo mercado con GD35+ y spread) ─────────
+  // Preferimos el valor "de verdad" que se ve en terminales de bonos (BondTerminal etc.)
+  // en lugar del índice publicado con lag.
   try {
-    const res = await fetch('https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo', {
-      next: { revalidate: 600 },
-    });
+    const res = await fetch('/api/embi', { next: { revalidate: 300 } });
     if (res.ok) {
       const data = await res.json();
-      if (data?.valor) {
+      if (typeof data?.embi === 'number') {
         results.push({
           id: 'riesgo-pais',
-          value: `${data.valor} pb`,
-          change: 0,
-          changeLabel: `EMBI+ JP Morgan · ${data.fecha ?? ''}`,
+          value: `${data.embi} pb`,
+          change: data.embiDelta ?? 0,
+          changeLabel: `spot GD35+ / EMBIGD calc · ${data.timestamp ? data.timestamp.slice(0,10) : ''}`,
         });
       }
     }
-  } catch { /* silent */ }
+  } catch { /* silent — fallback al índice si el server no está */ }
+
+  // Fallback al índice JP Morgan si el cálculo no está disponible (útil en preview o si /api/embi falla)
+  if (!results.some(r => r.id === 'riesgo-pais')) {
+    try {
+      const res = await fetch('https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo', {
+        next: { revalidate: 600 },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.valor) {
+          results.push({
+            id: 'riesgo-pais',
+            value: `${data.valor} pb`,
+            change: 0,
+            changeLabel: `JP Morgan EMBIGD (publicado) · ${data.fecha ?? ''}`,
+          });
+        }
+      }
+    } catch { /* silent */ }
+  }
 
   // ── Inflación IPC (ArgentinaDatos) ─────────────────────────
   try {

@@ -1,13 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import useSWR from 'swr';
 
 interface DolarData {
   blue: { value_buy: number; value_sell: number };
   oficial: { value_buy: number; value_sell: number };
   last_update: string;
 }
+
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 // ══════════════════════════════════════════════════════
 // DolarBlueVivo — rediseño 2026
@@ -114,31 +116,14 @@ function LiveCard({
 }
 
 export default function DolarBlueVivo() {
-  const [data, setData] = useState<DolarData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const { data, error, isLoading } = useSWR<DolarData>('/api/dolar', fetcher, {
+    refreshInterval: 5 * 60 * 1000,
+    revalidateOnFocus: true,
+    dedupingInterval: 30_000,
+    keepPreviousData: true,
+  });
 
-  useEffect(() => {
-    async function fetchDolar() {
-      try {
-        const res = await fetch('/api/dolar');
-        if (!res.ok) throw new Error('API error');
-        const json = await res.json();
-        setData(json);
-        setError(false);
-      } catch {
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchDolar();
-    const interval = setInterval(fetchDolar, 5 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="grid grid-cols-3 gap-3 sm:gap-4">
         {[1, 2, 3].map((i) => (
