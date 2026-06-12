@@ -204,7 +204,7 @@ function buildRows(
       value: riesgo ? `${riesgo.valor.toLocaleString('es-AR')} pb` : '—',
       deltaMes: riesgoDelta !== null ? `${riesgoDelta > 0 ? '▲' : '▼'} ${Math.abs(riesgoDelta)} pb` : null,
       sign: riesgoDelta !== null ? (riesgoDelta <= 0 ? 'pos' : 'neg') : 'flat',
-      fuente: 'JP MORGAN', tabs: ['TODOS','EXTERNO'],
+      fuente: 'MERCADO (GD35C YTM)', tabs: ['TODOS','EXTERNO'],
     },
   ];
 }
@@ -435,7 +435,7 @@ export default function MacroTerminal() {
         <div style={{ display:'flex', alignItems:'center', gap:10, flexWrap:'wrap' }}>
           <span style={{ fontSize:12, letterSpacing:'0.12em', color:'var(--celeste)', fontWeight:600 }}>◆ MACRO TERMINAL</span>
           <span className="mt-hdr-meta" style={{ color:'var(--line-1)' }}>|</span>
-          <span className="mt-hdr-meta" style={{ fontSize:11, color:'var(--fg-2)', letterSpacing:'0.06em' }}>INDEC · BCRA · MECON · JP MORGAN</span>
+          <span className="mt-hdr-meta" style={{ fontSize:11, color:'var(--fg-2)', letterSpacing:'0.06em' }}>INDEC · BCRA · MECON · DATA912 · TREASURY (GD35C live)</span>
         </div>
         <div style={{ display:'flex', alignItems:'center', gap:20, fontSize:11, color:'var(--fg-2)' }}>
           <span className="mt-hdr-meta" suppressHydrationWarning>{timeStr} <span style={{ color:'var(--fg-3)' }}>ART</span></span>
