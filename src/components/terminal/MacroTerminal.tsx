@@ -297,20 +297,46 @@ export default function MacroTerminal() {
   useEffect(() => {
     async function load() {
       try {
-        const [dr, er] = await Promise.all([fetch('/api/dolar'), fetch('/api/embi')]);
+        const [dr, er, rr] = await Promise.all([
+          fetch('/api/dolar'),
+          fetch('/api/embi'),
+          fetch('/api/riesgo-pais')
+        ]);
         if (dr.ok) setDolar(await dr.json());
+
+        let riesgoVal = null;
+        let riesgoFecha = null;
+        let prevVal = null;
+
+        // Preferir el cálculo propio con precios live (GD35+ y spread) si está disponible y >0
         if (er.ok) {
           const j = await er.json();
-          // Usar el cálculo propio (live prices GD35+ etc.) como "riesgo país real"
-          // en lugar del índice JP Morgan publicado (que viene con lag vía ArgentinaDatos)
-          if (typeof j.embi === 'number') {
-            setRiesgo({ valor: j.embi, fecha: j.timestamp ? j.timestamp.slice(0,10) : new Date().toISOString().slice(0,10) });
+          if (typeof j.embi === 'number' && j.embi > 0) {
+            riesgoVal = j.embi;
+            riesgoFecha = j.timestamp ? j.timestamp.slice(0,10) : new Date().toISOString().slice(0,10);
+            if (typeof j.embiClose === 'number') prevVal = j.embiClose;
           }
-          if (typeof j.embiClose === 'number') {
-            setPrev({ valor: j.embiClose, fecha: 'cierre ayer' });
-          } else {
-            setPrev(null);
+        }
+
+        // Fallback al índice oficial JP Morgan (ArgentinaDatos) si el calc falla o da 0
+        if (riesgoVal === null && rr.ok) {
+          const j = await rr.json();
+          if (j.ultimo && typeof j.ultimo.valor === 'number') {
+            riesgoVal = j.ultimo.valor;
+            riesgoFecha = j.ultimo.fecha;
           }
+          if (j.anterior && typeof j.anterior.valor === 'number') {
+            prevVal = j.anterior.valor;
+          }
+        }
+
+        if (riesgoVal !== null) {
+          setRiesgo({ valor: riesgoVal, fecha: riesgoFecha || new Date().toISOString().slice(0,10) });
+        }
+        if (prevVal !== null) {
+          setPrev({ valor: prevVal, fecha: 'cierre' });
+        } else {
+          setPrev(null);
         }
       } catch { /* silencioso */ }
     }

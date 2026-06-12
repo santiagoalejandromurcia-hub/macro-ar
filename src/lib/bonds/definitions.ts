@@ -204,7 +204,7 @@ export const EMBI_BONDS: BondDef[] = [
     tickerARS: 'GD29',
     isin: 'US040114HS26',
     maturity: semiDate(2029, 7, 9),
-    outstandingM: 4800,
+    outstandingM: 2100, // actualizado según datos mercado ~2.1B
     law: 'NY',
     cashFlows: GD29_FLOWS,
   },
@@ -213,7 +213,7 @@ export const EMBI_BONDS: BondDef[] = [
     tickerARS: 'GD30',
     isin: 'US040114HT09',
     maturity: semiDate(2030, 7, 9),
-    outstandingM: 5800,
+    outstandingM: 12900, // ~12.9B
     law: 'NY',
     cashFlows: GD30_FLOWS,
   },
@@ -222,7 +222,7 @@ export const EMBI_BONDS: BondDef[] = [
     tickerARS: 'GD35',
     isin: 'US040114HU71',
     maturity: semiDate(2035, 7, 9),
-    outstandingM: 7100,
+    outstandingM: 20500, // ~20.5B
     law: 'NY',
     cashFlows: GD35_FLOWS,
   },
@@ -231,7 +231,7 @@ export const EMBI_BONDS: BondDef[] = [
     tickerARS: 'GD38',
     isin: 'US040114HV54',
     maturity: semiDate(2038, 1, 9),
-    outstandingM: 8600,
+    outstandingM: 11400, // ~11.4B
     law: 'NY',
     cashFlows: GD38_FLOWS,
   },
@@ -240,7 +240,7 @@ export const EMBI_BONDS: BondDef[] = [
     tickerARS: 'GD41',
     isin: 'US040114HW38',
     maturity: semiDate(2041, 7, 9),
-    outstandingM: 4400,
+    outstandingM: 10500, // ~10.5B
     law: 'NY',
     cashFlows: GD41_FLOWS,
   },
@@ -249,7 +249,7 @@ export const EMBI_BONDS: BondDef[] = [
     tickerARS: 'GD46',
     isin: 'US040114HX11',
     maturity: semiDate(2046, 7, 9),
-    outstandingM: 3900,
+    outstandingM: 2000, // ~2.0B
     law: 'NY',
     cashFlows: GD46_FLOWS,
   },

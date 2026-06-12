@@ -1,18 +1,23 @@
 // ============================================================
-// GET /api/embi — EMBI Argentina calculado internamente
+// GET /api/embi — EMBI Argentina calculado internamente (tiempo real)
+//
+// Metodología (exacta según BondTerminal / Ámbito / JP Morgan EMBIGD):
+// - Riesgo país = spread ponderado de bonos elegibles ley extranjera (NY)
+// - Criterios: ley NY, outstanding >=500M, plazo >=2.5 años
+// - Bonos actuales elegibles (Ley NY): 
+//   ARGENT 1 29 (2.1B), 0.75 30 (12.9B), 4.125 35 (20.5B),
+//   5 38 (11.4B), 3.5 41 (10.5B), 4.125 46 (2.0B) → total ~59.4B
+// - spread_i = YTM_bono - Treasury interpolado por duración del bono
+// - Spread_BT = Σ(spread_i * outstanding_i) / Σ(outstanding_i)
+// - Actualizado intraday con precios Data912 + Treasury.gov
+//
+// Bonos excluidos: solo ley Argentina (no entran en EMBI)
 //
 // Fuentes:
-//   • Precios de bonos: data912.com (mercado local, tiempo real)
-//   • Curva de Treasuries: Treasury.gov (XML API)
-//   • Cash flows: prospectos oficiales / SEC (hardcoded en definitions.ts)
-//
-// Metodología (idéntica a EMBIGD JP Morgan):
-//   spread_i   = YTM_bono_i − Treasury_interpolado(duración_i)
-//   Spread_BT  = Σ(spread_i × outstanding_i) ÷ Σ(outstanding_i)
-//   Variación  = Spread_BT_ahora − Spread_BT_cierre_ayer
-//
-// Bonos elegibles: GD35, GD38, GD41, GD46 (ley NY, >$500M, sin amort. aún)
-// GD29/GD30 en tabla solo (precio distorsionado por amort. parcial)
+//   • Precios: data912.com/live/arg_bonds (mercado local)
+//   • Curva Treasuries: home.treasury.gov (XML)
+//   • Cash flows: prospectos oficiales
+//   • Referencia oficial (fallback): ArgentinaDatos EMBI
 // ============================================================
 
 import { NextResponse } from 'next/server';
@@ -28,8 +33,9 @@ const DATA912_LIVE = 'https://data912.com/live/arg_bonds';
 const DATA912_HIST = (ticker: string) =>
   `https://data912.com/historical/bonds/${ticker}`;
 
-// Bonos cuyo precio es confiable vs $100 VN (no amortizando aún)
-const EMBI_ELIGIBLE = new Set(['GD35D', 'GD38D', 'GD41D', 'GD46D']);
+// Bonos elegibles para el cálculo EMBI/EMBIGD (Ley NY, >500M outstanding, según metodología JP Morgan)
+// Incluimos todos los listados como elegibles (incluyendo amortizables 29/30 según datos actuales de mercado)
+const EMBI_ELIGIBLE = new Set(['GD29D', 'GD30D', 'GD35D', 'GD38D', 'GD41D', 'GD46D']);
 
 export interface BondResult {
   ticker: string;

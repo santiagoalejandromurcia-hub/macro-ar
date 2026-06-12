@@ -21,17 +21,41 @@ export default function RiesgoPaisVivo() {
   useEffect(() => {
     async function fetchRiesgo() {
       try {
-        // Cambiado a /api/embi (cálculo con precios live de GD35 + spread)
-        // para mostrar el valor "de mercado" que la gente ve en herramientas como BondTerminal (~433 pb).
-        // El feed anterior (ArgentinaDatos) es el índice JP Morgan publicado (con algo de lag).
-        const res = await fetch('/api/embi');
-        if (!res.ok) throw new Error('API error');
-        const json = await res.json();
-        if (typeof json.embi === 'number') {
-          setData({ valor: json.embi, fecha: json.timestamp ? json.timestamp.slice(0, 10) : new Date().toISOString().slice(0, 10) });
+        let dataVal = null;
+        let fechaVal = null;
+        let prevVal = null;
+
+        // Preferir cálculo live (GD35 + spread) 
+        const er = await fetch('/api/embi');
+        if (er.ok) {
+          const j = await er.json();
+          if (typeof j.embi === 'number' && j.embi > 0) {
+            dataVal = j.embi;
+            fechaVal = j.timestamp ? j.timestamp.slice(0,10) : new Date().toISOString().slice(0,10);
+            if (typeof j.embiClose === 'number') prevVal = j.embiClose;
+          }
         }
-        if (typeof json.embiClose === 'number') {
-          setPrev({ valor: json.embiClose, fecha: 'cierre' });
+
+        // Fallback al índice oficial ArgentinaDatos / JP Morgan si falla el calc
+        if (dataVal === null) {
+          const rr = await fetch('/api/riesgo-pais');
+          if (rr.ok) {
+            const j = await rr.json();
+            if (j.ultimo && typeof j.ultimo.valor === 'number') {
+              dataVal = j.ultimo.valor;
+              fechaVal = j.ultimo.fecha;
+            }
+            if (j.anterior && typeof j.anterior.valor === 'number') {
+              prevVal = j.anterior.valor;
+            }
+          }
+        }
+
+        if (dataVal !== null) {
+          setData({ valor: dataVal, fecha: fechaVal || new Date().toISOString().slice(0,10) });
+        }
+        if (prevVal !== null) {
+          setPrev({ valor: prevVal, fecha: 'cierre' });
         }
       } catch {
         // Silencioso
