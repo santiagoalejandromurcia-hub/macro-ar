@@ -25,14 +25,14 @@ export default function RiesgoPaisVivo() {
         let fechaVal = null;
         let prevVal = null;
 
-        // Preferir cálculo live (GD35 + spread) 
+        // Usar el simple GD35C YTM - US rf (el que da ~433 en BondTerminal)
         const er = await fetch('/api/embi');
         if (er.ok) {
           const j = await er.json();
-          if (typeof j.embi === 'number' && j.embi > 0) {
-            dataVal = j.embi;
+          if (typeof j.gd35c_spread === 'number' && j.gd35c_spread > 0) {
+            dataVal = j.gd35c_spread;
             fechaVal = j.timestamp ? j.timestamp.slice(0,10) : new Date().toISOString().slice(0,10);
-            if (typeof j.embiClose === 'number') prevVal = j.embiClose;
+            if (typeof j.embiDelta === 'number') prevVal = dataVal - j.embiDelta; // approx
           }
         }
 
@@ -181,7 +181,7 @@ export default function RiesgoPaisVivo() {
         className="font-mono text-[9px] mt-2"
         style={{ color: 'var(--fg-3)' }}
       >
-        EMBIGD spot (GD35+) · {data.fecha}
+        GD35C YTM - US rf · {data.fecha}
       </p>
 
       {/* Accent bottom bar */}

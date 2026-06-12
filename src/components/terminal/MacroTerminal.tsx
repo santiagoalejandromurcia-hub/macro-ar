@@ -70,7 +70,7 @@ const ROW_SERIES: Record<string, RowSeries> = {
   'dolar-blue':     { title: 'DÓLAR BLUE (ARS)',              unit: ' ARS',    color: '#00C9A7', data: tcrData.map(d => ({ date: d.date, value: d.blue })) },
   'dolar-oficial':  { title: 'DÓLAR OFICIAL (ARS)',           unit: ' ARS',    color: '#74ACDF', data: tcrData.map(d => ({ date: d.date, value: d.oficial })) },
   'brecha':         { title: 'BRECHA CAMBIARIA (%)',          unit: '%',       color: '#F0A500', data: tcrData.map(d => ({ date: d.date, value: Number((((d.blue / d.oficial) - 1) * 100).toFixed(1)) })) },
-  'riesgo':         { title: 'RIESGO PAÍS (mercado / calc GD35+)', unit: ' pb', color: '#f85149', data: riesgoPaisData.map(d => ({ date: d.date, value: d.value })) },
+  'riesgo':         { title: 'RIESGO PAÍS (GD35C YTM - US rf)', unit: ' pb', color: '#f85149', data: riesgoPaisData.map(d => ({ date: d.date, value: d.value })) },
 };
 
 function buildRows(
@@ -200,7 +200,7 @@ function buildRows(
       fuente: 'CALC.', tabs: ['TODOS','EXTERNO'],
     },
     {
-      id: 'riesgo', label: 'Riesgo País (spot)', isLive: true,
+      id: 'riesgo', label: 'Riesgo País (GD35C YTM)', isLive: true,
       value: riesgo ? `${riesgo.valor.toLocaleString('es-AR')} pb` : '—',
       deltaMes: riesgoDelta !== null ? `${riesgoDelta > 0 ? '▲' : '▼'} ${Math.abs(riesgoDelta)} pb` : null,
       sign: riesgoDelta !== null ? (riesgoDelta <= 0 ? 'pos' : 'neg') : 'flat',
@@ -308,17 +308,19 @@ export default function MacroTerminal() {
         let riesgoFecha = null;
         let prevVal = null;
 
-        // Preferir el cálculo propio con precios live (GD35+ y spread) si está disponible y >0
+        // Usar el simple GD35C YTM - US risk free (exactamente como BondTerminal / traders)
+        // gd35c_spread = YTM(GD35C) - US10y   (en bps)
         if (er.ok) {
           const j = await er.json();
-          if (typeof j.embi === 'number' && j.embi > 0) {
-            riesgoVal = j.embi;
+          if (typeof j.gd35c_spread === 'number' && j.gd35c_spread > 0) {
+            riesgoVal = j.gd35c_spread;
             riesgoFecha = j.timestamp ? j.timestamp.slice(0,10) : new Date().toISOString().slice(0,10);
-            if (typeof j.embiClose === 'number') prevVal = j.embiClose;
+            // para delta usamos el embiDelta como proxy (o podríamos almacenar histórico simple)
+            if (typeof j.embiDelta === 'number') prevVal = riesgoVal - j.embiDelta; // approx
           }
         }
 
-        // Fallback al índice oficial JP Morgan (ArgentinaDatos) si el calc falla o da 0
+        // Fallback al índice oficial si el calc simple no da valor
         if (riesgoVal === null && rr.ok) {
           const j = await rr.json();
           if (j.ultimo && typeof j.ultimo.valor === 'number') {
@@ -688,7 +690,7 @@ function LiveStrip({ tab, dolar, riesgo, riesgoPrev }: {
     { label:'DÓLAR BLUE',    value: dolar ? `$${dolar.blue.value_sell.toLocaleString('es-AR')}` : '—',    sub: dolar ? `Compra $${dolar.blue.value_buy.toLocaleString('es-AR')}` : null,    color:'var(--teal)' },
     { label:'DÓLAR OFICIAL', value: dolar ? `$${dolar.oficial.value_sell.toLocaleString('es-AR')}` : '—', sub: dolar ? `Compra $${dolar.oficial.value_buy.toLocaleString('es-AR')}` : null, color:'var(--celeste)' },
     { label:'BRECHA',        value: brecha !== null ? `${brecha>0?'+':''}${brecha.toFixed(1)}%` : '—',    sub:'Blue vs Oficial', color: brecha !== null && brecha>5 ? 'var(--down)' : 'var(--fg-2)' },
-    { label:'RIESGO PAÍS (spot GD35+)', value: riesgo ? `${riesgo.valor} pb` : '—', sub: rd !== null ? `${rd>0?'▲':'▼'} ${Math.abs(rd)} pb` : null, color: rd !== null ? (rd<=0 ? 'var(--teal)' : 'var(--down)') : 'var(--fg-2)' },
+    { label:'RIESGO PAÍS (GD35C YTM)', value: riesgo ? `${riesgo.valor} pb` : '—', sub: rd !== null ? `${rd>0?'▲':'▼'} ${Math.abs(rd)} pb` : null, color: rd !== null ? (rd<=0 ? 'var(--teal)' : 'var(--down)') : 'var(--fg-2)' },
   ];
 
   return (

@@ -64,7 +64,8 @@ const GD30_FLOWS: CashFlow[] = [
 
 // ── GD35 — Argentina 2035 (ISIN: US040114HU71) ───────────────────────────────
 // Vencimiento: 9 Jul 2035 | Cupón: 3.625% p.a. | Bullet (sin amort anticipada)
-const GD35_FLOWS: CashFlow[] = [
+// (User note: referred as ARGENT 4.125 35 / GD35C in some quotes; using this for YTM calc)
+export const GD35_FLOWS: CashFlow[] = [
   { date: semiDate(2026, 7, 9),  coupon: 1.8125, principal: 0 },
   { date: semiDate(2027, 1, 9),  coupon: 1.8125, principal: 0 },
   { date: semiDate(2027, 7, 9),  coupon: 1.8125, principal: 0 },

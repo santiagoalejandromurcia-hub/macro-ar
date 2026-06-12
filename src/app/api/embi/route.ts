@@ -21,7 +21,7 @@
 // ============================================================
 
 import { NextResponse } from 'next/server';
-import { EMBI_BONDS }    from '@/lib/bonds/definitions';
+import { EMBI_BONDS, GD35_FLOWS }    from '@/lib/bonds/definitions';
 import {
   calcYTM,
   calcModifiedDuration,
@@ -55,13 +55,18 @@ export interface BondResult {
 }
 
 export interface EmbiResponse {
-  embi: number;               // Spread_BT ponderado actual (bps)
+  embi: number;               // Spread_BT ponderado actual (bps) - multi bono
   embiClose: number | null;   // Spread_BT ponderado ayer al cierre (bps)
   embiDelta: number | null;   // Variación = embi - embiClose (bps)
   bonds: BondResult[];
   treasuryCurve: Record<string, number>;
   timestamp: string;
   source: 'calculated';
+
+  // Simple GD35C market risk (YTM GD35C - US 10y) - the one used by BondTerminal / traders for "real" riesgo país
+  gd35c_ytm?: number | null;
+  gd35c_spread?: number | null;  // this is the one to use for main live "Riesgo País" ticker
+  us10y?: number | null;
 }
 
 export async function GET() {
@@ -168,6 +173,24 @@ export async function GET() {
       return NextResponse.json({ error: 'No bond data available' }, { status: 503 });
     }
 
+    // ── Simple GD35C YTM-based riesgo país (BondTerminal style) ────────
+    // Riesgo País = YTM(GD35C) - US Treasury 10y (approx risk free)
+    // This is the "real" current market quote traders use (simple, using the liquid 2035 bond)
+    let gd35c_ytm: number | null = null;
+    let gd35c_spread: number | null = null;
+    let us10y: number | null = null;
+
+    const gd35cLive = priceMap.get('GD35C');
+    if (gd35cLive && curve) {
+      const priceC = (gd35cLive.px_bid + gd35cLive.px_ask) / 2;
+      if (priceC > 0 && priceC < 200) {
+        const ytmDec = calcYTM(priceC, GD35_FLOWS, settleDate);
+        gd35c_ytm = Math.round(ytmDec * 10000) / 100;
+        us10y = curve[10] || 0.0475;
+        gd35c_spread = Math.round((ytmDec - us10y) * 10000);
+      }
+    }
+
     // ── 4. Spread_BT actual y Spread_BT cierre ─────────────────────────
     //
     // Spread_BT = Σ(spread_i × outstanding_i) ÷ Σ(outstanding_i)
@@ -210,6 +233,9 @@ export async function GET() {
       treasuryCurve: treasuryCurveFormatted,
       timestamp: new Date().toISOString(),
       source: 'calculated',
+      gd35c_ytm,
+      gd35c_spread,
+      us10y: us10y ? Math.round(us10y * 10000)/100 : null,
     };
 
     return NextResponse.json(response, {

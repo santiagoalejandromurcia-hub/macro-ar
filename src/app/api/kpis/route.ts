@@ -39,19 +39,27 @@ export async function GET() {
     }
   } catch { /* silent */ }
 
-  // ── Riesgo País (cálculo mercado con GD35+ y spread) ─────────
-  // Preferimos el valor "de verdad" que se ve en terminales de bonos (BondTerminal etc.)
-  // en lugar del índice publicado con lag.
+  // ── Riesgo País (GD35C YTM simple - como BondTerminal) ─────────
+  // El cálculo fácil: YTM del GD35C - US risk free (~4.75%)
+  // Esto es lo que muestra BondTerminal como el "real" riesgo país actual.
   try {
     const res = await fetch('/api/embi', { next: { revalidate: 300 } });
     if (res.ok) {
       const data = await res.json();
-      if (typeof data?.embi === 'number') {
+      if (typeof data?.gd35c_spread === 'number' && data.gd35c_spread > 0) {
+        results.push({
+          id: 'riesgo-pais',
+          value: `${data.gd35c_spread} pb`,
+          change: data.embiDelta ?? 0,
+          changeLabel: `GD35C YTM - US rf · ${data.timestamp ? data.timestamp.slice(0,10) : ''}`,
+        });
+      } else if (typeof data?.embi === 'number') {
+        // fallback al ponderado si simple no disponible
         results.push({
           id: 'riesgo-pais',
           value: `${data.embi} pb`,
           change: data.embiDelta ?? 0,
-          changeLabel: `spot GD35+ / EMBIGD calc · ${data.timestamp ? data.timestamp.slice(0,10) : ''}`,
+          changeLabel: `EMBIGD calc (multi) · ${data.timestamp ? data.timestamp.slice(0,10) : ''}`,
         });
       }
     }
