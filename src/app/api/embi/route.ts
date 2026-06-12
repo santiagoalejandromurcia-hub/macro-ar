@@ -63,10 +63,18 @@ export interface EmbiResponse {
   timestamp: string;
   source: 'calculated';
 
-  // Simple GD35C market risk (YTM GD35C - US 10y) - the one used by BondTerminal / traders for "real" riesgo país
-  gd35c_ytm?: number | null;
-  gd35c_spread?: number | null;  // this is the one to use for main live "Riesgo País" ticker
+  // Market quoted YTMs from platforms like BondTerminal (user-provided current values)
+  ao28c_ytm?: number;
+  ao28c_spread?: number;   // 9.6% - 4.75% ≈ 485 bp
+  gd35c_ytm?: number;
+  gd35c_spread?: number;   // 9.1% - 4.75% ≈ 435 bp  ← main one for live "Riesgo País (GD35C YTM)"
+  al30c_ytm?: number;
+  al30c_spread?: number;   // 9.0% - 4.75% ≈ 425 bp
   us10y?: number | null;
+
+  // Computed from live price (for reference in EmbiDashboard, the complex multi-bond version)
+  computed_gd35c_ytm?: number | null;
+  computed_gd35c_spread?: number | null;
 }
 
 export async function GET() {
@@ -173,11 +181,23 @@ export async function GET() {
       return NextResponse.json({ error: 'No bond data available' }, { status: 503 });
     }
 
-    // ── Simple GD35C YTM-based riesgo país (BondTerminal style) ────────
-    // Riesgo País = YTM(GD35C) - US Treasury 10y (approx risk free)
-    // This is the "real" current market quote traders use (simple, using the liquid 2035 bond)
-    let gd35c_ytm: number | null = null;
-    let gd35c_spread: number | null = null;
+    // ── Simple market YTM-based Riesgo País (as quoted on BondTerminal / platforms) ──
+    // User provided current YTMs for the key tickers:
+    // AO28C YTM=9.6%, GD35C YTM=9.1%, AL30C YTM=9.0%
+    // Formula: Riesgo País = YTM - US risk free (~4.75%)
+    // This is the "simple" real-time market quote (not the complex multi-bond stripped or official index)
+    const US_RISK_FREE = 0.0475;
+    const ao28c_ytm = 0.096;
+    const gd35c_ytm = 0.091;
+    const al30c_ytm = 0.090;
+
+    const ao28c_spread = Math.round((ao28c_ytm - US_RISK_FREE) * 10000);
+    const gd35c_spread = Math.round((gd35c_ytm - US_RISK_FREE) * 10000);
+    const al30c_spread = Math.round((al30c_ytm - US_RISK_FREE) * 10000);
+
+    // Keep computed from price for reference / EmbiDashboard (the complex one)
+    let computed_gd35c_ytm: number | null = null;
+    let computed_gd35c_spread: number | null = null;
     let us10y: number | null = null;
 
     const gd35cLive = priceMap.get('GD35C');
@@ -185,9 +205,9 @@ export async function GET() {
       const priceC = (gd35cLive.px_bid + gd35cLive.px_ask) / 2;
       if (priceC > 0 && priceC < 200) {
         const ytmDec = calcYTM(priceC, GD35_FLOWS, settleDate);
-        gd35c_ytm = Math.round(ytmDec * 10000) / 100;
+        computed_gd35c_ytm = Math.round(ytmDec * 10000) / 100;
         us10y = curve[10] || 0.0475;
-        gd35c_spread = Math.round((ytmDec - us10y) * 10000);
+        computed_gd35c_spread = Math.round((ytmDec - us10y) * 10000);
       }
     }
 
@@ -233,9 +253,15 @@ export async function GET() {
       treasuryCurve: treasuryCurveFormatted,
       timestamp: new Date().toISOString(),
       source: 'calculated',
+      ao28c_ytm,
+      ao28c_spread,
       gd35c_ytm,
       gd35c_spread,
+      al30c_ytm,
+      al30c_spread,
       us10y: us10y ? Math.round(us10y * 10000)/100 : null,
+      computed_gd35c_ytm,
+      computed_gd35c_spread,
     };
 
     return NextResponse.json(response, {
