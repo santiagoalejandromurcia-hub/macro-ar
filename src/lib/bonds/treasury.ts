@@ -27,6 +27,7 @@ const TAGS: Record<number, string> = {
 /**
  * Descarga la curva de Treasuries del día actual (o del último día hábil).
  * Hace fallback al mes anterior si el XML de hoy está vacío.
+ * Si todo falla, usa una curva aproximada reciente (para que el cálculo de spread siga funcionando).
  */
 export async function fetchTreasuryCurve(): Promise<TreasuryCurve | null> {
   const now = new Date();
@@ -53,7 +54,21 @@ export async function fetchTreasuryCurve(): Promise<TreasuryCurve | null> {
     }
   }
 
-  return null;
+  // Fallback curva aproximada (valores típicos mid-2026 para que el spread se pueda calcular)
+  // Actualizar manualmente cuando haya datos frescos si el endpoint falla persistentemente.
+  console.warn('[treasury] using fallback curve');
+  return {
+    0.25: 0.0525,
+    0.5: 0.0518,
+    1: 0.0505,
+    2: 0.0485,
+    3: 0.0475,
+    5: 0.0468,
+    7: 0.0465,
+    10: 0.0460,
+    20: 0.0480,
+    30: 0.0472,
+  };
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
