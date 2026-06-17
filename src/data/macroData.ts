@@ -57,12 +57,12 @@ export const kpiCards: KPICard[] = [
   {
     id: 'superavit',
     title: 'Superávit Primario',
-    value: '0.5%',
-    change: -0.9,
-    changeLabel: '1T 26 (Ene-Mar) % del PIB',
+    value: '0.7%',
+    change: 0.2,
+    changeLabel: 'Ene–May 26 (% PIB) · financiero 0,2%',
     unit: '% PIB',
     icon: '✅',
-    updatedAt: '1T-26',
+    updatedAt: 'May 26',
     source: 'MECON',
   },
   {
@@ -146,7 +146,7 @@ export const sectorData = [
   { sector: 'Transporte', value: -2.5, color: '#84CC16' },       // Estimado
 ];
 // Resultado Fiscal (% del PIB) - Secretaría de Hacienda / Ministerio de Economía
-// Actualizado al 14 de mayo de 2026
+// Actualizado mayo 2026 (comunicado MECON 17/06/2026)
 export const fiscalData = [
   { period: 'Ene 24', primario: 2.0, financiero: 0.5 },
   { period: 'Mar 24', primario: 0.6, financiero: 0.2 },
@@ -165,8 +165,22 @@ export const fiscalData = [
   { period: 'Ene 26', primario: 3.0, financiero: 1.1 },   // Oficial
   { period: 'Feb 26', primario: 1.4, financiero: 0.1 },   // Oficial
   { period: 'Mar 26', primario: 0.9, financiero: 0.4 },
-  { period: 'Abr 26', primario: 0.6, financiero: 0.2 },  // Mensual no publicado (solo acumulado)
-  
+  { period: 'Abr 26', primario: 0.6, financiero: 0.2 },
+  { period: 'May 26', primario: 1.8, financiero: 0.45 },
+    // ← ÚLTIMO MECON (17/06/2026) · acum. ene-may: primario 0,7% PIB · financiero 0,2% PIB
+];
+
+// Resultado fiscal nominal mensual (millones de ARS) — SPNF
+export const fiscalNominalData = [
+  { period: 'Abr 26', primario:  632844, financiero:  268103, intereses:  364741 },
+  { period: 'May 26', primario: 1924367, financiero:  478613, intereses: 1445754 },
+];
+
+// Composición del gasto primario — variación interanual real (mayo 2026)
+export const fiscalGastoRealData: Array<{ concepto: string; variacionReal: string; destacado?: boolean }> = [
+  { concepto: 'Gasto primario total', variacionReal: '-2,2%', destacado: true },
+  { concepto: 'Asignación Universal por Hijo (AUH)', variacionReal: '+8,6%' },
+  { concepto: 'Jubilaciones y pensiones contributivas', variacionReal: '+1,2%' },
 ];
 
 // Recaudación Tributaria Nacional (millones de pesos) - Abril 2026

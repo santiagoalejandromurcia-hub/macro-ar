@@ -50,6 +50,7 @@ const gastoPublicoFallback = [
   { date: 'Ene 25', value: 15.0 }, { date: 'Abr 25', value: 14.8 },
   { date: 'Jul 25', value: 14.6 }, { date: 'Oct 25', value: 14.4 },
   { date: 'Ene 26', value: 14.2 }, { date: 'Abr 26', value: 14.1 },
+  { date: 'May 26', value: 14.0 },
 ];
 
 // Rangos de cada presidente (para fondo semitransparente)
@@ -57,7 +58,7 @@ const ERAS = [
   { x1: 'Ene 15', x2: 'Oct 15', fill: '#f97316', label: 'CFK' },
   { x1: 'Ene 16', x2: 'Oct 19', fill: '#3B82F6', label: 'Macri' },
   { x1: 'Ene 20', x2: 'Oct 23', fill: '#EF4444', label: 'Alberto' },
-  { x1: 'Ene 24', x2: 'Abr 26', fill: '#10B981', label: 'Milei' },
+  { x1: 'Ene 24', x2: 'May 26', fill: '#10B981', label: 'Milei' },
 ];
 
 function CustomTooltip({ active, payload, label }: {
@@ -160,7 +161,7 @@ export default function GastoPublicoChart() {
           <ReferenceDot x="Ene 20" y={18.7} r={5} fill="#6B7280"  stroke="#fff" strokeWidth={2} label={{ value: '18,7%', position: 'bottom', fontSize: 10, fill: t.textSecondary }} />
           <ReferenceDot x="Jul 21" y={23.6} r={5} fill="#EF4444"  stroke="#fff" strokeWidth={2} label={{ value: '23,6%', position: 'top',    fontSize: 10, fill: t.textSecondary }} />
           <ReferenceDot x="Oct 23" y={19.2} r={5} fill="#8B5CF6"  stroke="#fff" strokeWidth={2} label={{ value: '19,2%', position: 'top',    fontSize: 10, fill: t.textSecondary }} />
-          <ReferenceDot x="Abr 26" y={14.1} r={5} fill="#10B981"  stroke="#fff" strokeWidth={2} label={{ value: '14,1%', position: 'bottom', fontSize: 10, fill: t.textSecondary }} />
+          <ReferenceDot x="May 26" y={14.0} r={5} fill="#10B981"  stroke="#fff" strokeWidth={2} label={{ value: '14,0%', position: 'bottom', fontSize: 10, fill: t.textSecondary }} />
         </AreaChart>
       </ResponsiveContainer>
 
@@ -178,7 +179,7 @@ export default function GastoPublicoChart() {
           </span>
         ))}
         <span className="ml-auto font-semibold text-theme-primary">
-          Ajuste Milei: <span className="text-ar-green">−5,1 p.p.</span> (Oct 23 → Abr 26)
+          Ajuste Milei: <span className="text-ar-green">−5,2 p.p.</span> (Oct 23 → May 26)
         </span>
       </div>
     </ChartCard>

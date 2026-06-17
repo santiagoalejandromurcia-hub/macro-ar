@@ -29,4 +29,5 @@ export {
   EmaeLargoPlazoChart,
   // Gasto Público
   GastoPublicoChart,
+  FiscalDetalleTable,
 } from './charts/index';

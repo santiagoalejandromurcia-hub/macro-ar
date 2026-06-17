@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { FiscalChart, TaxTable } from '@/components/Charts';
+import { FiscalChart, FiscalDetalleTable, TaxTable } from '@/components/Charts';
 
 const SITE_URL = 'https://macrolibre.com';
 
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     q: '¿Argentina tiene superávit o déficit fiscal en 2026?',
-    a: 'Argentina registra superávit fiscal primario desde el primer trimestre de 2024. En el primer trimestre de 2026, el superávit primario acumulado fue del 0.5% del PIB, según datos del Ministerio de Economía. Es el segundo año consecutivo de equilibrio fiscal primario.',
+    a: 'Argentina registra superávit fiscal primario desde 2024. En mayo 2026 el SPNF acumuló un superávit primario de 0,7% del PIB y un superávit financiero de 0,2% del PIB en los primeros cinco meses del año, según el Ministerio de Economía. En mayo el superávit primario mensual fue de $1.924.367 millones.',
   },
   {
     q: '¿Cuál es la diferencia entre resultado primario y resultado financiero?',
@@ -105,6 +105,7 @@ export default function ResultadoFiscalPage() {
 
       <div className="space-y-6">
         <FiscalChart />
+        <FiscalDetalleTable />
         <TaxTable />
       </div>
 

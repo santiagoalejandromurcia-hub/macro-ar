@@ -2,7 +2,7 @@ import { articles } from '@/data/articles';
 import MacroTerminal from '@/components/terminal/MacroTerminal';
 import SectionHeader from '@/components/SectionHeader';
 import {
-  PBIBarChart, SectorChart, FiscalChart, TaxTable,
+  PBIBarChart, SectorChart, FiscalChart, FiscalDetalleTable, TaxTable,
   TradeChart, ReservasChart, TCRChart, RiesgoPaisChart,
   InflacionMensualChart, InflacionInteranualChart, REMChart,
   ConsumoPrivadoChart, PBIDesestacionalizadoChart, PobrezaChart, ExportacionesChart,
@@ -103,6 +103,7 @@ export default function HomePage() {
           />
           <div className="space-y-6">
             <FiscalChart />
+            <FiscalDetalleTable />
             <GastoPublicoChart />
             <TaxTable />
           </div>

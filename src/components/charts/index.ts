@@ -29,3 +29,4 @@ export { default as EmaeLargoPlazoChart } from './EmaeLargoPlazoChart';
 
 // Bloque "Gasto Público"
 export { default as GastoPublicoChart } from './GastoPublicoChart';
+export { default as FiscalDetalleTable } from './FiscalDetalleTable';

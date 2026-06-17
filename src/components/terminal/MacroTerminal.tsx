@@ -133,7 +133,7 @@ function buildRows(
     },
 
     // ── FISCAL / EXTERNO ──────────────────────────────────────
-    { id: 'superavit', label: 'Superávit Primario', value: '0.5%',  deltaMes: '▼ -0.90%', sign: 'neg',  fuente: 'MECON', tabs: ['TODOS','FISCAL'] },
+    { id: 'superavit', label: 'Superávit Primario', value: '0.7%',  deltaMes: '▲ +0.20 pp', sign: 'pos',  fuente: 'MECON', tabs: ['TODOS','FISCAL'] },
     { id: 'reservas',  label: 'Reservas BCRA',       value: 'USD 47.874M', deltaMes: '▲ +1.80%', sign: 'pos', fuente: 'BCRA',  tabs: ['TODOS','EXTERNO'] },
     { id: 'tamar',     label: 'TAMAR',               value: '23.00% n.a.', deltaMes: '— sin cambio', sign: 'flat', fuente: 'BCRA', tabs: ['TODOS','PRECIOS','FISCAL'] },
 
