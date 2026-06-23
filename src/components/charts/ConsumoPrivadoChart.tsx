@@ -32,7 +32,7 @@ export default function ConsumoPrivadoChart() {
   return (
     <ChartCard
       title="Consumo Privado — Serie desestacionalizada"
-      subtitle={isLive ? `Base I-17 = 100 · Actualizado ${updatedAt} · INDEC` : 'Base I-17 = 100 · Trimestral 2017–2025 · Fuente: Econométrica en base a INDEC'}
+      subtitle={isLive ? `Base I-17 = 100 · Actualizado ${updatedAt} · INDEC` : 'Base I-17 = 100 · Trimestral 2017–2026 · Fuente: Econométrica en base a INDEC'}
       isLive={isLive}
       csvData={csvData}
       csvFileName="consumo-privado"

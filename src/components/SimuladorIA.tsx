@@ -49,8 +49,8 @@ function calcularProyeccion(params: Params): { datos: DataPoint[]; pibAnual: num
   // ─── Ecuaciones calibradas (modelo Grok verificado) ───
 
   // PIB Growth anual (%)
-  // Base 1.8% + beneficio de bajar impuestos + beneficio de bajar gasto + flex + penalidad emisión
-  const pibAnual = 1.8
+  // Base 2.3% (PIB Q1-26 INDEC) + beneficio de bajar impuestos + bajar gasto + flex + penalidad emisión
+  const pibAnual = 2.3
     + 0.38 * (-deltaImpuestos)    // bajar impuestos → positivo
     + 0.52 * (-deltaGasto)         // bajar gasto → positivo
     + 0.28 * flexLaboral            // más flex → positivo
@@ -101,7 +101,7 @@ function generarNarrativa(params: Params, pibAnual: number, inflAnual: number, e
   const tieneReformas = impuestos !== 0 || gasto !== 0 || desregulacion !== 0 || reformaMonetaria !== 0;
 
   if (!tieneReformas) {
-    return `Todos los sliders están en cero. Sin cambios, la economía argentina sigue en piloto automático: crecimiento base del 1.8% anual, inflación del 32% anual, empleo creciendo apenas 0.9%.\n\nMové los sliders hacia la derecha para liberar la economía, o hacia la izquierda para ver qué pasa cuando el Estado avanza. Los números no mienten. 🦁`;
+    return `Todos los sliders están en cero. Sin cambios, la economía argentina sigue en piloto automático: crecimiento base del 2.3% anual, inflación del 32% anual, empleo creciendo apenas 0.9%.\n\nMové los sliders hacia la derecha para liberar la economía, o hacia la izquierda para ver qué pasa cuando el Estado avanza. Los números no mienten. 🦁`;
   }
 
   let partes: string[] = [];

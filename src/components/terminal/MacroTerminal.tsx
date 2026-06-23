@@ -96,7 +96,7 @@ function buildRows(
   return [
     // ── ACTIVIDAD ─────────────────────────────────────────────
     { id: 'emae',      label: 'EMAE',               value: '+5.5%',        deltaMes: '▲ +0.30%',    sign: 'pos',  fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
-    { id: 'pbi',       label: 'PBI Real',            value: '+3.8%',        deltaMes: '▲ var. Q4-25', sign: 'pos', fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
+    { id: 'pbi',       label: 'PBI Real',            value: '+2.3%',        deltaMes: '▲ var. Q1-26', sign: 'pos', fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
 
     // ── PRECIOS: IPC ──────────────────────────────────────────
     { id: 'inflacion', label: 'Inflación IPC',  value: `${ipcL.mensual.toFixed(1)}%`,

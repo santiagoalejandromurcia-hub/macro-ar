@@ -37,11 +37,11 @@ export const kpiCards: KPICard[] = [
   {
     id: 'pbi',
     title: 'PBI Real',
-    value: '3.8',
-    change: 3.8,
-    changeLabel: 'var. interanual (Q4-25)',
+    value: '2.3',
+    change: 2.3,
+    changeLabel: 'var. interanual (Q1-26)',
     icon: '📈',
-    updatedAt: 'Q4-25',
+    updatedAt: 'Q1-26',
     source: 'INDEC',
   },
   {
@@ -115,7 +115,7 @@ export const emaeData = [
   { date: 'Mar 26', value: 158.6, trend: 155.6 },
 ];
 
-// PBI Trimestral (variación interanual % YoY) - Actualizado 16/03/2026
+// PBI Trimestral (variación interanual % YoY) - Actualizado 23/06/2026
 export const pbiData = [
   { quarter: 'Q1 23', yoy: 1.3 },
   { quarter: 'Q2 23', yoy: -0.5 },
@@ -129,21 +129,21 @@ export const pbiData = [
   { quarter: 'Q2 25', yoy: 6.4 },     // Oficial INDEC (corregido)
   { quarter: 'Q3 25', yoy: 3.3 },     // Oficial INDEC (último publicado)
   { quarter: 'Q4 25', yoy: 3.8 },     // Preliminar (cierra el año en +4,4% anual)
-  { quarter: 'Q1 26', yoy: 1.8 },     // Revisada a la baja: EMAE Feb-26 -2.1% i.a.
+  { quarter: 'Q1 26', yoy: 2.3 },     // Oficial INDEC (23/06/2026) · +0,7% trim. desest.
 ];
 
-// Actividad por sector - Variación interanual (%) 
-// Fuente: INDEC - EMAE Febrero 2026 (último dato publicado)
+// PIB por sector — Variación interanual (%)
+// Fuente: INDEC — PIB Q1 2026 (23/06/2026)
 export const sectorData = [
-  { sector: 'Minería', value: 9.9, color: '#F97316' },           // Explotación de minas y canteras
-  { sector: 'Agro', value: 8.4, color: '#22C55E' },              // Agricultura, ganadería, caza y silvicultura
-  { sector: 'Pesca', value: 14.8, color: '#10B981' },            // (Agregado - fuerte impulsor)
-  { sector: 'Construcción', value: 12.7, color: '#D4A843' },     // Marzo 2026 (ISAC)
-  { sector: 'Energía', value: -3.5, color: '#EC4899' },          // Electricidad, gas y agua (aprox.)
-  { sector: 'Comercio', value: -7.0, color: '#A78BFA' },         // Comercio mayorista y minorista
-  { sector: 'Industria', value: -8.7, color: '#74ACDF' },        // Industria manufacturera
-  { sector: 'Financiero', value: 6.0, color: '#06B6D4' },        // Intermediación financiera (aprox.)
-  { sector: 'Transporte', value: -2.5, color: '#84CC16' },       // Estimado
+  { sector: 'Pesca', value: 27.5, color: '#10B981' },
+  { sector: 'Agro', value: 18.1, color: '#22C55E' },
+  { sector: 'Minería', value: 12.3, color: '#F97316' },
+  { sector: 'Financiero', value: 7.5, color: '#06B6D4' },
+  { sector: 'Construcción', value: 2.5, color: '#D4A843' },
+  { sector: 'Transporte', value: 2.3, color: '#84CC16' },
+  { sector: 'Comercio', value: -0.3, color: '#A78BFA' },
+  { sector: 'Industria', value: -1.7, color: '#74ACDF' },
+  { sector: 'Energía', value: -1.1, color: '#EC4899' },
 ];
 // Resultado Fiscal (% del PIB) - Secretaría de Hacienda / Ministerio de Economía
 // Actualizado mayo 2026 (comunicado MECON 17/06/2026)
@@ -379,7 +379,8 @@ export const consumoPrivadoData: Array<{
   { quarter: 'I-25',  value:  98.4, etapa: 'lla' },
   { quarter: 'II-25', value: 100.8, etapa: 'lla' },
   { quarter: 'III-25',value: 102.5, etapa: 'lla' },
-  { quarter: 'IV-25', value: 102.6, etapa: 'lla' },   // Nuevo máximo (+14% vs II-24)
+  { quarter: 'IV-25', value: 102.6, etapa: 'lla' },
+  { quarter: 'I-26',  value: 103.4, etapa: 'lla' },   // INDEC Q1-26: +0,8% trim. desest. · +2,7% i.a.
 ];
 
 // ============================================================
@@ -428,7 +429,8 @@ export const pbiDesestacionalizadoData: Array<{
   { quarter: 'I-25',  value:  99.5, etapa: 'lla' },
   { quarter: 'II-25', value: 100.6, etapa: 'lla' },
   { quarter: 'III-25',value: 101.5, etapa: 'lla' },
-  { quarter: 'IV-25', value: 102.4, etapa: 'lla' },   // Nuevo máximo (+7,8% vs II-24)
+  { quarter: 'IV-25', value: 102.4, etapa: 'lla' },
+  { quarter: 'I-26',  value: 103.1, etapa: 'lla' },   // INDEC Q1-26: +0,7% trim. desest. · +2,3% i.a.
 ];
 
 // ============================================================
@@ -661,7 +663,7 @@ export const inflacionLargoPlazoData: Array<{
 // EMAE largo plazo — Serie desestacionalizada (puntos clave 2017-2026)
 // Fuente: Econométrica en base a INDEC
 // Hitos: nov-17 J×C ~152 · COVID 2020 ~137 · jun-22 pico azul ~152 ·
-//        dic-23 punto partida Milei · Mar-26* ~158 (nuevo máximo)
+//        dic-23 punto partida Milei · Mar-26 ~156 (desest., INDEC)
 // ============================================================
 export const emaeLargoPlazoData: Array<{
   date: string;
@@ -690,7 +692,7 @@ export const emaeLargoPlazoData: Array<{
   { date: 'Dic 24',  value: 148.0, etapa: 'lla' },
   { date: 'Jun 25',  value: 152.0, etapa: 'lla' },
   { date: 'Dic 25',  value: 155.5, etapa: 'lla' },
-  { date: 'Mar 26',  value: 158.6, etapa: 'lla', isEstimate: true },   // Nuevo máximo 
+  { date: 'Mar 26',  value: 156.3, etapa: 'lla' },   // INDEC mar-26 (desest.) · +5,5% i.a.
 ];
 
 // ============================================================

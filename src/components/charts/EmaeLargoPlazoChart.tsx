@@ -20,7 +20,7 @@ import { useIndicatorData } from '@/hooks/useIndicatorData';
 /**
  * Actividad Económica EMAE — Largo plazo, serie desestacionalizada.
  * "Nuevo máximo." Hitos: Nov-17 J×C ~152 · COVID ~137 · Jun-22 pico azul ~152 ·
- * Dic-23 punto partida Milei · Mar-26* ~155 (nuevo máximo, +7,9% vs Dic-23).
+ * Dic-23 punto partida Milei · Mar-26 ~156 (desest., INDEC).
  * Fuente: Econométrica en base a INDEC.
  */
 export default function EmaeLargoPlazoChart() {
@@ -70,7 +70,7 @@ export default function EmaeLargoPlazoChart() {
           <ReferenceDot x="Jun 20" y={119.5} r={5} fill="#EF4444" stroke="#fff" strokeWidth={2} label={{ value: 'COVID', position: 'bottom', fill: t.textSecondary, fontSize: 9 }} />
           <ReferenceDot x="Jun 22" y={152} r={5} fill="#74ACDF" stroke="#fff" strokeWidth={2} label={{ value: 'Pico azul', position: 'top', fill: t.textSecondary, fontSize: 9 }} />
           <ReferenceDot x="Dic 23" y={143.6} r={5} fill="#A78BFA" stroke="#fff" strokeWidth={2} />
-          <ReferenceDot x="Mar 26" y={155} r={6} fill="#22C55E" stroke="#fff" strokeWidth={2} label={{ value: 'Nuevo máx.', position: 'top', fill: '#22C55E', fontSize: 10, fontWeight: 600 }} />
+          <ReferenceDot x="Mar 26" y={156.3} r={6} fill="#22C55E" stroke="#fff" strokeWidth={2} label={{ value: 'Mar-26', position: 'top', fill: '#22C55E', fontSize: 10, fontWeight: 600 }} />
         </ComposedChart>
       </ResponsiveContainer>
 
@@ -78,7 +78,7 @@ export default function EmaeLargoPlazoChart() {
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#D4A843' }} />J×C (Nov-17 ~152)</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#74ACDF' }} />Fernández (Jun-22 pico ~152)</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#A78BFA' }} />Milei (Dic-23 ~143)</span>
-        <span className="ml-auto text-theme-primary font-semibold">Mar-26* vs Dic-23: <span className="text-ar-green">+7,9%</span> (estim. econométrica +2,5% YoY)</span>
+        <span className="ml-auto text-theme-primary font-semibold">Mar-26 vs Dic-23: <span className="text-ar-green">+8,8%</span> (INDEC · +5,5% i.a.)</span>
       </div>
     </ChartCard>
   );

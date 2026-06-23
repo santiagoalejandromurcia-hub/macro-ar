@@ -19,7 +19,7 @@ import { useIndicatorData } from '@/hooks/useIndicatorData';
 /**
  * PBI — Serie desestacionalizada (Base I-17 = 100)
  * Fuente: Econométrica en base a INDEC.
- * IV-25 marca un nuevo máximo histórico, +7,8% vs el mínimo de II-24.
+ * I-26: +0,7% trim. desest. (INDEC 23/06/2026).
  */
 export default function PBIDesestacionalizadoChart() {
   const t = useChartTheme();
@@ -31,7 +31,7 @@ export default function PBIDesestacionalizadoChart() {
   return (
     <ChartCard
       title="PBI — Serie desestacionalizada"
-      subtitle={isLive ? `Base I-17 = 100 · Actualizado ${updatedAt} · INDEC` : 'Base I-17 = 100 · Trimestral 2017–2025 · Fuente: Econométrica en base a INDEC'}
+      subtitle={isLive ? `Base I-17 = 100 · Actualizado ${updatedAt} · INDEC` : 'Base I-17 = 100 · Trimestral 2017–2026 · Fuente: Econométrica en base a INDEC'}
       isLive={isLive}
       csvData={csvData}
       csvFileName="pbi-desestacionalizado"

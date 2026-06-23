@@ -15,8 +15,8 @@ export default function SectorChart() {
 
   return (
     <ChartCard
-      title="Actividad por Sector"
-      subtitle={isLive ? `Var. interanual (%) · Actualizado ${updatedAt} · INDEC` : 'Variación interanual (%) · Fuente: INDEC'}
+      title="PIB por Sector"
+      subtitle={isLive ? `Var. interanual Q1-26 (%) · Actualizado ${updatedAt} · INDEC` : 'Var. interanual Q1-26 (%) · Fuente: INDEC'}
       isLive={isLive}
       csvData={csvData}
       csvFileName="actividad-por-sector"
