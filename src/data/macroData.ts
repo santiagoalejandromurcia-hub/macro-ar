@@ -146,8 +146,8 @@ export const sectorData = [
   { sector: 'Industria', value: -1.7, color: '#74ACDF' },
   { sector: 'Energía', value: -1.1, color: '#EC4899' },
 ];
-// Resultado Fiscal (% del PIB) - Secretaría de Hacienda / Ministerio de Economía
-// Actualizado mayo 2026 (comunicado MECON 17/06/2026)
+// Resultado Fiscal (% del PIB) — acumulado 12 meses
+// Fuente: MECON + UBA IIEP (serie 12m comparable, excl. privatizaciones hidro)
 export const fiscalData = [
   { period: 'Ene 24', primario: 2.0, financiero: 0.5 },
   { period: 'Mar 24', primario: 0.6, financiero: 0.2 },
@@ -163,12 +163,13 @@ export const fiscalData = [
   { period: 'Sep 25', primario: 0.6, financiero: 0.3 },
   { period: 'Nov 25', primario: 2.1, financiero: 0.5 },
   { period: 'Dic 25', primario: 2.0, financiero: 1.1 },
-  { period: 'Ene 26', primario: 3.0, financiero: 1.1 },   // Oficial
-  { period: 'Feb 26', primario: 1.4, financiero: 0.1 },   // Oficial
+  { period: 'Ene 26', primario: 3.0, financiero: 1.1 },   // Pico por ingresos extraordinarios
+  { period: 'Feb 26', primario: 1.4, financiero: 0.1 },
   { period: 'Mar 26', primario: 0.9, financiero: 0.4 },
   { period: 'Abr 26', primario: 0.6, financiero: 0.2 },
   { period: 'May 26', primario: 1.8, financiero: 0.45 },
-    // MECON 17/06/2026 · acum. ene-may: primario 0,7% PIB · financiero 0,2% PIB
+  { period: 'Jun 26', primario: 1.1, financiero: -0.1 },  // UBA IIEP · déficit mensual aguinaldo
+  { period: 'Jul 26', primario: 1.2, financiero: -0.1 },  // UBA IIEP ago-26 · 12m
 ];
 
 // Resultado fiscal nominal mensual (millones de ARS) — SPNF
@@ -181,23 +182,26 @@ export const fiscalNominalData = [
 ];
 
 // Composición del gasto primario — variación interanual real (julio 2026)
+// Fuente: MECON 18/08/2026 + UBA IIEP (Reporte Fiscal agosto 2026)
 export const fiscalGastoRealData: Array<{ concepto: string; variacionReal: string; destacado?: boolean }> = [
   { concepto: 'Gasto primario total', variacionReal: '-7,0%', destacado: true },
-  { concepto: 'Asignación Universal por Hijo (AUH)', variacionReal: '+8,6%' },
-  { concepto: 'Jubilaciones y pensiones contributivas', variacionReal: '+1,2%' },
+  { concepto: 'Prestaciones sociales', variacionReal: '-8,1%' },
+  { concepto: 'Jubilaciones y pensiones contributivas', variacionReal: '-4,5%' },
+  { concepto: 'Asignación Universal por Hijo (AUH)', variacionReal: '+3,8%' },
+  { concepto: 'Transferencias a provincias', variacionReal: '-38,6%' },
 ];
 
-// Recaudación Tributaria Nacional (millones de pesos) - Abril 2026
-// Fuente oficial: ARCA (ex AFIP) - Reporte mensual abril 2026
+// Recaudación Tributaria Nacional (millones de pesos) — Agosto 2026
+// Fuente oficial: ARCA / DNIAF — informe mensual agosto 2026
 export const taxData = [
-  { concepto: 'IVA', monto: '6.049.934', pctPIB: '-', variacion: '+28.3%' },
-  { concepto: 'Ganancias', monto: '3.136.961', pctPIB: '-', variacion: '+28.0%' },
-  { concepto: 'Der. Exportación', monto: '574.547', pctPIB: '-', variacion: '-13.3%' },
-  { concepto: 'Combustibles', monto: '≈680.000', pctPIB: '-', variacion: '+74.1%' },   // Estimado según reportes
-  { concepto: 'Bienes Personales', monto: '65.783', pctPIB: '-', variacion: '+12.0%' },
-  { concepto: 'Seg. Social', monto: '4.552.873', pctPIB: '-', variacion: '+26.6%' },
-  { concepto: 'Otros', monto: '≈2.340.000', pctPIB: '-', variacion: '-' },            // Incluye Créditos/Débitos ~1.426.170 y resto
-  { concepto: 'TOTAL', monto: '17.400.833', pctPIB: '-', variacion: '+27.2%' },
+  { concepto: 'IVA', monto: '6.675.409', pctPIB: '-', variacion: '+25,3%' },
+  { concepto: 'Ganancias', monto: '4.636.836', pctPIB: '-', variacion: '+45,2%' },
+  { concepto: 'Seg. Social', monto: '4.833.581', pctPIB: '-', variacion: '+31,9%' },
+  { concepto: 'Créditos y Débitos', monto: '1.520.865', pctPIB: '-', variacion: '+21,5%' },
+  { concepto: 'Der. Exportación', monto: '1.015.506', pctPIB: '-', variacion: '+155,1%' },
+  { concepto: 'Combustibles', monto: '724.899', pctPIB: '-', variacion: '+50,4%' },
+  { concepto: 'Bienes Personales', monto: '137.797', pctPIB: '-', variacion: '+24,8%' },
+  { concepto: 'TOTAL', monto: '20.508.537', pctPIB: '-', variacion: '+33,5%' },
 ];
 
 // Balanza Comercial (USD millones)
@@ -271,6 +275,7 @@ export const tcrData = [
   { date: 'Mar 26', oficial: 1420, blue: 1415, mep: 1424 },
   { date: 'Abr 26', oficial: 1445, blue: 1450, mep: 1448 },
   { date: 'May 26', oficial: 1385, blue: 1395, mep: 1424 },
+  { date: 'Sep 26', oficial: 1511, blue: 1540, mep: 1524 }, // 02–07/09/2026 · mayorista / blue / MEP
 ];
 
 // Inflación IPC
@@ -742,7 +747,8 @@ export const riesgoPaisData: Array<{
   { date: 'Mar 26', value: 550 },
   { date: 'Abr 26', value: 557 },
   { date: 'May 26', value: 490 },
-  { date: 'Jun - Estimado 26', value: 470, highlight: 'actual', note: 'Mínimo histórico en EMBIGD' },
+  { date: 'Jun 26', value: 470, note: 'Mínimo reciente EMBIGD' },
+  { date: 'Sep 26', value: 490, highlight: 'actual', note: 'JP Morgan EMBIGD · 07/09/2026' },
 ];
 
 // Última actualización

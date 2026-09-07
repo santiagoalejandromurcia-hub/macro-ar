@@ -24,7 +24,7 @@ export default function FiscalChart() {
   return (
     <ChartCard
       title="Resultado Fiscal — Primario y Financiero"
-      subtitle={isLive ? `% del PIB · Actualizado ${updatedAt} · Min. Economía` : '% del PIB · Acumulado 12 meses · Fuente: Min. Economía'}
+      subtitle={isLive ? `% del PIB · 12 meses · Actualizado ${updatedAt} · MECON / UBA IIEP` : '% del PIB · Acumulado 12 meses · Fuente: MECON / UBA IIEP'}
       isLive={isLive}
       periods={[...MONTHLY_PERIODS]}
       selectedPeriod={period}

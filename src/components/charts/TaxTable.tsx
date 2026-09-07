@@ -14,7 +14,7 @@ export default function TaxTable() {
   return (
     <ChartCard
       title="Recaudación Tributaria Nacional"
-      subtitle={isLive ? `Acumulado · Actualizado ${updatedAt} · ARCA` : 'Acumulado 2025 · En millones de ARS'}
+      subtitle={isLive ? `Agosto 2026 · Actualizado ${updatedAt} · ARCA` : 'Agosto 2026 · millones de ARS · var. i.a. nominal · Fuente: ARCA / DNIAF'}
       isLive={isLive}
     >
       <div className="overflow-x-auto -mx-2">
@@ -24,7 +24,7 @@ export default function TaxTable() {
               <th className="text-left py-2.5 px-3 text-xs text-theme-muted font-medium uppercase tracking-wider">Concepto</th>
               <th className="text-right py-2.5 px-3 text-xs text-theme-muted font-medium uppercase tracking-wider">Monto (M)</th>
               <th className="text-right py-2.5 px-3 text-xs text-theme-muted font-medium uppercase tracking-wider">% PIB</th>
-              <th className="text-right py-2.5 px-3 text-xs text-theme-muted font-medium uppercase tracking-wider">Var. real</th>
+              <th className="text-right py-2.5 px-3 text-xs text-theme-muted font-medium uppercase tracking-wider">Var. i.a.</th>
             </tr>
           </thead>
           <tbody>
@@ -39,7 +39,7 @@ export default function TaxTable() {
                 <td className="py-2.5 px-3" style={{ color: t.tableText }}>{row.concepto}</td>
                 <td className="py-2.5 px-3 text-right font-mono" style={{ color: t.tableText }}>{row.monto}</td>
                 <td className="py-2.5 px-3 text-right font-mono text-ar-celeste">{row.pctPIB}</td>
-                <td className="py-2.5 px-3 text-right font-mono text-ar-green">{row.variacion}</td>
+                <td className={`py-2.5 px-3 text-right font-mono ${row.variacion.startsWith('-') ? 'text-ar-magenta' : 'text-ar-green'}`}>{row.variacion}</td>
               </tr>
             ))}
           </tbody>
