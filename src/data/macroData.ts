@@ -26,12 +26,12 @@ export const kpiCards: KPICard[] = [
   {
     id: 'emae',
     title: 'EMAE',
-    value: '+5.5%',
-    change: 0.3,
-    changeLabel: 'var. i.a. (Mar 26)',
+    value: '+2.7%',
+    change: 2.5,
+    changeLabel: 'var. i.a. (Jun 26) · +0,8% s.e.',
     unit: 'Índice 2004=100',
     icon: '📊',
-    updatedAt: 'Mar 26',
+    updatedAt: 'Jun 26',
     source: 'INDEC',
   },
   {
@@ -48,31 +48,31 @@ export const kpiCards: KPICard[] = [
     id: 'inflacion',
     title: 'Inflación Mensual',
     value: '2.1%',
-    change: -0.5,
-    changeLabel: 'May 26 (vs Abr 2.6%)',
+    change: 0.2,
+    changeLabel: 'Jul 26 (vs Jun 1.9%)',
     icon: '🏷️',
-    updatedAt: 'May 26',
+    updatedAt: 'Jul 26',
     source: 'INDEC',
   },
   {
     id: 'superavit',
     title: 'Superávit Primario',
-    value: '0.7%',
+    value: '0.9%',
     change: 0.2,
-    changeLabel: 'Ene–May 26 (% PIB) · financiero 0,2%',
+    changeLabel: 'Ene–Jul 26 (% PIB) · financiero 0,1%',
     unit: '% PIB',
     icon: '✅',
-    updatedAt: 'May 26',
+    updatedAt: 'Jul 26',
     source: 'MECON',
   },
   {
     id: 'reservas',
     title: 'Reservas BCRA',
-    value: 'USD 47.874M',
-    change: 1.8,
+    value: 'USD 50.492M',
+    change: 18.0,
     changeLabel: 'vs. Dic 2025',
     icon: '🏦',
-    updatedAt: 'Abr 26',
+    updatedAt: '2 Sep 26',
     source: 'BCRA',
   },
   {
@@ -113,6 +113,7 @@ export const emaeData = [
   { date: 'Ene 26', value: 148.6, trend: 154.3 },
   { date: 'Feb 26', value: 138.3, trend: 154.9 },
   { date: 'Mar 26', value: 158.6, trend: 155.6 },
+  { date: 'May 26', value: 165.2, trend: 156.0 }, // original · +0,2% i.a. (INDEC 22/07/2026)
 ];
 
 // PBI Trimestral (variación interanual % YoY) - Actualizado 23/06/2026
@@ -167,18 +168,21 @@ export const fiscalData = [
   { period: 'Mar 26', primario: 0.9, financiero: 0.4 },
   { period: 'Abr 26', primario: 0.6, financiero: 0.2 },
   { period: 'May 26', primario: 1.8, financiero: 0.45 },
-    // ← ÚLTIMO MECON (17/06/2026) · acum. ene-may: primario 0,7% PIB · financiero 0,2% PIB
+    // MECON 17/06/2026 · acum. ene-may: primario 0,7% PIB · financiero 0,2% PIB
 ];
 
 // Resultado fiscal nominal mensual (millones de ARS) — SPNF
 export const fiscalNominalData = [
-  { period: 'Abr 26', primario:  632844, financiero:  268103, intereses:  364741 },
-  { period: 'May 26', primario: 1924367, financiero:  478613, intereses: 1445754 },
+  { period: 'Abr 26', primario:   632844, financiero:   268103, intereses:  364741 },
+  { period: 'May 26', primario:  1924367, financiero:   478613, intereses: 1445754 },
+  { period: 'Jun 26', primario:  -696843, financiero: -1024891, intereses:  328049 }, // déficit estacional (aguinaldo)
+  { period: 'Jul 26', primario:  2960333, financiero:   244897, intereses: 2715436 },
+    // ← ÚLTIMO MECON (18/08/2026) · acum. ene-jul: primario 0,9% PIB · financiero 0,1% PIB
 ];
 
-// Composición del gasto primario — variación interanual real (mayo 2026)
+// Composición del gasto primario — variación interanual real (julio 2026)
 export const fiscalGastoRealData: Array<{ concepto: string; variacionReal: string; destacado?: boolean }> = [
-  { concepto: 'Gasto primario total', variacionReal: '-2,2%', destacado: true },
+  { concepto: 'Gasto primario total', variacionReal: '-7,0%', destacado: true },
   { concepto: 'Asignación Universal por Hijo (AUH)', variacionReal: '+8,6%' },
   { concepto: 'Jubilaciones y pensiones contributivas', variacionReal: '+1,2%' },
 ];
@@ -214,7 +218,10 @@ export const tradeData = [
   { month: 'Ene 26', exports: 7057, imports: 5070, balance: 1987 },
   { month: 'Feb 26', exports: 5962, imports: 5174, balance: 788 },
   { month: 'Mar 26', exports: 8645, imports: 6122, balance: 2523 },
-  { month: 'Abr 26', exports: 8914, imports: 6203, balance: 2711 }, // ← RÉCORD HISTÓRICO · INDEC 20/05/2026
+  { month: 'Abr 26', exports: 8914, imports: 6203, balance: 2711 },
+  { month: 'May 26', exports: 9578, imports: 6128, balance: 3450 }, // récord mensual · ICA revisado ago-26
+  { month: 'Jun 26', exports: 9112, imports: 6877, balance: 2235 },
+  { month: 'Jul 26', exports: 8854, imports: 6739, balance: 2115 }, // ← ÚLTIMO INDEC (20/08/2026) · acum. USD 16.080 M
 ];
 
 // Reservas Internacionales BCRA (USD millones) - Actualizado 16/03/2026
@@ -235,7 +242,12 @@ export const reservasData = [
   { date: 'Dic 25', value: 42800 },
   { date: 'Feb 26', value: 46905 },   // Pico histórico
   { date: 'Mar 26', value: 43808 },
-  { date: 'Abr 26', value: 46088 },   // ← ÚLTIMO DATO (28/04/2026) · BCRA compró USD 2.299M en abril
+  { date: 'Abr 26', value: 44516 },   // 30/04/2026 · BCRA
+  { date: 'May 26', value: 48193 },   // 29/05/2026
+  { date: 'Jun 26', value: 44870 },   // 30/06/2026
+  { date: 'Jul 26', value: 47599 },   // 31/07/2026
+  { date: 'Ago 26', value: 48259 },   // 31/08/2026
+  { date: 'Sep 26', value: 50492 },   // ← ÚLTIMO (02/09/2026) · BCRA API
 ];
 
 // Tipo de cambio (ARS/USD) - Actualizado 16/03/2026
@@ -259,7 +271,6 @@ export const tcrData = [
   { date: 'Mar 26', oficial: 1420, blue: 1415, mep: 1424 },
   { date: 'Abr 26', oficial: 1445, blue: 1450, mep: 1448 },
   { date: 'May 26', oficial: 1385, blue: 1395, mep: 1424 },
-     // ← ÚLTIMO DATO (28/04/2026)
 ];
 
 // Inflación IPC
@@ -286,19 +297,21 @@ export const inflacionData = [
   { date: 'Mar 26', mensual: 3.4, interanual: 32.6, nucleo: 3.2 }, 
   { date: 'Abr 26', mensual: 2.6, interanual: 32.4, nucleo: 2.3 },
   { date: 'May 26', mensual: 2.1, interanual: 33.2, nucleo: 1.9 },
-    // ← ÚLTIMO INDEC (12/06/2026) · Ene-May 26: 14.7% acum.
+  { date: 'Jun 26', mensual: 1.9, interanual: 33.5, nucleo: 1.6 },
+  { date: 'Jul 26', mensual: 2.1, interanual: 33.8, nucleo: 1.8 },
+    // ← ÚLTIMO INDEC (13/08/2026) · Ene-Jul 26: 19,3% acum.
 ];
 
 // REM — Expectativas inflación (BCRA) — Fuente: REM feb-26 e INDEC
 export const remData = [
   { period: 'Dic 25', mediana: 2.9, actual: 2.9, r25: 2.6, r75: 3.2, r10: 2.3, r90: 3.5 },
-  { period: 'Ene 26', mediana: 2.8, actual: null, r25: 2.4, r75: 3.0, r10: 2.1, r90: 3.3 },
-  { period: 'Feb 26', mediana: 2.9, actual: null, r25: 2.2, r75: 2.8, r10: 1.9, r90: 3.1 },
-  { period: 'Mar 26', mediana: 3.4, actual: null, r25: 1.9, r75: 2.6, r10: 1.6, r90: 2.9 },
-  { period: 'Abr 26', mediana: 2.6, actual: null, r25: 1.6, r75: 2.3, r10: 1.3, r90: 2.7 },
+  { period: 'Ene 26', mediana: 2.8, actual: 2.9, r25: 2.4, r75: 3.0, r10: 2.1, r90: 3.3 },
+  { period: 'Feb 26', mediana: 2.9, actual: 2.9, r25: 2.2, r75: 2.8, r10: 1.9, r90: 3.1 },
+  { period: 'Mar 26', mediana: 3.4, actual: 3.4, r25: 1.9, r75: 2.6, r10: 1.6, r90: 2.9 },
+  { period: 'Abr 26', mediana: 2.6, actual: 2.6, r25: 1.6, r75: 2.3, r10: 1.3, r90: 2.7 },
   { period: 'May 26', mediana: 2.3, actual: 2.1, r25: 1.5, r75: 2.2, r10: 1.2, r90: 2.5 },
-  { period: 'Jun 26', mediana: 2.1, actual: null, r25: 1.4, r75: 2.1, r10: 1.1, r90: 2.4 },
-  { period: 'Jul 26', mediana: 2.0, actual: null, r25: 1.2, r75: 1.9, r10: 1.0, r90: 2.2 },
+  { period: 'Jun 26', mediana: 2.1, actual: 1.9, r25: 1.4, r75: 2.1, r10: 1.1, r90: 2.4 },
+  { period: 'Jul 26', mediana: 2.0, actual: 2.1, r25: 1.2, r75: 1.9, r10: 1.0, r90: 2.2 },
   { period: 'Ago 26', mediana: 1.8, actual: null, r25: 1.1, r75: 1.8, r10: 0.9, r90: 2.0 },
   { period: 'Sep 26', mediana: 1.9, actual: null, r25: 1.0, r75: 1.7, r10: 0.8, r90: 2.0 },
   { period: 'Oct 26', mediana: 1.8, actual: null, r25: 0.9, r75: 1.6, r10: 0.7, r90: 1.8 },
@@ -327,8 +340,11 @@ export const inflacionMayoristaData = [
   { date: 'Dic 25', mensual: 2.5, interanual: 26.2 },       // Cierre 2025 oficial ~26.2%
   { date: 'Ene 26', mensual: 1.7, interanual: 26.4 },       // Enero 2026 oficial
   { date: 'Feb 26', mensual: 1.0, interanual: 25.6 }, 
-  { date: 'Mar 26', mensual: 3.4, interanual: 27.9 }, 
-  { date: 'Abr 26', mensual: 2.4, interanual: 25.6 },     
+  { date: 'Mar 26', mensual: 3.4, interanual: 27.9 },
+  { date: 'Abr 26', mensual: 2.4, interanual: 25.6 },
+  { date: 'May 26', mensual: 2.5, interanual: 34.5 },
+  { date: 'Jun 26', mensual: 1.1, interanual: 33.8 },
+  { date: 'Jul 26', mensual: 0.8, interanual: 31.1 }, // ← ÚLTIMO INDEC · acum. 16,6%
 ];
 // ============================================================
 // Consumo Privado — Serie desestacionalizada (Base I-17 = 100)
@@ -655,7 +671,8 @@ export const inflacionLargoPlazoData: Array<{
   { year: 'Abr-24', value: 289.4, highlight: 'pico-2024' },
   { year: '2024', value: 117.8 },
   { year: '2025', value:  31.5 },
-  { year: 'Mayo-26', value:  33.2, highlight: 'actual' },
+  { year: 'Mayo-26', value:  33.2 },
+  { year: 'Jul-26',  value:  33.8, highlight: 'actual' },
 
 ];
 
@@ -692,7 +709,10 @@ export const emaeLargoPlazoData: Array<{
   { date: 'Dic 24',  value: 148.0, etapa: 'lla' },
   { date: 'Jun 25',  value: 152.0, etapa: 'lla' },
   { date: 'Dic 25',  value: 155.5, etapa: 'lla' },
-  { date: 'Mar 26',  value: 156.3, etapa: 'lla' },   // INDEC mar-26 (desest.) · +5,5% i.a.
+  { date: 'Mar 26',  value: 156.3, etapa: 'lla' },   // +5,5% i.a. · +3,5% s.e.
+  { date: 'Abr 26',  value: 154.0, etapa: 'lla' },   // −1,5% s.e. (INDEC 29/06)
+  { date: 'May 26',  value: 153.2, etapa: 'lla' },   // −0,5% s.e. · +0,2% i.a.
+  { date: 'Jun 26',  value: 154.4, etapa: 'lla' },   // +0,8% s.e. · +2,7% i.a. (INDEC 20/08)
 ];
 
 // ============================================================

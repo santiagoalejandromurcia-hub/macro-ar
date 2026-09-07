@@ -113,7 +113,7 @@ export default function InformesPage() {
       <div className="mt-10 p-5 rounded-xl border border-dashed border-[var(--line-1)] bg-[var(--bg-1)]">
         <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-[var(--fg-3)] mb-1">Próxima edición</p>
         <p className="text-sm text-[var(--fg-2)]">
-          El <strong className="text-[var(--fg-1)]">Informe Macroeconómico N°2 · Junio 2026</strong> se publicará entre el 15 y 20 de junio de 2026, incorporando los datos de actividad de abril y el IPC de mayo.
+          El <strong className="text-[var(--fg-1)]">Informe Macroeconómico N°3 · Septiembre 2026</strong> se publicará en la segunda quincena de septiembre, incorporando el IPC de agosto, el EMAE de julio y el resultado fiscal de agosto.
         </p>
       </div>
     </div>

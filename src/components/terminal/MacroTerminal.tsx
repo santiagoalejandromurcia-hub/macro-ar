@@ -95,12 +95,17 @@ function buildRows(
 
   return [
     // ── ACTIVIDAD ─────────────────────────────────────────────
-    { id: 'emae',      label: 'EMAE',               value: '+5.5%',        deltaMes: '▲ +0.30%',    sign: 'pos',  fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
+    { id: 'emae',      label: 'EMAE',               value: '+2.7%',        deltaMes: '▲ +2.5 pp i.a.', sign: 'pos',  fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
     { id: 'pbi',       label: 'PBI Real',            value: '+2.3%',        deltaMes: '▲ var. Q1-26', sign: 'pos', fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
 
     // ── PRECIOS: IPC ──────────────────────────────────────────
     { id: 'inflacion', label: 'Inflación IPC',  value: `${ipcL.mensual.toFixed(1)}%`,
-      deltaMes: `▼ -0.80%`, sign: 'neg', fuente: 'INDEC', tabs: ['TODOS','PRECIOS'] },
+      deltaMes: (() => {
+        const d = ipcL.mensual - ipcP.mensual;
+        return `${d > 0 ? '▲' : '▼'} ${d > 0 ? '+' : ''}${d.toFixed(2)} pp`;
+      })(),
+      sign: ipcL.mensual <= ipcP.mensual ? 'pos' : 'neg',
+      fuente: 'INDEC', tabs: ['TODOS','PRECIOS'] },
     {
       id: 'ipc-interanual', label: 'IPC Interanual',
       value: `${ipcL.interanual.toFixed(1)}%`,
@@ -133,8 +138,8 @@ function buildRows(
     },
 
     // ── FISCAL / EXTERNO ──────────────────────────────────────
-    { id: 'superavit', label: 'Superávit Primario', value: '0.7%',  deltaMes: '▲ +0.20 pp', sign: 'pos',  fuente: 'MECON', tabs: ['TODOS','FISCAL'] },
-    { id: 'reservas',  label: 'Reservas BCRA',       value: 'USD 47.874M', deltaMes: '▲ +1.80%', sign: 'pos', fuente: 'BCRA',  tabs: ['TODOS','EXTERNO'] },
+    { id: 'superavit', label: 'Superávit Primario', value: '0.9%',  deltaMes: '▲ +0.20 pp', sign: 'pos',  fuente: 'MECON', tabs: ['TODOS','FISCAL'] },
+    { id: 'reservas',  label: 'Reservas BCRA',       value: 'USD 50.492M', deltaMes: '▲ +18.0%', sign: 'pos', fuente: 'BCRA',  tabs: ['TODOS','EXTERNO'] },
     { id: 'tamar',     label: 'TAMAR',               value: '23.00% n.a.', deltaMes: '— sin cambio', sign: 'flat', fuente: 'BCRA', tabs: ['TODOS','PRECIOS','FISCAL'] },
 
     // ── REM ───────────────────────────────────────────────────

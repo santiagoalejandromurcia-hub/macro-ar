@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     q: '¿Cuántas reservas internacionales tiene el BCRA hoy?',
-    a: 'Las reservas internacionales brutas del BCRA se ubican en torno a los USD 46.000 millones en mayo de 2026, según los últimos datos publicados por el BCRA. Podés ver el dato actualizado diariamente en el dashboard de MacroLibre.',
+    a: 'Las reservas internacionales brutas del BCRA se ubicaron en USD 50.492 millones al 2 de septiembre de 2026, según el BCRA. El dato se actualiza diariamente en el dashboard de MacroLibre.',
   },
   {
     q: '¿Qué diferencia hay entre reservas brutas y reservas netas?',

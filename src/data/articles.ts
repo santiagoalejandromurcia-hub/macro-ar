@@ -229,7 +229,7 @@ El restaurante que no te cobra la cuenta puede ser generoso o puede ser un mal n
     author: 'Equipo MacroLibre',
     authorRole: 'Análisis macroeconómico',
     date: '2 de junio de 2026',
-    summary: 'Argentina recorrió en 18 meses uno de los procesos desinflacionarios más abruptos de su historia. El IPC bajó del 25% mensual de diciembre 2023 al 3.4% de abril 2026. Qué funcionó, qué riesgos persisten y cuándo podría llegarse a un dígito anual.',
+    summary: 'Argentina recorrió en 18 meses uno de los procesos desinflacionarios más abruptos de su historia. El IPC bajó del 25,5% mensual de diciembre 2023 al 3,4% de marzo 2026 (2,6% en abril). Qué funcionó, qué riesgos persisten y cuándo podría llegarse a un dígito anual.',
     image: '🏷️',
     tags: ['Inflación', 'IPC', 'Estabilización', 'INDEC'],
     readTime: '7 min',

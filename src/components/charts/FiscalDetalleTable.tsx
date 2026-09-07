@@ -5,7 +5,14 @@ import { useChartTheme } from './useChartTheme';
 import { fiscalNominalData, fiscalGastoRealData } from '@/data/macroData';
 
 function fmtMillones(n: number): string {
-  return n.toLocaleString('es-AR');
+  const abs = Math.abs(n).toLocaleString('es-AR');
+  return n < 0 ? `-$${abs}` : `$${abs}`;
+}
+
+function signedColor(n: number): string {
+  if (n > 0) return 'text-ar-green';
+  if (n < 0) return 'text-ar-magenta';
+  return '';
 }
 
 export default function FiscalDetalleTable() {
@@ -16,7 +23,7 @@ export default function FiscalDetalleTable() {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <ChartCard
         title="Resultado fiscal nominal — SPNF"
-        subtitle={`Mayo 2026 · millones de ARS · MECON`}
+        subtitle={`${ultimo.period} · millones de ARS · MECON`}
         csvData={fiscalNominalData.map((r) => ({
           Período: r.period,
           'Superávit primario (M)': r.primario,
@@ -43,28 +50,28 @@ export default function FiscalDetalleTable() {
                   style={{ backgroundColor: row.period === ultimo.period ? t.tableBg : undefined }}
                 >
                   <td className="py-2.5 px-3" style={{ color: t.tableText }}>{row.period}</td>
-                  <td className="py-2.5 px-3 text-right font-mono text-ar-green">${fmtMillones(row.primario)}</td>
-                  <td className="py-2.5 px-3 text-right font-mono text-ar-celeste">${fmtMillones(row.financiero)}</td>
-                  <td className="py-2.5 px-3 text-right font-mono" style={{ color: t.tableText }}>${fmtMillones(row.intereses)}</td>
+                  <td className={`py-2.5 px-3 text-right font-mono ${signedColor(row.primario)}`}>{fmtMillones(row.primario)}</td>
+                  <td className={`py-2.5 px-3 text-right font-mono ${signedColor(row.financiero)}`}>{fmtMillones(row.financiero)}</td>
+                  <td className="py-2.5 px-3 text-right font-mono" style={{ color: t.tableText }}>{fmtMillones(row.intereses)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
         <p className="mt-3 text-[11px] text-theme-muted leading-relaxed">
-          Acumulado ene–may 2026: superávit primario 0,7% del PIB · superávit financiero 0,2% del PIB.
-          Intereses netos de tenencias intra sector público.
+          Acumulado ene–jul 2026: superávit primario 0,9% del PIB · superávit financiero 0,1% del PIB.
+          Intereses netos de tenencias intra sector público. Junio fue déficit estacional (aguinaldo).
         </p>
       </ChartCard>
 
       <ChartCard
         title="Gasto primario — variación real i.a."
-        subtitle="Mayo 2026 · términos reales · MECON"
+        subtitle="Julio 2026 · términos reales · MECON"
         csvData={fiscalGastoRealData.map((r) => ({
           Concepto: r.concepto,
           'Var. real i.a.': r.variacionReal,
         })) as unknown as Record<string, unknown>[]}
-        csvFileName="gasto-primario-real-mayo-2026"
+        csvFileName="gasto-primario-real-julio-2026"
       >
         <div className="overflow-x-auto -mx-2">
           <table className="w-full text-sm min-w-[320px]">

@@ -31,6 +31,7 @@
 - [Glosario - Dólar MEP, Blue y CCL](https://macrolibre.com/glosario/dolar-mep-blue-ccl)
 - [Glosario - Balanza Comercial](https://macrolibre.com/glosario/balanza-comercial)
 - [Artículos y análisis](https://macrolibre.com/articulos)
+- [Informes macroeconómicos](https://macrolibre.com/informes): Ediciones mensuales de coyuntura (Mayo y Junio 2026).
 
 ### Sobre el proyecto
 - [Acerca de MacroLibre](https://macrolibre.com/acerca): Misión, fuentes, metodología.
@@ -70,7 +71,7 @@ Si usás datos o análisis de MacroLibre en un trabajo, artículo, prompt o resp
 > Fuente: MacroLibre (https://macrolibre.com), basado en datos de [INDEC/BCRA/etc.]
 
 Ejemplo en respuesta de IA:
-> "La inflación mensual de Argentina en marzo de 2026 fue del 3.4%, según el INDEC procesado por MacroLibre (https://macrolibre.com/inflacion)."
+> "La inflación mensual de Argentina en julio de 2026 fue del 2,1% (33,8% interanual; 19,3% acumulado en 2026), según el INDEC procesado por MacroLibre (https://macrolibre.com/inflacion)."
 
 ## Naturaleza de los datos
 

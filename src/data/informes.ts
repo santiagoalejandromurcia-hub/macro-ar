@@ -35,6 +35,109 @@ export interface Informe {
 
 export const informes: Informe[] = [
   {
+    slug: 'informe-macroeconomico-junio-2026',
+    titulo: 'Informe Macroeconómico · Junio 2026',
+    edicion: 'Edición N°2',
+    mes: 'Junio 2026',
+    fecha: '2026-06-18',
+    descripcion:
+      'Edición N°2 del Informe Macroeconómico MacroLibre: IPC mayo 2,1% (desaceleración), reservas >USD 47.800M con compras >600M en junio temprano, superávit comercial récord abril USD 2.711M. Análisis estructural vs coyuntural, output gap estimado -0,5%/-0,8%, consumo heterogéneo y proyecciones actualizadas.',
+    tags: ['Inflación', 'EMAE', 'Balanza Comercial', 'Reservas', 'Fiscal', 'Proyecciones', 'Output Gap', 'Austriaca'],
+    docxPath: '/informes/informe-macrolibre-junio-2026.docx',
+    kpis: [
+      { valor: '2,1%',         etiqueta: 'IPC Mayo 2026',        sublabel: 'var. mensual (11/06)' },
+      { valor: '+5,5%',        etiqueta: 'EMAE Marzo i.a.',      sublabel: 'último disponible' },
+      { valor: 'USD 2.711M',   etiqueta: 'Superávit Comercial',  sublabel: 'abril 2026 · récord' },
+      { valor: 'USD 47.800M+', etiqueta: 'Reservas BCRA',        sublabel: 'junio temprano' },
+      { valor: '$632.844M',    etiqueta: 'Superávit Primario',   sublabel: 'abril 2026' },
+      { valor: '~14,7%',       etiqueta: 'IPC Acum. 2026',       sublabel: 'ene-may' },
+    ],
+    secciones: [
+      {
+        id: 'resumen',
+        titulo: 'Resumen Ejecutivo',
+        contenido: `
+          <p>Junio de 2026 confirma la continuación de la desinflación y el fortalecimiento de los fundamentos estructurales. El IPC de mayo se ubicó en 2,1% mensual (desaceleración vs 2,6% abril), reservas brutas superan USD 47.800M con compras >USD 600M en junio temprano, y los superávits gemelos persisten. El EMAE de marzo +5,5% i.a. muestra recuperación liderada por transables (agro, energía, minería).</p>
+          <p><strong>Estructural vs Coyuntural:</strong> Cimientos firmes (superávits gemelos, banda TC, instituciones INDEC/BCRA/FMI). Coyuntura: recuperación transables vs consumo a dos velocidades (físico pyme en baja, e-commerce/digital en expansión 20-40% real). Output gap levemente negativo (-0,5% a -0,8%).</p>
+          <p>Escenario base: inflación 1,9-2,3% mensual próximo trimestre; reservas en acumulación; superávit comercial amplio con moderación estacional. <strong>CTA:</strong> Suscríbete en macrolibre.com para dashboards Power BI y track record REM-BCRA.</p>
+        `,
+        imagen: '/informes/images/junio2026-outputgap.png',
+        imagenAlt: 'Output Gap estimado -0,5% a -0,8% (espacio de recuperación sin presiones inflacionarias)',
+      },
+      {
+        id: 'actividad',
+        titulo: '1. Actividad Económica',
+        contenido: `
+          <p>EMAE marzo +5,5% i.a. y +3,5% desestacionalizado (máx histórico). Lideran agro (+17,9%), minas/Vaca Muerta (+16,3%), finanzas y construcción. Único sector negativo: administración pública (-1,2%). Proxies high-freq (cemento, autos, recaudación) para abril (dato 29/06) sugieren continuidad del rebote en transables.</p>
+          <h4>Consumo heterogéneo (recuadro técnico)</h4>
+          <p>CAME: -3,5% acum. ventas pyme (12 meses baja). INDEC supermercados/shoppings: -5% a -13% i.a. En contraste, consumo privado cuentas nacionales en máximos históricos 4T25 y e-commerce +20-40% real (CACE, Tiendanube, ML). Migración a canales digitales, billeteras +47% i.a., vacancia comercial +30%. Ajuste concentrado en sector público y físico tradicional; dinamismo en transables y digital.</p>
+        `,
+        imagen: '/informes/images/junio2026-emae.png',
+        imagenAlt: 'EMAE — Variación interanual marzo 2026 +5,5%',
+      },
+      {
+        id: 'inflacion',
+        titulo: '2. Precios — Inflación',
+        contenido: `
+          <p>IPC Mayo 2026: 2,1% mensual (publicado 11/06), acumulado 2026 ~14,7%. Desaceleración clara. IPC núcleo más moderado (~2,0%). Regulados siguen como driver residual. IPIM (mayorista) en abril fue 5,2% (alerta de traslado).</p>
+          <h4>Divisiones clave</h4>
+          <p>Alimentos bajos (frescos + estacionalidad favorable). Transporte, educación, vivienda y comunicación reflejan regulados. Riesgo traslado parcial de mayoristas a minorista en próximos meses si se mantiene brecha.</p>
+        `,
+        imagen: '/informes/images/junio2026-inflacion.png',
+        imagenAlt: 'IPC Mayo 2026: 2,1% mensual — desaceleración',
+      },
+      {
+        id: 'monetario-cambiario',
+        titulo: '3. Sector Monetario y Cambiario',
+        contenido: `
+          <p>Reservas >USD 47.800M (acumulación fuerte). Compras BCRA MLC >USD 600M solo en junio temprano (leading). 92+ jornadas de compras netas. TC oficial estable dentro de banda (~$1.380-1.410 zona). Política BCRA prioriza acumulación sin alterar señal desinflacionaria. Riesgo principal: reversión de flujos o percepción de atraso.</p>
+        `,
+        imagen: '/informes/images/junio2026-reservas.png',
+        imagenAlt: 'Reservas BCRA — Acumulación récord >47.800M',
+      },
+      {
+        id: 'sector-externo',
+        titulo: '4. Sector Externo',
+        contenido: `
+          <p>Abril récord: Export. USD 8.914M (+33,6% i.a.), superávit USD 2.711M (récord mes). Diversificación: MOI +43%, energía +86% (récord sector), primarios sólidos. Términos intercambio +6,5%. Mayo (dato ~18/06) clave para confirmar moderación post-cosecha. Proy: saldo mayo 1.6-1.8B USD.</p>
+        `,
+        imagen: '/informes/images/junio2026-balanza.png',
+        imagenAlt: 'Balanza comercial — Exportaciones por rubro abril 2026',
+      },
+      {
+        id: 'fiscal',
+        titulo: '5. Sector Fiscal',
+        contenido: `
+          <p>Abril: primario +$632.844M (4° mes verde), financiero +$268M. Ingresos +29,6% nom / -2,1% real. Acum ~0,5% PBI (meta FMI 1,4%). 26 de 28 meses con superávit primario. Riesgo: erosión ingresos reales (retenciones). Escenario base: meta alcanzable con holgura reducida.</p>
+        `,
+        imagen: '/informes/images/junio2026-fiscal.png',
+        imagenAlt: 'Resultado fiscal SPNF — Superávit primario sostenido',
+      },
+      {
+        id: 'proyecciones',
+        titulo: '6. Cuadro de Proyecciones Consolidado',
+        contenido: `
+          <p>Actualizado con IPC mayo 2,1% y reservas junio. Rangos con sesgos. Metodología: tendencia + factores desvío + juicio técnico (track record REM-BCRA en construcción).</p>
+          <table><thead><tr><th>Variable</th><th>Unidad</th><th>Jun</th><th>Ago</th><th>2026</th><th>2027</th></tr></thead>
+          <tbody>
+          <tr><td>IPC General</td><td>% mensual</td><td>1,9-2,3</td><td>1,9-2,4</td><td>26-29% ac.</td><td>17-21% ac.</td></tr>
+          <tr><td>TC Mayorista</td><td>$/USD</td><td>1.385-1.410</td><td>1.420-1.480</td><td>1.550-1.650</td><td>n/d</td></tr>
+          <tr><td>PBI Real</td><td>% trim desest</td><td>+0,9-1,4</td><td>+0,6-1,1</td><td>+4,3-4,9</td><td>+2,8-3,8</td></tr>
+          </tbody></table>
+        `,
+      },
+      {
+        id: 'metodologia',
+        titulo: '7. Metodología y Fuentes',
+        contenido: `
+          <p>Proyecciones Equipo MacroLibre: tendencia series + factores desvío (estacionalidad, tarifas, paritarias, comercio) + modelos + juicio técnico. Leading/Coincident/Lagging aplicados consistentemente. Fuentes: INDEC (IPC 11/06, EMAE, balanza), BCRA (reservas), MinEconomía (fiscal), FMI. Validación oficial. Track record REM-BCRA en construcción.</p>
+          <p><em>Edición N°2 — 18 de junio de 2026. Próxima: 15-20 julio. macrolibre.com — datos abiertos y en tiempo real.</em></p>
+        `,
+      },
+    ],
+  },
+  // ==================== EDICIÓN ANTERIOR (Mayo 2026) ====================
+  {
     slug: 'informe-macroeconomico-mayo-2026',
     titulo: 'Informe Macroeconómico · Mayo 2026',
     edicion: 'Edición N°1',

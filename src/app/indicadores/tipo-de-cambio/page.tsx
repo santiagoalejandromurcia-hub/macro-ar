@@ -42,7 +42,7 @@ const FAQ = [
   },
   {
     q: '¿Qué diferencia hay entre el tipo de cambio oficial y el dólar blue?',
-    a: 'El oficial es el fijado por el BCRA para transacciones formales. El dólar blue es el precio en el mercado informal. La diferencia entre ambos, expresada en porcentaje, se llama brecha cambiaria. En mayo 2026, con el esquema de bandas cambiarias, la brecha se ubica por debajo del 5%.',
+    a: 'El oficial es el fijado por el BCRA para transacciones formales. El dólar blue es el precio en el mercado informal. La diferencia entre ambos, expresada en porcentaje, se llama brecha cambiaria. Con el esquema de bandas cambiarias vigente, la brecha se mantiene comprimida, generalmente por debajo del 5%. El dato en vivo está en el dashboard de MacroLibre.',
   },
   {
     q: '¿Qué es el tipo de cambio real multilateral (TCRM)?',
