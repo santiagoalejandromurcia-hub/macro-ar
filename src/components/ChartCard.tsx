@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { downloadCSV } from '@/lib/csvUtils';
+import { downloadChartImage } from '@/lib/downloadChartImage';
 
 interface Period {
   label: string;
@@ -26,215 +27,7 @@ interface ChartCardProps {
   imageFileName?: string;
 }
 
-// ─────────────────────────────────────────────────────────
-// Resuelve CSS custom properties (var(--x)) a sus valores
-// reales usando getComputedStyle del :root
-// ─────────────────────────────────────────────────────────
-function resolveCssVar(val: string): string {
-  if (!val.includes('var(')) return val;
-  return val.replace(/var\(([^)]+)\)/g, (_, name) => {
-    const resolved = getComputedStyle(document.documentElement)
-      .getPropertyValue(name.trim())
-      .trim();
-    return resolved || '#888';
-  });
-}
 
-// ─────────────────────────────────────────────────────────
-// Recorre el SVG clonado y aplica inline los estilos
-// computados para que la exportación no pierda colores
-// ─────────────────────────────────────────────────────────
-function inlineStyles(clone: SVGElement, original: SVGElement) {
-  const cloneEls  = clone.querySelectorAll('*');
-  const origEls   = original.querySelectorAll('*');
-
-  const ATTRS = ['fill', 'stroke', 'color', 'font-size', 'font-family', 'opacity'];
-
-  origEls.forEach((origEl, i) => {
-    const cloneEl = cloneEls[i] as SVGElement;
-    if (!cloneEl) return;
-    const computed = getComputedStyle(origEl);
-    ATTRS.forEach((attr) => {
-      const val = computed.getPropertyValue(attr);
-      if (val && val !== 'none' && val !== '') {
-        cloneEl.style.setProperty(attr, resolveCssVar(val));
-      }
-    });
-    // Atributos SVG directos (fill, stroke en el elemento)
-    ['fill', 'stroke'].forEach((a) => {
-      const raw = (origEl as SVGElement).getAttribute(a);
-      if (raw && raw.startsWith('var(')) {
-        cloneEl.setAttribute(a, resolveCssVar(raw));
-      }
-    });
-  });
-}
-
-// ─────────────────────────────────────────────────────────
-// Captura el gráfico y lo descarga como PNG o JPG.
-// Soporta:
-//   • lightweight-charts  → <canvas> (detectado primero)
-//   • Recharts legacy     → <svg>
-// Agrega fondo MacroLibre + watermark en el pie.
-// ─────────────────────────────────────────────────────────
-async function captureChart(
-  wrapperEl: HTMLDivElement,
-  title: string,
-  format: 'png' | 'jpg',
-  fileName: string,
-) {
-  const PADDING  = 24;
-  const HEADER_H = 52;
-  const FOOTER_H = 28;
-
-  const BG    = resolveCssVar('var(--bg-1)')    || '#1a2035';
-  const BG2   = resolveCssVar('var(--bg-2)')    || '#1e2640';
-  const FG0   = resolveCssVar('var(--fg-0)')    || '#f8f9fb';
-  const FG2   = resolveCssVar('var(--fg-2)')    || '#8b9ab0';
-  const GOLD  = resolveCssVar('var(--gold)')    || '#F0A500';
-
-  // ── 1) Intentar capturar canvas de lightweight-charts ──
-  const lwCanvas = wrapperEl.querySelector('canvas') as HTMLCanvasElement | null;
-
-  if (lwCanvas) {
-    const W = lwCanvas.width  || lwCanvas.offsetWidth  || 800;
-    const H = lwCanvas.height || lwCanvas.offsetHeight || 350;
-
-    const CANVAS_W = W + PADDING * 2;
-    const CANVAS_H = H + HEADER_H + FOOTER_H + PADDING;
-
-    const out = document.createElement('canvas');
-    out.width  = CANVAS_W;
-    out.height = CANVAS_H;
-    const ctx = out.getContext('2d')!;
-
-    // Fondo
-    ctx.fillStyle = BG;
-    ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
-
-    // Borde superior gold
-    ctx.fillStyle = GOLD;
-    ctx.fillRect(0, 0, CANVAS_W, 3);
-
-    // Header
-    ctx.fillStyle = BG2;
-    ctx.fillRect(0, 3, CANVAS_W, HEADER_H);
-
-    ctx.fillStyle = FG0;
-    ctx.font = `600 13px "Geist", "Helvetica Neue", sans-serif`;
-    ctx.textBaseline = 'middle';
-    ctx.fillText(title, PADDING, 3 + HEADER_H / 2 - 5);
-
-    ctx.fillStyle = GOLD;
-    ctx.font = `400 10px "Geist Mono", monospace`;
-    ctx.fillText('macrolibre.com', PADDING, 3 + HEADER_H / 2 + 10);
-
-    // Gráfico (canvas de lw-charts dibujado directamente)
-    ctx.drawImage(lwCanvas, PADDING, 3 + HEADER_H, W, H);
-
-    // Footer
-    const footerY = 3 + HEADER_H + H + 6;
-    ctx.fillStyle = FG2;
-    ctx.font = `400 9px "Geist Mono", monospace`;
-    ctx.textBaseline = 'top';
-    ctx.fillText('MacroLibre · macrolibre.com · datos: INDEC / BCRA / MAGyP', PADDING, footerY);
-    const fecha = new Date().toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
-    const dateW = ctx.measureText(fecha).width;
-    ctx.fillText(fecha, CANVAS_W - PADDING - dateW, footerY);
-
-    const mimeType = format === 'jpg' ? 'image/jpeg' : 'image/png';
-    const quality  = format === 'jpg' ? 0.92 : undefined;
-    const a = document.createElement('a');
-    a.href     = out.toDataURL(mimeType, quality);
-    a.download = `${fileName}.${format}`;
-    a.click();
-    return;
-  }
-
-  // ── 2) Fallback: SVG de Recharts ─────────────────────
-  // querySelector devuelve el primero — que puede ser un ícono de botón.
-  // Tomamos el SVG con mayor área (el gráfico siempre es el más grande).
-  const allSvgs = Array.from(wrapperEl.querySelectorAll('svg'));
-  const svg = allSvgs.length
-    ? allSvgs.reduce((biggest, current) => {
-        const bRect = biggest.getBoundingClientRect();
-        const cRect = current.getBoundingClientRect();
-        return cRect.width * cRect.height > bRect.width * bRect.height ? current : biggest;
-      })
-    : null;
-
-  if (!svg) {
-    alert('No se encontró el gráfico para exportar.');
-    return;
-  }
-
-  const svgRect = svg.getBoundingClientRect();
-  const W = Math.round(svgRect.width)  || 800;
-  const H = Math.round(svgRect.height) || 350;
-
-  const CANVAS_W = W + PADDING * 2;
-  const CANVAS_H = H + HEADER_H + FOOTER_H + PADDING;
-
-  const clone = svg.cloneNode(true) as SVGElement;
-  inlineStyles(clone, svg);
-  clone.setAttribute('width',  String(W));
-  clone.setAttribute('height', String(H));
-
-  const serialized = new XMLSerializer().serializeToString(clone);
-  const svgBlob    = new Blob([serialized], { type: 'image/svg+xml;charset=utf-8' });
-  const svgUrl     = URL.createObjectURL(svgBlob);
-
-  const img = await new Promise<HTMLImageElement>((resolve, reject) => {
-    const i = new Image();
-    i.onload  = () => resolve(i);
-    i.onerror = reject;
-    i.src     = svgUrl;
-  });
-
-  const canvas  = document.createElement('canvas');
-  canvas.width  = CANVAS_W * 2;
-  canvas.height = CANVAS_H * 2;
-  const ctx = canvas.getContext('2d')!;
-  ctx.scale(2, 2);
-
-  ctx.fillStyle = BG;
-  ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
-
-  ctx.fillStyle = GOLD;
-  ctx.fillRect(0, 0, CANVAS_W, 3);
-
-  ctx.fillStyle = BG2;
-  ctx.fillRect(0, 3, CANVAS_W, HEADER_H);
-
-  ctx.fillStyle = FG0;
-  ctx.font = `600 13px "Geist", "Helvetica Neue", sans-serif`;
-  ctx.textBaseline = 'middle';
-  ctx.fillText(title, PADDING, 3 + HEADER_H / 2 - 5);
-
-  ctx.fillStyle = GOLD;
-  ctx.font = `400 10px "Geist Mono", monospace`;
-  ctx.fillText('macrolibre.com', PADDING, 3 + HEADER_H / 2 + 10);
-
-  ctx.drawImage(img, PADDING, 3 + HEADER_H, W, H);
-
-  const footerY = 3 + HEADER_H + H + 6;
-  ctx.fillStyle = FG2;
-  ctx.font = `400 9px "Geist Mono", monospace`;
-  ctx.textBaseline = 'top';
-  ctx.fillText('MacroLibre · macrolibre.com · datos: INDEC / BCRA / MAGyP', PADDING, footerY);
-  const fecha = new Date().toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' });
-  const dateW = ctx.measureText(fecha).width;
-  ctx.fillText(fecha, CANVAS_W - PADDING - dateW, footerY);
-
-  URL.revokeObjectURL(svgUrl);
-
-  const mimeType = format === 'jpg' ? 'image/jpeg' : 'image/png';
-  const quality  = format === 'jpg' ? 0.92 : undefined;
-  const a = document.createElement('a');
-  a.href     = canvas.toDataURL(mimeType, quality);
-  a.download = `${fileName}.${format}`;
-  a.click();
-}
 
 // ─────────────────────────────────────────────────────────
 // Ícono de descarga
@@ -274,7 +67,10 @@ export default function ChartCard({
     if (!wrapperRef.current || downloading) return;
     setDownloading(format);
     try {
-      await captureChart(wrapperRef.current, title, format, `macrolibre-${baseName}`);
+      await downloadChartImage(wrapperRef.current, title, format, `macrolibre-${baseName}`);
+    } catch (err) {
+      console.error('[ChartCard] download', err);
+      alert(err instanceof Error ? err.message : 'No se pudo generar la imagen.');
     } finally {
       setDownloading(null);
     }

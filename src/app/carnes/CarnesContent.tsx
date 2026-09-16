@@ -17,6 +17,7 @@ import {
   EXPORT_FUENTE,
 } from '@/data/carnes';
 import StaleBanner from '@/components/StaleBanner';
+import SectorChartCard from '@/components/SectorChartCard';
 
 // ============================================================
 // Charts del mercado de carnes
@@ -75,7 +76,7 @@ export default function CarnesContent() {
       </div>
 
       {/* ─── Faena mensual 2026 ─── */}
-      <ChartCard
+      <SectorChartCard filePrefix="macrolibre-carnes"
         title="Faena bovina mensual 2026"
         subtitle="Cabezas faenadas por mes · Fuente: SAGyP"
       >
@@ -91,10 +92,10 @@ export default function CarnesContent() {
             <Bar dataKey="cabezas" name="Cabezas faenadas" fill={COLORS.celeste} radius={[6, 6, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
-      </ChartCard>
+      </SectorChartCard>
 
       {/* ─── Faena por provincia ─── */}
-      <ChartCard
+      <SectorChartCard filePrefix="macrolibre-carnes"
         title="Faena por provincia"
         subtitle="Acumulado enero-abril 2026 · % sobre total nacional (sin corte posterior)"
       >
@@ -123,10 +124,10 @@ export default function CarnesContent() {
             <Bar dataKey="participacion" fill={COLORS.sol} radius={[0, 6, 6, 0]} />
           </BarChart>
         </ResponsiveContainer>
-      </ChartCard>
+      </SectorChartCard>
 
       {/* ─── Exportaciones — dual axis ─── */}
-      <ChartCard
+      <SectorChartCard filePrefix="macrolibre-carnes"
         title="Exportaciones de carne vacuna"
         subtitle="Volumen y valor mensual · Ene-25 a Mar-26 · Fuente: IPCVA / INDEC"
       >
@@ -161,11 +162,11 @@ export default function CarnesContent() {
             <Line yAxisId="right" type="monotone" dataKey="valorUsdMiles" name="Valor USD" stroke={COLORS.sol} strokeWidth={2.5} dot={{ r: 3 }} />
           </ComposedChart>
         </ResponsiveContainer>
-      </ChartCard>
+      </SectorChartCard>
 
       {/* ─── Destinos exportación (pie) + Precios FOB (lista) ─── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ChartCard
+        <SectorChartCard filePrefix="macrolibre-carnes"
           title="Destinos de exportación"
           subtitle="Participación por volumen · 3M-2026"
         >
@@ -192,9 +193,9 @@ export default function CarnesContent() {
               <Legend wrapperStyle={{ fontSize: 11 }} iconSize={10} />
             </PieChart>
           </ResponsiveContainer>
-        </ChartCard>
+        </SectorChartCard>
 
-        <ChartCard
+        <SectorChartCard filePrefix="macrolibre-carnes"
           title="Precio FOB por destino"
           subtitle="USD por tonelada · 3M-2026"
         >
@@ -222,11 +223,11 @@ export default function CarnesContent() {
                 );
               })}
           </div>
-        </ChartCard>
+        </SectorChartCard>
       </div>
 
       {/* ─── Faena por categoría ─── */}
-      <ChartCard
+      <SectorChartCard filePrefix="macrolibre-carnes"
         title="Faena por categoría animal"
         subtitle="Acumulado ene-ago 2026 · MAGYP / DNCCA"
       >
@@ -268,12 +269,13 @@ export default function CarnesContent() {
             ))}
           </div>
         </div>
-      </ChartCard>
+      </SectorChartCard>
 
       {/* ─── Top frigoríficos ─── */}
-      <ChartCard
+      <SectorChartCard filePrefix="macrolibre-carnes"
         title="Top 10 frigoríficos"
         subtitle="Por cabezas faenadas · Acumulado ene-abr 2026"
+        downloadable={false}
       >
         <div className="overflow-x-auto">
           <table className="w-full text-[13px]">
@@ -297,7 +299,7 @@ export default function CarnesContent() {
             </tbody>
           </table>
         </div>
-      </ChartCard>
+      </SectorChartCard>
 
       {/* ─── Fuentes ─── */}
       <StaleBanner asOf={ACTUALIZADO_AL} />
@@ -351,14 +353,4 @@ function KpiCard({
   );
 }
 
-function ChartCard({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
-  return (
-    <div className="glass p-4 sm:p-6">
-      <div className="mb-4">
-        <h2 className="text-base sm:text-lg font-semibold text-[var(--fg-0)]">{title}</h2>
-        <p className="text-[12px] text-[var(--fg-2)]">{subtitle}</p>
-      </div>
-      {children}
-    </div>
-  );
-}
+

@@ -16,6 +16,7 @@ import {
   FUENTE_INV,
 } from '@/data/uva';
 import StaleBanner from '@/components/StaleBanner';
+import SectorChartCard from '@/components/SectorChartCard';
 
 const COLORS = {
   celeste: 'var(--celeste)',
@@ -66,7 +67,7 @@ export default function UvaContent() {
       </div>
 
       {/* ─── Exportaciones mensuales — vinos + mostos ─── */}
-      <ChartCard
+      <SectorChartCard filePrefix="macrolibre-uva"
         title="Exportaciones de vinos y mostos"
         subtitle="Valor FOB mensual (USD miles) · Ene-25 a Ago-26 · Fuente: INV"
       >
@@ -84,10 +85,10 @@ export default function UvaContent() {
             <Bar dataKey="mostosUsdMiles" stackId="a" name="Mostos" fill={COLORS.sol}     radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
-      </ChartCard>
+      </SectorChartCard>
 
       {/* ─── Volumen externo — fraccionado vs granel ─── */}
-      <ChartCard
+      <SectorChartCard filePrefix="macrolibre-uva"
         title="Volumen exportado: fraccionado vs granel"
         subtitle="Hectolitros mensuales — granel agosto −75,1% YoY (INV)"
       >
@@ -105,11 +106,11 @@ export default function UvaContent() {
             <Bar  dataKey="granelHl"      name="Granel"      fill={COLORS.sol}     radius={[4, 4, 0, 0]} />
           </ComposedChart>
         </ResponsiveContainer>
-      </ChartCard>
+      </SectorChartCard>
 
       {/* ─── Composición externo abril 2026 ─── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ChartCard
+        <SectorChartCard filePrefix="macrolibre-uva"
           title="Composición de exportaciones"
           subtitle="Agosto 2026 · % por tipo de vino"
         >
@@ -135,9 +136,9 @@ export default function UvaContent() {
               <Legend wrapperStyle={{ fontSize: 10 }} iconSize={9} />
             </PieChart>
           </ResponsiveContainer>
-        </ChartCard>
+        </SectorChartCard>
 
-        <ChartCard
+        <SectorChartCard filePrefix="macrolibre-uva"
           title="Mercado interno por envase"
           subtitle="Variación interanual julio 2026 vs 2025"
         >
@@ -166,11 +167,11 @@ export default function UvaContent() {
             La damajuana y el bag in box siguen retrocediendo fuerte. Botella + tetra brik
             crecen, evidenciando una recomposición hacia envases premium e individuales.
           </p>
-        </ChartCard>
+        </SectorChartCard>
       </div>
 
       {/* ─── Mercado interno mensual ─── */}
-      <ChartCard
+      <SectorChartCard filePrefix="macrolibre-uva"
         title="Mercado interno — ventas mensuales"
         subtitle="Hectolitros · ene-mar + julio 2026 (INV; abr-jun sin corte en esta serie)"
       >
@@ -186,12 +187,13 @@ export default function UvaContent() {
             <Bar dataKey="vinoTotalHl" name="Vino total" fill={COLORS.magenta} radius={[6, 6, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
-      </ChartCard>
+      </SectorChartCard>
 
       {/* ─── Acumulado ene-ago ─── */}
-      <ChartCard
+      <SectorChartCard filePrefix="macrolibre-uva"
         title="Acumulado ene-ago 2025 vs 2026"
         subtitle="Valor FOB USD miles · INV / SIM"
+        downloadable={false}
       >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-2">
           <AcumCard label="Vinos 2025" value={acumuladoExterno.vinos2025} />
@@ -219,7 +221,7 @@ export default function UvaContent() {
             </div>
           </div>
         </div>
-      </ChartCard>
+      </SectorChartCard>
 
       {/* ─── Fuentes ─── */}
       <StaleBanner asOf={ACTUALIZADO_AL} />
@@ -285,14 +287,4 @@ function AcumCard({
   );
 }
 
-function ChartCard({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
-  return (
-    <div className="glass p-4 sm:p-6">
-      <div className="mb-4">
-        <h2 className="text-base sm:text-lg font-semibold text-[var(--fg-0)]">{title}</h2>
-        <p className="text-[12px] text-[var(--fg-2)]">{subtitle}</p>
-      </div>
-      {children}
-    </div>
-  );
-}
+
