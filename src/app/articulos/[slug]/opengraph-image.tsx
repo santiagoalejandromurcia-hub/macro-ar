@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { articles } from '@/data/articles';
+import { OG_LOGO_DATA_URL } from '@/lib/ogLogo';
 
 // ============================================================
 // OG Image dinámica por artículo
@@ -19,8 +20,7 @@ export default async function Image(
 ) {
   const { slug } = await params;
   const article = articles.find((a) => a.slug === slug);
-  const logoRes = await fetch(new URL('../../logo-mark.png', import.meta.url));
-  const logoSrc = await logoRes.blob();
+  const logoSrc = OG_LOGO_DATA_URL;
 
   if (!article) {
     return new ImageResponse(

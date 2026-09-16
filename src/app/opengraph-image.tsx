@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import { OG_LOGO_DATA_URL } from '@/lib/ogLogo';
 
 // ============================================================
 // OG Image global (para la home y rutas que no tengan su propia)
@@ -11,8 +12,7 @@ export const size = { width: 1200, height: 630 };
 export const alt = 'MacroLibre — Pulso económico de Argentina en tiempo real';
 
 export default async function Image() {
-  const logoRes = await fetch(new URL('./logo-mark.png', import.meta.url));
-  const logoSrc = await logoRes.blob();
+  const logoSrc = OG_LOGO_DATA_URL;
 
   const BG_DARK = '#0a1018';
   const BG_CARD = '#10182a';
