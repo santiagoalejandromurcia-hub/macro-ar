@@ -28,8 +28,11 @@ export interface Bond {
 }
 
 // ─── Fecha de actualización del snapshot ───
-export const ACTUALIZADO_AL = '2026-05-10';
+export const ACTUALIZADO_AL = '2026-05-10'; // TIRs base Bolsar/IAMC
 export const FUENTE_BONOS = 'Bolsar / IAMC';
+export const TIR_CER_ES_LIVE = false;
+export const PRECIOS_LIVE_NOTE =
+  'Precios intradía de referencia (data912) en LECAPs disponibles; TIR CER y curva base NO son live.';
 
 // ─── Curva NOMINAL (LECAP + Bontes TF) ───
 // Son tasa fija sin ajuste. La TIR aquí es nominal anual (TEA).

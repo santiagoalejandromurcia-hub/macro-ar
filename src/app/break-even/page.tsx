@@ -14,7 +14,7 @@ const SITE_URL = 'https://macrolibre.com';
 export const metadata: Metadata = {
   title: 'Break-Even Inflacionario: ¿conviene CER o tasa fija?',
   description:
-    'Calculadora de break-even inflacionario (BEI) para bonos argentinos. Compará la inflación implícita en LECAP vs BONCER/LECER por plazo y decidí si te conviene CER o tasa fija.',
+    'Calculadora de break-even inflacionario (BEI) para bonos argentinos. TIRs base Bolsar/IAMC (snapshot manual). Precios de algunos instrumentos vía data912; la TIR CER no es intradía.',
   alternates: { canonical: `${SITE_URL}/break-even` },
   keywords: [
     'break even inflacionario Argentina',
@@ -75,7 +75,7 @@ const FAQ = [
   },
   {
     q: '¿Por qué esta calculadora no usa la API de un broker?',
-    a: 'En Argentina no existe API pública gratuita y confiable de la curva CER + LECAP en tiempo real (Bloomberg, Refinitiv cobran USD 2.000+/mes). Por ahora actualizamos manualmente con datos de Bolsar / IAMC.',
+    a: 'Actualizamos la base de TIRs manualmente con Bolsar/IAMC. Los precios de algunos instrumentos se refrescan vía data912; la TIR CER del snapshot no es intradía. No hay API pública gratuita de la curva CER + LECAP (Bloomberg/Refinitiv cobran USD 2.000+/mes).',
   },
 ];
 
@@ -154,7 +154,7 @@ export default function BreakEvenPage() {
       <SectionHeader
         id="break-even"
         title="Break-Even Inflacionario"
-        subtitle="¿Te conviene CER o tasa fija? La inflación implícita en cada plazo, comparada con el REM del BCRA."
+        subtitle="¿Te conviene CER o tasa fija? Inflación implícita por plazo vs REM. TIRs CER son snapshot Bolsar/IAMC — no es feed en vivo."
         accent="celeste"
       />
 

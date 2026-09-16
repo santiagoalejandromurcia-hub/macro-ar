@@ -7,6 +7,7 @@ import {
 } from 'recharts';
 import {
   bonosNominales, bonosReales, remEsperado, senderoMensualBEI, ACTUALIZADO_AL, FUENTE_BONOS,
+  PRECIOS_LIVE_NOTE,
   type Bond,
 } from '@/data/breakEven';
 import {
@@ -104,8 +105,17 @@ export default function BreakEvenContent() {
     <div className="space-y-8">
       <StaleBanner
         asOf={ACTUALIZADO_AL}
-        hint={`TIRs base ${FUENTE_BONOS}. Actualizá src/data/breakEven.ts o validá en broker`}
+        maxDays={30}
+        label="TIRs base Bolsar / IAMC"
       />
+      <div style={{ fontSize: 12, color: 'var(--fg-2)', marginBottom: 12 }}>
+        <span style={{ color: 'var(--fg-3)' }}>BASE TIR · </span>
+        SNAPSHOT {ACTUALIZADO_AL} · {FUENTE_BONOS}
+        {' · '}
+        <span style={{ color: 'var(--up)' }}>PRECIOS</span> data912 (parcial)
+        {' · '}
+        {PRECIOS_LIVE_NOTE}
+      </div>
 
       {/* ═══════════════════════════════════════════════════
           SENDERO MENSUAL — tabla BEI vs REM-BCRA
@@ -165,17 +175,8 @@ export default function BreakEvenContent() {
             </tbody>
           </table>
         </div>
-        <p className="text-[11px] text-[var(--fg-3)] mt-3 text-right flex items-center justify-end gap-2">
-          {liveTs ? (
-            <>
-              <span className="live-dot teal" aria-hidden />
-              <span style={{ color: 'var(--teal)' }}>Precios live {liveTs} · TIR nominal implícita</span>
-              <span className="opacity-50">·</span>
-              <span>TIR CER estimada al {ACTUALIZADO_AL}</span>
-            </>
-          ) : (
-            <>Fuente: BCRA REM · Curva CER vs nominal — Estático {ACTUALIZADO_AL}</>
-          )}
+        <p className="text-[11px] text-[var(--fg-3)] mt-3 text-right">
+          {`Precios intradía de referencia${liveTs ? ` · ${liveTs}` : ''} · TIR nominal derivada del precio · TIR CER y REM según snapshot ${ACTUALIZADO_AL}`}
         </p>
       </div>
 

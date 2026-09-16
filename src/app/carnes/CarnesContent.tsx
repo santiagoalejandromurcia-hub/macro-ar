@@ -15,9 +15,11 @@ import {
   ACTUALIZADO_AL,
   FAENA_FUENTE,
   EXPORT_FUENTE,
+  SERIES_ASOF,
 } from '@/data/carnes';
 import StaleBanner from '@/components/StaleBanner';
 import SectorChartCard from '@/components/SectorChartCard';
+import { SeriesAsOf } from '@/components/SeriesAsOf';
 
 // ============================================================
 // Charts del mercado de carnes
@@ -38,6 +40,10 @@ const PIE_COLORS = ['#5DC1E0', '#D4A843', '#EC4899', '#10B981', '#A78BFA', '#F59
 export default function CarnesContent() {
   return (
     <div className="space-y-10">
+      <StaleBanner asOf={ACTUALIZADO_AL} />
+      <p className="text-[11px] font-mono text-[var(--fg-3)]">
+        Snapshot: {ACTUALIZADO_AL} · {FAENA_FUENTE} — no es feed en vivo
+      </p>
       {/* ─── KPIs ─── */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <KpiCard
@@ -76,6 +82,7 @@ export default function CarnesContent() {
       </div>
 
       {/* ─── Faena mensual 2026 ─── */}
+      <SeriesAsOf label="Faena bovina" asOf={SERIES_ASOF.faena} />
       <SectorChartCard filePrefix="macrolibre-carnes"
         title="Faena bovina mensual 2026"
         subtitle="Cabezas faenadas por mes · Fuente: SAGyP"
@@ -95,6 +102,7 @@ export default function CarnesContent() {
       </SectorChartCard>
 
       {/* ─── Faena por provincia ─── */}
+      <SeriesAsOf label="Faena por provincia" asOf={SERIES_ASOF.rankings} />
       <SectorChartCard filePrefix="macrolibre-carnes"
         title="Faena por provincia"
         subtitle="Acumulado enero-abril 2026 · % sobre total nacional (sin corte posterior)"
@@ -127,6 +135,7 @@ export default function CarnesContent() {
       </SectorChartCard>
 
       {/* ─── Exportaciones — dual axis ─── */}
+      <SeriesAsOf label="Exportaciones históricas" asOf={SERIES_ASOF.exportHist} note={`KPI de valor ${SERIES_ASOF.exportKpi}`} />
       <SectorChartCard filePrefix="macrolibre-carnes"
         title="Exportaciones de carne vacuna"
         subtitle="Volumen y valor mensual · Ene-25 a Mar-26 · Fuente: IPCVA / INDEC"
@@ -166,6 +175,8 @@ export default function CarnesContent() {
 
       {/* ─── Destinos exportación (pie) + Precios FOB (lista) ─── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+        <SeriesAsOf label="Destinos de exportación" asOf={SERIES_ASOF.exportHist} />
         <SectorChartCard filePrefix="macrolibre-carnes"
           title="Destinos de exportación"
           subtitle="Participación por volumen · 3M-2026"
@@ -194,6 +205,7 @@ export default function CarnesContent() {
             </PieChart>
           </ResponsiveContainer>
         </SectorChartCard>
+        </div>
 
         <SectorChartCard filePrefix="macrolibre-carnes"
           title="Precio FOB por destino"
@@ -227,6 +239,7 @@ export default function CarnesContent() {
       </div>
 
       {/* ─── Faena por categoría ─── */}
+      <SeriesAsOf label="Faena por categoría" asOf={SERIES_ASOF.categorias} />
       <SectorChartCard filePrefix="macrolibre-carnes"
         title="Faena por categoría animal"
         subtitle="Acumulado ene-ago 2026 · MAGYP / DNCCA"
@@ -272,6 +285,7 @@ export default function CarnesContent() {
       </SectorChartCard>
 
       {/* ─── Top frigoríficos ─── */}
+      <SeriesAsOf label="Top frigoríficos" asOf={SERIES_ASOF.rankings} />
       <SectorChartCard filePrefix="macrolibre-carnes"
         title="Top 10 frigoríficos"
         subtitle="Por cabezas faenadas · Acumulado ene-abr 2026"
@@ -302,7 +316,6 @@ export default function CarnesContent() {
       </SectorChartCard>
 
       {/* ─── Fuentes ─── */}
-      <StaleBanner asOf={ACTUALIZADO_AL} />
       <div className="glass p-4 text-[12px] text-[var(--fg-2)] leading-relaxed">
         <strong className="text-[var(--fg-1)]">Fuentes:</strong> Faena bovina —{' '}
         {FAENA_FUENTE}. Exportaciones — {EXPORT_FUENTE}. Snapshot al{' '}

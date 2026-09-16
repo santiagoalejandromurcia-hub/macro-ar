@@ -12,6 +12,14 @@ export const ACTUALIZADO_AL = '2026-09-16';
 export const FUENTE_FOB   = 'MAGyP — Subsecretaría de Mercados Agropecuarios';
 export const FUENTE_DJVE  = 'MAGyP — DJVE por mes de embarque (al 16/09/2026)';
 export const FUENTE_EXPORT = 'INDEC — Intercambio Comercial Argentino (ICA)';
+export const FUENTE = FUENTE_FOB;
+export const SERIES_ASOF = {
+  fob: '2026-09-15',
+  djveMensual: '2026-09',
+  exportTotal: '2026-04',
+  destinos: 'ene-abr 2026',
+  cosecha: 'campaña 2025/26',
+} as const;
 
 // ─── KPIs destacados ─────────────────────────────────────────
 export interface KpiGranos {

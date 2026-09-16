@@ -14,9 +14,11 @@ import {
   kpisUva,
   ACTUALIZADO_AL,
   FUENTE_INV,
+  SERIES_ASOF,
 } from '@/data/uva';
 import StaleBanner from '@/components/StaleBanner';
 import SectorChartCard from '@/components/SectorChartCard';
+import { SeriesAsOf } from '@/components/SeriesAsOf';
 
 const COLORS = {
   celeste: 'var(--celeste)',
@@ -33,6 +35,10 @@ const PIE_COLORS = ['#7C2D5C', '#D4A843', '#5DC1E0', '#A78BFA', '#EC4899'];
 export default function UvaContent() {
   return (
     <div className="space-y-10">
+      <StaleBanner asOf={ACTUALIZADO_AL} />
+      <p className="text-[11px] font-mono text-[var(--fg-3)]">
+        Snapshot: {ACTUALIZADO_AL} · {FUENTE_INV} — no es feed en vivo
+      </p>
       {/* ─── KPIs ─── */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <KpiCard
@@ -67,6 +73,7 @@ export default function UvaContent() {
       </div>
 
       {/* ─── Exportaciones mensuales — vinos + mostos ─── */}
+      <SeriesAsOf label="Exportaciones" asOf={SERIES_ASOF.export} />
       <SectorChartCard filePrefix="macrolibre-uva"
         title="Exportaciones de vinos y mostos"
         subtitle="Valor FOB mensual (USD miles) · Ene-25 a Ago-26 · Fuente: INV"
@@ -171,6 +178,11 @@ export default function UvaContent() {
       </div>
 
       {/* ─── Mercado interno mensual ─── */}
+      <SeriesAsOf
+        label="Mercado interno"
+        asOf={SERIES_ASOF.interno}
+        note={SERIES_ASOF.internoSerieNota}
+      />
       <SectorChartCard filePrefix="macrolibre-uva"
         title="Mercado interno — ventas mensuales"
         subtitle="Hectolitros · ene-mar + julio 2026 (INV; abr-jun sin corte en esta serie)"
@@ -224,7 +236,6 @@ export default function UvaContent() {
       </SectorChartCard>
 
       {/* ─── Fuentes ─── */}
-      <StaleBanner asOf={ACTUALIZADO_AL} />
       <div className="glass p-4 text-[12px] text-[var(--fg-2)] leading-relaxed">
         <strong className="text-[var(--fg-1)]">Fuente:</strong> {FUENTE_INV}. Snapshot al{' '}
         <strong className="text-[var(--fg-1)]">{ACTUALIZADO_AL}</strong>. Datos provisorios,

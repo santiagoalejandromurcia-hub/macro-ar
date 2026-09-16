@@ -11,6 +11,13 @@
 export const ACTUALIZADO_AL = '2026-09-16';
 export const FAENA_FUENTE = 'SAGyP · Dirección Nacional de Control Comercial Agropecuario';
 export const EXPORT_FUENTE = 'IPCVA · INDEC (datos provisorios)';
+export const SERIES_ASOF = {
+  faena: '2026-08',
+  exportKpi: '2026-07',
+  exportHist: '2026-03',
+  rankings: 'ene-abr 2026',
+  categorias: 'ene-ago 2026',
+} as const;
 
 // ─── Faena bovina mensual 2026 (cabezas) ─────────────────────
 export interface FaenaMes {

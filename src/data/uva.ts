@@ -8,6 +8,11 @@
 
 export const ACTUALIZADO_AL = '2026-09-01';
 export const FUENTE_INV = 'INV — Instituto Nacional de Vitivinicultura · Sistema SIM';
+export const SERIES_ASOF = {
+  export: '2026-08',
+  interno: '2026-07',
+  internoSerieNota: 'faltan Abr–Jun 2026 en la serie interna',
+} as const;
 
 // ─── Mercado externo: vinos + mostos por mes (USD miles FOB) ─
 export interface ExportMes {

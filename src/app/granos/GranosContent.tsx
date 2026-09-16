@@ -12,12 +12,15 @@ import {
   destinosPrincipales,
   cosecha2526,
   ACTUALIZADO_AL,
+  FUENTE,
   FUENTE_FOB,
   FUENTE_DJVE,
   FUENTE_EXPORT,
+  SERIES_ASOF,
 } from '@/data/granos';
 import StaleBanner from '@/components/StaleBanner';
 import SectorChartCard from '@/components/SectorChartCard';
+import { SeriesAsOf } from '@/components/SeriesAsOf';
 
 // ────────────────────────────────────────────────────────────
 // Colores
@@ -96,7 +99,7 @@ export default function GranosContent() {
         hint="Para cotización del día usá MAGyP / tu broker"
       />
       <p className="text-[11px] font-mono text-[var(--fg-3)]">
-        Snapshot: {ACTUALIZADO_AL} · {FUENTE_FOB}
+        Snapshot: {ACTUALIZADO_AL} · {FUENTE} — no es feed en vivo
       </p>
 
       {/* ─── KPIs ─── */}
@@ -107,6 +110,7 @@ export default function GranosContent() {
       </div>
 
       {/* ─── Precios FOB históricos ─── */}
+      <SeriesAsOf label="FOB oficial" asOf={SERIES_ASOF.fob} note="primer embarque MAGyP" />
       <SectorChartCard filePrefix="macrolibre-granos"
         title="Precios FOB históricos (USD/tn)"
         subtitle="Soja · Maíz · Trigo · Girasol — ene 2025 a sep 2026 · FOB oficial primer embarque"
@@ -129,6 +133,8 @@ export default function GranosContent() {
 
       {/* ─── DJVE + Exportaciones ─── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+        <SeriesAsOf label="DJVE mensual" asOf={SERIES_ASOF.djveMensual} note="por mes de embarque MAGYP" />
         <SectorChartCard filePrefix="macrolibre-granos"
           title="DJVE mensuales por grano"
           subtitle="Soja, maíz y trigo pan · mill. tn por mes de embarque · MAGYP al 16/09/2026"
@@ -147,7 +153,10 @@ export default function GranosContent() {
             </BarChart>
           </ResponsiveContainer>
         </SectorChartCard>
+        </div>
 
+        <div>
+        <SeriesAsOf label="Exportaciones ICA" asOf={SERIES_ASOF.exportTotal} note="último mes de la serie histórica" />
         <SectorChartCard filePrefix="macrolibre-granos"
           title="Exportaciones totales de granos"
           subtitle="Volumen (mil tn) y valor (USD M) · 2026"
@@ -166,10 +175,13 @@ export default function GranosContent() {
             </BarChart>
           </ResponsiveContainer>
         </SectorChartCard>
+        </div>
       </div>
 
       {/* ─── Destinos + Cosecha ─── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+        <SeriesAsOf label="Destinos de exportación" asOf={SERIES_ASOF.destinos} />
         <SectorChartCard filePrefix="macrolibre-granos"
           title="Principales destinos de exportación"
           subtitle="Participación % acumulada ene-abr 2026"
@@ -212,7 +224,10 @@ export default function GranosContent() {
             </div>
           </div>
         </SectorChartCard>
+        </div>
 
+        <div>
+        <SeriesAsOf label="Cosecha 2025/26" asOf={SERIES_ASOF.cosecha} />
         <SectorChartCard filePrefix="macrolibre-granos"
           title="Cosecha 2025/26 — Dato oficial"
           subtitle="Millones de toneladas · Total récord: 163,2 Mt (+21,25% i.a.) · Fuente: SAGyP"
@@ -267,12 +282,14 @@ export default function GranosContent() {
             </div>
           </div>
         </SectorChartCard>
+        </div>
       </div>
 
       {/* ─── Tabla de precios actuales ─── */}
+      <SeriesAsOf label="FOB disponible (KPI / tabla)" asOf={SERIES_ASOF.fob} note="mismo corte que el gráfico histórico" />
       <SectorChartCard filePrefix="macrolibre-granos"
         title="Precios FOB por grano — snapshot"
-        subtitle={`Últimos precios publicados · ${ACTUALIZADO_AL}`}
+        subtitle={`Últimos precios publicados · ${SERIES_ASOF.fob}`}
         fuente={FUENTE_FOB}
       >
         <div className="overflow-x-auto">

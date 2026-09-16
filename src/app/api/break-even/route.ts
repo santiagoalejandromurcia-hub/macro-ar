@@ -1,5 +1,5 @@
 // ============================================================
-// GET /api/break-even — Precios en vivo para el BEI
+// GET /api/break-even — Precios de referencia data912 + TIR CER estática
 //
 // Fuente: data912.com /live/arg_notes (refresh cada 20s)
 //
@@ -18,6 +18,7 @@ import {
   bonosNominales,
   bonosReales,
   ACTUALIZADO_AL,
+  TIR_CER_ES_LIVE,
 } from '@/data/breakEven';
 
 const DATA912_URL = 'https://data912.com/live/arg_notes';
@@ -32,10 +33,12 @@ export interface LiveBondPrice {
 }
 
 export interface BreakEvenLiveResponse {
-  prices:        Record<string, LiveBondPrice>; // keyed by ticker
-  actualizadoAl: string;                         // fecha del snapshot base
-  timestamp:     string;
-  source:        'data912';
+  prices:           Record<string, LiveBondPrice>;
+  actualizadoAl:    string;   // base TIR (manual)
+  timestamp:        string;
+  preciosTimestamp: string;   // fetch data912
+  tirCerLive:       boolean;
+  source:           'data912+static-tir';
 }
 
 type NotaItem = {
@@ -114,11 +117,14 @@ export async function GET() {
       };
     }
 
+    const nowIso = today.toISOString();
     const response: BreakEvenLiveResponse = {
       prices,
-      actualizadoAl: ACTUALIZADO_AL,
-      timestamp:     today.toISOString(),
-      source:        'data912',
+      actualizadoAl:    ACTUALIZADO_AL,
+      timestamp:        nowIso,
+      preciosTimestamp: nowIso,
+      tirCerLive:       TIR_CER_ES_LIVE,
+      source:           'data912+static-tir',
     };
 
     return NextResponse.json(response, {

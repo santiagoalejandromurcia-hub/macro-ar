@@ -6,13 +6,16 @@ export default function StaleBanner({
   asOf,
   maxDays = 30,
   hint,
+  label,
 }: {
   asOf: string;
   maxDays?: number;
   hint?: string;
+  label?: string;
 }) {
   const f = freshnessLabel(asOf, maxDays);
   if (f.kind !== 'stale') return null;
+  const extra = label || hint;
   return (
     <div
       role="status"
@@ -26,7 +29,7 @@ export default function StaleBanner({
       <strong style={{ color: 'var(--gold)' }}>DATOS ESTÁTICOS</strong>
       {' · '}
       {f.text}
-      {hint ? ` · ${hint}` : ''}
+      {extra ? ` · ${extra}` : ''}
     </div>
   );
 }
