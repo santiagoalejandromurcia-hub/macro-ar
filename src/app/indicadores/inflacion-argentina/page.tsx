@@ -2,13 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { InflacionMensualChart, InflacionInteranualChart, REMChart, InflacionLargoPlazoChart } from '@/components/Charts';
 import InflacionMayoristaChart from '@/components/InflacionMayoristaChart';
+import { inflacionData, inflacionMayoristaData } from '@/data/macroData';
 
 const SITE_URL = 'https://macrolibre.com';
 
 export const metadata: Metadata = {
   title: 'Inflación Argentina — IPC mensual, inflación interanual y expectativas 2026 · INDEC',
   description:
-    'IPC Argentina actualizado: inflación mensual, inflación interanual, inflación núcleo e inflación mayorista (IPIM). Expectativas de mercado REM del BCRA. Datos oficiales INDEC actualizados mes a mes.',
+    'IPC agosto 2026: 1,7% mensual, 33,5% interanual, núcleo 1,8%. IPIM julio 0,8%. Expectativas REM del BCRA. Datos oficiales INDEC.',
   alternates: { canonical: `${SITE_URL}/indicadores/inflacion-argentina` },
   keywords: [
     'inflación Argentina',
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
     'inflación mayo 2026',
     'inflación junio 2026',
     'inflación julio 2026',
+    'inflación agosto 2026',
     'IPIM argentina',
     'inflación mayorista argentina',
     'REM BCRA expectativas inflación',
@@ -41,8 +43,8 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: '¿Cuál fue la inflación mensual en Argentina en julio 2026?',
-    a: 'La inflación mensual de julio 2026 fue del 2,1% según el IPC del INDEC, con una variación interanual del 33,8%. El componente núcleo se ubicó en 1,8%. El acumulado enero–julio 2026 es 19,3%. En junio había marcado 1,9% mensual, el piso del año.',
+    q: '¿Cuál fue la inflación mensual en Argentina en agosto 2026?',
+    a: 'La inflación mensual de agosto 2026 fue del 1,7% según el IPC del INDEC (publicado 10/09/2026), la más baja de 2026. La variación interanual fue 33,5% y el acumulado enero–agosto 21,3%. El IPC núcleo se mantuvo en 1,8% (igual que julio). Los regulados subieron 2,2% y los estacionales cayeron 0,9%. El IPIM mayorista de julio fue 0,8%; el de agosto se publica el 16/09/2026.',
   },
   {
     q: '¿Qué es el IPC Argentina?',
@@ -118,6 +120,27 @@ export default function InflacionArgentinaPage() {
         <div className="mt-5 h-px bg-gradient-to-r from-[var(--magenta)]/30 via-[var(--celeste)]/20 to-transparent" />
       </header>
 
+      {(() => {
+        const ipc = inflacionData[inflacionData.length - 1];
+        const ipim = inflacionMayoristaData[inflacionMayoristaData.length - 1];
+        return (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+            {[
+              { k: 'IPC general', v: `${ipc.mensual.toFixed(1)}%`, s: `${ipc.date} · mens.` },
+              { k: 'IPC núcleo', v: `${ipc.nucleo.toFixed(1)}%`, s: 'igual que julio' },
+              { k: 'IPC interanual', v: `${ipc.interanual.toFixed(1)}%`, s: 'acum. 2026: 21,3%' },
+              { k: 'IPIM mayorista', v: `${ipim.mensual.toFixed(1)}%`, s: `${ipim.date} · Ago 16/09` },
+            ].map((x) => (
+              <div key={x.k} className="bg-[var(--bg-1)] border border-[var(--line-1)] rounded-xl p-3">
+                <p className="text-[10px] font-mono uppercase tracking-wider text-[var(--fg-3)]">{x.k}</p>
+                <p className="text-xl font-semibold text-[var(--fg-0)] font-mono mt-0.5">{x.v}</p>
+                <p className="text-[11px] text-[var(--fg-3)] mt-0.5">{x.s}</p>
+              </div>
+            ))}
+          </div>
+        );
+      })()}
+
       <div className="space-y-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <InflacionMensualChart />
@@ -134,7 +157,7 @@ export default function InflacionArgentinaPage() {
           Argentina experimentó en diciembre de 2023 una aceleración inflacionaria extrema, con una{' '}
           <strong className="text-[var(--fg-0)]">inflación mensual que tocó el 25.5%</strong> tras la devaluación
           del peso. Desde ese pico, el <strong>IPC Argentina</strong> mostró una desaceleración sostenida:
-          10.6% en febrero 2024, 8.8% en marzo, hasta converger hacia el rango del 2-4% mensual a lo largo de 2025-2026.
+          10.6% en febrero 2024, 8.8% en marzo, hasta el 1,7% de agosto 2026 (mínimo del año; núcleo 1,8%).
         </p>
         <p className="mb-3">
           La <strong className="text-[var(--fg-0)]">inflación interanual</strong> cerró 2024 en 117.8%

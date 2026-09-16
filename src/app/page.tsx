@@ -16,6 +16,7 @@ import Hero from '@/components/hero/Hero';
 import ServicesSection from '@/components/Services/ServicesSection';
 import FadeSection from '@/components/FadeSection';
 import EmbiDashboard from '@/components/EmbiDashboard';
+import InflacionMayoristaChart from '@/components/InflacionMayoristaChart';
 
 export default function HomePage() {
   const latestArticles = articles.slice(0, 3);
@@ -133,7 +134,7 @@ export default function HomePage() {
           <SectionHeader
             id="precios"
             title="Precios e inflación"
-            subtitle="IPC mensual, interanual, núcleo y expectativas REM — Fuente: INDEC, BCRA"
+            subtitle="IPC mensual, núcleo, interanual, IPIM mayorista y expectativas REM — Fuente: INDEC, BCRA"
             accent="magenta"
           />
           <div className="space-y-6">
@@ -141,6 +142,7 @@ export default function HomePage() {
               <InflacionMensualChart />
               <InflacionInteranualChart />
             </div>
+            <InflacionMayoristaChart />
             <REMChart />
           </div>
         </FadeSection>

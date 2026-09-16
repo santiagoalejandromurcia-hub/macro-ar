@@ -47,11 +47,11 @@ export const kpiCards: KPICard[] = [
   {
     id: 'inflacion',
     title: 'Inflación Mensual',
-    value: '2.1%',
-    change: 0.2,
-    changeLabel: 'Jul 26 (vs Jun 1.9%)',
+    value: '1.7%',
+    change: -0.4,
+    changeLabel: 'Ago 26 (vs Jul 2.1%) · núcleo 1,8%',
     icon: '🏷️',
-    updatedAt: 'Jul 26',
+    updatedAt: 'Ago 26',
     source: 'INDEC',
   },
   {
@@ -304,7 +304,8 @@ export const inflacionData = [
   { date: 'May 26', mensual: 2.1, interanual: 33.2, nucleo: 1.9 },
   { date: 'Jun 26', mensual: 1.9, interanual: 33.5, nucleo: 1.6 },
   { date: 'Jul 26', mensual: 2.1, interanual: 33.8, nucleo: 1.8 },
-    // ← ÚLTIMO INDEC (13/08/2026) · Ene-Jul 26: 19,3% acum.
+  { date: 'Ago 26', mensual: 1.7, interanual: 33.5, nucleo: 1.8 },
+    // ← ÚLTIMO INDEC (10/09/2026) · IPC 1,7% · núcleo 1,8% · i.a. 33,5% · acum. 21,3%
 ];
 
 // REM — Expectativas inflación (BCRA) — Fuente: REM feb-26 e INDEC
@@ -317,7 +318,7 @@ export const remData = [
   { period: 'May 26', mediana: 2.3, actual: 2.1, r25: 1.5, r75: 2.2, r10: 1.2, r90: 2.5 },
   { period: 'Jun 26', mediana: 2.1, actual: 1.9, r25: 1.4, r75: 2.1, r10: 1.1, r90: 2.4 },
   { period: 'Jul 26', mediana: 2.0, actual: 2.1, r25: 1.2, r75: 1.9, r10: 1.0, r90: 2.2 },
-  { period: 'Ago 26', mediana: 1.8, actual: null, r25: 1.1, r75: 1.8, r10: 0.9, r90: 2.0 },
+  { period: 'Ago 26', mediana: 1.8, actual: 1.7, r25: 1.1, r75: 1.8, r10: 0.9, r90: 2.0 },
   { period: 'Sep 26', mediana: 1.9, actual: null, r25: 1.0, r75: 1.7, r10: 0.8, r90: 2.0 },
   { period: 'Oct 26', mediana: 1.8, actual: null, r25: 0.9, r75: 1.6, r10: 0.7, r90: 1.8 },
   
@@ -338,18 +339,19 @@ export const inflacionMayoristaData = [
   { date: 'May 25', mensual: -0.3, interanual: 26.4 },
   { date: 'Jun 25', mensual: 1.6, interanual: 25.7 },
   { date: 'Jul 25', mensual: 2.8, interanual: 24.3 },
-  { date: 'Ago 25', mensual: 3.0, interanual: 22.8 },
+  { date: 'Ago 25', mensual: 3.1, interanual: 22.8 },
   { date: 'Sep 25', mensual: 3.7, interanual: 21.5 },
   { date: 'Oct 25', mensual: 1.1, interanual: 21.0 },
-  { date: 'Nov 25', mensual: 1.7, interanual: 20.8 },
-  { date: 'Dic 25', mensual: 2.5, interanual: 26.2 },       // Cierre 2025 oficial ~26.2%
-  { date: 'Ene 26', mensual: 1.7, interanual: 26.4 },       // Enero 2026 oficial
-  { date: 'Feb 26', mensual: 1.0, interanual: 25.6 }, 
+  { date: 'Nov 25', mensual: 1.6, interanual: 20.8 },
+  { date: 'Dic 25', mensual: 2.4, interanual: 26.2 },
+  { date: 'Ene 26', mensual: 1.7, interanual: 26.4 },
+  { date: 'Feb 26', mensual: 1.0, interanual: 25.6 },
   { date: 'Mar 26', mensual: 3.4, interanual: 27.9 },
-  { date: 'Abr 26', mensual: 2.4, interanual: 25.6 },
+  { date: 'Abr 26', mensual: 5.2, interanual: 31.0 },       // INDEC Informa · mens. 5,2%
   { date: 'May 26', mensual: 2.5, interanual: 34.5 },
-  { date: 'Jun 26', mensual: 1.1, interanual: 33.8 },
-  { date: 'Jul 26', mensual: 0.8, interanual: 31.1 }, // ← ÚLTIMO INDEC · acum. 16,6%
+  { date: 'Jun 26', mensual: 1.1, interanual: 33.7 },
+  { date: 'Jul 26', mensual: 0.8, interanual: 31.1 },       // ← ÚLTIMO INDEC (18/08) · acum. 16,6%
+    // Agosto 2026: calendario oficial 16/09/2026
 ];
 // ============================================================
 // Consumo Privado — Serie desestacionalizada (Base I-17 = 100)
@@ -677,7 +679,8 @@ export const inflacionLargoPlazoData: Array<{
   { year: '2024', value: 117.8 },
   { year: '2025', value:  31.5 },
   { year: 'Mayo-26', value:  33.2 },
-  { year: 'Jul-26',  value:  33.8, highlight: 'actual' },
+  { year: 'Jul-26',  value:  33.8 },
+  { year: 'Ago-26',  value:  33.5, highlight: 'actual' },
 
 ];
 

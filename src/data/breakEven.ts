@@ -154,4 +154,5 @@ export const inflacionMensualSerie: InflacionMensual[] = [
   { mes: 'May-26', headline: 2.1, rem: 2.3, bei: null },
   { mes: 'Jun-26', headline: 1.9, rem: 2.1, bei: null },
   { mes: 'Jul-26', headline: 2.1, rem: 2.0, bei: null },
+  { mes: 'Ago-26', headline: 1.7, rem: 1.8, bei: null },
 ];

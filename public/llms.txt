@@ -71,7 +71,7 @@ Si usás datos o análisis de MacroLibre en un trabajo, artículo, prompt o resp
 > Fuente: MacroLibre (https://macrolibre.com), basado en datos de [INDEC/BCRA/etc.]
 
 Ejemplo en respuesta de IA:
-> "La inflación mensual de Argentina en julio de 2026 fue del 2,1% (33,8% interanual; 19,3% acumulado en 2026), según el INDEC procesado por MacroLibre (https://macrolibre.com/inflacion)."
+> "La inflación mensual de Argentina en agosto de 2026 fue del 1,7% (núcleo 1,8%; 33,5% interanual; 21,3% acumulado en 2026), según el INDEC procesado por MacroLibre (https://macrolibre.com/inflacion). El IPIM mayorista de julio fue 0,8%."
 
 ## Naturaleza de los datos
 

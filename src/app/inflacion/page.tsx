@@ -3,10 +3,11 @@ import {
   InflacionMensualChart, InflacionInteranualChart, REMChart,
 } from '@/components/Charts';
 import InflacionMayoristaChart from '@/components/InflacionMayoristaChart';
+import { inflacionData, inflacionMayoristaData } from '@/data/macroData';
 
 export const metadata = {
   title: 'Inflación Argentina en tiempo real — IPC, IPIM y REM',
-  description: 'IPC mensual, interanual, núcleo, inflación mayorista (IPIM) y expectativas REM del BCRA. Datos actualizados de Argentina.',
+  description: 'IPC agosto 2026: 1,7% mensual · núcleo 1,8% · 33,5% interanual. IPIM julio 0,8%. REM del BCRA. Datos INDEC.',
 };
 
 export default function InflacionPage() {
@@ -29,6 +30,27 @@ export default function InflacionPage() {
         </p>
         <div className="mt-5 h-px bg-gradient-to-r from-ar-celeste/30 via-ar-gold/20 to-transparent" />
       </div>
+
+      {(() => {
+        const ipc = inflacionData[inflacionData.length - 1];
+        const ipim = inflacionMayoristaData[inflacionMayoristaData.length - 1];
+        return (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+            {[
+              { k: 'IPC general', v: `${ipc.mensual.toFixed(1)}%`, s: `${ipc.date} · mens.` },
+              { k: 'IPC núcleo', v: `${ipc.nucleo.toFixed(1)}%`, s: 'sin regulados ni estacionales' },
+              { k: 'IPC interanual', v: `${ipc.interanual.toFixed(1)}%`, s: 'vs. mismo mes año anterior' },
+              { k: 'IPIM mayorista', v: `${ipim.mensual.toFixed(1)}%`, s: `${ipim.date} · Ago sale 16/09` },
+            ].map((x) => (
+              <div key={x.k} className="bg-theme-surface border border-theme rounded-xl p-3">
+                <p className="text-[10px] font-mono uppercase tracking-wider text-theme-muted">{x.k}</p>
+                <p className="text-xl font-semibold text-theme-primary font-mono mt-0.5">{x.v}</p>
+                <p className="text-[11px] text-theme-muted mt-0.5">{x.s}</p>
+              </div>
+            ))}
+          </div>
+        );
+      })()}
 
       {/* All charts */}
       <div className="space-y-6">

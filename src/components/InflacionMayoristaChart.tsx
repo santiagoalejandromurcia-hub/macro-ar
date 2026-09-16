@@ -40,7 +40,7 @@ export default function InflacionMayoristaChart() {
       subtitle={
         isLive
           ? `Índice de Precios Internos al por Mayor · Actualizado ${lastUpdate} · Fuente: INDEC`
-          : 'Índice de Precios Internos al por Mayor · Barras = mensual (eje izq.) · Línea = interanual (eje der.)'
+          : 'Índice de Precios Internos al por Mayor · último Jul-26: 0,8% mens. / 31,1% i.a. · Ago-26 sale 16/09/2026'
       }
       isLive={isLive}
       periods={[...MONTHLY_PERIODS]}
