@@ -5,42 +5,30 @@ import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Respons
 import ChartCard from './ChartCard';
 import { useChartTheme, ThemedTooltip } from './charts/useChartTheme';
 import { inflacionMayoristaData } from '@/data/macroData';
-import { useLiveData } from '@/hooks/useLiveData';
+import { useIndicatorData } from '@/hooks/useIndicatorData';
 import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
-
-interface IPIMPoint {
-  date: string;
-  mensual: number;
-  interanual: number | null;
-}
-
-function transformIPIM(json: unknown): IPIMPoint[] {
-  const j = json as { data?: IPIMPoint[] };
-  if (!j?.data?.length) return inflacionMayoristaData;
-  return j.data;
-}
 
 export default function InflacionMayoristaChart() {
   const t = useChartTheme();
   const [period, setPeriod] = useState(0);
 
-  const { data, isLive, lastUpdate } = useLiveData<IPIMPoint[]>(
-    '/api/ipim',
+  const { data, isLive, updatedAt } = useIndicatorData(
+    'ipim',
     inflacionMayoristaData,
-    transformIPIM,
-    { refreshInterval: 86400 * 1000 }
+    (raw) => raw as typeof inflacionMayoristaData,
   );
 
   const displayData = useMemo(() => filterByPeriod(data, period), [data, period]);
   const csvData = displayData.map((d) => ({ ...d })) as Record<string, unknown>[];
+  const last = displayData[displayData.length - 1];
 
   return (
     <ChartCard
       title="IPIM — Inflación Mayorista"
       subtitle={
         isLive
-          ? `Índice de Precios Internos al por Mayor · Actualizado ${lastUpdate} · Fuente: INDEC`
-          : 'Índice de Precios Internos al por Mayor · último Jul-26: 0,8% mens. / 31,1% i.a. · Ago-26 sale 16/09/2026'
+          ? `INDEC SIPM · Actualizado ${updatedAt}`
+          : `INDEC SIPM · último ${last?.date ?? 'Jul 26'}: ${last?.mensual.toFixed(1)}% mens. / ${last?.interanual?.toFixed(1) ?? '—'}% i.a. · Ago-26 sale 16/09`
       }
       isLive={isLive}
       periods={[...MONTHLY_PERIODS]}

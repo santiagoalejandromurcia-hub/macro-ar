@@ -6,7 +6,7 @@
  * Caché: 1 día
  */
 import { NextResponse } from 'next/server';
-import { inflacionData } from '@/data/macroData';
+import { inflacionMayoristaData } from '@/data/macroData';
 
 export const revalidate = 86400;
 
@@ -54,18 +54,17 @@ export async function GET() {
     if (mensualRaw && mensualRaw.length > 0) break;
   }
 
-  // Fallback a datos estáticos si todos los endpoints fallan
+  // Fallback: serie oficial INDEC (nunca usar IPC minorista como proxy)
   if (!mensualRaw || mensualRaw.length === 0) {
-    console.warn('[API/ipim] Todos los endpoints externos fallaron, usando datos estáticos');
-    // Derivar IPIM desde datos de inflación general como proxy
-    const fallback = inflacionData.slice(-24).map((d) => ({
-      date: d.date,
-      mensual: d.mensual ?? 0,
-      interanual: d.interanual ?? null,
-    }));
+    console.warn('[API/ipim] Endpoints externos no disponibles — serie INDEC Informa');
     return NextResponse.json(
-      { data: fallback, isStatic: true, updatedAt: new Date().toISOString() },
-      { headers: { 'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=300' } }
+      {
+        data: inflacionMayoristaData,
+        isStatic: true,
+        source: 'INDEC SIPM',
+        updatedAt: new Date().toISOString(),
+      },
+      { headers: { 'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=300' } },
     );
   }
 
