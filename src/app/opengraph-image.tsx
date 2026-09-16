@@ -6,7 +6,6 @@ import { ImageResponse } from 'next/og';
 // Aparece como og:image y twitter:image automáticamente.
 // ============================================================
 
-export const runtime = 'edge';
 export const contentType = 'image/png';
 export const size = { width: 1200, height: 630 };
 export const alt = 'MacroLibre — Pulso económico de Argentina en tiempo real';

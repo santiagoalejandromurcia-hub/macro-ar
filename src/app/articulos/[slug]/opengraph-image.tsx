@@ -7,7 +7,6 @@ import { articles } from '@/data/articles';
 // Aparece automáticamente como <meta property="og:image"> y twitter:image
 // ============================================================
 
-export const runtime = 'edge';
 export const contentType = 'image/png';
 export const size = { width: 1200, height: 630 };
 export const alt = 'MacroLibre — Artículo';
