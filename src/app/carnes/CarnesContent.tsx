@@ -96,7 +96,7 @@ export default function CarnesContent() {
       {/* ─── Faena por provincia ─── */}
       <ChartCard
         title="Faena por provincia"
-        subtitle="Acumulado enero-abril 2026 · % sobre total nacional"
+        subtitle="Acumulado enero-abril 2026 · % sobre total nacional (sin corte posterior)"
       >
         <ResponsiveContainer width="100%" height={340}>
           <BarChart
@@ -228,7 +228,7 @@ export default function CarnesContent() {
       {/* ─── Faena por categoría ─── */}
       <ChartCard
         title="Faena por categoría animal"
-        subtitle="Acumulado ene-abr 2026 · Composición del rodeo faenado"
+        subtitle="Acumulado ene-ago 2026 · MAGYP / DNCCA"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
           <ResponsiveContainer width="100%" height={260}>

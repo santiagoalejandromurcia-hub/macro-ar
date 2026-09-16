@@ -2,10 +2,11 @@
 // MacroLibre — Mercado de Uva / Vinos y Mostos Argentina
 // ============================================================
 // Datos oficiales del INV (Instituto Nacional de Vitivinicultura).
-// Snapshot: abril 2026 (mercado externo) · marzo 2026 (interno).
+// Mercado externo: informe agosto 2026 (SIM, base 01/09/2026).
+// Mercado interno: informe julio 2026 (base 24/08/2026).
 // ============================================================
 
-export const ACTUALIZADO_AL = '2026-05-12';
+export const ACTUALIZADO_AL = '2026-09-01';
 export const FUENTE_INV = 'INV — Instituto Nacional de Vitivinicultura · Sistema SIM';
 
 // ─── Mercado externo: vinos + mostos por mes (USD miles FOB) ─
@@ -31,8 +32,12 @@ export const exportMensual: ExportMes[] = [
   { mes: 'Dic-25', vinosUsdMiles: 57104, mostosUsdMiles: 13172, totalUsdMiles: 70276 },
   { mes: 'Ene-26', vinosUsdMiles: 40360, mostosUsdMiles: 9596,  totalUsdMiles: 49956 },
   { mes: 'Feb-26', vinosUsdMiles: 44902, mostosUsdMiles: 10883, totalUsdMiles: 55785 },
-  { mes: 'Mar-26', vinosUsdMiles: 56480, mostosUsdMiles: 13389, totalUsdMiles: 69869 },
-  { mes: 'Abr-26', vinosUsdMiles: 61146, mostosUsdMiles: 13327, totalUsdMiles: 74472 },
+  { mes: 'Mar-26', vinosUsdMiles: 56423, mostosUsdMiles: 13389, totalUsdMiles: 69811 },
+  { mes: 'Abr-26', vinosUsdMiles: 60318, mostosUsdMiles: 13185, totalUsdMiles: 73503 },
+  { mes: 'May-26', vinosUsdMiles: 55574, mostosUsdMiles: 12208, totalUsdMiles: 67782 },
+  { mes: 'Jun-26', vinosUsdMiles: 61257, mostosUsdMiles: 13533, totalUsdMiles: 74789 },
+  { mes: 'Jul-26', vinosUsdMiles: 35907, mostosUsdMiles: 9003,  totalUsdMiles: 44910 },
+  { mes: 'Ago-26', vinosUsdMiles: 45619, mostosUsdMiles: 8325,  totalUsdMiles: 53943 },
 ];
 
 // ─── Volumen mercado externo por mes (hl) ────────────────────
@@ -52,9 +57,13 @@ export const volumenExternoMensual: VolumenMes[] = [
   { mes: 'Feb-26', fraccionadoHl: 126686, granelHl: 25798, totalHl: 152483 },
   { mes: 'Mar-26', fraccionadoHl: 142025, granelHl: 37476, totalHl: 179501 },
   { mes: 'Abr-26', fraccionadoHl: 159051, granelHl: 45905, totalHl: 204956 },
+  { mes: 'May-26', fraccionadoHl: 123991, granelHl: 55070, totalHl: 179061 },
+  { mes: 'Jun-26', fraccionadoHl: 135943, granelHl: 36972, totalHl: 172915 },
+  { mes: 'Jul-26', fraccionadoHl: 101047, granelHl: 28599, totalHl: 129646 },
+  { mes: 'Ago-26', fraccionadoHl: 110743, granelHl: 11165, totalHl: 121908 },
 ];
 
-// ─── Composición mercado externo abril 2026 (hl) ─────────────
+// ─── Composición mercado externo agosto 2026 (hl) ─────────────
 export interface CategoriaExport {
   tipo: string;
   hl: number;
@@ -63,15 +72,15 @@ export interface CategoriaExport {
 }
 
 export const composicionExterno: CategoriaExport[] = [
-  { tipo: 'Vino varietal — color',       hl: 142082, participacion: 69.3, varVsAnio: 11.2 },
-  { tipo: 'Vino sin mención — color',    hl: 15428,  participacion: 7.5,  varVsAnio: 23.2 },
-  { tipo: 'Vino varietal — blanco',      hl: 20384,  participacion: 9.9,  varVsAnio: 5.5  },
-  { tipo: 'Vino sin mención — blanco',   hl: 23798,  participacion: 11.6, varVsAnio: 361.0 },
-  { tipo: 'Espumosos',                   hl: 3252,   participacion: 1.6,  varVsAnio: -0.7 },
+  { tipo: 'Vino varietal — color',       hl: 87907, participacion: 72.1, varVsAnio: -29.7 },
+  { tipo: 'Vino varietal — blanco',      hl: 14638, participacion: 12.0, varVsAnio: -24.0 },
+  { tipo: 'Vino sin mención — color',    hl: 11375, participacion: 9.3,  varVsAnio: -29.8 },
+  { tipo: 'Espumosos',                   hl: 5218,  participacion: 4.3,  varVsAnio: 7.1  },
+  { tipo: 'Vino sin mención — blanco',   hl: 2675,  participacion: 2.2,  varVsAnio: 47.5 },
 ];
 
 // ─── Mercado interno — total país por mes (hl) ───────────────
-// Snapshot reciente: marzo 2026 = 603.391 hl (+8.4% YoY)
+// Interno: ene-mar del snapshot previo + julio 2026 (INV).
 export interface InternoMes {
   mes: string;
   vinoTotalHl: number;
@@ -81,57 +90,58 @@ export const mercadoInternoMensual: InternoMes[] = [
   { mes: 'Ene-26', vinoTotalHl: 481000 },
   { mes: 'Feb-26', vinoTotalHl: 505750 },
   { mes: 'Mar-26', vinoTotalHl: 603391 },
+  { mes: 'Jul-26', vinoTotalHl: 649674 },
 ];
 
 // ─── Mercado interno — composición por tipo de envase ────────
 export interface Envase {
   tipo: string;
-  varInteranualPct: number; // marzo 26 vs marzo 25
+  varInteranualPct: number; // julio 26 vs julio 25
 }
 
 export const envasesInterno: Envase[] = [
-  { tipo: 'Botella',     varInteranualPct: 8.1  },
-  { tipo: 'Tetra brik',  varInteranualPct: 13.7 },
-  { tipo: 'Lata',        varInteranualPct: 0.3  },
-  { tipo: 'Damajuana',   varInteranualPct: -45.3 },
-  { tipo: 'Bag in box',  varInteranualPct: -81.4 },
-  { tipo: 'Otros',       varInteranualPct: -35.5 },
+  { tipo: 'Botella',     varInteranualPct: 3.6   },
+  { tipo: 'Tetra brik',  varInteranualPct: -9.9  },
+  { tipo: 'Lata',        varInteranualPct: 7.4   },
+  { tipo: 'Damajuana',   varInteranualPct: -28.7 },
+  { tipo: 'Bag in box',  varInteranualPct: 372.7 },
+  { tipo: 'Otros',       varInteranualPct: -14.9 },
 ];
 
-// ─── Acumulado ene-abr 2025 vs 2026 (USD miles FOB) ──────────
+// ─── Acumulado ene-ago 2025 vs 2026 (USD miles FOB) ──────────
 export const acumuladoExterno = {
-  vinos2025:  199417,
-  vinos2026:  202889,
-  mostos2025: 36969,
-  mostos2026: 47194,
-  total2025:  236386,
-  total2026:  250082,
-  varTotalPct: 5.8,
-  varMostosPct: 27.7,
+  vinos2025:  434358,
+  vinos2026:  400359,
+  mostos2025: 83921,
+  mostos2026: 90121,
+  total2025:  518279,
+  total2026:  490481,
+  varTotalPct: -5.4,
+  varMostosPct: 7.4,
 };
 
 // ─── KPIs principales para el hero ────────────────────────────
 export const kpisUva = {
   exportAbril: {
-    valor: 74472,     // USD miles total (vinos + mostos)
-    mes: 'Abril 2026',
-    variacionYoY: 21.9, // vino total
+    valor: 53943,     // USD miles total (vinos + mostos) agosto
+    mes: 'Agosto 2026',
+    variacionYoY: -26.2,
   },
   vinoGranel: {
-    valor: 45905,
-    mes: 'Abril 2026',
-    variacionYoY: 69.8,
+    valor: 11165,
+    mes: 'Agosto 2026',
+    variacionYoY: -75.1,
     descripcion: 'hectolitros exportados',
   },
   mercadoInterno: {
-    valor: 603391,    // hl marzo
-    mes: 'Marzo 2026',
-    variacionYoY: 8.4,
-    variacionMoM: 19.3,
+    valor: 649674,
+    mes: 'Julio 2026',
+    variacionYoY: -1.4,
+    variacionMoM: 5.0,
   },
   mostoConcentrado: {
-    valor: 13327,     // USD miles abril
-    mes: 'Abril 2026',
-    variacionYoY: 33.9,
+    valor: 8325,     // USD miles agosto
+    mes: 'Agosto 2026',
+    variacionYoY: -39.8,
   },
 };

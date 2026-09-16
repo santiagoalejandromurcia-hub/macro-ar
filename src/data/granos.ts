@@ -1,14 +1,13 @@
 // ============================================================
 // MacroLibre — Mercado de Granos Argentina
 // ============================================================
-// Datos estáticos actualizados a mayo 2026.
-// Fuentes: MAGyP (precios FOB), INDEC (exportaciones), DJVE.
-//
-// Para actualizar: reemplazar los arrays manteniendo el orden
-// ascendente por fecha. Los KPIs se actualizan arriba.
+// FOB: circular MAGyP (primer embarque / min nearby) al 15-sep-2026.
+// DJVE mensual por grano y ICA: último corte publicado en el snapshot
+// de mayo — no hay tabla oficial mes-a-mes equivalente al 16-sep.
+// Cosecha 25/26: dato final SAGyP.
 // ============================================================
 
-export const ACTUALIZADO_AL = '2026-05-21';
+export const ACTUALIZADO_AL = '2026-09-15';
 export const FUENTE_FOB   = 'MAGyP — Subsecretaría de Mercados Agropecuarios';
 export const FUENTE_DJVE  = 'MAGyP — DJVE (Declaraciones Juradas de Ventas al Exterior)';
 export const FUENTE_EXPORT = 'INDEC — Intercambio Comercial Argentino (ICA)';
@@ -26,26 +25,26 @@ export interface KpiGranos {
 export const kpisGranos: KpiGranos[] = [
   {
     label: 'FOB Soja',
-    valor: 'USD 305',
+    valor: 'USD 510',
     unidad: 'por tn',
-    variacion: 2.3,
-    mes: 'May 26',
+    variacion: 11.1, // vs 14-ago (USD 459)
+    mes: '15 Sep 26',
     color: 'sol',
   },
   {
     label: 'FOB Maíz',
-    valor: 'USD 198',
+    valor: 'USD 224',
     unidad: 'por tn',
-    variacion: -1.5,
-    mes: 'May 26',
+    variacion: 5.2, // vs 14-ago (USD 213)
+    mes: '15 Sep 26',
     color: 'celeste',
   },
   {
     label: 'FOB Trigo',
-    valor: 'USD 238',
+    valor: 'USD 259',
     unidad: 'por tn',
-    variacion: 3.1,
-    mes: 'May 26',
+    variacion: 7.0, // vs 14-ago (USD 242)
+    mes: '15 Sep 26',
     color: 'magenta',
   },
   {
@@ -81,11 +80,15 @@ export const preciosFOB: PrecioFOB[] = [
   { mes: 'Oct 25', soja: 330, maiz: 191, trigo: 232, girasol: 440 },
   { mes: 'Nov 25', soja: 318, maiz: 193, trigo: 236, girasol: 436 },
   { mes: 'Dic 25', soja: 310, maiz: 196, trigo: 237, girasol: 432 },
-  { mes: 'Ene 26', soja: 305, maiz: 199, trigo: 235, girasol: 428 },
-  { mes: 'Feb 26', soja: 300, maiz: 201, trigo: 234, girasol: 425 },
-  { mes: 'Mar 26', soja: 298, maiz: 197, trigo: 236, girasol: 430 },
-  { mes: 'Abr 26', soja: 301, maiz: 196, trigo: 237, girasol: 432 },
-  { mes: 'May 26', soja: 305, maiz: 198, trigo: 238, girasol: 435 },
+  { mes: 'Ene 26', soja: 404, maiz: 213, trigo: 205, girasol: 428 },
+  { mes: 'Feb 26', soja: 440, maiz: 211, trigo: 207, girasol: 470 },
+  { mes: 'Mar 26', soja: 427, maiz: 205, trigo: 213, girasol: 457 },
+  { mes: 'Abr 26', soja: 421, maiz: 211, trigo: 227, girasol: 460 },
+  { mes: 'May 26', soja: 425, maiz: 204, trigo: 236, girasol: 482 },
+  { mes: 'Jun 26', soja: 418, maiz: 197, trigo: 235, girasol: 482 },
+  { mes: 'Jul 26', soja: 452, maiz: 208, trigo: 227, girasol: 502 },
+  { mes: 'Ago 26', soja: 459, maiz: 213, trigo: 242, girasol: 556 },
+  { mes: 'Sep 26', soja: 510, maiz: 224, trigo: 259, girasol: 569 },
 ];
 
 // ─── DJVE mensual (millones de toneladas) ─────────────────────

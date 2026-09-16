@@ -14,7 +14,7 @@ const SITE_URL = 'https://macrolibre.com';
 export const metadata: Metadata = {
   title: 'Mercado de Carnes Argentina · Faena, exportaciones y precios',
   description:
-    'Faena bovina mensual, exportaciones de carne vacuna por destino, precios FOB y top frigoríficos de Argentina. Datos oficiales SAGyP e IPCVA, actualizados a abril 2026.',
+    'Faena bovina mensual, exportaciones de carne vacuna por destino, precios FOB y top frigoríficos de Argentina. Datos oficiales MAGYP/DNCCA (faena a agosto 2026) e IPCVA/CICCRA.',
   alternates: { canonical: `${SITE_URL}/carnes` },
   keywords: [
     'faena bovina argentina', 'exportaciones carne vacuna argentina',
@@ -141,15 +141,14 @@ export default function CarnesPage() {
       <section className="mt-10 glass p-5 md:p-6 text-[13px] text-[var(--fg-1)] leading-relaxed">
         <h2 className="text-[15px] font-semibold text-[var(--fg-0)] mb-3">Lo que tenés que saber</h2>
         <p className="mb-3">
-          Marzo 2026 fue un mes <strong className="text-[var(--up)]">histórico para las exportaciones</strong>:
-          USD 405.7M, +106% interanual. El precio FOB promedio (USD 7.923/tn) está
-          un 42% por encima del año pasado, traccionado por demanda china récord y
-          una recuperación fuerte del mercado estadounidense (+107% en volumen).
+          Agosto 2026 cerró con <strong className="text-[var(--down)]">1.011.334 cabezas faenadas</strong>
+          (−12,9% interanual, −7,6% vs julio), según MAGYP/DNCCA. En enero-agosto
+          se faenaron 8,13 millones de bovinos (−9,9% i.a.).
         </p>
         <p className="mb-3">
-          La faena interna en cambio se mantiene en niveles estables: ~960k cabezas/mes,
-          con Buenos Aires concentrando más de la mitad de la actividad y los grandes
-          frigoríficos (Rioplatense, Swift, Coto) liderando el volumen.
+          Las exportaciones siguen compensando: en julio CICCRA informó USD 446,6 M
+          (+34% i.a.) a un precio promedio de USD 8.061/tn pp. China sigue primera
+          (52,5% del volumen ene-jul) pero Estados Unidos e Israel ganan share.
         </p>
         <p className="text-[var(--fg-2)] text-[12px]">
           Los datos de exportaciones son provisorios y pueden ser revisados por INDEC.

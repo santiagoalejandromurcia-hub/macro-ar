@@ -223,7 +223,7 @@ export default function GranosContent() {
       {/* ─── Precios FOB históricos ─── */}
       <ChartCard
         title="Precios FOB históricos (USD/tn)"
-        subtitle="Soja · Maíz · Trigo · Girasol — ene 2025 a may 2026"
+        subtitle="Soja · Maíz · Trigo · Girasol — ene 2025 a sep 2026 · FOB oficial primer embarque"
         fuente={FUENTE_FOB}
       >
         <ResponsiveContainer width="100%" height={280}>

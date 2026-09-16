@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     q: '¿Cuál es el precio FOB de la soja hoy en Argentina?',
-    a: 'El precio FOB de la soja (posición Rosario Up-River) al 12 de mayo de 2026 es de USD 305 por tonelada, según los últimos datos publicados por la Subsecretaría de Mercados Agropecuarios del MAGyP. Podés ver la evolución mensual en el gráfico histórico de MacroLibre.',
+    a: 'El precio FOB oficial de la soja (primer embarque) al 15 de septiembre de 2026 es de USD 510 por tonelada, según la circular de la Subsecretaría de Mercados Agropecuarios del MAGyP. El 14 de agosto estaba en USD 459. Podés ver la evolución mensual en el gráfico histórico de MacroLibre.',
   },
   {
     q: '¿Qué es el FOB en el mercado de granos?',

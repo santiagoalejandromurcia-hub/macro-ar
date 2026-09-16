@@ -35,7 +35,7 @@ export default function UvaContent() {
       {/* ─── KPIs ─── */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <KpiCard
-          label="Export. abril"
+          label="Export. agosto"
           value={`USD ${(kpisUva.exportAbril.valor / 1000).toFixed(1)}M`}
           subtitle={kpisUva.exportAbril.mes}
           changeYoY={kpisUva.exportAbril.variacionYoY}
@@ -68,7 +68,7 @@ export default function UvaContent() {
       {/* ─── Exportaciones mensuales — vinos + mostos ─── */}
       <ChartCard
         title="Exportaciones de vinos y mostos"
-        subtitle="Valor FOB mensual (USD miles) · Ene-25 a Abr-26 · Fuente: INV"
+        subtitle="Valor FOB mensual (USD miles) · Ene-25 a Ago-26 · Fuente: INV"
       >
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={exportMensual} margin={{ top: 10, right: 10, left: 0, bottom: 5 }}>
@@ -89,7 +89,7 @@ export default function UvaContent() {
       {/* ─── Volumen externo — fraccionado vs granel ─── */}
       <ChartCard
         title="Volumen exportado: fraccionado vs granel"
-        subtitle="Hectolitros mensuales — el granel explotó +69.8% YoY"
+        subtitle="Hectolitros mensuales — granel agosto −75,1% YoY (INV)"
       >
         <ResponsiveContainer width="100%" height={300}>
           <ComposedChart data={volumenExternoMensual} margin={{ top: 10, right: 10, left: 0, bottom: 5 }}>
@@ -111,7 +111,7 @@ export default function UvaContent() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <ChartCard
           title="Composición de exportaciones"
-          subtitle="Abril 2026 · % por tipo de vino"
+          subtitle="Agosto 2026 · % por tipo de vino"
         >
           <ResponsiveContainer width="100%" height={280}>
             <PieChart>
@@ -139,7 +139,7 @@ export default function UvaContent() {
 
         <ChartCard
           title="Mercado interno por envase"
-          subtitle="Variación interanual marzo 2026 vs 2025"
+          subtitle="Variación interanual julio 2026 vs 2025"
         >
           <div className="space-y-2 mt-2">
             {envasesInterno.map((e) => {
@@ -172,7 +172,7 @@ export default function UvaContent() {
       {/* ─── Mercado interno mensual ─── */}
       <ChartCard
         title="Mercado interno — ventas mensuales"
-        subtitle="Hectolitros · 1er trimestre 2026"
+        subtitle="Hectolitros · ene-mar + julio 2026 (INV; abr-jun sin corte en esta serie)"
       >
         <ResponsiveContainer width="100%" height={260}>
           <BarChart data={mercadoInternoMensual} margin={{ top: 10, right: 10, left: 0, bottom: 5 }}>
@@ -188,9 +188,9 @@ export default function UvaContent() {
         </ResponsiveContainer>
       </ChartCard>
 
-      {/* ─── Acumulado ene-abr ─── */}
+      {/* ─── Acumulado ene-ago ─── */}
       <ChartCard
-        title="Acumulado ene-abr 2025 vs 2026"
+        title="Acumulado ene-ago 2025 vs 2026"
         subtitle="Valor FOB USD miles · INV / SIM"
       >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-2">
@@ -211,8 +211,8 @@ export default function UvaContent() {
           />
           <div className="col-span-2 glass p-4">
             <div className="text-[10px] font-mono uppercase tracking-wider text-[var(--fg-2)] mb-1">Variación total</div>
-            <div className="text-2xl font-semibold text-[var(--up)] tnum">
-              +{acumuladoExterno.varTotalPct.toFixed(1)}%
+            <div className={`text-2xl font-semibold tnum ${acumuladoExterno.varTotalPct >= 0 ? 'text-[var(--up)]' : 'text-[var(--down)]'}`}>
+              {acumuladoExterno.varTotalPct > 0 ? '+' : ''}{acumuladoExterno.varTotalPct.toFixed(1)}%
             </div>
             <div className="text-[11px] text-[var(--fg-3)] mt-1">
               Mostos: <span className="text-[var(--up)]">+{acumuladoExterno.varMostosPct.toFixed(1)}%</span>

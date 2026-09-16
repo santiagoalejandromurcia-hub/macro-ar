@@ -15,7 +15,7 @@ const SITE_URL = 'https://macrolibre.com';
 export const metadata: Metadata = {
   title: 'Mercado de Uva, Vinos y Mostos Argentina · Exportaciones e interno',
   description:
-    'Exportaciones de vinos y mostos, mercado interno por envase y composición del comercio externo de vinos argentinos. Datos oficiales del INV — Instituto Nacional de Vitivinicultura, actualizados abril 2026.',
+    'Exportaciones de vinos y mostos, mercado interno por envase y composición del comercio externo de vinos argentinos. Datos oficiales del INV — Instituto Nacional de Vitivinicultura, actualizados agosto 2026.',
   alternates: { canonical: `${SITE_URL}/uva` },
   keywords: [
     'mercado de uva argentina', 'mercado de uva', 'exportación de vino argentina',
@@ -43,27 +43,27 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     q: '¿Cuánto exporta Argentina en vinos y mostos?',
-    a: 'En abril de 2026, las exportaciones totales (vinos + mostos) alcanzaron USD 74.5 millones FOB. El acumulado enero-abril fue de USD 250 millones, un 5.8% más que el mismo período de 2025.',
+    a: 'En agosto de 2026, las exportaciones totales (vinos + mostos) alcanzaron USD 53,9 millones FOB (−26,2% i.a.). El acumulado enero-agosto fue de USD 490,5 millones, un 5,4% menos que el mismo período de 2025.',
   },
   {
     q: '¿Cuál es la diferencia entre vino fraccionado y vino granel?',
-    a: 'El vino fraccionado se exporta en envases listos para el consumidor (botella, tetra brik, lata). El vino granel se exporta en cisternas o tanques y se fracciona en destino. El granel argentino creció 82.7% interanual en abril 2026 — el blanco granel disparó +420%.',
+    a: 'El vino fraccionado se exporta en envases listos para el consumidor (botella, tetra brik, lata). El vino granel se exporta en cisternas o tanques y se fracciona en destino. En agosto 2026 el granel se derrumbó 75,1% interanual (11.165 hl).',
   },
   {
     q: '¿Qué es el mosto concentrado?',
-    a: 'Es jugo de uva concentrado por evaporación, usado por la industria alimenticia (jugos, dulces, panificados) como edulcorante natural. Argentina es uno de los principales exportadores mundiales. En abril 2026 facturó USD 13.3M, +33.9% YoY.',
+    a: 'Es jugo de uva concentrado por evaporación, usado por la industria alimenticia (jugos, dulces, panificados) como edulcorante natural. Argentina es uno de los principales exportadores mundiales. En agosto 2026 facturó USD 8,3M, −39,8% YoY; el acumulado ene-ago sigue +7,4%.',
   },
   {
     q: '¿Cómo está el consumo interno de vino?',
-    a: 'En marzo de 2026 se comercializaron 603.391 hectolitros en el mercado interno, un +8.4% más que marzo 2025. La botella creció +8.1% y el tetra brik +13.7%; en cambio la damajuana cayó -45.3% y el bag in box -81.4% — recomposición hacia envases premium.',
+    a: 'En julio de 2026 se comercializaron 649.674 hectolitros en el mercado interno, un 1,4% menos que julio 2025 (+5,0% vs junio). La botella creció +3,6% y la lata +7,4%; el tetra brik cayó 9,9% y la damajuana 28,7%.',
   },
   {
     q: '¿Qué tipo de vino se exporta más?',
-    a: 'Los vinos varietales tintos representan el 69% del volumen exportado. El segmento que más creció en abril 2026 fue el vino blanco sin mención varietal (+361% YoY), traccionado por la demanda granel.',
+    a: 'En agosto 2026 los vinos varietales tintos concentran el 72% del volumen exportado. El único segmento en alza fue el espumoso (+7,1% YoY); el granel se contrajo 75%.',
   },
   {
     q: '¿De dónde salen los datos?',
-    a: 'Del INV (Instituto Nacional de Vitivinicultura), Sistema SIM. Mercado externo abril 2026 e interno marzo 2026. Datos provisorios sujetos a revisión por declaraciones juradas y rectificativas.',
+    a: 'Del INV (Instituto Nacional de Vitivinicultura), Sistema SIM. Mercado externo agosto 2026 e interno julio 2026. Datos provisorios sujetos a revisión por declaraciones juradas y rectificativas.',
   },
 ];
 
@@ -142,16 +142,15 @@ export default function UvaPage() {
       <section className="mt-10 glass p-5 md:p-6 text-[13px] text-[var(--fg-1)] leading-relaxed">
         <h2 className="text-[15px] font-semibold text-[var(--fg-0)] mb-3">Lo que tenés que saber</h2>
         <p className="mb-3">
-          Abril 2026 fue un mes <strong className="text-[var(--up)]">muy fuerte</strong>:
-          las exportaciones de vinos y mostos crecieron 21.9% interanual.
-          El protagonista fue el <strong>vino granel</strong>, que se disparó +82.7% — y el granel
-          blanco, +420% — traccionado por demanda externa de vinos base para ensamblar.
+          Agosto 2026 fue un mes <strong className="text-[var(--down)]">flojo en el externo</strong>:
+          las exportaciones de vinos y mostos cayeron 26,2% interanual (USD 53,9 M).
+          El <strong>vino granel</strong> se derrumbó 75,1%. El acumulado ene-ago todavía
+          factura USD 490,5 M (−5,4% i.a.), con mostos +7,4%.
         </p>
         <p className="mb-3">
-          En el mercado interno, marzo 2026 marcó 603.391 hectolitros vendidos
-          (+8.4% YoY, +19.3% MoM). La recomposición de consumo sigue: la <strong>botella</strong>
-          y el <strong>tetra brik</strong> ganan terreno frente a la damajuana y el bag in box,
-          que se desploman.
+          En el mercado interno, julio 2026 marcó 649.674 hectolitros
+          (−1,4% YoY, +5,0% MoM). La <strong>botella</strong> sigue ganando share; el tetra brik
+          retrocedió 9,9% interanual.
         </p>
         <p className="text-[var(--fg-2)] text-[12px]">
           Los datos son provisorios — sujetos a rectificación por declaraciones juradas

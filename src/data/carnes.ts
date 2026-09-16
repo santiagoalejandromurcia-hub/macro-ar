@@ -1,14 +1,14 @@
 // ============================================================
 // MacroLibre — Mercado de Carnes Argentina
 // ============================================================
-// Datos oficiales SAGyP (faena bovina) e IPCVA / INDEC (exportaciones).
-// Snapshot: abril 2026 (faena) · marzo 2026 (exportaciones).
-//
-// Para actualizar: bajar el último informe SAGyP/IPCVA y reemplazar
-// los arrays. Mantener el formato (orden ascendente por fecha).
+// Faena: MAGYP/DNCCA tablero agosto 2026 (1.011.334 cab.).
+// May-jun mensuales: Consorcio ABC / CICCRA (redondeo publicado).
+// Exportaciones mensuales: último corte IPCVA/INDEC del snapshot mar-26;
+// KPI de valor usa CICCRA julio 2026 (USD 446,6 M).
+// Provincia/frigoríficos: siguen siendo acumulado ene-abr (sin tabla nueva).
 // ============================================================
 
-export const ACTUALIZADO_AL = '2026-05-12';
+export const ACTUALIZADO_AL = '2026-09-16';
 export const FAENA_FUENTE = 'SAGyP · Dirección Nacional de Control Comercial Agropecuario';
 export const EXPORT_FUENTE = 'IPCVA · INDEC (datos provisorios)';
 
@@ -23,6 +23,10 @@ export const faenaMensual2026: FaenaMes[] = [
   { mes: 'Feb-26', cabezas: 925235 },
   { mes: 'Mar-26', cabezas: 1029755 },
   { mes: 'Abr-26', cabezas: 960871 },
+  { mes: 'May-26', cabezas: 1001000 }, // Consorcio ABC (~1,001 M)
+  { mes: 'Jun-26', cabezas: 1077000 }, // Consorcio ABC / Clarín
+  { mes: 'Jul-26', cabezas: 1095097 }, // MAGYP tablero julio
+  { mes: 'Ago-26', cabezas: 1011334 }, // MAGYP tablero agosto
 ];
 
 // ─── Faena por provincia (acumulado ene-abr 2026) ────────────
@@ -64,7 +68,7 @@ export const topFrigorificos: Frigorifico[] = [
   { razonSocial: 'Black Bamboo',                  provincia: 'Buenos Aires', cabezas: 48000  },
 ];
 
-// ─── Faena por categoría animal (acumulado ene-abr 2026) ─────
+// ─── Faena por categoría animal (acumulado ene-ago 2026 · MAGYP) ─────
 export interface FaenaCategoria {
   categoria: string;
   cabezas: number;
@@ -72,12 +76,12 @@ export interface FaenaCategoria {
 }
 
 export const faenaPorCategoria: FaenaCategoria[] = [
-  { categoria: 'Novillito',  cabezas: 1299139, participacion: 33.0 },
-  { categoria: 'Vaquillona', cabezas: 992404,  participacion: 25.2 },
-  { categoria: 'Vaca',       cabezas: 879850,  participacion: 22.4 },
-  { categoria: 'Novillo',    cabezas: 638310,  participacion: 16.2 },
-  { categoria: 'Toro',       cabezas: 59709,   participacion: 1.5  },
-  { categoria: 'MEJ (Macho Entero Joven)',        cabezas: 66186,   participacion: 1.7  },
+  { categoria: 'Novillito',  cabezas: 3499560, participacion: 43.0 },
+  { categoria: 'Vaquillona', cabezas: 2255000, participacion: 27.7 },
+  { categoria: 'Vaca',       cabezas: 1498663, participacion: 18.4 },
+  { categoria: 'Novillo',    cabezas: 623634,  participacion: 7.7  },
+  { categoria: 'Toro',       cabezas: 127084,  participacion: 1.6  },
+  { categoria: 'MEJ (Macho Entero Joven)', cabezas: 126232, participacion: 1.6 },
 ];
 
 // ─── Exportaciones mensuales (ene-25 a mar-26) ───────────────
@@ -133,26 +137,26 @@ export const destinosExport: DestinoExport[] = [
 // ─── KPIs principales para el hero ────────────────────────────
 export const kpisCarnes = {
   faenaUltimoMes: {
-    valor: 960871,
-    mes: 'Abril 2026',
-    variacionMoM: -6.7, // vs marzo
-    variacionYoY: null as number | null, // sin dato comparable
+    valor: 1011334,
+    mes: 'Agosto 2026',
+    variacionMoM: -7.6, // vs julio MAGYP
+    variacionYoY: -12.9,
   },
   exportValorUltimoMes: {
-    valor: 405690, // USD miles
-    mes: 'Marzo 2026',
-    variacionMoM: 36.3,
-    variacionYoY: 106.2,
+    valor: 446600, // USD miles · CICCRA julio
+    mes: 'Julio 2026',
+    variacionMoM: 4.4,
+    variacionYoY: 34.0,
   },
   precioFobPromedio: {
-    valor: 7923, // USD/tn
-    mes: 'Marzo 2026',
-    variacionMoM: 6.3,
-    variacionYoY: 41.9,
+    valor: 8061, // USD/tn pp · CICCRA julio
+    mes: 'Julio 2026',
+    variacionMoM: 2.3,
+    variacionYoY: 26.9,
   },
   topDestino: {
     pais: 'China',
-    participacion: 61.6,
-    valor: 4305, // USD/tn precio FOB
+    participacion: 52.5, // CICCRA ene-jul vol. pp
+    valor: 6010, // USD/tn carne s/hueso a China · ABC julio
   },
 };
