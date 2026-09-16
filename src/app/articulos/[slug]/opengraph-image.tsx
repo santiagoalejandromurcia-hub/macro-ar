@@ -21,7 +21,7 @@ export default async function Image(
   const { slug } = await params;
   const article = articles.find((a) => a.slug === slug);
   const logoRes = await fetch(new URL('../../logo-mark.png', import.meta.url));
-  const logoSrc = await logoRes.arrayBuffer();
+  const logoSrc = await logoRes.blob();
 
   if (!article) {
     return new ImageResponse(
