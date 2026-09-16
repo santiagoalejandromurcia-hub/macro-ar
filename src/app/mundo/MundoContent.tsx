@@ -198,7 +198,7 @@ export default function MundoContent() {
                     <div className="font-mono text-[10px] text-[var(--fg-3)]">{r.currency}</div>
                   </th>
                   <MetricCell m={r.metrics.cpiYoy} />
-                  <MetricCell m={r.metrics.policyRate} />
+                  <MetricCell m={r.metrics.policyRate} digits={3} />
                   <MetricCell m={r.metrics.fxUsd} digits={4} />
                 </tr>
               ))}
@@ -207,11 +207,12 @@ export default function MundoContent() {
       </div>
 
       <p className="text-[11px] leading-relaxed text-[var(--fg-3)]">
-        Fuentes: open.er-api (FX) · BIS WS_CBPOL (tasas BR CL MX US XM CN) · BCB SGS 13522
-        (IPCA 12m) · FRED CPIAUCSL (CPI EE.UU., YoY derivado, sin API key) · INDEC / INE Chile /
-        INE Uruguay / INEGI / NBS / Eurostat (CPI MANUAL). TPM Uruguay: BCU COPOM. Sin EMBI/CDS
-        multi-país en v1. Eurozona = XM (no usar DE). Argentina es contexto HOME, no el riel
-        principal.
+        Fuentes: open.er-api (FX) · BIS WS_CBPOL (tasas BR CL MX) · BCB SGS 13522 (IPCA 12m) ·
+        FRED CPIAUCSL + ECBDFR (sin API key) · INDEC / INE Chile / INE Uruguay / INEGI / NBS /
+        Eurostat (CPI MANUAL). Tasas: EE.UU. = punto medio del rango FOMC (3,75–4,00 al 16/09);
+        Eurozona = deposit facility BCE (2,50 vigente 16/09); China = reverse repo 7 días PBOC
+        (1,40; no el LPR 1Y). TPM Uruguay: BCU COPOM. Sin EMBI/CDS multi-país en v1. Eurozona =
+        XM (no usar DE). Argentina es contexto HOME, no el riel principal.
       </p>
     </div>
   );

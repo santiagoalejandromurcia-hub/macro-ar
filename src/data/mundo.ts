@@ -69,13 +69,40 @@ export const MANUAL_CPI: Partial<
   },
 };
 
-/** UY no está en BIS WS_CBPOL M.UY */
+/**
+ * Policy rates que BIS no cubre bien:
+ * - UY: no está en WS_CBPOL
+ * - US/XM: BIS diario corta el 8/09; FOMC y BCE movieron el 16/09
+ * - CN: BIS reporta LPR 1Y (3%), no la tasa de política (repo 7d = 1,40%)
+ */
 export const MANUAL_POLICY: Partial<
-  Record<MundoCountryId, { value: number | null; asOf: string; note?: string }>
+  Record<MundoCountryId, { value: number | null; asOf: string; note?: string; sourceLabel?: string }>
 > = {
   UY: {
     value: 5.75,
     asOf: '2026-08-18',
+    sourceLabel: 'MANUAL · BCU TPM',
     note: 'BCU COPOM TPM vigente (ratificada 18/08/2026; Tasa 1 Día 15/09 = 5,75%)',
   },
+  US: {
+    value: 3.875,
+    asOf: '2026-09-16',
+    sourceLabel: 'MANUAL · FOMC',
+    note: 'Punto medio del rango objetivo 3,75–4,00% (alza 25 pb, comunicado FOMC 16/09/2026 14:00 EDT)',
+  },
+  XM: {
+    value: 2.5,
+    asOf: '2026-09-16',
+    sourceLabel: 'MANUAL · BCE DFR',
+    note: 'Deposit facility rate, el steering rate del BCE. +25 pb el 10/09, vigente 16/09 (no el MRO 2,65)',
+  },
+  CN: {
+    value: 1.4,
+    asOf: '2026-09-16',
+    sourceLabel: 'MANUAL · PBOC 7d',
+    note: 'Reverse repo 7 días PBOC (tasa de política operativa). No es el LPR 1Y = 3%',
+  },
 };
+
+/** BIS WS_CBPOL: usable for these; US/XM/CN se pisan con fuentes más honestas */
+export const BIS_POLICY_IDS: MundoCountryId[] = ['BR', 'CL', 'MX'];

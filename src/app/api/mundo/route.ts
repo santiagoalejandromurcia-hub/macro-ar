@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import {
   ACTUALIZADO_AL,
+  BIS_POLICY_IDS,
   MANUAL_CPI,
   MANUAL_POLICY,
   MUNDO_META,
@@ -37,6 +38,19 @@ function isoDate(d = new Date()): string {
 function shiftYear(isoDateStr: string, delta: number): string {
   const [y, m, d] = isoDateStr.split('-').map(Number);
   return `${y + delta}-${String(m).padStart(2, '0')}-${String(d ?? 1).padStart(2, '0')}`;
+}
+
+function lastFredPoints(csv: string): { date: string; val: number }[] {
+  return csv
+    .trim()
+    .split('\n')
+    .slice(1)
+    .filter(Boolean)
+    .map((line) => {
+      const [date, val] = line.split(',');
+      return { date, val: Number(val) };
+    })
+    .filter((p) => p.date && Number.isFinite(p.val));
 }
 
 function asRecord(v: unknown): Record<string, unknown> | null {
@@ -114,14 +128,14 @@ export async function GET() {
   }
   for (const [id, pol] of Object.entries(MANUAL_POLICY) as [
     MundoCountryId,
-    { value: number | null; asOf: string; note?: string },
+    { value: number | null; asOf: string; note?: string; sourceLabel?: string },
   ][]) {
     byId[id].metrics.policyRate = metric(
       'policyRate',
       pol.value,
       pol.asOf,
       'manual',
-      'MANUAL · BCU',
+      pol.sourceLabel ?? 'MANUAL',
       pol.note,
     );
   }
@@ -159,7 +173,7 @@ export async function GET() {
   // ── Policy BIS WS_CBPOL ──────────────────────────────────────
   try {
     const res = await fetch(
-      'https://stats.bis.org/api/v1/data/WS_CBPOL/M.BR+CL+MX+US+XM+CN?lastNObservations=1',
+      'https://stats.bis.org/api/v1/data/WS_CBPOL/M.BR+CL+MX?lastNObservations=1',
       {
         headers: { Accept: 'application/vnd.sdmx.data+json;version=1.0.0' },
         next: { revalidate: 3600 },
@@ -173,8 +187,9 @@ export async function GET() {
       if (!liveOk.bis) {
         console.error('[mundo] BIS parse empty', JSON.stringify(j).slice(0, 500));
       }
+      const allow = new Set<MundoCountryId>(BIS_POLICY_IDS);
       for (const p of parsed) {
-        if (!byId[p.id]) continue;
+        if (!byId[p.id] || !allow.has(p.id)) continue;
         byId[p.id].metrics.policyRate = metric(
           'policyRate',
           p.value,
@@ -222,14 +237,7 @@ export async function GET() {
       signal: AbortSignal.timeout(15_000),
     });
     if (res.ok) {
-      const text = await res.text();
-      const lines = text.trim().split('\n').slice(1).filter(Boolean);
-      const pts = lines
-        .map((line) => {
-          const [date, val] = line.split(',');
-          return { date, val: Number(val) };
-        })
-        .filter((p) => p.date && Number.isFinite(p.val));
+      const pts = lastFredPoints(await res.text());
       const last = pts[pts.length - 1];
       if (last) {
         const target = shiftYear(last.date, -1);
@@ -251,6 +259,61 @@ export async function GET() {
     }
   } catch {
     /* */
+  }
+
+  // ── BCE deposit facility (FRED, sin key) — más fresco que BIS ─
+  try {
+    const res = await fetch('https://fred.stlouisfed.org/graph/fredgraph.csv?id=ECBDFR', {
+      next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(12_000),
+    });
+    if (res.ok) {
+      const last = lastFredPoints(await res.text()).at(-1);
+      if (last) {
+        byId.XM.metrics.policyRate = metric(
+          'policyRate',
+          last.val,
+          last.date,
+          'live',
+          'FRED ECBDFR · BCE depósito',
+          'Deposit facility rate (steering rate del BCE)',
+        );
+      }
+    }
+  } catch {
+    /* keep MANUAL BCE */
+  }
+
+  // ── Fed funds target range (FRED) — solo si ya incorporó el FOMC ─
+  try {
+    const [upperRes, lowerRes] = await Promise.all([
+      fetch('https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFEDTARU', {
+        next: { revalidate: 3600 },
+        signal: AbortSignal.timeout(12_000),
+      }),
+      fetch('https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFEDTARL', {
+        next: { revalidate: 3600 },
+        signal: AbortSignal.timeout(12_000),
+      }),
+    ]);
+    if (upperRes.ok && lowerRes.ok) {
+      const upper = lastFredPoints(await upperRes.text()).at(-1);
+      const lower = lastFredPoints(await lowerRes.text()).at(-1);
+      // El FOMC del 16/09 subió el techo a 4,00. Si FRED sigue en 3,75, no pises el MANUAL.
+      if (upper && lower && upper.val >= 4) {
+        const mid = Math.round(((upper.val + lower.val) / 2) * 1000) / 1000;
+        byId.US.metrics.policyRate = metric(
+          'policyRate',
+          mid,
+          upper.date,
+          'derived',
+          'FRED DFEDTAR · FOMC',
+          `Punto medio del rango ${lower.val.toFixed(2)}–${upper.val.toFixed(2)}%`,
+        );
+      }
+    }
+  } catch {
+    /* keep MANUAL FOMC */
   }
 
   return NextResponse.json(
