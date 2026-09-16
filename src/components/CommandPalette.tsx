@@ -45,13 +45,22 @@ const ITEMS = [
   { group: 'Contenido', label: 'Newsletter',              href: '/#newsletter',  icon: '✉️' },
   { group: 'Contenido', label: 'Informes mensuales',      href: '/informes',     icon: '📋' },
 
+  // Series (deep-link al terminal)
+  { group: 'Series', label: 'Serie: Inflación IPC', href: '/?kpi=inflacion#dashboard', icon: '🔥' },
+  { group: 'Series', label: 'Serie: EMAE', href: '/?kpi=emae#dashboard', icon: '📈' },
+  { group: 'Series', label: 'Serie: TAMAR', href: '/?kpi=tamar#dashboard', icon: '💹' },
+  { group: 'Series', label: 'Serie: Reservas BCRA', href: '/?kpi=reservas#dashboard', icon: '🏦' },
+  { group: 'Series', label: 'Serie: Dólar Blue', href: '/?kpi=dolar-blue#dashboard', icon: '💵' },
+  { group: 'Series', label: 'Serie: Riesgo País', href: '/?kpi=riesgo#dashboard', icon: '📉' },
+  { group: 'Series', label: 'Serie: Brecha', href: '/?kpi=brecha#dashboard', icon: '📊' },
+
   // Sitio
   { group: 'Sitio',    label: 'Acerca de MacroLibre',    href: '/acerca',       icon: 'ℹ️' },
   { group: 'Sitio',    label: 'Contacto',                href: '/contacto',     icon: '📬' },
   { group: 'Sitio',    label: 'Servicios',               href: '/servicios',    icon: '💎' },
 ] as const;
 
-const GROUPS = ['Dashboard', 'Indicadores', 'Mercados', 'Herramientas', 'Contenido', 'Sitio'] as const;
+const GROUPS = ['Dashboard', 'Indicadores', 'Series', 'Mercados', 'Herramientas', 'Contenido', 'Sitio'] as const;
 
 interface Props {
   open: boolean;

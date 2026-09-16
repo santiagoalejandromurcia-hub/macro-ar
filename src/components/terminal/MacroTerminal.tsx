@@ -13,6 +13,7 @@ import {
 import { preciosFOB } from '@/data/granos';
 import { bonosNominales, bonosReales, remEsperado } from '@/data/breakEven';
 import { construirCurvaBEI } from '@/lib/breakEven';
+import { downloadCSV } from '@/lib/csvUtils';
 
 // ══════════════════════════════════════════════════════════════════
 // MacroTerminal — Bloomberg-style dashboard
@@ -71,6 +72,7 @@ const ROW_SERIES: Record<string, RowSeries> = {
   'dolar-oficial':  { title: 'DÓLAR OFICIAL (ARS)',           unit: ' ARS',    color: '#74ACDF', data: tcrData.map(d => ({ date: d.date, value: d.oficial })) },
   'brecha':         { title: 'BRECHA CAMBIARIA (%)',          unit: '%',       color: '#F0A500', data: tcrData.map(d => ({ date: d.date, value: Number((((d.blue / d.oficial) - 1) * 100).toFixed(1)) })) },
   'riesgo':         { title: 'RIESGO PAÍS (EMBIGD JP Morgan)', unit: ' pb', color: '#f85149', data: riesgoPaisData.map(d => ({ date: d.date, value: d.value })) },
+  'tamar':          { title: 'TAMAR BANCOS PRIVADOS (% n.a.)', unit: '%', color: '#38BDF8', data: [] },
 };
 
 type LiveKpi = { value: string; change: number; changeLabel: string } | null;
@@ -346,6 +348,19 @@ export default function MacroTerminal() {
   const setTab = useCallback((t: Tab) => { setTabRaw(t); setSelRow(null); }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const id = new URLSearchParams(window.location.search).get('kpi');
+    if (id && ROW_SERIES[id]) {
+      if (['dolar-blue', 'dolar-oficial', 'brecha', 'riesgo', 'reservas'].includes(id)) setTabRaw('EXTERNO');
+      else if (['inflacion', 'ipc-interanual', 'ipc-nucleo', 'ipim', 'tamar', 'rem-prox'].includes(id)) setTabRaw('PRECIOS');
+      else if (['emae', 'pbi'].includes(id)) setTabRaw('ACTIVIDAD');
+      else if (id === 'superavit') setTabRaw('FISCAL');
+      setSelRow(id);
+      document.getElementById('dashboard')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
+  useEffect(() => {
     async function load() {
       try {
         const [dr, rr, kr] = await Promise.all([
@@ -555,6 +570,32 @@ export default function MacroTerminal() {
             <div style={{ fontSize:11, letterSpacing:'0.1em', color:'var(--fg-2)', marginBottom:12, display:'flex', justifyContent:'space-between', alignItems:'center', gap:8 }}>
               <span style={{ minWidth:0, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{chart.title}</span>
               <span style={{ display:'flex', alignItems:'center', gap:8, flexShrink:0 }}>
+                {selRow && ROW_SERIES[selRow] && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const s = ROW_SERIES[selRow];
+                      if (!s) return;
+                      downloadCSV(
+                        s.data.map(d => ({ fecha: d.date, valor: d.value })),
+                        selRow,
+                      );
+                    }}
+                    style={{
+                      fontSize: 11,
+                      letterSpacing: '0.06em',
+                      padding: '4px 10px',
+                      border: '1px solid var(--line-1)',
+                      borderRadius: 6,
+                      background: 'var(--bg-2)',
+                      color: 'var(--fg-1)',
+                      cursor: 'pointer',
+                      fontFamily: 'inherit',
+                    }}
+                  >
+                    CSV ↓
+                  </button>
+                )}
                 {selRow && (
                   <button onClick={() => setSelRow(null)} style={{
                     background:'transparent', border:'1px solid var(--line-1)', borderRadius:2,
