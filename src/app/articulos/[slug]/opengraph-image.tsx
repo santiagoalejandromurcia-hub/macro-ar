@@ -20,6 +20,8 @@ export default async function Image(
 ) {
   const { slug } = await params;
   const article = articles.find((a) => a.slug === slug);
+  const logoRes = await fetch(new URL('../../logo-mark.png', import.meta.url));
+  const logoSrc = await logoRes.arrayBuffer();
 
   if (!article) {
     return new ImageResponse(
@@ -90,22 +92,14 @@ export default async function Image(
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <div
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: 10,
-                background: `linear-gradient(135deg, ${ACCENT} 0%, ${GOLD} 100%)`,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: BG_DARK,
-                fontWeight: 800,
-                fontSize: 22,
-              }}
-            >
-              M
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={logoSrc}
+              alt="MacroLibre"
+              width={44}
+              height={44}
+              style={{ width: 44, height: 44, borderRadius: 10, objectFit: 'contain' }}
+            />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span style={{ color: FG_PRIMARY, fontSize: 22, fontWeight: 700, lineHeight: 1 }}>
                 MacroLibre

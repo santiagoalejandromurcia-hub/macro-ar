@@ -144,7 +144,7 @@ export default function Navbar() {
           <img
             src="/MACRO.png"
             alt="MacroLibre"
-            className="w-8 h-8 rounded-lg object-cover ring-1 ring-[var(--line-1)] group-hover:ring-[var(--celeste)]/50 transition"
+            className="w-8 h-8 rounded-md object-contain group-hover:opacity-90 transition"
           />
           <div className="flex flex-col leading-none">
             <span className="text-[14px] font-semibold tracking-tight text-[var(--fg-0)]">MacroLibre</span>

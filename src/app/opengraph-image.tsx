@@ -12,6 +12,9 @@ export const size = { width: 1200, height: 630 };
 export const alt = 'MacroLibre — Pulso económico de Argentina en tiempo real';
 
 export default async function Image() {
+  const logoRes = await fetch(new URL('./logo-mark.png', import.meta.url));
+  const logoSrc = await logoRes.arrayBuffer();
+
   const BG_DARK = '#0a1018';
   const BG_CARD = '#10182a';
   const FG_PRIMARY = '#f5f7fa';
@@ -74,22 +77,14 @@ export default async function Image() {
 
         {/* ─── Header marca ─── */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 56 }}>
-          <div
-            style={{
-              width: 64,
-              height: 64,
-              borderRadius: 14,
-              background: `linear-gradient(135deg, ${ACCENT} 0%, ${GOLD} 100%)`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: BG_DARK,
-              fontWeight: 800,
-              fontSize: 32,
-            }}
-          >
-            M
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={logoSrc}
+            alt="MacroLibre"
+            width={64}
+            height={64}
+            style={{ width: 64, height: 64, borderRadius: 12, objectFit: 'contain' }}
+          />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span style={{ color: FG_PRIMARY, fontSize: 32, fontWeight: 700, lineHeight: 1 }}>
               MacroLibre

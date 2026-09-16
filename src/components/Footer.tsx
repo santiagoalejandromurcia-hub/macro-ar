@@ -29,11 +29,12 @@ export default function Footer() {
           {/* ── Brand (col-span-2) ───────────────────────── */}
           <div className="col-span-2">
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="relative w-7 h-7 rounded-[7px] flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, var(--gold), var(--teal))' }}>
-                <svg viewBox="0 0 24 24" className="relative w-4 h-4 text-[var(--bg-0)]" fill="none" stroke="currentColor" strokeWidth={2.5}>
-                  <path d="M3 20L8 10L13 16L21 4" />
-                </svg>
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/MACRO.png"
+                alt="MacroLibre"
+                className="w-7 h-7 rounded-md object-contain"
+              />
               <div className="flex flex-col leading-none">
                 <span className="text-[15px] font-semibold tracking-tight text-[var(--fg-0)]">MacroLibre</span>
                 <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-[var(--fg-2)]">AR · Macro · Real-time</span>
