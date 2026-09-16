@@ -300,15 +300,15 @@ export async function GET() {
       const upper = lastFredPoints(await upperRes.text()).at(-1);
       const lower = lastFredPoints(await lowerRes.text()).at(-1);
       // El FOMC del 16/09 subió el techo a 4,00. Si FRED sigue en 3,75, no pises el MANUAL.
+      // Mostramos el techo del rango (como Trading Economics / titulares), no el punto medio.
       if (upper && lower && upper.val >= 4) {
-        const mid = Math.round(((upper.val + lower.val) / 2) * 1000) / 1000;
         byId.US.metrics.policyRate = metric(
           'policyRate',
-          mid,
+          upper.val,
           upper.date,
           'derived',
-          'FRED DFEDTAR · FOMC',
-          `Punto medio del rango ${lower.val.toFixed(2)}–${upper.val.toFixed(2)}%`,
+          'FRED DFEDTARU · FOMC techo',
+          `Techo del rango objetivo ${lower.val.toFixed(2)}–${upper.val.toFixed(2)}%`,
         );
       }
     }

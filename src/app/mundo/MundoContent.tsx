@@ -209,10 +209,11 @@ export default function MundoContent() {
       <p className="text-[11px] leading-relaxed text-[var(--fg-3)]">
         Fuentes: open.er-api (FX) · BIS WS_CBPOL (tasas BR CL MX) · BCB SGS 13522 (IPCA 12m) ·
         FRED CPIAUCSL + ECBDFR (sin API key) · INDEC / INE Chile / INE Uruguay / INEGI / NBS /
-        Eurostat (CPI MANUAL). Tasas: EE.UU. = punto medio del rango FOMC (3,75–4,00 al 16/09);
-        Eurozona = deposit facility BCE (2,50 vigente 16/09); China = reverse repo 7 días PBOC
-        (1,40; no el LPR 1Y). TPM Uruguay: BCU COPOM. Sin EMBI/CDS multi-país en v1. Eurozona =
-        XM (no usar DE). Argentina es contexto HOME, no el riel principal.
+        Eurostat (CPI MANUAL). Tasas: EE.UU. = techo del rango FOMC (3,75–4,00 al 16/09,
+        comunicado federalreserve.gov); Eurozona = deposit facility BCE (2,50 vigente 16/09);
+        China = reverse repo 7 días PBOC (1,40; no el LPR 1Y). TPM Uruguay: BCU COPOM. Sin
+        EMBI/CDS multi-país en v1. Eurozona = XM (no usar DE). Argentina es contexto HOME, no
+        el riel principal.
       </p>
     </div>
   );

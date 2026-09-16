@@ -85,10 +85,10 @@ export const MANUAL_POLICY: Partial<
     note: 'BCU COPOM TPM vigente (ratificada 18/08/2026; Tasa 1 Día 15/09 = 5,75%)',
   },
   US: {
-    value: 3.875,
+    value: 4,
     asOf: '2026-09-16',
-    sourceLabel: 'MANUAL · FOMC',
-    note: 'Punto medio del rango objetivo 3,75–4,00% (alza 25 pb, comunicado FOMC 16/09/2026 14:00 EDT)',
+    sourceLabel: 'MANUAL · FOMC techo',
+    note: 'Techo del rango objetivo FOMC 3,75–4,00% (alza 25 pb, comunicado 16/09/2026). No es 4,75.',
   },
   XM: {
     value: 2.5,
