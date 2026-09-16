@@ -43,7 +43,7 @@ export default function AcercaPage() {
     sameAs: [
       'https://www.instagram.com/macrolibre/',
       'https://www.linkedin.com/in/macrolibre/',
-      // TODO: agregá tu Twitter/X y LinkedIn personal
+      'https://x.com/MacroLibre',
     ],
     worksFor: {
       '@type': 'Organization',
@@ -127,6 +127,14 @@ export default function AcercaPage() {
                 className="px-3 py-1.5 bg-theme-surface border border-theme rounded-lg text-theme-secondary hover:text-pink-400 hover:border-pink-400/30 transition-all"
               >
                 Instagram
+              </a>
+              <a
+                href="https://x.com/MacroLibre"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1.5 bg-theme-surface border border-theme rounded-lg text-theme-secondary hover:text-[var(--fg-0)] hover:border-[var(--celeste)]/30 transition-all"
+              >
+                X @MacroLibre
               </a>
               <Link
                 href="/contacto"

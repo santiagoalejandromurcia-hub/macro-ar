@@ -74,6 +74,17 @@ export default function Footer() {
                   <circle cx="4" cy="4" r="2" />
                 </svg>
               </a>
+              <a
+                href="https://x.com/MacroLibre"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-md bg-[var(--bg-1)] border border-[var(--line-1)] flex items-center justify-center text-[var(--fg-2)] hover:text-[var(--fg-0)] hover:border-[var(--celeste)]/40 transition"
+                aria-label="X (Twitter)"
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.727-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
+                </svg>
+              </a>
             </div>
           </div>
 
@@ -129,6 +140,16 @@ export default function Footer() {
                   className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition"
                 >
                   LinkedIn <span aria-hidden>↗</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://x.com/MacroLibre"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition"
+                >
+                  X @MacroLibre <span aria-hidden>↗</span>
                 </a>
               </li>
             </ul>

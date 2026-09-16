@@ -37,6 +37,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@MacroLibre',
+    creator: '@MacroLibre',
     title: 'MacroLibre — Pulso económico en tiempo real',
     description: 'Dólar blue en vivo, inflación, PBI, reservas y simulador económico.',
   },
@@ -70,6 +72,7 @@ const ORG_JSON_LD = {
   sameAs: [
     'https://www.instagram.com/macrolibre/',
     'https://www.linkedin.com/in/macrolibre/',
+    'https://x.com/MacroLibre',
     'https://x.com/SantoLibre_',
     'https://github.com/santiagoalejandromurcia-hub/macro-ar',
   ],

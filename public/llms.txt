@@ -37,6 +37,7 @@
 - [Acerca de MacroLibre](https://macrolibre.com/acerca): Misión, fuentes, metodología.
 - [Contacto](https://macrolibre.com/contacto)
 - [Servicios](https://macrolibre.com/servicios)
+- [X @MacroLibre](https://x.com/MacroLibre)
 
 ## API pública (JSON)
 
