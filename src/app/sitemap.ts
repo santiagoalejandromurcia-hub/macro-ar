@@ -91,6 +91,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8, // alto: nicho diferenciado (vinos + mostos INV)
     },
     {
+      url: `${BASE_URL}/mundo`,
+      lastModified: now,
+      changeFrequency: 'hourly',
+      priority: 0.7,
+    },
+    {
       url: `${BASE_URL}/informes`,
       lastModified: now,
       changeFrequency: 'monthly',

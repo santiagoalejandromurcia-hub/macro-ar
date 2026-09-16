@@ -55,13 +55,18 @@ const ITEMS = [
   { group: 'Series', label: 'Serie: Riesgo País', href: '/?kpi=riesgo#dashboard', icon: '📉' },
   { group: 'Series', label: 'Serie: Brecha', href: '/?kpi=brecha#dashboard', icon: '📊' },
 
+  // Contexto (riel secundario)
+  { group: 'Contexto', label: 'Mundo / LatAm — comparables', href: '/mundo', icon: '🌎' },
+  { group: 'Contexto', label: 'Brasil — peers', href: '/mundo#BR', icon: '🇧🇷' },
+  { group: 'Contexto', label: 'Estados Unidos — peers', href: '/mundo#US', icon: '🇺🇸' },
+
   // Sitio
   { group: 'Sitio',    label: 'Acerca de MacroLibre',    href: '/acerca',       icon: 'ℹ️' },
   { group: 'Sitio',    label: 'Contacto',                href: '/contacto',     icon: '📬' },
   { group: 'Sitio',    label: 'Servicios',               href: '/servicios',    icon: '💎' },
 ] as const;
 
-const GROUPS = ['Dashboard', 'Indicadores', 'Series', 'Mercados', 'Herramientas', 'Contenido', 'Sitio'] as const;
+const GROUPS = ['Dashboard', 'Indicadores', 'Series', 'Contexto', 'Mercados', 'Herramientas', 'Contenido', 'Sitio'] as const;
 
 interface Props {
   open: boolean;
