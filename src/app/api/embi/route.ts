@@ -75,6 +75,9 @@ export interface EmbiResponse {
   // Computed from live price (for reference in EmbiDashboard, the complex multi-bond version)
   computed_gd35c_ytm?: number | null;
   computed_gd35c_spread?: number | null;
+  quotesSource?: 'static-manual' | 'live';
+  quotesAsOf?: string | null;
+  computedSource?: 'live-price' | null;
 }
 
 export async function GET() {
@@ -160,7 +163,7 @@ export async function GET() {
       }
 
       bonds.push({
-        ticker:       bond.ticker.replace('D', ''),
+        ticker:       bond.ticker.replace(/D$/, ''),
         isin:         bond.isin,
         maturityYear: bond.maturity.getUTCFullYear(),
         price:        Math.round(price * 100) / 100,
@@ -262,6 +265,9 @@ export async function GET() {
       us10y: us10y ? Math.round(us10y * 10000)/100 : null,
       computed_gd35c_ytm,
       computed_gd35c_spread,
+      quotesSource: 'static-manual',
+      quotesAsOf: null,
+      computedSource: computed_gd35c_spread != null ? 'live-price' : null,
     };
 
     return NextResponse.json(response, {

@@ -39,51 +39,26 @@ export async function GET() {
     }
   } catch { /* silent */ }
 
-  // ── Riesgo País (GD35C YTM simple - como BondTerminal) ─────────
-  // El cálculo fácil: YTM del GD35C - US risk free (~4.75%)
-  // Esto es lo que muestra BondTerminal como el "real" riesgo país actual.
+  // ── Riesgo País (JP Morgan EMBIGD vía ArgentinaDatos) ─────────
+  // Fuente oficial publicada. El calc GD35C de /api/embi es otro
+  // concepto y mezcla valores hardcodeados — no lo usamos como KPI.
   try {
-    const res = await fetch('/api/embi', { next: { revalidate: 300 } });
+    const res = await fetch(
+      'https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo',
+      { next: { revalidate: 600 } },
+    );
     if (res.ok) {
       const data = await res.json();
-      if (typeof data?.gd35c_spread === 'number' && data.gd35c_spread > 0) {
+      if (data?.valor != null) {
         results.push({
           id: 'riesgo-pais',
-          value: `${data.gd35c_spread} pb`,
-          change: data.embiDelta ?? 0,
-          changeLabel: `GD35C YTM - US rf · ${data.timestamp ? data.timestamp.slice(0,10) : ''}`,
-        });
-      } else if (typeof data?.embi === 'number') {
-        // fallback al ponderado si simple no disponible
-        results.push({
-          id: 'riesgo-pais',
-          value: `${data.embi} pb`,
-          change: data.embiDelta ?? 0,
-          changeLabel: `EMBIGD calc (multi) · ${data.timestamp ? data.timestamp.slice(0,10) : ''}`,
+          value: `${data.valor} pb`,
+          change: 0,
+          changeLabel: `JP Morgan EMBIGD · asOf ${data.fecha ?? '—'}`,
         });
       }
     }
-  } catch { /* silent — fallback al índice si el server no está */ }
-
-  // Fallback al índice JP Morgan si el cálculo no está disponible (útil en preview o si /api/embi falla)
-  if (!results.some(r => r.id === 'riesgo-pais')) {
-    try {
-      const res = await fetch('https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo', {
-        next: { revalidate: 600 },
-      });
-      if (res.ok) {
-        const data = await res.json();
-        if (data?.valor) {
-          results.push({
-            id: 'riesgo-pais',
-            value: `${data.valor} pb`,
-            change: 0,
-            changeLabel: `JP Morgan EMBIGD (publicado) · ${data.fecha ?? ''}`,
-          });
-        }
-      }
-    } catch { /* silent */ }
-  }
+  } catch { /* silent */ }
 
   // ── Inflación IPC (ArgentinaDatos) ─────────────────────────
   try {
@@ -100,7 +75,7 @@ export async function GET() {
           id: 'inflacion',
           value: `${last.valor}%`,
           change,
-          changeLabel: `vs. mes anterior (${prev.valor}%)`,
+          changeLabel: `vs. mes anterior (${prev.valor}%) · asOf ${last.fecha}`,
         });
       }
     }
@@ -121,7 +96,9 @@ export async function GET() {
       const json = await res.json();
       // v4.0: los datos vienen en results[0].detalle
       const detalle = json.results?.[0]?.detalle ?? json.results ?? json.data ?? [];
-      const items: { fecha: string; valor: number }[] = detalle;
+      const items: { fecha: string; valor: number }[] = [...detalle].sort((a, b) =>
+        String(a.fecha).localeCompare(String(b.fecha)),
+      );
       if (items.length >= 2) {
         const last = items[items.length - 1];
         const prev = items[items.length - 2];
@@ -130,7 +107,7 @@ export async function GET() {
           id: 'reservas',
           value: `USD ${last.valor.toLocaleString('es-AR')}M`,
           change,
-          changeLabel: 'vs. dato anterior',
+          changeLabel: `vs. dato anterior · asOf ${last.fecha}`,
         });
       }
     }
@@ -161,30 +138,33 @@ export async function GET() {
   } catch { /* silent */ }
 
   // ── TAMAR — Tasa Activa de Mercado (BCRA) ───────────────────
-  // Variable 17: Tasa de adelantos en cta. cte. sector privado (TNA %)
+  // idVariable 44 = "Tasa de interes TAMAR de bancos privados"
+  // OJO: id 4 es Tipo de cambio minorista (~1500 ARS) — NO usarlo.
   try {
     const fechaDesde = new Date();
-    fechaDesde.setDate(fechaDesde.getDate() - 10);
+    fechaDesde.setDate(fechaDesde.getDate() - 14);
     const desde = fechaDesde.toISOString().split('T')[0];
     const hasta = new Date().toISOString().split('T')[0];
 
     const res = await fetch(
-      `https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/4?desde=${desde}&hasta=${hasta}&limit=5`,
-      { next: { revalidate: 3600 }, headers: { Accept: 'application/json' } }
+      `https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/44?desde=${desde}&hasta=${hasta}&limit=5`,
+      { next: { revalidate: 3600 }, headers: { Accept: 'application/json' } },
     );
     if (res.ok) {
       const json = await res.json();
       const detalle = json.results?.[0]?.detalle ?? json.results ?? json.data ?? [];
-      const items: { fecha: string; valor: number }[] = detalle;
+      const items: { fecha: string; valor: number }[] = [...detalle].sort((a, b) =>
+        String(a.fecha).localeCompare(String(b.fecha)),
+      );
       if (items.length >= 1) {
         const last = items[items.length - 1];
         const prev = items.length >= 2 ? items[items.length - 2] : null;
         const change = prev ? parseFloat((last.valor - prev.valor).toFixed(2)) : 0;
         results.push({
           id: 'tamar',
-          value: `${last.valor.toFixed(4)}% n.a.`,
+          value: `${last.valor.toFixed(2)}% n.a.`,
           change,
-          changeLabel: `TAMAR bancos privados · ${last.fecha}`,
+          changeLabel: `TAMAR bancos privados · asOf ${last.fecha}`,
         });
       }
     }

@@ -70,13 +70,22 @@ const ROW_SERIES: Record<string, RowSeries> = {
   'dolar-blue':     { title: 'DÓLAR BLUE (ARS)',              unit: ' ARS',    color: '#00C9A7', data: tcrData.map(d => ({ date: d.date, value: d.blue })) },
   'dolar-oficial':  { title: 'DÓLAR OFICIAL (ARS)',           unit: ' ARS',    color: '#74ACDF', data: tcrData.map(d => ({ date: d.date, value: d.oficial })) },
   'brecha':         { title: 'BRECHA CAMBIARIA (%)',          unit: '%',       color: '#F0A500', data: tcrData.map(d => ({ date: d.date, value: Number((((d.blue / d.oficial) - 1) * 100).toFixed(1)) })) },
-  'riesgo':         { title: 'RIESGO PAÍS (GD35C YTM - US rf)', unit: ' pb', color: '#f85149', data: riesgoPaisData.map(d => ({ date: d.date, value: d.value })) },
+  'riesgo':         { title: 'RIESGO PAÍS (EMBIGD JP Morgan)', unit: ' pb', color: '#f85149', data: riesgoPaisData.map(d => ({ date: d.date, value: d.value })) },
+};
+
+type LiveKpi = { value: string; change: number; changeLabel: string } | null;
+type LiveKpis = {
+  inflacion: LiveKpi;
+  tamar: LiveKpi;
+  emae: LiveKpi;
+  reservas: LiveKpi;
 };
 
 function buildRows(
   dolar: DolarData | null,
   riesgo: RiesgoData | null,
   riesgoPrev: RiesgoData | null,
+  live?: LiveKpis,
 ): SnapshotRow[] {
   const brecha =
     dolar && dolar.blue.value_sell > 0 && dolar.oficial.value_sell > 0
@@ -95,17 +104,31 @@ function buildRows(
 
   return [
     // ── ACTIVIDAD ─────────────────────────────────────────────
-    { id: 'emae',      label: 'EMAE',               value: '+2.7%',        deltaMes: '▲ +2.5 pp i.a.', sign: 'pos',  fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
+    {
+      id: 'emae',
+      label: 'EMAE',
+      value: live?.emae?.value ?? '+2.7%',
+      deltaMes: live?.emae?.changeLabel ?? '▲ +2.5 pp i.a.',
+      sign: (live?.emae?.change ?? 0) >= 0 ? 'pos' : 'neg',
+      fuente: live?.emae ? 'INDEC · live' : 'INDEC',
+      tabs: ['TODOS', 'ACTIVIDAD'],
+      isLive: !!live?.emae,
+    },
     { id: 'pbi',       label: 'PBI Real',            value: '+2.3%',        deltaMes: '▲ var. Q1-26', sign: 'pos', fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
 
     // ── PRECIOS: IPC ──────────────────────────────────────────
-    { id: 'inflacion', label: 'Inflación IPC',  value: `${ipcL.mensual.toFixed(1)}%`,
-      deltaMes: (() => {
+    { id: 'inflacion', label: 'Inflación IPC',  value: live?.inflacion?.value ?? `${ipcL.mensual.toFixed(1)}%`,
+      deltaMes: live?.inflacion?.changeLabel ?? (() => {
         const d = ipcL.mensual - ipcP.mensual;
         return `${d > 0 ? '▲' : '▼'} ${d > 0 ? '+' : ''}${d.toFixed(2)} pp`;
       })(),
-      sign: ipcL.mensual <= ipcP.mensual ? 'pos' : 'neg',
-      fuente: 'INDEC', tabs: ['TODOS','PRECIOS'] },
+      sign: live?.inflacion
+        ? (live.inflacion.change <= 0 ? 'pos' : 'neg')
+        : (ipcL.mensual <= ipcP.mensual ? 'pos' : 'neg'),
+      fuente: live?.inflacion ? 'INDEC · live' : 'INDEC',
+      tabs: ['TODOS','PRECIOS'],
+      isLive: !!live?.inflacion,
+    },
     {
       id: 'ipc-interanual', label: 'IPC Interanual',
       value: `${ipcL.interanual.toFixed(1)}%`,
@@ -139,8 +162,26 @@ function buildRows(
 
     // ── FISCAL / EXTERNO ──────────────────────────────────────
     { id: 'superavit', label: 'Superávit Primario', value: '0.9%',  deltaMes: '▲ +0.20 pp', sign: 'pos',  fuente: 'MECON', tabs: ['TODOS','FISCAL'] },
-    { id: 'reservas',  label: 'Reservas BCRA',       value: 'USD 50.492M', deltaMes: '▲ +18.0%', sign: 'pos', fuente: 'BCRA',  tabs: ['TODOS','EXTERNO'] },
-    { id: 'tamar',     label: 'TAMAR',               value: '23.00% n.a.', deltaMes: '— sin cambio', sign: 'flat', fuente: 'BCRA', tabs: ['TODOS','PRECIOS','FISCAL'] },
+    {
+      id: 'reservas',
+      label: 'Reservas BCRA',
+      value: live?.reservas?.value ?? 'USD 50.492M',
+      deltaMes: live?.reservas?.changeLabel ?? '▲ +18.0%',
+      sign: (live?.reservas?.change ?? 1) >= 0 ? 'pos' : 'neg',
+      fuente: live?.reservas ? 'BCRA · live' : 'BCRA',
+      tabs: ['TODOS', 'EXTERNO'],
+      isLive: !!live?.reservas,
+    },
+    {
+      id: 'tamar',
+      label: 'TAMAR',
+      value: live?.tamar?.value ?? '23.00% n.a.',
+      deltaMes: live?.tamar?.changeLabel ?? '— sin cambio',
+      sign: 'flat',
+      fuente: live?.tamar ? 'BCRA · live' : 'BCRA',
+      tabs: ['TODOS', 'PRECIOS', 'FISCAL'],
+      isLive: !!live?.tamar,
+    },
 
     // ── REM ───────────────────────────────────────────────────
     {
@@ -205,11 +246,13 @@ function buildRows(
       fuente: 'CALC.', tabs: ['TODOS','EXTERNO'],
     },
     {
-      id: 'riesgo', label: 'Riesgo País (GD35C YTM)', isLive: true,
+      id: 'riesgo', label: 'Riesgo País (EMBIGD JP Morgan)', isLive: true,
       value: riesgo ? `${riesgo.valor.toLocaleString('es-AR')} pb` : '—',
-      deltaMes: riesgoDelta !== null ? `${riesgoDelta > 0 ? '▲' : '▼'} ${Math.abs(riesgoDelta)} pb` : null,
+      deltaMes: riesgoDelta !== null
+        ? `${riesgoDelta > 0 ? '▲' : '▼'} ${Math.abs(riesgoDelta)} pb · asOf ${riesgo?.fecha ?? ''}`
+        : (riesgo ? `asOf ${riesgo.fecha}` : null),
       sign: riesgoDelta !== null ? (riesgoDelta <= 0 ? 'pos' : 'neg') : 'flat',
-      fuente: 'MERCADO (GD35C YTM)', tabs: ['TODOS','EXTERNO'],
+      fuente: 'JP MORGAN EMBIGD', tabs: ['TODOS','EXTERNO'],
     },
   ];
 }
@@ -292,6 +335,9 @@ export default function MacroTerminal() {
   const [dolar, setDolar]     = useState<DolarData | null>(null);
   const [riesgo, setRiesgo]   = useState<RiesgoData | null>(null);
   const [riesgoPrev, setPrev] = useState<RiesgoData | null>(null);
+  const [liveKpis, setLiveKpis] = useState<LiveKpis>({
+    inflacion: null, tamar: null, emae: null, reservas: null,
+  });
   const [uptime, setUptime]   = useState(0);
   const [now, setNow]         = useState<Date | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
@@ -302,48 +348,34 @@ export default function MacroTerminal() {
   useEffect(() => {
     async function load() {
       try {
-        const [dr, er, rr] = await Promise.all([
+        const [dr, rr, kr] = await Promise.all([
           fetch('/api/dolar'),
-          fetch('/api/embi'),
-          fetch('/api/riesgo-pais')
+          fetch('/api/riesgo-pais'),
+          fetch('/api/kpis'),
         ]);
         if (dr.ok) setDolar(await dr.json());
 
-        let riesgoVal = null;
-        let riesgoFecha = null;
-        let prevVal = null;
-
-        // Usar el simple GD35C YTM - US risk free (exactamente como BondTerminal / traders)
-        // gd35c_spread = YTM(GD35C) - US10y   (en bps)
-        if (er.ok) {
-          const j = await er.json();
-          if (typeof j.gd35c_spread === 'number' && j.gd35c_spread > 0) {
-            riesgoVal = j.gd35c_spread;
-            riesgoFecha = j.timestamp ? j.timestamp.slice(0,10) : new Date().toISOString().slice(0,10);
-            // para delta usamos el embiDelta como proxy (o podríamos almacenar histórico simple)
-            if (typeof j.embiDelta === 'number') prevVal = riesgoVal - j.embiDelta; // approx
-          }
-        }
-
-        // Fallback al índice oficial si el calc simple no da valor
-        if (riesgoVal === null && rr.ok) {
+        if (rr.ok) {
           const j = await rr.json();
           if (j.ultimo && typeof j.ultimo.valor === 'number') {
-            riesgoVal = j.ultimo.valor;
-            riesgoFecha = j.ultimo.fecha;
+            setRiesgo({ valor: j.ultimo.valor, fecha: j.ultimo.fecha });
           }
           if (j.anterior && typeof j.anterior.valor === 'number') {
-            prevVal = j.anterior.valor;
+            setPrev({ valor: j.anterior.valor, fecha: j.anterior.fecha ?? 'anterior' });
+          } else {
+            setPrev(null);
           }
         }
 
-        if (riesgoVal !== null) {
-          setRiesgo({ valor: riesgoVal, fecha: riesgoFecha || new Date().toISOString().slice(0,10) });
-        }
-        if (prevVal !== null) {
-          setPrev({ valor: prevVal, fecha: 'cierre' });
-        } else {
-          setPrev(null);
+        if (kr.ok) {
+          const { kpis } = await kr.json();
+          const byId = Object.fromEntries((kpis ?? []).map((k: { id: string }) => [k.id, k]));
+          setLiveKpis({
+            inflacion: byId['inflacion'] ?? null,
+            tamar: byId['tamar'] ?? null,
+            emae: byId['emae'] ?? null,
+            reservas: byId['reservas'] ?? null,
+          });
         }
       } catch { /* silencioso */ }
     }
@@ -378,7 +410,7 @@ export default function MacroTerminal() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  const rows    = useMemo(() => buildRows(dolar, riesgo, riesgoPrev), [dolar, riesgo, riesgoPrev]);
+  const rows    = useMemo(() => buildRows(dolar, riesgo, riesgoPrev, liveKpis), [dolar, riesgo, riesgoPrev, liveKpis]);
   const visible = useMemo(() => rows.filter(r => r.tabs.includes(tab)), [rows, tab]);
 
   // gráfico: fila seleccionada > default del tab
@@ -440,7 +472,7 @@ export default function MacroTerminal() {
         <div style={{ display:'flex', alignItems:'center', gap:10, flexWrap:'wrap' }}>
           <span style={{ fontSize:12, letterSpacing:'0.12em', color:'var(--celeste)', fontWeight:600 }}>◆ MACRO TERMINAL</span>
           <span className="mt-hdr-meta" style={{ color:'var(--line-1)' }}>|</span>
-          <span className="mt-hdr-meta" style={{ fontSize:11, color:'var(--fg-2)', letterSpacing:'0.06em' }}>INDEC · BCRA · MECON · DATA912 · TREASURY (GD35C live)</span>
+          <span className="mt-hdr-meta" style={{ fontSize:11, color:'var(--fg-2)', letterSpacing:'0.06em' }}>INDEC · BCRA · MECON · ARGENTINADATOS (EMBIGD)</span>
         </div>
         <div style={{ display:'flex', alignItems:'center', gap:20, fontSize:11, color:'var(--fg-2)' }}>
           <span className="mt-hdr-meta" suppressHydrationWarning>{timeStr} <span style={{ color:'var(--fg-3)' }}>ART</span></span>
@@ -665,6 +697,9 @@ function Row({ row, hovered, selected, onHover, onSelect }: {
         {row.deltaMes ?? '—'}
       </span>
       <span style={{ fontSize:10, textAlign:'right', color:'var(--fg-2)', letterSpacing:'0.06em' }}>
+        <span style={{ color: row.isLive ? 'var(--up)' : 'var(--fg-3)', marginRight: 6 }}>
+          {row.isLive ? 'LIVE' : 'STATIC'}
+        </span>
         {row.fuente}
       </span>
     </div>
@@ -695,7 +730,7 @@ function LiveStrip({ tab, dolar, riesgo, riesgoPrev }: {
     { label:'DÓLAR BLUE',    value: dolar ? `$${dolar.blue.value_sell.toLocaleString('es-AR')}` : '—',    sub: dolar ? `Compra $${dolar.blue.value_buy.toLocaleString('es-AR')}` : null,    color:'var(--teal)' },
     { label:'DÓLAR OFICIAL', value: dolar ? `$${dolar.oficial.value_sell.toLocaleString('es-AR')}` : '—', sub: dolar ? `Compra $${dolar.oficial.value_buy.toLocaleString('es-AR')}` : null, color:'var(--celeste)' },
     { label:'BRECHA',        value: brecha !== null ? `${brecha>0?'+':''}${brecha.toFixed(1)}%` : '—',    sub:'Blue vs Oficial', color: brecha !== null && brecha>5 ? 'var(--down)' : 'var(--fg-2)' },
-    { label:'RIESGO PAÍS (GD35C YTM)', value: riesgo ? `${riesgo.valor} pb` : '—', sub: rd !== null ? `${rd>0?'▲':'▼'} ${Math.abs(rd)} pb` : null, color: rd !== null ? (rd<=0 ? 'var(--teal)' : 'var(--down)') : 'var(--fg-2)' },
+    { label:'RIESGO PAÍS (EMBIGD)', value: riesgo ? `${riesgo.valor} pb` : '—', sub: riesgo ? `asOf ${riesgo.fecha}${rd !== null ? ` · ${rd>0?'▲':'▼'} ${Math.abs(rd)} pb` : ''}` : null, color: rd !== null ? (rd<=0 ? 'var(--teal)' : 'var(--down)') : 'var(--fg-2)' },
   ];
 
   return (
