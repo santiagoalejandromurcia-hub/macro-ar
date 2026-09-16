@@ -16,6 +16,7 @@ interface RiesgoData {
 export default function RiesgoPaisVivo() {
   const [data, setData] = useState<RiesgoData | null>(null);
   const [prev, setPrev] = useState<RiesgoData | null>(null);
+  const [sourceLabel, setSourceLabel] = useState('JP Morgan EMBIGD');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,35 +25,24 @@ export default function RiesgoPaisVivo() {
         let dataVal = null;
         let fechaVal = null;
         let prevVal = null;
+        let sourceLabelNext = 'JP Morgan EMBIGD';
 
-        // Usar el simple GD35C YTM - US rf (el que da ~433 en BondTerminal)
-        const er = await fetch('/api/embi');
-        if (er.ok) {
-          const j = await er.json();
-          if (typeof j.gd35c_spread === 'number' && j.gd35c_spread > 0) {
-            dataVal = j.gd35c_spread;
-            fechaVal = j.timestamp ? j.timestamp.slice(0,10) : new Date().toISOString().slice(0,10);
-            if (typeof j.embiDelta === 'number') prevVal = dataVal - j.embiDelta; // approx
+        // Preferí EMBIGD oficial (diario). GD35C calc solo como ref secundaria.
+        const rr = await fetch('/api/riesgo-pais');
+        if (rr.ok) {
+          const j = await rr.json();
+          if (j.ultimo && typeof j.ultimo.valor === 'number') {
+            dataVal = j.ultimo.valor;
+            fechaVal = j.ultimo.fecha;
           }
-        }
-
-        // Fallback al índice oficial ArgentinaDatos / JP Morgan si falla el calc
-        if (dataVal === null) {
-          const rr = await fetch('/api/riesgo-pais');
-          if (rr.ok) {
-            const j = await rr.json();
-            if (j.ultimo && typeof j.ultimo.valor === 'number') {
-              dataVal = j.ultimo.valor;
-              fechaVal = j.ultimo.fecha;
-            }
-            if (j.anterior && typeof j.anterior.valor === 'number') {
-              prevVal = j.anterior.valor;
-            }
+          if (j.anterior && typeof j.anterior.valor === 'number') {
+            prevVal = j.anterior.valor;
           }
         }
 
         if (dataVal !== null) {
           setData({ valor: dataVal, fecha: fechaVal || new Date().toISOString().slice(0,10) });
+          setSourceLabel(sourceLabelNext);
         }
         if (prevVal !== null) {
           setPrev({ valor: prevVal, fecha: 'cierre' });
@@ -113,7 +103,7 @@ export default function RiesgoPaisVivo() {
         aria-hidden
       />
 
-      {/* Header: fuente + EN VIVO */}
+      {/* Header: fuente + cadencia diaria (EMBIGD no es tick-by-tick) */}
       <div className="flex items-center justify-between mb-3">
         <span
           className="font-mono text-[10px] uppercase tracking-wider"
@@ -125,8 +115,7 @@ export default function RiesgoPaisVivo() {
           className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider"
           style={{ color: 'var(--up)' }}
         >
-          <span className="live-dot" aria-hidden />
-          EN VIVO
+          DIARIO
         </span>
       </div>
 
@@ -181,7 +170,7 @@ export default function RiesgoPaisVivo() {
         className="font-mono text-[9px] mt-2"
         style={{ color: 'var(--fg-3)' }}
       >
-        GD35C YTM - US rf · {data.fecha}
+        {sourceLabel} · asOf {data.fecha}
       </p>
 
       {/* Accent bottom bar */}

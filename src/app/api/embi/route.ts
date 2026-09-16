@@ -63,19 +63,12 @@ export interface EmbiResponse {
   timestamp: string;
   source: 'calculated';
 
-  // Market quoted YTMs from platforms like BondTerminal (user-provided current values)
-  ao28c_ytm?: number;
-  ao28c_spread?: number;   // 9.6% - 4.75% ≈ 485 bp
-  gd35c_ytm?: number;
-  gd35c_spread?: number;   // 9.1% - 4.75% ≈ 435 bp  ← main one for live "Riesgo País (GD35C YTM)"
-  al30c_ytm?: number;
-  al30c_spread?: number;   // 9.0% - 4.75% ≈ 425 bp
+  gd35c_ytm?: number | null;
+  gd35c_spread?: number | null;
   us10y?: number | null;
-
-  // Computed from live price (for reference in EmbiDashboard, the complex multi-bond version)
   computed_gd35c_ytm?: number | null;
   computed_gd35c_spread?: number | null;
-  quotesSource?: 'static-manual' | 'live';
+  quotesSource?: 'static-manual' | 'live' | 'unavailable';
   quotesAsOf?: string | null;
   computedSource?: 'live-price' | null;
 }
@@ -184,21 +177,6 @@ export async function GET() {
       return NextResponse.json({ error: 'No bond data available' }, { status: 503 });
     }
 
-    // ── Simple market YTM-based Riesgo País (as quoted on BondTerminal / platforms) ──
-    // User provided current YTMs for the key tickers:
-    // AO28C YTM=9.6%, GD35C YTM=9.1%, AL30C YTM=9.0%
-    // Formula: Riesgo País = YTM - US risk free (~4.75%)
-    // This is the "simple" real-time market quote (not the complex multi-bond stripped or official index)
-    const US_RISK_FREE = 0.0475;
-    const ao28c_ytm = 0.096;
-    const gd35c_ytm = 0.091;
-    const al30c_ytm = 0.090;
-
-    const ao28c_spread = Math.round((ao28c_ytm - US_RISK_FREE) * 10000);
-    const gd35c_spread = Math.round((gd35c_ytm - US_RISK_FREE) * 10000);
-    const al30c_spread = Math.round((al30c_ytm - US_RISK_FREE) * 10000);
-
-    // Keep computed from price for reference / EmbiDashboard (the complex one)
     let computed_gd35c_ytm: number | null = null;
     let computed_gd35c_spread: number | null = null;
     let us10y: number | null = null;
@@ -256,17 +234,13 @@ export async function GET() {
       treasuryCurve: treasuryCurveFormatted,
       timestamp: new Date().toISOString(),
       source: 'calculated',
-      ao28c_ytm,
-      ao28c_spread,
-      gd35c_ytm,
-      gd35c_spread,
-      al30c_ytm,
-      al30c_spread,
-      us10y: us10y ? Math.round(us10y * 10000)/100 : null,
+      gd35c_ytm: computed_gd35c_ytm != null ? computed_gd35c_ytm / 100 : null,
+      gd35c_spread: computed_gd35c_spread,
+      us10y: us10y ? Math.round(us10y * 10000) / 100 : null,
       computed_gd35c_ytm,
       computed_gd35c_spread,
-      quotesSource: 'static-manual',
-      quotesAsOf: null,
+      quotesSource: computed_gd35c_spread != null ? 'live' : 'unavailable',
+      quotesAsOf: computed_gd35c_spread != null ? new Date().toISOString() : null,
       computedSource: computed_gd35c_spread != null ? 'live-price' : null,
     };
 

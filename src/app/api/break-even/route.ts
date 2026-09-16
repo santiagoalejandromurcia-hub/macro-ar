@@ -3,14 +3,8 @@
 //
 // Fuente: data912.com /live/arg_notes (refresh cada 20s)
 //
-// Para LECAPs/BONTEs TF (nominales, S-prefix):
-//   TIR_implícita = (P_live / P_stored)^(365 / días_transcurridos) - 1
-//   Usando el precio guardado en breakEven.ts como referencia.
-//   Esto es la CAGR implícita del instrumento desde la fecha del snapshot.
-//
-// Para LECERs/BONCERs (CER, X-prefix):
-//   No se puede derivar TIR real desde precio ARS sin el índice CER.
-//   Solo se devuelve el precio actualizado; TIR permanece la guardada.
+// LECAPs/BONTEs y CER: solo precio live. tirImplicita siempre null —
+// YTM LECAP requiere valor técnico/TEM; no inventar CAGR de precio.
 // ============================================================
 
 import { NextResponse } from 'next/server';
@@ -34,6 +28,7 @@ export interface LiveBondPrice {
 
 export interface BreakEvenLiveResponse {
   prices:           Record<string, LiveBondPrice>;
+  pricesExtra?:     Record<string, LiveBondPrice>;
   actualizadoAl:    string;   // base TIR (manual)
   timestamp:        string;
   preciosTimestamp: string;   // fetch data912
@@ -59,40 +54,23 @@ export async function GET() {
     const notas: NotaItem[] = await res.json();
     const priceMap = new Map(notas.map((n) => [n.symbol, n]));
 
-    const STORED_DATE  = new Date(ACTUALIZADO_AL);
-    const today        = new Date();
-    const elapsedDays  = (today.getTime() - STORED_DATE.getTime()) / 86_400_000;
-
+    const today = new Date();
     const prices: Record<string, LiveBondPrice> = {};
 
-    // ── Nominales (S-prefix → TIR implícita calculable) ─────────────
+    const midOf = (nota: NotaItem) =>
+      nota.px_bid > 0 && nota.px_ask > 0 ? (nota.px_bid + nota.px_ask) / 2 : nota.c;
+
+    // ── Nominales: precio live, TIR del snapshot (no CAGR) ──────────
     for (const bond of bonosNominales) {
       const nota = priceMap.get(bond.ticker);
       if (!nota) continue;
-
-      // Precio mid (si bid/ask válidos), si no usar cierre
-      const mid = nota.px_bid > 0 && nota.px_ask > 0
-        ? (nota.px_bid + nota.px_ask) / 2
-        : nota.c;
-
-      // TIR implícita: CAGR desde el snapshot guardado
-      // tirImplicita = (P_live / P_stored)^(365/días) - 1
-      let tirImplicita: number | null = null;
-      if (elapsedDays > 0 && bond.precioArs > 0 && mid > 0) {
-        tirImplicita = Math.pow(mid / bond.precioArs, 365 / elapsedDays) - 1;
-        // Sanidad: si fuera absurda (>200% o <-50%), usar guardada
-        if (tirImplicita > 2 || tirImplicita < -0.5) {
-          tirImplicita = bond.tirAnualPct / 100;
-        }
-      }
+      const mid = midOf(nota);
 
       prices[bond.ticker] = {
         ticker:        bond.ticker,
         precioArsLive: Math.round(mid * 100) / 100,
         pctChange:     Math.round(nota.pct_change * 100) / 100,
-        tirImplicita:  tirImplicita !== null
-          ? Math.round(tirImplicita * 10000) / 100  // en %
-          : null,
+        tirImplicita:  null, // YTM LECAP requiere valor técnico/TEM; no inventar CAGR
         tirEsCER:      false,
         timestamp:     today.toISOString(),
       };
@@ -103,9 +81,7 @@ export async function GET() {
       const nota = priceMap.get(bond.ticker);
       if (!nota) continue;
 
-      const mid = nota.px_bid > 0 && nota.px_ask > 0
-        ? (nota.px_bid + nota.px_ask) / 2
-        : nota.c;
+      const mid = midOf(nota);
 
       prices[bond.ticker] = {
         ticker:        bond.ticker,
@@ -117,9 +93,32 @@ export async function GET() {
       };
     }
 
+    const snapshotTickers = new Set([
+      ...bonosNominales.map((b) => b.ticker),
+      ...bonosReales.map((b) => b.ticker),
+    ]);
+    const pricesExtra: Record<string, LiveBondPrice> = {};
+    for (const nota of notas) {
+      if (snapshotTickers.has(nota.symbol)) continue;
+      const isLecap = /^S\d/.test(nota.symbol) && !nota.symbol.endsWith('D');
+      const isCer = /^X\d/.test(nota.symbol) && !nota.symbol.endsWith('D');
+      if (!isLecap && !isCer) continue;
+      const mid = midOf(nota);
+      if (!(mid > 0)) continue;
+      pricesExtra[nota.symbol] = {
+        ticker:        nota.symbol,
+        precioArsLive: Math.round(mid * 100) / 100,
+        pctChange:     Math.round(nota.pct_change * 100) / 100,
+        tirImplicita:  null,
+        tirEsCER:      isCer,
+        timestamp:     today.toISOString(),
+      };
+    }
+
     const nowIso = today.toISOString();
     const response: BreakEvenLiveResponse = {
       prices,
+      pricesExtra,
       actualizadoAl:    ACTUALIZADO_AL,
       timestamp:        nowIso,
       preciosTimestamp: nowIso,

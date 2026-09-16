@@ -11,7 +11,7 @@ import {
   inflacionMayoristaData, remData, pbiData, tcrData, riesgoPaisData,
 } from '@/data/macroData';
 import { preciosFOB } from '@/data/granos';
-import { bonosNominales, bonosReales, remEsperado } from '@/data/breakEven';
+import { bonosNominales, bonosReales, remEsperado, ACTUALIZADO_AL } from '@/data/breakEven';
 import { construirCurvaBEI } from '@/lib/breakEven';
 import { downloadCSV } from '@/lib/csvUtils';
 
@@ -652,7 +652,7 @@ export default function MacroTerminal() {
           {tab === 'PRECIOS' && beiCurva && beiCurva.length > 0 && (
             <div style={{ padding:'12px 20px 10px', borderBottom:'1px solid var(--line-1)', background:'var(--bg-0)' }}>
               <div style={{ fontSize:10, letterSpacing:'0.10em', color:'var(--fg-2)', marginBottom:8 }}>
-                BEI — BREAKEVEN INFLACIONARIO (anual)
+                BEI snapshot {ACTUALIZADO_AL} · TIRs no live
               </div>
               <div style={{ display:'grid', gridTemplateColumns:`repeat(${beiCurva.length},1fr)` }}>
                 {beiCurva.map((p, i) => {

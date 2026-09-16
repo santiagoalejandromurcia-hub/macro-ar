@@ -17,8 +17,8 @@ interface TickerItem {
 }
 
 const fallback: TickerItem[] = [
-  { label: 'DÓLAR BLUE',      value: '$1.420',    delta: 0.5,  source: 'BLUELYTICS' },
-  { label: 'RIESGO PAÍS',     value: '433 pb',    delta: -1.2, source: 'MERCADO (GD35+)' },
+  { label: 'DÓLAR BLUE',      value: '—', source: 'BLUELYTICS' },
+  { label: 'RIESGO PAÍS',     value: '—', source: 'JP MORGAN EMBIGD' },
   { label: 'INFLACIÓN MENS.', value: '1.7%',      delta: -0.4, source: 'INDEC' },
   { label: 'RESERVAS BCRA',   value: 'USD 50.5K M', delta: 4.6, source: 'BCRA' },
   { label: 'EMAE YoY',        value: '+2.7%',     delta: 2.5,  source: 'INDEC' },
@@ -29,7 +29,7 @@ const fallback: TickerItem[] = [
 function itemsFromKpis(kpis: { id: string; value: string; change: number }[]): TickerItem[] {
   const labelMap: Record<string, { label: string; source: string }> = {
     'dolar-blue':  { label: 'DÓLAR BLUE',      source: 'BLUELYTICS' },
-    'riesgo-pais': { label: 'RIESGO PAÍS',     source: 'MERCADO (GD35+)' },
+    'riesgo-pais': { label: 'RIESGO PAÍS',     source: 'JP MORGAN EMBIGD' },
     'inflacion':   { label: 'INFLACIÓN MENS.', source: 'INDEC' },
     'reservas':    { label: 'RESERVAS BCRA',   source: 'BCRA' },
     'emae':        { label: 'EMAE YoY',        source: 'INDEC' },

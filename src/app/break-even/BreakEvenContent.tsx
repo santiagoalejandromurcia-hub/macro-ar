@@ -69,7 +69,7 @@ export default function BreakEvenContent() {
 
   // Aplicar datos live si están disponibles
   const nominalesEfectivos = useMemo(
-    () => liveData ? applyLivePrices(bonosNominales, liveData, true)  : bonosNominales,
+    () => liveData ? applyLivePrices(bonosNominales, liveData, false) : bonosNominales,
     [liveData],
   );
   const realesEfectivos = useMemo(
@@ -113,6 +113,9 @@ export default function BreakEvenContent() {
         SNAPSHOT {ACTUALIZADO_AL} · {FUENTE_BONOS}
         {' · '}
         <span style={{ color: 'var(--up)' }}>PRECIOS</span> data912 (parcial)
+        {liveData
+          ? ` · ${Object.keys(liveData.prices ?? {}).length} precios data912`
+          : ' · sin precios live'}
         {' · '}
         {PRECIOS_LIVE_NOTE}
       </div>
