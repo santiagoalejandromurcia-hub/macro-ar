@@ -65,7 +65,7 @@ const FAQ = [
   },
   {
     q: '¿Cuánto exporta Argentina en granos?',
-    a: 'En abril de 2026 Argentina exportó aproximadamente 4,4 millones de toneladas de granos por un valor de USD 1.150 millones, según datos del INDEC. En el acumulado enero-mayo 2026 el total de DJVE declaradas supera los 41 millones de toneladas.',
+    a: 'En abril de 2026 Argentina exportó aproximadamente 4,4 millones de toneladas de granos por un valor de USD 1.150 millones, según datos del INDEC. Las DJVE de soja, maíz y trigo pan comprometidas para embarque entre enero y septiembre de 2026 suman 53,4 millones de toneladas, según MAGYP al 16/09/2026.',
   },
   {
     q: '¿Cuál es la cosecha de soja 2025/26?',
@@ -161,15 +161,14 @@ export default function GranosPage() {
       <section className="mt-10 glass p-5 md:p-6 text-[13px] text-[var(--fg-1)] leading-relaxed">
         <h2 className="text-[15px] font-semibold text-[var(--fg-0)] mb-3">Lo que tenés que saber</h2>
         <p className="mb-3">
-          La campaña 2025/26 se presenta como <strong className="text-[var(--up)]">una de las mejores de la última década</strong>:
-          soja estimada en 49,5 Mt (+8,2% i.a.) y maíz en 50 Mt (+4,6%). Con precios FOB
-          de soja en torno a USD 305/tn, el ingreso de divisas del agro proyectado para 2026
-          supera los USD 30.000 millones anuales.
+          La campaña 2025/26 se presenta como <strong className="text-[var(--up)]">una de las mejores de la última década</strong>.
+          El FOB oficial de soja al 15/09/2026 es USD 510/tn (MAGyP). El maíz lidera las DJVE
+          de 2026: 8,1 Mt comprometidas para embarque en agosto.
         </p>
         <p className="mb-3">
-          Las DJVE acumuladas en lo que va del año superan las 41 millones de toneladas, con China
-          concentrando el 38% de los destinos. El pico de liquidación ocurre entre marzo y junio,
-          coincidiendo con la cosecha gruesa de soja y maíz.
+          Las DJVE de soja, maíz y trigo pan para embarque ene-sep 2026 suman{' '}
+          <strong>53,4 millones de toneladas</strong> (MAGyP al 16/09/2026). El trigo concentra
+          el verano; el maíz, marzo-abril y agosto; la soja, mayo y septiembre.
         </p>
         <p className="text-[var(--fg-2)] text-[12px]">
           Los precios FOB corresponden a la posición Rosario Up-River (puerto de referencia).

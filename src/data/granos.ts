@@ -2,14 +2,15 @@
 // MacroLibre — Mercado de Granos Argentina
 // ============================================================
 // FOB: circular MAGyP (primer embarque / min nearby) al 15-sep-2026.
-// DJVE mensual por grano y ICA: último corte publicado en el snapshot
-// de mayo — no hay tabla oficial mes-a-mes equivalente al 16-sep.
+// DJVE: MAGYP «Estadísticas DJVE de Granos y Subproductos» al 16-sep-2026.
+//   Toneladas comprometidas por mes de embarque (soja + maíz + trigo pan),
+//   sumando campañas 24/25 y 25/26 cuando se solapan.
 // Cosecha 25/26: dato final SAGyP.
 // ============================================================
 
-export const ACTUALIZADO_AL = '2026-09-15';
+export const ACTUALIZADO_AL = '2026-09-16';
 export const FUENTE_FOB   = 'MAGyP — Subsecretaría de Mercados Agropecuarios';
-export const FUENTE_DJVE  = 'MAGyP — DJVE (Declaraciones Juradas de Ventas al Exterior)';
+export const FUENTE_DJVE  = 'MAGyP — DJVE por mes de embarque (al 16/09/2026)';
 export const FUENTE_EXPORT = 'INDEC — Intercambio Comercial Argentino (ICA)';
 
 // ─── KPIs destacados ─────────────────────────────────────────
@@ -102,11 +103,15 @@ export interface DJVEMensual {
 }
 
 export const djveMensual: DJVEMensual[] = [
-  { mes: 'Ene 26', soja: 3.1, maiz: 2.8, trigo: 1.5, total: 7.4 },
-  { mes: 'Feb 26', soja: 2.8, maiz: 2.5, trigo: 1.4, total: 6.7 },
-  { mes: 'Mar 26', soja: 4.2, maiz: 3.1, trigo: 0.9, total: 8.2 },
-  { mes: 'Abr 26', soja: 5.8, maiz: 3.4, trigo: 0.7, total: 9.9 },
-  { mes: 'May 26', soja: 5.1, maiz: 3.2, trigo: 0.7, total: 9.0 },
+  { mes: 'Ene 26', soja: 0.01, maiz: 1.63, trigo: 3.99, total: 5.63 },
+  { mes: 'Feb 26', soja: 0.01, maiz: 0.79, trigo: 2.76, total: 3.56 },
+  { mes: 'Mar 26', soja: 0.00, maiz: 6.84, trigo: 1.22, total: 8.06 },
+  { mes: 'Abr 26', soja: 0.53, maiz: 5.96, trigo: 0.77, total: 7.26 },
+  { mes: 'May 26', soja: 1.78, maiz: 2.68, trigo: 0.41, total: 4.87 },
+  { mes: 'Jun 26', soja: 0.59, maiz: 3.88, trigo: 0.56, total: 5.03 },
+  { mes: 'Jul 26', soja: 0.25, maiz: 3.24, trigo: 0.99, total: 4.48 },
+  { mes: 'Ago 26', soja: 0.67, maiz: 6.68, trigo: 0.74, total: 8.09 },
+  { mes: 'Sep 26', soja: 1.36, maiz: 4.60, trigo: 0.50, total: 6.46 },
 ];
 
 // ─── Exportaciones por grano (mil tn y USD M) ────────────────

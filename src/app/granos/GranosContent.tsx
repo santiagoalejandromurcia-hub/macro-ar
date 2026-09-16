@@ -131,7 +131,7 @@ export default function GranosContent() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <SectorChartCard filePrefix="macrolibre-granos"
           title="DJVE mensuales por grano"
-          subtitle="Declaraciones Juradas de Ventas al Exterior — mill. tn"
+          subtitle="Soja, maíz y trigo pan · mill. tn por mes de embarque · MAGYP al 16/09/2026"
           fuente={FUENTE_DJVE}
         >
           <ResponsiveContainer width="100%" height={240}>
