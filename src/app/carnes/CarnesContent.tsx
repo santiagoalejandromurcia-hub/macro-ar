@@ -16,6 +16,7 @@ import {
   FAENA_FUENTE,
   EXPORT_FUENTE,
 } from '@/data/carnes';
+import StaleBanner from '@/components/StaleBanner';
 
 // ============================================================
 // Charts del mercado de carnes
@@ -299,6 +300,7 @@ export default function CarnesContent() {
       </ChartCard>
 
       {/* ─── Fuentes ─── */}
+      <StaleBanner asOf={ACTUALIZADO_AL} />
       <div className="glass p-4 text-[12px] text-[var(--fg-2)] leading-relaxed">
         <strong className="text-[var(--fg-1)]">Fuentes:</strong> Faena bovina —{' '}
         {FAENA_FUENTE}. Exportaciones — {EXPORT_FUENTE}. Snapshot al{' '}

@@ -15,6 +15,7 @@ import {
   ACTUALIZADO_AL,
   FUENTE_INV,
 } from '@/data/uva';
+import StaleBanner from '@/components/StaleBanner';
 
 const COLORS = {
   celeste: 'var(--celeste)',
@@ -221,6 +222,7 @@ export default function UvaContent() {
       </ChartCard>
 
       {/* ─── Fuentes ─── */}
+      <StaleBanner asOf={ACTUALIZADO_AL} />
       <div className="glass p-4 text-[12px] text-[var(--fg-2)] leading-relaxed">
         <strong className="text-[var(--fg-1)]">Fuente:</strong> {FUENTE_INV}. Snapshot al{' '}
         <strong className="text-[var(--fg-1)]">{ACTUALIZADO_AL}</strong>. Datos provisorios,

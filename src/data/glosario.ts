@@ -265,7 +265,7 @@ Su precio se forma por oferta y demanda libre, sin intervención. Cuando hay des
     category: 'Sector externo · Agro',
     source: 'MAGyP — Subsecretaría de Mercados Agropecuarios',
     related: ['djve', 'balanza-comercial'],
-    relatedRoute: { label: 'Ver precios FOB de granos en vivo', href: '/granos' },
+    relatedRoute: { label: 'Ver precios FOB de granos (snapshot)', href: '/granos' },
     sections: [
       {
         heading: '¿Qué incluye y qué no incluye el precio FOB?',

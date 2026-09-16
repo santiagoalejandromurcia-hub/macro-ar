@@ -13,11 +13,12 @@ import {
   construirCurvaBEI, diasHastaVto, type BeiPunto,
 } from '@/lib/breakEven';
 import type { BreakEvenLiveResponse } from '@/app/api/break-even/route';
+import StaleBanner from '@/components/StaleBanner';
 
 // ============================================================
-// Componente principal Break-Even — interactivo
-// Precios actualizados en tiempo real desde data912.com
-// TIRs nominales derivadas de precios live; TIRs CER guardadas.
+// Snapshot de TIRs CER/nominales (ACTUALIZADO_AL).
+// Precios pueden mezclarse con data912 vía /api/break-even; las TIRs CER
+// del snapshot NO son live hasta que actualices src/data/breakEven.ts.
 // ============================================================
 
 /** Mezcla las TIRs y precios live sobre los arrays estáticos */
@@ -101,6 +102,10 @@ export default function BreakEvenContent() {
 
   return (
     <div className="space-y-8">
+      <StaleBanner
+        asOf={ACTUALIZADO_AL}
+        hint={`TIRs base ${FUENTE_BONOS}. Actualizá src/data/breakEven.ts o validá en broker`}
+      />
 
       {/* ═══════════════════════════════════════════════════
           SENDERO MENSUAL — tabla BEI vs REM-BCRA
@@ -197,7 +202,7 @@ export default function BreakEvenContent() {
         <StatCard
           label="Última actualización"
           value={ACTUALIZADO_AL}
-          hint={FUENTE_BONOS}
+          hint={`${FUENTE_BONOS} · snapshot`}
           color="muted"
         />
       </div>

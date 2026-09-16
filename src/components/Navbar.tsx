@@ -25,7 +25,7 @@ interface SectionGroup {
 // Links del menú Mercados (dropdown separado)
 const MERCADOS_LINKS: SectionLink[] = [
   { href: '/carnes', label: 'Carnes',      desc: 'Faena bovina, exportaciones, precios FOB · SAGyP/IPCVA' },
-  { href: '/granos', label: 'Granos',      desc: 'Precios FOB soja, maíz, trigo, DJVE · MAGyP' },
+  { href: '/granos', label: 'Granos (snapshot)', desc: 'Precios FOB soja, maíz, trigo, DJVE · MAGyP' },
   { href: '/uva',    label: 'Uva y vinos', desc: 'Producción, exportaciones, variedades · INV' },
 ];
 

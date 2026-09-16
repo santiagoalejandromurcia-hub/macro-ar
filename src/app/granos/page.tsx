@@ -15,7 +15,7 @@ const SITE_URL = 'https://macrolibre.com';
 export const metadata: Metadata = {
   title: 'Mercado de Granos Argentina · Precios FOB, DJVE y exportaciones',
   description:
-    'Precios FOB en tiempo real de soja, maíz, trigo y girasol. DJVE semanal y acumulado, exportaciones por grano y destino, estimación de cosecha 2025/26. Datos oficiales MAGyP e INDEC, actualizados diariamente.',
+    'Precios FOB de soja, maíz, trigo y girasol, DJVE y exportaciones. Datos oficiales MAGyP e INDEC. Snapshot estático — ver fecha de actualización en la página.',
   alternates: { canonical: `${SITE_URL}/granos` },
   keywords: [
     'mercado de granos argentina',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Mercado de Granos Argentina · MacroLibre',
-    description: 'Precios FOB en tiempo real, DJVE, exportaciones y cosecha. Datos oficiales MAGyP e INDEC.',
+    description: 'Precios FOB, DJVE, exportaciones y cosecha. Snapshot MAGyP e INDEC — no es feed en vivo.',
   },
 };
 
@@ -151,7 +151,7 @@ export default function GranosPage() {
       <SectionHeader
         id="granos"
         title="Mercado de Granos Argentina"
-        subtitle="Precios FOB en tiempo real de los principales granos, cotizaciones oficiales, embarques y exportaciones del sector. Datos actualizados diariamente desde fuentes oficiales del MAGyP e INDEC."
+        subtitle="Precios FOB, cotizaciones oficiales, embarques y exportaciones. Snapshot MAGyP / INDEC — no es feed en vivo."
         accent="sol"
       />
 

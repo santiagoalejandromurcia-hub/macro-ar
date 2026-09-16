@@ -30,8 +30,9 @@ const ITEMS = [
   { group: 'Indicadores', label: 'Consumo y pobreza',     href: '/#bienestar',   icon: '🏠' },
 
   // Mercados
-  { group: 'Mercados',  label: 'Carnes y ganadería',      href: '/carnes',       icon: '🥩' },
-  { group: 'Mercados',  label: 'Uva y vinos',             href: '/uva',          icon: '🍷' },
+  { group: 'Mercados',  label: 'Carnes y ganadería (snapshot)', href: '/carnes', icon: '🥩' },
+  { group: 'Mercados',  label: 'Granos (snapshot)',       href: '/granos',       icon: '🌾' },
+  { group: 'Mercados',  label: 'Uva y vinos (snapshot)',  href: '/uva',          icon: '🍷' },
 
   // Herramientas
   { group: 'Herramientas', label: 'Calculadora de instrumentos', href: '/calculadora', icon: '🧮' },

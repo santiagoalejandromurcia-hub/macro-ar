@@ -17,6 +17,7 @@ import {
   FUENTE_DJVE,
   FUENTE_EXPORT,
 } from '@/data/granos';
+import StaleBanner from '@/components/StaleBanner';
 
 // ────────────────────────────────────────────────────────────
 // Colores
@@ -204,8 +205,12 @@ export default function GranosContent() {
     <div className="space-y-10">
 
       {/* ─── Fecha actualización ─── */}
+      <StaleBanner
+        asOf={ACTUALIZADO_AL}
+        hint="Para cotización del día usá MAGyP / tu broker"
+      />
       <p className="text-[11px] font-mono text-[var(--fg-3)]">
-        Actualizado al: {ACTUALIZADO_AL} · {FUENTE_FOB}
+        Snapshot: {ACTUALIZADO_AL} · {FUENTE_FOB}
       </p>
 
       {/* ─── KPIs ─── */}
