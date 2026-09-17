@@ -70,7 +70,12 @@ export async function GET() {
         ticker:        bond.ticker,
         precioArsLive: Math.round(mid * 100) / 100,
         pctChange:     Math.round(nota.pct_change * 100) / 100,
-        tirImplicita:  null, // YTM LECAP requiere valor técnico/TEM; no inventar CAGR
+        // YTM LECAP: ver src/lib/lecapYtm.ts + LECAP_VERIFIED.
+        // Cablear recién cuando haya TEM+fechas verificadas por ticker:
+        //   tirImplicita: getVerifiedLecap(bond.ticker)
+        //     ? lecapTeaFromPrice(getVerifiedLecap(bond.ticker)!, mid, todayISO)
+        //     : null
+        tirImplicita:  null,
         tirEsCER:      false,
         timestamp:     today.toISOString(),
       };

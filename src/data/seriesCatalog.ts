@@ -1,0 +1,37 @@
+export type TerminalTab = 'TODOS' | 'ACTIVIDAD' | 'PRECIOS' | 'EXTERNO' | 'FISCAL';
+
+export interface SeriesCatalogEntry {
+  id: string;
+  label: string;
+  aliases: string[];
+  href: string;
+  tabs: TerminalTab[];
+  hasCsv: boolean;
+  sourceHint: string;
+  icon: string;
+}
+
+export const SERIES_CATALOG: SeriesCatalogEntry[] = [
+  { id: 'inflacion', label: 'Inflación IPC', aliases: ['ipc', 'inflacion', 'cpi', 'precios'], href: '/?kpi=inflacion#dashboard', tabs: ['PRECIOS'], hasCsv: true, sourceHint: 'INDEC', icon: '🔥' },
+  { id: 'ipc-interanual', label: 'IPC Interanual', aliases: ['ipc ia', 'interanual'], href: '/?kpi=ipc-interanual#dashboard', tabs: ['PRECIOS'], hasCsv: true, sourceHint: 'INDEC', icon: '🔥' },
+  { id: 'ipc-nucleo', label: 'IPC Núcleo', aliases: ['nucleo', 'core'], href: '/?kpi=ipc-nucleo#dashboard', tabs: ['PRECIOS'], hasCsv: true, sourceHint: 'INDEC', icon: '🔥' },
+  { id: 'ipim', label: 'IPIM Mayorista', aliases: ['ipim', 'mayorista'], href: '/?kpi=ipim#dashboard', tabs: ['PRECIOS'], hasCsv: true, sourceHint: 'INDEC', icon: '📦' },
+  { id: 'tamar', label: 'TAMAR', aliases: ['tamar', 'tasa activa'], href: '/?kpi=tamar#dashboard', tabs: ['PRECIOS'], hasCsv: false, sourceHint: 'BCRA KPI (sin serie hist. aún)', icon: '💹' },
+  { id: 'rem-prox', label: 'REM próximo mes', aliases: ['rem', 'expectativas'], href: '/?kpi=rem-prox#dashboard', tabs: ['PRECIOS'], hasCsv: true, sourceHint: 'BCRA REM', icon: '🔮' },
+  { id: 'emae', label: 'EMAE', aliases: ['emae', 'actividad'], href: '/?kpi=emae#dashboard', tabs: ['ACTIVIDAD'], hasCsv: true, sourceHint: 'INDEC', icon: '📈' },
+  { id: 'pbi', label: 'PBI Real', aliases: ['pbi', 'gdp', 'pib'], href: '/?kpi=pbi#dashboard', tabs: ['ACTIVIDAD'], hasCsv: true, sourceHint: 'INDEC', icon: '📈' },
+  { id: 'superavit', label: 'Superávit primario', aliases: ['fiscal', 'superavit', 'mecon'], href: '/?kpi=superavit#dashboard', tabs: ['FISCAL'], hasCsv: true, sourceHint: 'MECON', icon: '⚖️' },
+  { id: 'reservas', label: 'Reservas BCRA', aliases: ['reservas', 'bcra'], href: '/?kpi=reservas#dashboard', tabs: ['EXTERNO'], hasCsv: true, sourceHint: 'BCRA', icon: '🏦' },
+  { id: 'dolar-blue', label: 'Dólar Blue', aliases: ['blue', 'dolar', 'dólar'], href: '/?kpi=dolar-blue#dashboard', tabs: ['EXTERNO'], hasCsv: true, sourceHint: 'hist.', icon: '💵' },
+  { id: 'dolar-oficial', label: 'Dólar Oficial', aliases: ['oficial', 'a3500'], href: '/?kpi=dolar-oficial#dashboard', tabs: ['EXTERNO'], hasCsv: true, sourceHint: 'hist.', icon: '💵' },
+  { id: 'brecha', label: 'Brecha cambiaria', aliases: ['brecha', 'gap'], href: '/?kpi=brecha#dashboard', tabs: ['EXTERNO'], hasCsv: true, sourceHint: 'derivada', icon: '📊' },
+  { id: 'riesgo', label: 'Riesgo País', aliases: ['riesgo', 'embi', 'embigd'], href: '/?kpi=riesgo#dashboard', tabs: ['EXTERNO'], hasCsv: true, sourceHint: 'JP Morgan', icon: '📉' },
+  { id: 'fob-soja', label: 'Soja FOB', aliases: ['soja', 'granos', 'fob'], href: '/?kpi=fob-soja#dashboard', tabs: ['TODOS'], hasCsv: true, sourceHint: 'FOB', icon: '🌾' },
+  { id: 'fob-maiz', label: 'Maíz FOB', aliases: ['maiz', 'maíz'], href: '/?kpi=fob-maiz#dashboard', tabs: ['TODOS'], hasCsv: true, sourceHint: 'FOB', icon: '🌽' },
+  { id: 'fob-trigo', label: 'Trigo FOB', aliases: ['trigo'], href: '/?kpi=fob-trigo#dashboard', tabs: ['TODOS'], hasCsv: true, sourceHint: 'FOB', icon: '🌾' },
+];
+
+export const SERIES_CONTEXT_LINKS = [
+  { group: 'Contexto' as const, label: 'Mundo / LatAm', aliases: ['mundo', 'latam', 'peers'], href: '/mundo', icon: '🌎' },
+  { group: 'Herramientas' as const, label: 'Break-Even Inflacionario', aliases: ['bei', 'be i', 'breakeven', 'break-even', 'lecap'], href: '/break-even', icon: '🎯' },
+];

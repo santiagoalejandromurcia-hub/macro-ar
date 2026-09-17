@@ -11,9 +11,34 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Command } from 'cmdk';
+import { SERIES_CATALOG, SERIES_CONTEXT_LINKS } from '@/data/seriesCatalog';
+
+type PaletteItem = {
+  group: string;
+  label: string;
+  href: string;
+  icon: string;
+  keywords?: string;
+};
+
+const SERIES_ITEMS: PaletteItem[] = SERIES_CATALOG.map((s) => ({
+  group: 'Series',
+  label: `Serie: ${s.label}`,
+  href: s.href,
+  icon: s.icon,
+  keywords: [s.id, ...s.aliases].join(' '),
+}));
+
+const CONTEXT_EXTRA: PaletteItem[] = SERIES_CONTEXT_LINKS.map((s) => ({
+  group: s.group,
+  label: s.label,
+  href: s.href,
+  icon: s.icon,
+  keywords: s.aliases.join(' '),
+}));
 
 // ── Ítems del paleta ────────────────────────────────────────
-const ITEMS = [
+const ITEMS: PaletteItem[] = [
   // Secciones del home
   { group: 'Dashboard', label: 'Dashboard en vivo',       href: '/#dashboard',   icon: '📊' },
   { group: 'Dashboard', label: 'Dólar Blue y tipos de cambio', href: '/#externo', icon: '💵' },
@@ -34,9 +59,8 @@ const ITEMS = [
   { group: 'Mercados',  label: 'Granos (snapshot)',       href: '/granos',       icon: '🌾' },
   { group: 'Mercados',  label: 'Uva y vinos (snapshot)',  href: '/uva',          icon: '🍷' },
 
-  // Herramientas
+  // Herramientas (BEI entra por SERIES_CONTEXT_LINKS, con aliases bei/lecap)
   { group: 'Herramientas', label: 'Calculadora de instrumentos', href: '/calculadora', icon: '🧮' },
-  { group: 'Herramientas', label: 'Break-Even Inflacionario',    href: '/break-even',  icon: '🎯' },
   { group: 'Herramientas', label: 'MacroBot — consultas IA',     href: '/#simulador',  icon: '🤖' },
   { group: 'Herramientas', label: 'Datasets descargables',       href: '/proxys',      icon: '📦' },
 
@@ -46,17 +70,10 @@ const ITEMS = [
   { group: 'Contenido', label: 'Newsletter',              href: '/#newsletter',  icon: '✉️' },
   { group: 'Contenido', label: 'Informes mensuales',      href: '/informes',     icon: '📋' },
 
-  // Series (deep-link al terminal)
-  { group: 'Series', label: 'Serie: Inflación IPC', href: '/?kpi=inflacion#dashboard', icon: '🔥' },
-  { group: 'Series', label: 'Serie: EMAE', href: '/?kpi=emae#dashboard', icon: '📈' },
-  { group: 'Series', label: 'Serie: TAMAR', href: '/?kpi=tamar#dashboard', icon: '💹' },
-  { group: 'Series', label: 'Serie: Reservas BCRA', href: '/?kpi=reservas#dashboard', icon: '🏦' },
-  { group: 'Series', label: 'Serie: Dólar Blue', href: '/?kpi=dolar-blue#dashboard', icon: '💵' },
-  { group: 'Series', label: 'Serie: Riesgo País', href: '/?kpi=riesgo#dashboard', icon: '📉' },
-  { group: 'Series', label: 'Serie: Brecha', href: '/?kpi=brecha#dashboard', icon: '📊' },
+  ...SERIES_ITEMS,
+  ...CONTEXT_EXTRA,
 
-  // Contexto (riel secundario)
-  { group: 'Contexto', label: 'Mundo / LatAm — comparables', href: '/mundo', icon: '🌎' },
+  // Contexto extra (peers; Mundo ya viene de SERIES_CONTEXT_LINKS)
   { group: 'Contexto', label: 'Brasil — peers', href: '/mundo#BR', icon: '🇧🇷' },
   { group: 'Contexto', label: 'Estados Unidos — peers', href: '/mundo#US', icon: '🇺🇸' },
 
@@ -64,7 +81,7 @@ const ITEMS = [
   { group: 'Sitio',    label: 'Acerca de MacroLibre',    href: '/acerca',       icon: 'ℹ️' },
   { group: 'Sitio',    label: 'Contacto',                href: '/contacto',     icon: '📬' },
   { group: 'Sitio',    label: 'Servicios',               href: '/servicios',    icon: '💎' },
-] as const;
+];
 
 const GROUPS = ['Dashboard', 'Indicadores', 'Series', 'Contexto', 'Mercados', 'Herramientas', 'Contenido', 'Sitio'] as const;
 
@@ -170,7 +187,7 @@ export default function CommandPalette({ open, onClose }: Props) {
                   {groupItems.map((item) => (
                     <Command.Item
                       key={item.href + item.label}
-                      value={item.label}
+                      value={`${item.label} ${item.keywords ?? ''}`}
                       onSelect={() => navigate(item.href)}
                       className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer text-[13px] transition-colors"
                       style={{

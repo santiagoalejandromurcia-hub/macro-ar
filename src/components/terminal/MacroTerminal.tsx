@@ -571,30 +571,34 @@ export default function MacroTerminal() {
               <span style={{ minWidth:0, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{chart.title}</span>
               <span style={{ display:'flex', alignItems:'center', gap:8, flexShrink:0 }}>
                 {selRow && ROW_SERIES[selRow] && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const s = ROW_SERIES[selRow];
-                      if (!s) return;
-                      downloadCSV(
-                        s.data.map(d => ({ fecha: d.date, valor: d.value })),
-                        selRow,
-                      );
-                    }}
-                    style={{
-                      fontSize: 11,
-                      letterSpacing: '0.06em',
-                      padding: '4px 10px',
-                      border: '1px solid var(--line-1)',
-                      borderRadius: 6,
-                      background: 'var(--bg-2)',
-                      color: 'var(--fg-1)',
-                      cursor: 'pointer',
-                      fontFamily: 'inherit',
-                    }}
-                  >
-                    CSV ↓
-                  </button>
+                  ROW_SERIES[selRow].data.length >= 2 ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const s = ROW_SERIES[selRow];
+                        if (!s) return;
+                        downloadCSV(
+                          s.data.map(d => ({ fecha: d.date, valor: d.value })),
+                          selRow,
+                        );
+                      }}
+                      style={{
+                        fontSize: 11,
+                        letterSpacing: '0.06em',
+                        padding: '4px 10px',
+                        border: '1px solid var(--line-1)',
+                        borderRadius: 6,
+                        background: 'var(--bg-2)',
+                        color: 'var(--fg-1)',
+                        cursor: 'pointer',
+                        fontFamily: 'inherit',
+                      }}
+                    >
+                      CSV ↓
+                    </button>
+                  ) : (
+                    <span style={{ fontSize: 11, color: 'var(--fg-3)' }}>sin serie CSV</span>
+                  )
                 )}
                 {selRow && (
                   <button onClick={() => setSelRow(null)} style={{
