@@ -97,6 +97,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${BASE_URL}/credito`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/dolares`,
+      lastModified: now,
+      changeFrequency: 'hourly',
+      priority: 0.85,
+    },
+    {
       url: `${BASE_URL}/informes`,
       lastModified: now,
       changeFrequency: 'monthly',

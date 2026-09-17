@@ -39,6 +39,8 @@ const SECTION_GROUPS: SectionGroup[] = [
       { href: '/#externo',    label: 'Dólar y reservas', desc: 'Blue, MEP, BCRA' },
       { href: '/#actividad',  label: 'Actividad',       desc: 'EMAE, PBI, sectorial' },
       { href: '/#fiscal',     label: 'Fiscal',          desc: 'Resultado primario y financiero' },
+      { href: '/credito',     label: 'Crédito',         desc: 'Stock real, mora, crédito/PBI' },
+      { href: '/dolares',     label: 'Dólares',         desc: 'Reservas, MULC, ITCRM, CC' },
       { href: '/mundo',       label: 'Mundo / LatAm',   desc: 'Comparables CPI · tasa · FX' },
     ],
   },

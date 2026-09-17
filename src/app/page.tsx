@@ -17,6 +17,8 @@ import ServicesSection from '@/components/Services/ServicesSection';
 import FadeSection from '@/components/FadeSection';
 import EmbiDashboard from '@/components/EmbiDashboard';
 import InflacionMayoristaChart from '@/components/InflacionMayoristaChart';
+import { MORA_OFICIAL } from '@/data/credito';
+import { CUENTA_CORRIENTE, ITCRM_REFS, RESERVAS_NETAS_METODO } from '@/data/dolares';
 
 export default function HomePage() {
   const latestArticles = articles.slice(0, 3);
@@ -110,12 +112,27 @@ export default function HomePage() {
           </div>
         </FadeSection>
 
+        <FadeSection id="credito" className="mt-20">
+          <SectionHeader
+            id="credito-home"
+            title="Crédito al privado"
+            subtitle={`Mora sistema ${MORA_OFICIAL.total}% · familias ${MORA_OFICIAL.familias}% · crédito/PBI ${MORA_OFICIAL.creditoPibTotal}% (BCRA jun-26). Stock real y líneas en la ficha.`}
+            accent="sol"
+          />
+          <Link
+            href="/credito"
+            className="inline-flex items-center h-10 px-4 rounded-md border border-[var(--line-1)] text-[13px] font-mono text-[var(--fg-1)] hover:border-[var(--celeste)]/40 hover:text-[var(--fg-0)] transition"
+          >
+            Abrir crédito (gráficos PNG/CSV) →
+          </Link>
+        </FadeSection>
+
         {/* ════════ EXTERNO ════════ */}
         <FadeSection id="externo" className="mt-20">
           <SectionHeader
             id="externo"
             title="Sector externo"
-            subtitle="Balanza comercial, reservas BCRA y tipo de cambio — Fuente: INDEC, BCRA"
+            subtitle={`ICA + reservas + FX. CC ${CUENTA_CORRIENTE.period} ${CUENTA_CORRIENTE.usdM} USD M. ITCRM ${ITCRM_REFS.last} (${ITCRM_REFS.lastAsOf}). Netas: snapshot USD ${RESERVAS_NETAS_METODO.snapshotUsdM} M — ver metodología.`}
             accent="celeste"
           />
           <div className="space-y-6">
@@ -126,6 +143,12 @@ export default function HomePage() {
             </div>
             <RiesgoPaisChart />
             <EmbiDashboard />
+            <Link
+              href="/dolares"
+              className="inline-flex items-center h-10 px-4 rounded-md border border-[var(--line-1)] text-[13px] font-mono text-[var(--fg-1)] hover:border-[var(--celeste)]/40 hover:text-[var(--fg-0)] transition"
+            >
+              Dólares: MULC, ITCRM, CC vs comercial →
+            </Link>
           </div>
         </FadeSection>
 

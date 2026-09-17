@@ -48,6 +48,8 @@ const ITEMS: PaletteItem[] = [
   { group: 'Indicadores', label: 'Inflación IPC',         href: '/inflacion',    icon: '🔥' },
   { group: 'Indicadores', label: 'Actividad económica (EMAE)', href: '/#actividad', icon: '📈' },
   { group: 'Indicadores', label: 'Equilibrio fiscal',     href: '/#fiscal',      icon: '⚖️' },
+  { group: 'Indicadores', label: 'Crédito al privado',    href: '/credito',      icon: '💳', keywords: 'mora prestamos fintech pbi' },
+  { group: 'Indicadores', label: 'Dólares stock y flujo', href: '/dolares',      icon: '💵', keywords: 'mulc reservas itcrm cuenta corriente turismo' },
   { group: 'Indicadores', label: 'Sector externo y reservas', href: '/#externo', icon: '🌍' },
   { group: 'Indicadores', label: 'Precios e inflación',   href: '/#precios',     icon: '📊' },
   { group: 'Indicadores', label: 'Salarios y deuda pública', href: '/#salarios-deuda', icon: '💼' },
