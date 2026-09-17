@@ -40,19 +40,22 @@ const CONTEXT_EXTRA: PaletteItem[] = SERIES_CONTEXT_LINKS.map((s) => ({
 // ── Ítems del paleta ────────────────────────────────────────
 const ITEMS: PaletteItem[] = [
   // Secciones del home
-  { group: 'Dashboard', label: 'Dashboard en vivo',       href: '/#dashboard',   icon: '📊' },
-  { group: 'Dashboard', label: 'Dólar Blue y tipos de cambio', href: '/#externo', icon: '💵' },
-  { group: 'Dashboard', label: 'Riesgo País (EMBI)',      href: '/#externo',     icon: '📉' },
+  { group: 'Dashboard', label: 'Pulso — Hoy', href: '/', keywords: 'hoy pulso tape mercados', icon: '📊' },
+  { group: 'Dashboard', label: 'Pulso — Mes', href: '/?capa=mes', keywords: 'mes ipc emae fiscal', icon: '📅' },
+  { group: 'Dashboard', label: 'Pulso — Trim', href: '/?capa=trim', keywords: 'trim pbi cuenta corriente deuda', icon: '📆' },
+  { group: 'Dashboard', label: 'Series (terminal + CSV)', href: '/?capa=series#dashboard', keywords: 'dashboard terminal csv', icon: '📈' },
+  { group: 'Dashboard', label: 'Dólar Blue y tipos de cambio', href: '/?capa=mes#externo', icon: '💵' },
+  { group: 'Dashboard', label: 'Riesgo País (EMBI)',      href: '/?capa=mes#externo',     icon: '📉' },
 
   // Indicadores
   { group: 'Indicadores', label: 'Inflación IPC',         href: '/inflacion',    icon: '🔥' },
-  { group: 'Indicadores', label: 'Actividad económica (EMAE)', href: '/#actividad', icon: '📈' },
-  { group: 'Indicadores', label: 'Equilibrio fiscal',     href: '/#fiscal',      icon: '⚖️' },
-  { group: 'Indicadores', label: 'Sector externo y reservas', href: '/#externo', icon: '🌍' },
-  { group: 'Indicadores', label: 'Precios e inflación',   href: '/#precios',     icon: '📊' },
-  { group: 'Indicadores', label: 'Salarios y deuda pública', href: '/#salarios-deuda', icon: '💼' },
-  { group: 'Indicadores', label: 'Inflación histórica 1990-2026', href: '/#historico', icon: '🕰️' },
-  { group: 'Indicadores', label: 'Consumo y pobreza',     href: '/#bienestar',   icon: '🏠' },
+  { group: 'Indicadores', label: 'Actividad económica (EMAE)', href: '/?capa=mes#actividad', icon: '📈' },
+  { group: 'Indicadores', label: 'Equilibrio fiscal',     href: '/?capa=mes#fiscal',      icon: '⚖️' },
+  { group: 'Indicadores', label: 'Sector externo y reservas', href: '/?capa=mes#externo', icon: '🌍' },
+  { group: 'Indicadores', label: 'Precios e inflación',   href: '/?capa=mes#precios',     icon: '📊' },
+  { group: 'Indicadores', label: 'Salarios y deuda pública', href: '/?capa=trim#salarios-deuda', icon: '💼' },
+  { group: 'Indicadores', label: 'Inflación histórica 1990-2026', href: '/?capa=trim#historico', icon: '🕰️' },
+  { group: 'Indicadores', label: 'Consumo y pobreza',     href: '/?capa=trim#bienestar',   icon: '🏠' },
 
   // Mercados
   { group: 'Mercados',  label: 'Carnes y ganadería (snapshot)', href: '/carnes', icon: '🥩' },

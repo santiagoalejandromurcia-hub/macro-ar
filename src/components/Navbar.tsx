@@ -34,11 +34,12 @@ const SECTION_GROUPS: SectionGroup[] = [
   {
     title: 'Datos en vivo',
     links: [
-      { href: '/#dashboard',  label: 'Dashboard',       desc: 'Todos los indicadores en vivo' },
+      { href: '/',            label: 'Pulso',           desc: 'Hoy: FX, riesgo, tasas' },
+      { href: '/?capa=series#dashboard', label: 'Series', desc: 'Terminal + CSV' },
       { href: '/inflacion',   label: 'Inflación',       desc: 'IPC, núcleo, mayorista, REM' },
-      { href: '/#externo',    label: 'Dólar y reservas', desc: 'Blue, MEP, BCRA' },
-      { href: '/#actividad',  label: 'Actividad',       desc: 'EMAE, PBI, sectorial' },
-      { href: '/#fiscal',     label: 'Fiscal',          desc: 'Resultado primario y financiero' },
+      { href: '/?capa=mes#externo',    label: 'Dólar y reservas', desc: 'Blue, MEP, BCRA' },
+      { href: '/?capa=mes#actividad',  label: 'Actividad',       desc: 'EMAE, PBI, sectorial' },
+      { href: '/?capa=mes#fiscal',     label: 'Fiscal',          desc: 'Resultado primario y financiero' },
       { href: '/mundo',       label: 'Mundo / LatAm',   desc: 'Comparables CPI · tasa · FX' },
     ],
   },
@@ -149,7 +150,7 @@ export default function Navbar() {
           />
           <div className="flex flex-col leading-none">
             <span className="text-[14px] font-semibold tracking-tight text-[var(--fg-0)]">MacroLibre</span>
-            <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-[var(--fg-2)]">AR · Macro · Real-time</span>
+            <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-[var(--fg-2)]">Pulso · AR</span>
           </div>
         </Link>
 

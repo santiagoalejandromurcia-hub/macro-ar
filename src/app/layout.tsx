@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: '%s | MacroLibre',
   },
   description:
-    'Plataforma de estadísticas macroeconómicas de Argentina en tiempo real. Dólar blue, inflación, PBI, EMAE, reservas BCRA, resultado fiscal, simulador económico y más.',
+    'Pulso de mercados y régimen de Argentina. FX, riesgo, tasas y datos oficiales con fecha. Fuentes públicas. No es asesoramiento financiero.',
   keywords: [
     'Argentina', 'macroeconomía', 'dólar blue', 'inflación', 'PBI',
     'EMAE', 'BCRA', 'reservas', 'fiscal', 'superávit', 'estadísticas',
