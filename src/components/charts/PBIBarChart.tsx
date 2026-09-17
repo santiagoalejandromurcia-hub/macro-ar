@@ -16,7 +16,7 @@ export default function PBIBarChart() {
   return (
     <ChartCard
       title="PBI — Variación Interanual"
-      subtitle={isLive ? `Trimestral (%) · Actualizado ${updatedAt} · INDEC` : 'Trimestral (%) · Fuente: INDEC'}
+      subtitle={isLive ? `Trimestral (%) · Actualizado ${updatedAt} · INDEC` : 'Trimestral (%) · Q2-26 +2,0% i.a. · Fuente: INDEC 17/09/2026'}
       isLive={isLive}
       csvData={csvData}
       csvFileName="pbi-variacion-interanual"

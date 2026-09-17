@@ -19,7 +19,7 @@ import { useIndicatorData } from '@/hooks/useIndicatorData';
 /**
  * PBI — Serie desestacionalizada (Base I-17 = 100)
  * Fuente: Econométrica en base a INDEC.
- * I-26: +0,7% trim. desest. (INDEC 23/06/2026).
+ * II-26: −0,6% trim. desest. (INDEC 17/09/2026).
  */
 export default function PBIDesestacionalizadoChart() {
   const t = useChartTheme();
@@ -70,7 +70,7 @@ export default function PBIDesestacionalizadoChart() {
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#D4A843' }} />J×C</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#74ACDF' }} />Fernández (pico II-22 ~104)</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#A78BFA' }} />Milei (mín II-24 ~95)</span>
-        <span className="ml-auto text-theme-primary font-semibold">IV-25 vs II-24: <span className="text-ar-green">+7,8%</span></span>
+        <span className="ml-auto text-theme-primary font-semibold">II-26 vs II-24: <span className="text-ar-green">+7,9%</span> · s.e. −0,6%</span>
       </div>
     </ChartCard>
   );

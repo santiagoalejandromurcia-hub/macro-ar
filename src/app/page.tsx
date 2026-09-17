@@ -2,7 +2,7 @@ import { articles } from '@/data/articles';
 import MacroTerminal from '@/components/terminal/MacroTerminal';
 import SectionHeader from '@/components/SectionHeader';
 import {
-  PBIBarChart, SectorChart, FiscalChart, FiscalDetalleTable, TaxTable,
+  PBIBarChart, PbiDemandaChart, SectorChart, FiscalChart, FiscalDetalleTable, TaxTable,
   TradeChart, ReservasChart, TCRChart, RiesgoPaisChart,
   InflacionMensualChart, InflacionInteranualChart, REMChart,
   ConsumoPrivadoChart, PBIDesestacionalizadoChart, PobrezaChart, ExportacionesChart,
@@ -36,10 +36,11 @@ export default function HomePage() {
           <SectionHeader
             id="actividad"
             title="Actividad económica"
-            subtitle="EMAE, PBI trimestral y desglose sectorial — Fuente: INDEC"
+            subtitle="PIB Q2-26: +2,0% i.a. · −0,6% s.e. (INDEC 17/09/2026). EMAE y sectores."
             accent="celeste"
           />
           <div className="space-y-6">
+            <PbiDemandaChart />
             <EmaeLargoPlazoChart />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <PBIBarChart />

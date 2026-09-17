@@ -32,7 +32,7 @@ export default function ConsumoPrivadoChart() {
   return (
     <ChartCard
       title="Consumo Privado — Serie desestacionalizada"
-      subtitle={isLive ? `Base I-17 = 100 · Actualizado ${updatedAt} · INDEC` : 'Base I-17 = 100 · Trimestral 2017–2026 · Fuente: Econométrica en base a INDEC'}
+      subtitle={isLive ? `Base I-17 = 100 · Actualizado ${updatedAt} · INDEC` : 'Base I-17 = 100 · Q2-26 −2,4% s.e. · Fuente: Econométrica en base a INDEC 17/09/2026'}
       isLive={isLive}
       csvData={csvData}
       csvFileName="consumo-privado"
@@ -73,7 +73,7 @@ export default function ConsumoPrivadoChart() {
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#D4A843' }} />J×C 2017-2019</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#74ACDF' }} />Fernández 2019-2023</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#A78BFA' }} />Milei 2024-2025</span>
-        <span className="ml-auto text-theme-primary font-semibold">IV-25 vs II-24: <span className="text-ar-green">+14%</span></span>
+        <span className="ml-auto text-theme-primary font-semibold">II-26 vs II-24: <span className="text-ar-green">+12,1%</span> · s.e. −2,4%</span>
       </div>
     </ChartCard>
   );

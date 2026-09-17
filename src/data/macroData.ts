@@ -37,11 +37,11 @@ export const kpiCards: KPICard[] = [
   {
     id: 'pbi',
     title: 'PBI Real',
-    value: '2.3',
-    change: 2.3,
-    changeLabel: 'var. interanual (Q1-26)',
+    value: '+2.0%',
+    change: -0.6,
+    changeLabel: 'var. i.a. (Q2-26) · −0,6% s.e.',
     icon: '📈',
-    updatedAt: 'Q1-26',
+    updatedAt: 'Q2-26',
     source: 'INDEC',
   },
   {
@@ -116,7 +116,8 @@ export const emaeData = [
   { date: 'May 26', value: 165.2, trend: 156.0 }, // original · +0,2% i.a. (INDEC 22/07/2026)
 ];
 
-// PBI Trimestral (variación interanual % YoY) - Actualizado 23/06/2026
+// PBI Trimestral (variación interanual % YoY)
+// Último: INDEC Informe de Avance 17/09/2026 · Q2-26 +2,0% i.a. · −0,6% s.e.
 export const pbiData = [
   { quarter: 'Q1 23', yoy: 1.3 },
   { quarter: 'Q2 23', yoy: -0.5 },
@@ -126,25 +127,41 @@ export const pbiData = [
   { quarter: 'Q2 24', yoy: -6.0 },
   { quarter: 'Q3 24', yoy: 0.4 },
   { quarter: 'Q4 24', yoy: 9.4 },
-  { quarter: 'Q1 25', yoy: 5.8 },     // Oficial INDEC
-  { quarter: 'Q2 25', yoy: 6.4 },     // Oficial INDEC (corregido)
-  { quarter: 'Q3 25', yoy: 3.3 },     // Oficial INDEC (último publicado)
-  { quarter: 'Q4 25', yoy: 3.8 },     // Preliminar (cierra el año en +4,4% anual)
-  { quarter: 'Q1 26', yoy: 2.3 },     // Oficial INDEC (23/06/2026) · +0,7% trim. desest.
+  { quarter: 'Q1 25', yoy: 5.8 },
+  { quarter: 'Q2 25', yoy: 6.4 },
+  { quarter: 'Q3 25', yoy: 3.3 },
+  { quarter: 'Q4 25', yoy: 3.8 },
+  { quarter: 'Q1 26', yoy: 2.3 },     // INDEC 23/06/2026 · +0,7% trim. desest.
+  { quarter: 'Q2 26', yoy: 2.0 },     // INDEC 17/09/2026 · −0,6% trim. desest. · semestre +2,2%
+];
+
+/** Demanda: PIB = C + I + X − M. INDEC Q2-26 (17/09/2026). Existencias no publicadas (///). */
+export const pbiDemandaQ2 = {
+  period: 'Q2 26',
+  released: '2026-09-17',
+  semestre: 2.2,
+  tendenciaCiclo: 0.8,
+  yoy: { pbi: 2.0, consPriv: 0.4, consPub: -4.1, fbcf: -11.1, x: 13.7, m: -8.6 },
+  qoq: { pbi: -0.6, consPriv: -2.4, consPub: -2.3, fbcf: -0.8, x: 2.5, m: -3.5 },
+};
+
+export const pbiQoqData = [
+  { quarter: 'II-25', pbi: 0.3, consumoPriv: 1.8, fbcf: -1.5 },
+  { quarter: 'III-25', pbi: 0.3, consumoPriv: 0.4, fbcf: -4.8 },
+  { quarter: 'IV-25', pbi: 1.1, consumoPriv: 0.9, fbcf: -3.5 },
+  { quarter: 'I-26', pbi: 0.7, consumoPriv: 0.5, fbcf: -2.3 },
+  { quarter: 'II-26', pbi: -0.6, consumoPriv: -2.4, fbcf: -0.8 },
 ];
 
 // PIB por sector — Variación interanual (%)
-// Fuente: INDEC — PIB Q1 2026 (23/06/2026)
+// Fuente: INDEC — PIB Q2 2026 (17/09/2026)
 export const sectorData = [
-  { sector: 'Pesca', value: 27.5, color: '#10B981' },
-  { sector: 'Agro', value: 18.1, color: '#22C55E' },
-  { sector: 'Minería', value: 12.3, color: '#F97316' },
-  { sector: 'Financiero', value: 7.5, color: '#06B6D4' },
-  { sector: 'Construcción', value: 2.5, color: '#D4A843' },
-  { sector: 'Transporte', value: 2.3, color: '#84CC16' },
-  { sector: 'Comercio', value: -0.3, color: '#A78BFA' },
-  { sector: 'Industria', value: -1.7, color: '#74ACDF' },
-  { sector: 'Energía', value: -1.1, color: '#EC4899' },
+  { sector: 'Pesca', value: 44.7, color: '#10B981' },
+  { sector: 'Minería', value: 16.4, color: '#F97316' },
+  { sector: 'Agro', value: 6.9, color: '#22C55E' },
+  { sector: 'Industria', value: -2.1, color: '#74ACDF' },
+  { sector: 'Adm. pública', value: -1.4, color: '#A78BFA' },
+  { sector: 'Otros servicios', value: -0.9, color: '#EC4899' },
 ];
 // Resultado Fiscal (% del PIB) — acumulado 12 meses
 // Fuente: MECON + UBA IIEP (serie 12m comparable, excl. privatizaciones hidro)
@@ -403,14 +420,15 @@ export const consumoPrivadoData: Array<{
   { quarter: 'II-25', value: 100.8, etapa: 'lla' },
   { quarter: 'III-25',value: 102.5, etapa: 'lla' },
   { quarter: 'IV-25', value: 102.6, etapa: 'lla' },
-  { quarter: 'I-26',  value: 103.4, etapa: 'lla' },   // INDEC Q1-26: +0,8% trim. desest. · +2,7% i.a.
+  { quarter: 'I-26',  value: 103.4, etapa: 'lla' },   // INDEC Q1-26
+  { quarter: 'II-26', value: 100.9, etapa: 'lla' },  // INDEC Q2-26: −2,4% trim. desest. (103.4×0,976)
 ];
 
 // ============================================================
 // PBI — Serie desestacionalizada (Base I-17 = 100)
 // Fuente: Econométrica en base a INDEC
 // Hitos: IV-17 ~104 · IV-19 ~98 · COVID II-20 mín · II-22 ~104 (pico azul) ·
-//        IV-23 · II-24 ~95 (mín Milei) · IV-25 nuevo máximo (+7,8% desde II-24)
+//        IV-23 · II-24 ~95 (mín Milei) · I-26 103.1 · II-26 102.5 (−0,6% s.e., +7,9% vs II-24)
 // ============================================================
 export const pbiDesestacionalizadoData: Array<{
   quarter: string;
@@ -453,7 +471,8 @@ export const pbiDesestacionalizadoData: Array<{
   { quarter: 'II-25', value: 100.6, etapa: 'lla' },
   { quarter: 'III-25',value: 101.5, etapa: 'lla' },
   { quarter: 'IV-25', value: 102.4, etapa: 'lla' },
-  { quarter: 'I-26',  value: 103.1, etapa: 'lla' },   // INDEC Q1-26: +0,7% trim. desest. · +2,3% i.a.
+  { quarter: 'I-26',  value: 103.1, etapa: 'lla' },   // INDEC Q1-26: +0,7% trim. desest.
+  { quarter: 'II-26', value: 102.5, etapa: 'lla' },  // INDEC 17/09/2026: −0,6% trim. desest. · +2,0% i.a.
 ];
 
 // ============================================================

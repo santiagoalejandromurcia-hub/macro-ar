@@ -1,6 +1,7 @@
 // Barrel de re-exportación — todos los gráficos del dashboard
 export { default as EmaeChart } from './EmaeChart';
 export { default as PBIBarChart } from './PBIBarChart';
+export { default as PbiDemandaChart } from './PbiDemandaChart';
 export { default as SectorChart } from './SectorChart';
 export { default as FiscalChart } from './FiscalChart';
 export { default as TaxTable } from './TaxTable';

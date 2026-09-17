@@ -5,6 +5,7 @@
 export {
   EmaeChart,
   PBIBarChart,
+  PbiDemandaChart,
   SectorChart,
   FiscalChart,
   TaxTable,

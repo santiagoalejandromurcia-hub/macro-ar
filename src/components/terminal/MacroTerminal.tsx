@@ -116,7 +116,7 @@ function buildRows(
       tabs: ['TODOS', 'ACTIVIDAD'],
       isLive: !!live?.emae,
     },
-    { id: 'pbi',       label: 'PBI Real',            value: '+2.3%',        deltaMes: '▲ var. Q1-26', sign: 'pos', fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
+    { id: 'pbi',       label: 'PBI Real',            value: '+2.0%',        deltaMes: '▼ −0,6% s.e. Q2-26', sign: 'neg', fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
 
     // ── PRECIOS: IPC ──────────────────────────────────────────
     { id: 'inflacion', label: 'Inflación IPC',  value: live?.inflacion?.value ?? `${ipcL.mensual.toFixed(1)}%`,
