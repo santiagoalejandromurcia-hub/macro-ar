@@ -33,7 +33,7 @@ export default function EmaeLargoPlazoChart() {
   return (
     <ChartCard
       title='Actividad Económica EMAE · "Nuevo máximo"'
-      subtitle={isLive ? `Serie desestacionalizada · Actualizado ${updatedAt} · INDEC` : 'Serie desestacionalizada · Fuente: Econométrica en base a INDEC'}
+      subtitle={isLive ? `Serie desestacionalizada · Actualizado ${updatedAt} · INDEC` : 'Desest. · Jun-26 +2,7% i.a. · +0,8% s.e. · INDEC 20/08/2026'}
       isLive={isLive}
       csvData={csvData}
       csvFileName="emae-largo-plazo"

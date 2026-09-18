@@ -22,7 +22,7 @@ export default function EmaeChart() {
   return (
     <ChartCard
       title="EMAE — Estimador Mensual de Actividad Económica"
-      subtitle={isLive ? `Índice base 2004=100 · Actualizado ${updatedAt} · INDEC` : 'Índice base 2004=100 · Serie desestacionalizada y tendencia'}
+      subtitle={isLive ? `Índice base 2004=100 · Actualizado ${updatedAt} · INDEC` : 'Índice original 2004=100 · Jun-26 +2,7% i.a. · +0,8% s.e. · INDEC 20/08/2026'}
       isLive={isLive}
       periods={[...MONTHLY_PERIODS]}
       selectedPeriod={period}

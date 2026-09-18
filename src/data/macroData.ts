@@ -27,8 +27,8 @@ export const kpiCards: KPICard[] = [
     id: 'emae',
     title: 'EMAE',
     value: '+2.7%',
-    change: 2.5,
-    changeLabel: 'var. i.a. (Jun 26) · +0,8% s.e.',
+    change: 2.7,
+    changeLabel: 'var. i.a. (Jun 26) · +0,8% s.e. · tend-ciclo +0,2%',
     unit: 'Índice 2004=100',
     icon: '📊',
     updatedAt: 'Jun 26',
@@ -113,7 +113,10 @@ export const emaeData = [
   { date: 'Ene 26', value: 148.6, trend: 154.3 },
   { date: 'Feb 26', value: 138.3, trend: 154.9 },
   { date: 'Mar 26', value: 158.6, trend: 155.6 },
-  { date: 'May 26', value: 165.2, trend: 156.0 }, // original · +0,2% i.a. (INDEC 22/07/2026)
+  { date: 'Abr 26', value: 161.7, trend: 156.1 }, // orig 161,72 · INDEC 29/06 · +1,6% i.a. · −1,5% s.e. · tend-ciclo +0,3%
+  { date: 'May 26', value: 165.7, trend: 156.0 }, // orig 165,67 · INDEC 22/07 · +0,2% i.a. · −0,5% s.e.
+  { date: 'Jun 26', value: 161.0, trend: 156.3 }, // orig 161,01 · INDEC 20/08 · +2,7% i.a. · +0,8% s.e. · tend-ciclo +0,2%
+    // Julio 2026: calendario INDEC 24/09/2026
 ];
 
 // PBI Trimestral (variación interanual % YoY)
