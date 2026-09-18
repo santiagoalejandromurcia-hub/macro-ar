@@ -7,7 +7,7 @@ import { inflacionData, inflacionMayoristaData } from '@/data/macroData';
 
 export const metadata = {
   title: 'Inflación Argentina en tiempo real — IPC, IPIM y REM',
-  description: 'IPC agosto 2026: 1,7% mensual · núcleo 1,8% · 33,5% interanual. IPIM julio 0,8%. REM del BCRA. Datos INDEC.',
+  description: 'IPC agosto 2026: 1,7% mensual · núcleo 1,8% · 33,5% interanual. IPIM agosto 2,1% · 29,8% i.a. REM del BCRA. Datos INDEC.',
 };
 
 export default function InflacionPage() {
@@ -40,7 +40,7 @@ export default function InflacionPage() {
               { k: 'IPC general', v: `${ipc.mensual.toFixed(1)}%`, s: `${ipc.date} · mens.` },
               { k: 'IPC núcleo', v: `${ipc.nucleo.toFixed(1)}%`, s: 'sin regulados ni estacionales' },
               { k: 'IPC interanual', v: `${ipc.interanual.toFixed(1)}%`, s: 'vs. mismo mes año anterior' },
-              { k: 'IPIM mayorista', v: `${ipim.mensual.toFixed(1)}%`, s: `${ipim.date} · Ago sale 16/09` },
+              { k: 'IPIM mayorista', v: `${ipim.mensual.toFixed(1)}%`, s: `${ipim.date} · ${ipim.interanual.toFixed(1)}% i.a.` },
             ].map((x) => (
               <div key={x.k} className="bg-theme-surface border border-theme rounded-xl p-3">
                 <p className="text-[10px] font-mono uppercase tracking-wider text-theme-muted">{x.k}</p>

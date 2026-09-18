@@ -28,7 +28,7 @@ export default function InflacionMayoristaChart() {
       subtitle={
         isLive
           ? `INDEC SIPM · Actualizado ${updatedAt}`
-          : `INDEC SIPM · último ${last?.date ?? 'Jul 26'}: ${last?.mensual.toFixed(1)}% mens. / ${last?.interanual?.toFixed(1) ?? '—'}% i.a. · Ago-26 sale 16/09`
+          : `INDEC SIPM · último ${last?.date ?? 'Ago 26'}: ${last?.mensual.toFixed(1)}% mens. / ${last?.interanual?.toFixed(1) ?? '—'}% i.a.`
       }
       isLive={isLive}
       periods={[...MONTHLY_PERIODS]}

@@ -163,7 +163,7 @@ function buildRows(
     },
 
     // ── FISCAL / EXTERNO ──────────────────────────────────────
-    { id: 'superavit', label: 'Superávit Primario', value: '0.9%',  deltaMes: '▲ +0.20 pp', sign: 'pos',  fuente: 'MECON', tabs: ['TODOS','FISCAL'] },
+    { id: 'superavit', label: 'Superávit Primario', value: '1.1%',  deltaMes: '▲ ene–ago · fin. 0,2%', sign: 'pos',  fuente: 'MECON', tabs: ['TODOS','FISCAL'] },
     {
       id: 'reservas',
       label: 'Reservas BCRA',

@@ -57,12 +57,12 @@ export const kpiCards: KPICard[] = [
   {
     id: 'superavit',
     title: 'Superávit Primario',
-    value: '0.9%',
+    value: '1.1%',
     change: 0.2,
-    changeLabel: 'Ene–Jul 26 (% PIB) · financiero 0,1%',
+    changeLabel: 'Ene–Ago 26 (% PIB) · financiero 0,2%',
     unit: '% PIB',
     icon: '✅',
-    updatedAt: 'Jul 26',
+    updatedAt: 'Ago 26',
     source: 'MECON',
   },
   {
@@ -186,26 +186,28 @@ export const fiscalData = [
   { period: 'Abr 26', primario: 0.6, financiero: 0.2 },
   { period: 'May 26', primario: 1.8, financiero: 0.45 },
   { period: 'Jun 26', primario: 1.1, financiero: -0.1 },  // UBA IIEP · déficit mensual aguinaldo
-  { period: 'Jul 26', primario: 1.2, financiero: -0.1 },  // UBA IIEP ago-26 · 12m
+  { period: 'Jul 26', primario: 1.2, financiero: -0.1 },  // UBA IIEP ago-26 · 12m (Ago-26 12m aún no publicado)
 ];
 
-// Resultado fiscal nominal mensual (millones de ARS) — SPNF
+// Resultado fiscal nominal mensual (millones de ARS) — SPN
 export const fiscalNominalData = [
   { period: 'Abr 26', primario:   632844, financiero:   268103, intereses:  364741 },
   { period: 'May 26', primario:  1924367, financiero:   478613, intereses: 1445754 },
   { period: 'Jun 26', primario:  -696843, financiero: -1024891, intereses:  328049 }, // déficit estacional (aguinaldo)
   { period: 'Jul 26', primario:  2960333, financiero:   244897, intereses: 2715436 },
-    // ← ÚLTIMO MECON (18/08/2026) · acum. ene-jul: primario 0,9% PIB · financiero 0,1% PIB
+  { period: 'Ago 26', primario:  1990322, financiero:   635529, intereses: 1354793 },
+    // ← ÚLTIMO MECON (Caputo 18/09/2026) · acum. ene-ago: primario 1,1% PIB · financiero 0,2% PIB
+    // financiero ago +62,8% i.a. vs $390.301 M de ago-25
 ];
 
-// Composición del gasto primario — variación interanual real (julio 2026)
-// Fuente: MECON 18/08/2026 + UBA IIEP (Reporte Fiscal agosto 2026)
+// Composición del gasto primario — variación interanual real (agosto 2026)
+// Fuente: MECON / Caputo 18/09/2026. Solo rubros publicados; no se arrastran los de julio.
 export const fiscalGastoRealData: Array<{ concepto: string; variacionReal: string; destacado?: boolean }> = [
-  { concepto: 'Gasto primario total', variacionReal: '-7,0%', destacado: true },
-  { concepto: 'Prestaciones sociales', variacionReal: '-8,1%' },
-  { concepto: 'Jubilaciones y pensiones contributivas', variacionReal: '-4,5%' },
-  { concepto: 'Asignación Universal por Hijo (AUH)', variacionReal: '+3,8%' },
-  { concepto: 'Transferencias a provincias', variacionReal: '-38,6%' },
+  { concepto: 'Gasto primario total', variacionReal: '-0,5%', destacado: true },
+  { concepto: 'Transferencias a universidades', variacionReal: '+9,7%' },
+  { concepto: 'Prestaciones PAMI', variacionReal: '+4,9%' },
+  { concepto: 'Asignación Universal por Hijo (AUH)', variacionReal: '+4,7%' },
+  { concepto: 'Pensiones no contributivas', variacionReal: '+4,2%' },
 ];
 
 // Recaudación Tributaria Nacional (millones de pesos) — Agosto 2026
@@ -367,8 +369,8 @@ export const inflacionMayoristaData = [
   { date: 'Abr 26', mensual: 5.2, interanual: 31.0 },       // INDEC Informa · mens. 5,2%
   { date: 'May 26', mensual: 2.5, interanual: 34.5 },
   { date: 'Jun 26', mensual: 1.1, interanual: 33.7 },
-  { date: 'Jul 26', mensual: 0.8, interanual: 31.1 },       // ← ÚLTIMO INDEC (18/08) · acum. 16,6%
-    // Agosto 2026: calendario oficial 16/09/2026
+  { date: 'Jul 26', mensual: 0.8, interanual: 31.1 },
+  { date: 'Ago 26', mensual: 2.1, interanual: 29.8 },       // INDEC 16/09/2026 · acum. ene–ago 19,1%
 ];
 // ============================================================
 // Consumo Privado — Serie desestacionalizada (Base I-17 = 100)

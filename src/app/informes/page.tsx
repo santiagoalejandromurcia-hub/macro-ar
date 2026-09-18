@@ -113,7 +113,7 @@ export default function InformesPage() {
       <div className="mt-10 p-5 rounded-xl border border-dashed border-[var(--line-1)] bg-[var(--bg-1)]">
         <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-[var(--fg-3)] mb-1">Próxima edición</p>
         <p className="text-sm text-[var(--fg-2)]">
-          El <strong className="text-[var(--fg-1)]">Informe Macroeconómico N°3 · Septiembre 2026</strong> se publicará en la segunda quincena de septiembre, incorporando el IPC de agosto (1,7%), el IPIM de julio (0,8%), el EMAE de julio y el resultado fiscal de agosto.
+          El <strong className="text-[var(--fg-1)]">Informe Macroeconómico N°3 · Septiembre 2026</strong> se publicará en la segunda quincena de septiembre, incorporando el IPC de agosto (1,7%), el IPIM de agosto (2,1%), el PBI Q2 y el resultado fiscal de agosto.
         </p>
       </div>
     </div>

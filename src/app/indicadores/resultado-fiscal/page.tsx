@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     q: '¿Argentina tiene superávit o déficit fiscal en 2026?',
-    a: 'Argentina registra superávit fiscal primario desde 2024. En los primeros siete meses de 2026 el SPN acumuló un superávit primario de 0,9% del PIB y un superávit financiero de 0,1% del PIB, según el Ministerio de Economía. Julio cerró con superávit primario de $2.960.333 millones, después del déficit estacional de junio (aguinaldo).',
+    a: 'Argentina registra superávit fiscal primario desde 2024. En los primeros ocho meses de 2026 el SPN acumuló un superávit primario de 1,1% del PIB y un superávit financiero de 0,2% del PIB, según el Ministerio de Economía (18/09/2026). Agosto cerró con superávit primario de $1.990.322 millones y financiero de $635.529 millones (+62,8% i.a.).',
   },
   {
     q: '¿Cuál es la diferencia entre resultado primario y resultado financiero?',

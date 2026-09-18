@@ -9,7 +9,7 @@ const SITE_URL = 'https://macrolibre.com';
 export const metadata: Metadata = {
   title: 'Inflación Argentina — IPC mensual, inflación interanual y expectativas 2026 · INDEC',
   description:
-    'IPC agosto 2026: 1,7% mensual, 33,5% interanual, núcleo 1,8%. IPIM julio 0,8%. Expectativas REM del BCRA. Datos oficiales INDEC.',
+    'IPC agosto 2026: 1,7% mensual, 33,5% interanual, núcleo 1,8%. IPIM agosto 2,1% (29,8% i.a.). Expectativas REM del BCRA. Datos oficiales INDEC.',
   alternates: { canonical: `${SITE_URL}/indicadores/inflacion-argentina` },
   keywords: [
     'inflación Argentina',
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     q: '¿Cuál fue la inflación mensual en Argentina en agosto 2026?',
-    a: 'La inflación mensual de agosto 2026 fue del 1,7% según el IPC del INDEC (publicado 10/09/2026), la más baja de 2026. La variación interanual fue 33,5% y el acumulado enero–agosto 21,3%. El IPC núcleo se mantuvo en 1,8% (igual que julio). Los regulados subieron 2,2% y los estacionales cayeron 0,9%. El IPIM mayorista de julio fue 0,8%; el de agosto se publica el 16/09/2026.',
+    a: 'La inflación mensual de agosto 2026 fue del 1,7% según el IPC del INDEC (publicado 10/09/2026), la más baja de 2026. La variación interanual fue 33,5% y el acumulado enero–agosto 21,3%. El IPC núcleo se mantuvo en 1,8% (igual que julio). Los regulados subieron 2,2% y los estacionales cayeron 0,9%. El IPIM mayorista de agosto fue 2,1% mensual y 29,8% interanual (INDEC 16/09/2026).',
   },
   {
     q: '¿Qué es el IPC Argentina?',

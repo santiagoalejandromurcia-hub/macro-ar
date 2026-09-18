@@ -22,8 +22,8 @@ export default function FiscalDetalleTable() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <ChartCard
-        title="Resultado fiscal nominal — SPNF"
-        subtitle={`${ultimo.period} · millones de ARS · MECON`}
+        title="Resultado fiscal nominal — SPN"
+        subtitle={`${ultimo.period} · millones de ARS · MECON 18/09/2026`}
         csvData={fiscalNominalData.map((r) => ({
           Período: r.period,
           'Superávit primario (M)': r.primario,
@@ -59,19 +59,19 @@ export default function FiscalDetalleTable() {
           </table>
         </div>
         <p className="mt-3 text-[11px] text-theme-muted leading-relaxed">
-          Acumulado ene–jul 2026: superávit primario 0,9% del PIB · superávit financiero 0,1% del PIB.
-          Intereses netos de tenencias intra sector público. Junio fue déficit estacional (aguinaldo).
+          Acumulado ene–ago 2026: superávit primario 1,1% del PIB · superávit financiero 0,2% del PIB.
+          Agosto: financiero +62,8% i.a. Intereses netos de tenencias intra sector público. Junio fue déficit estacional (aguinaldo).
         </p>
       </ChartCard>
 
       <ChartCard
         title="Gasto primario — variación real i.a."
-        subtitle="Julio 2026 · términos reales · MECON"
+        subtitle="Agosto 2026 · términos reales · MECON"
         csvData={fiscalGastoRealData.map((r) => ({
           Concepto: r.concepto,
           'Var. real i.a.': r.variacionReal,
         })) as unknown as Record<string, unknown>[]}
-        csvFileName="gasto-primario-real-julio-2026"
+        csvFileName="gasto-primario-real-agosto-2026"
       >
         <div className="overflow-x-auto -mx-2">
           <table className="w-full text-sm min-w-[320px]">

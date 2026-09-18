@@ -102,7 +102,7 @@ export default function HomePage() {
           <SectionHeader
             id="fiscal"
             title="Equilibrio fiscal"
-            subtitle="Resultado primario, financiero, recaudación y gasto público — Fuente: Min. Economía"
+            subtitle="Agosto 2026: primario $1.990.322 M · financiero $635.529 M (+62,8% i.a.). Acum. 1,1% / 0,2% del PIB — MECON 18/09/2026."
             accent="sol"
           />
           <div className="space-y-6">
