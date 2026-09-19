@@ -11,6 +11,8 @@ import {
   inflacionMayoristaData, remData, pbiData, tcrData, riesgoPaisData,
 } from '@/data/macroData';
 import { preciosFOB } from '@/data/granos';
+import { ENERGIA_MENSUAL, ENERGIA_KPI } from '@/data/energia';
+import { ypfCaba, YPF_CABA_FUENTE } from '@/data/combustibles';
 import { bonosNominales, bonosReales, remEsperado, ACTUALIZADO_AL } from '@/data/breakEven';
 import { construirCurvaBEI } from '@/lib/breakEven';
 import { downloadCSV } from '@/lib/csvUtils';
@@ -73,9 +75,14 @@ const ROW_SERIES: Record<string, RowSeries> = {
   'brecha':         { title: 'BRECHA CAMBIARIA (%)',          unit: '%',       color: '#F0A500', data: tcrData.map(d => ({ date: d.date, value: Number((((d.blue / d.oficial) - 1) * 100).toFixed(1)) })) },
   'riesgo':         { title: 'RIESGO PAÍS (EMBIGD JP Morgan)', unit: ' pb', color: '#f85149', data: riesgoPaisData.map(d => ({ date: d.date, value: d.value })) },
   'tamar':          { title: 'TAMAR BANCOS PRIVADOS (% n.a.)', unit: '%', color: '#38BDF8', data: [] },
+  'cye-12m':        { title: 'SALDO CYE 12M (USD M)',          unit: ' M', color: '#D4A843', data: ENERGIA_MENSUAL.filter(d => d.ttm != null).map(d => ({ date: d.mes, value: d.ttm as number })) },
+  'ypf-super':      { title: 'YPF SUPER CABA (ARS/l)',         unit: '',   color: '#F97316', data: ypfCaba.map(d => ({ date: d.mes, value: d.super })) },
+  'ypf-premium':    { title: 'YPF PREMIUM CABA (ARS/l)',       unit: '',   color: '#F0A500', data: ypfCaba.map(d => ({ date: d.mes, value: d.premium })) },
+  'ypf-gasoil':     { title: 'YPF GASOIL CABA (ARS/l)',        unit: '',   color: '#64748B', data: ypfCaba.map(d => ({ date: d.mes, value: d.gasoil })) },
 };
 
 type LiveKpi = { value: string; change: number; changeLabel: string } | null;
+type LiveYpf = { mes: string; super: number; premium: number; gasoil: number; euro: number; isLive?: boolean } | null;
 type LiveKpis = {
   inflacion: LiveKpi;
   tamar: LiveKpi;
@@ -83,11 +90,17 @@ type LiveKpis = {
   reservas: LiveKpi;
 };
 
+function ypfDelta(curr: number, prevV: number): string {
+  const d = ((curr / prevV) - 1) * 100;
+  return `${d >= 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)}% m/m`;
+}
+
 function buildRows(
   dolar: DolarData | null,
   riesgo: RiesgoData | null,
   riesgoPrev: RiesgoData | null,
   live?: LiveKpis,
+  ypfLive?: LiveYpf,
 ): SnapshotRow[] {
   const brecha =
     dolar && dolar.blue.value_sell > 0 && dolar.oficial.value_sell > 0
@@ -103,6 +116,10 @@ function buildRows(
   const fobP = prev(preciosFOB);
   const fwIdx = remData.findIndex(r => r.actual === null);
   const remFw = remData.filter(r => r.actual === null);
+  const ypfL = ypfLive ?? last(ypfCaba);
+  const ypfP = last(ypfCaba) === ypfL || ypfLive?.mes === last(ypfCaba).mes ? prev(ypfCaba) : last(ypfCaba);
+  const cyeL = last(ENERGIA_MENSUAL.filter(d => d.ttm != null));
+  const cyeP = prev(ENERGIA_MENSUAL.filter(d => d.ttm != null));
 
   return [
     // ── ACTIVIDAD ─────────────────────────────────────────────
@@ -117,6 +134,14 @@ function buildRows(
       isLive: !!live?.emae,
     },
     { id: 'pbi',       label: 'PBI Real',            value: '+2.0%',        deltaMes: '▼ −0,6% s.e. Q2-26', sign: 'neg', fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
+    {
+      id: 'cye-12m', label: 'Saldo CyE 12m',
+      value: `+USD ${(cyeL.ttm ?? ENERGIA_KPI.ttmUsdM).toLocaleString('es-AR')} M`,
+      deltaMes: cyeP.ttm != null && cyeL.ttm != null
+        ? `${cyeL.ttm >= cyeP.ttm ? '▲' : '▼'} ${cyeL.mes} · ICA`
+        : `ICA · ${cyeL.mes}`,
+      sign: 'pos', fuente: 'INDEC', tabs: ['TODOS', 'EXTERNO'],
+    },
 
     // ── PRECIOS: IPC ──────────────────────────────────────────
     { id: 'inflacion', label: 'Inflación IPC',  value: live?.inflacion?.value ?? `${ipcL.mensual.toFixed(1)}%`,
@@ -225,6 +250,29 @@ function buildRows(
       })(),
       sign: fobL.trigo >= fobP.trigo ? 'pos' : 'neg',
       fuente: 'MAGyP', tabs: ['PRECIOS'],
+    },
+    {
+      id: 'ypf-super', label: 'YPF Super (CABA)',
+      value: `$${ypfL.super.toLocaleString('es-AR')}/l`,
+      deltaMes: `${ypfDelta(ypfL.super, ypfP.super)} · ${ypfL.mes}`,
+      sign: ypfL.super >= ypfP.super ? 'neg' : 'pos',
+      fuente: ypfLive?.isLive ? 'SURTIDORES · live' : YPF_CABA_FUENTE,
+      tabs: ['TODOS', 'PRECIOS'],
+      isLive: !!ypfLive?.isLive,
+    },
+    {
+      id: 'ypf-premium', label: 'YPF Premium (CABA)',
+      value: `$${ypfL.premium.toLocaleString('es-AR')}/l`,
+      deltaMes: `${ypfDelta(ypfL.premium, ypfP.premium)} · ${ypfL.mes}`,
+      sign: ypfL.premium >= ypfP.premium ? 'neg' : 'pos',
+      fuente: YPF_CABA_FUENTE, tabs: ['PRECIOS'],
+    },
+    {
+      id: 'ypf-gasoil', label: 'YPF Gasoil (CABA)',
+      value: `$${ypfL.gasoil.toLocaleString('es-AR')}/l`,
+      deltaMes: `${ypfDelta(ypfL.gasoil, ypfP.gasoil)} · ${ypfL.mes}`,
+      sign: ypfL.gasoil >= ypfP.gasoil ? 'neg' : 'pos',
+      fuente: YPF_CABA_FUENTE, tabs: ['PRECIOS'],
     },
 
     // ── LIVE ─────────────────────────────────────────────────
@@ -340,6 +388,7 @@ export default function MacroTerminal() {
   const [liveKpis, setLiveKpis] = useState<LiveKpis>({
     inflacion: null, tamar: null, emae: null, reservas: null,
   });
+  const [ypfLive, setYpfLive] = useState<LiveYpf>(null);
   const [uptime, setUptime]   = useState(0);
   const [now, setNow]         = useState<Date | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
@@ -351,8 +400,8 @@ export default function MacroTerminal() {
     if (typeof window === 'undefined') return;
     const id = new URLSearchParams(window.location.search).get('kpi');
     if (id && ROW_SERIES[id]) {
-      if (['dolar-blue', 'dolar-oficial', 'brecha', 'riesgo', 'reservas'].includes(id)) setTabRaw('EXTERNO');
-      else if (['inflacion', 'ipc-interanual', 'ipc-nucleo', 'ipim', 'tamar', 'rem-prox'].includes(id)) setTabRaw('PRECIOS');
+      if (['dolar-blue', 'dolar-oficial', 'brecha', 'riesgo', 'reservas', 'cye-12m'].includes(id)) setTabRaw('EXTERNO');
+      else if (['inflacion', 'ipc-interanual', 'ipc-nucleo', 'ipim', 'tamar', 'rem-prox', 'ypf-super', 'ypf-premium', 'ypf-gasoil'].includes(id)) setTabRaw('PRECIOS');
       else if (['emae', 'pbi'].includes(id)) setTabRaw('ACTIVIDAD');
       else if (id === 'superavit') setTabRaw('FISCAL');
       setSelRow(id);
@@ -363,10 +412,11 @@ export default function MacroTerminal() {
   useEffect(() => {
     async function load() {
       try {
-        const [dr, rr, kr] = await Promise.all([
+        const [dr, rr, kr, sr] = await Promise.all([
           fetch('/api/dolar'),
           fetch('/api/riesgo-pais'),
           fetch('/api/kpis'),
+          fetch('/api/surtidores'),
         ]);
         if (dr.ok) setDolar(await dr.json());
 
@@ -391,6 +441,20 @@ export default function MacroTerminal() {
             emae: byId['emae'] ?? null,
             reservas: byId['reservas'] ?? null,
           });
+        }
+
+        if (sr.ok) {
+          const s = await sr.json();
+          if (typeof s?.super === 'number') {
+            setYpfLive({
+              mes: s.mes,
+              super: s.super,
+              premium: s.premium,
+              gasoil: s.gasoil,
+              euro: s.euro,
+              isLive: !!s.isLive,
+            });
+          }
         }
       } catch { /* silencioso */ }
     }
@@ -425,7 +489,7 @@ export default function MacroTerminal() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  const rows    = useMemo(() => buildRows(dolar, riesgo, riesgoPrev, liveKpis), [dolar, riesgo, riesgoPrev, liveKpis]);
+  const rows    = useMemo(() => buildRows(dolar, riesgo, riesgoPrev, liveKpis, ypfLive), [dolar, riesgo, riesgoPrev, liveKpis, ypfLive]);
   const visible = useMemo(() => rows.filter(r => r.tabs.includes(tab)), [rows, tab]);
 
   // gráfico: fila seleccionada > default del tab

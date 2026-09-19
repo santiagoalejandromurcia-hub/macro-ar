@@ -16,6 +16,7 @@ import {
   DESTINOS_YTD,
   DESTINOS_FUENTE,
 } from '@/data/energia';
+import { ypfCaba, YPF_CABA_FUENTE } from '@/data/combustibles';
 import StaleBanner from '@/components/StaleBanner';
 import SectorChartCard from '@/components/SectorChartCard';
 import { SeriesAsOf } from '@/components/SeriesAsOf';
@@ -181,6 +182,26 @@ export default function EnergiaContent() {
           </p>
         </SectorChartCard>
       </div>
+
+      <SectorChartCard
+        title="YPF CABA — surtidor"
+        subtitle={`ARS/litro · ${YPF_CABA_FUENTE}. Último ${ypfCaba[ypfCaba.length - 1].mes}.`}
+        fuente={YPF_CABA_FUENTE}
+        filePrefix="macrolibre-energia"
+      >
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={ypfCaba.filter((d) => d.mes.endsWith('25') || d.mes.endsWith('26'))}>
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--line-1)" />
+            <XAxis dataKey="mes" tick={{ fill: 'var(--fg-3)', fontSize: 10 }} interval={1} />
+            <YAxis tick={{ fill: 'var(--fg-3)', fontSize: 11 }} />
+            <Tooltip contentStyle={{ background: 'var(--bg-1)', border: '1px solid var(--line-1)' }} />
+            <Legend />
+            <Line type="monotone" dataKey="super" name="Super" stroke="#F97316" strokeWidth={2.2} dot={false} />
+            <Line type="monotone" dataKey="premium" name="Premium" stroke="#F0A500" strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="gasoil" name="Gasoil" stroke="#64748B" strokeWidth={2} dot={false} />
+          </LineChart>
+        </ResponsiveContainer>
+      </SectorChartCard>
     </div>
   );
 }

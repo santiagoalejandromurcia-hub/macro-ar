@@ -29,6 +29,10 @@ export const SERIES_CATALOG: SeriesCatalogEntry[] = [
   { id: 'fob-soja', label: 'Soja FOB', aliases: ['soja', 'granos', 'fob'], href: '/?kpi=fob-soja#dashboard', tabs: ['TODOS'], hasCsv: true, sourceHint: 'FOB', icon: '🌾' },
   { id: 'fob-maiz', label: 'Maíz FOB', aliases: ['maiz', 'maíz'], href: '/?kpi=fob-maiz#dashboard', tabs: ['TODOS'], hasCsv: true, sourceHint: 'FOB', icon: '🌽' },
   { id: 'fob-trigo', label: 'Trigo FOB', aliases: ['trigo'], href: '/?kpi=fob-trigo#dashboard', tabs: ['TODOS'], hasCsv: true, sourceHint: 'FOB', icon: '🌾' },
+  { id: 'cye-12m', label: 'Saldo CyE 12m', aliases: ['energia', 'cye', 'vaca muerta', 'balanza energetica'], href: '/?kpi=cye-12m#dashboard', tabs: ['EXTERNO'], hasCsv: true, sourceHint: 'INDEC ICA', icon: '⚡' },
+  { id: 'ypf-super', label: 'YPF Super CABA', aliases: ['nafta', 'surtidor', 'ypf', 'super', 'combustible'], href: '/?kpi=ypf-super#dashboard', tabs: ['PRECIOS'], hasCsv: true, sourceHint: 'Surtidores YPF CABA', icon: '⛽' },
+  { id: 'ypf-premium', label: 'YPF Premium CABA', aliases: ['infinia', 'premium'], href: '/?kpi=ypf-premium#dashboard', tabs: ['PRECIOS'], hasCsv: true, sourceHint: 'Surtidores YPF CABA', icon: '⛽' },
+  { id: 'ypf-gasoil', label: 'YPF Gasoil CABA', aliases: ['gasoil', 'diesel'], href: '/?kpi=ypf-gasoil#dashboard', tabs: ['PRECIOS'], hasCsv: true, sourceHint: 'Surtidores YPF CABA', icon: '⛽' },
 ];
 
 export const SERIES_CONTEXT_LINKS = [
