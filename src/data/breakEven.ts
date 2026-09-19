@@ -82,13 +82,11 @@ export interface ExpectativaREM {
 }
 
 export const remEsperado: ExpectativaREM[] = [
-  { meses: 1,  inflacionAcumPct: 3.2,  inflacionTeaPct: 45.8 },
-  { meses: 3,  inflacionAcumPct: 8.4,  inflacionTeaPct: 38.2 },
-  { meses: 6,  inflacionAcumPct: 14.5, inflacionTeaPct: 31.5 },
-  { meses: 12, inflacionAcumPct: 23.0, inflacionTeaPct: 23.0 },
-  { meses: 18, inflacionAcumPct: 33.5, inflacionTeaPct: 21.6 },
-  { meses: 24, inflacionAcumPct: 43.0, inflacionTeaPct: 19.6 },
-  { meses: 36, inflacionAcumPct: 60.0, inflacionTeaPct: 17.0 },
+  { meses: 1,  inflacionAcumPct: 1.8,  inflacionTeaPct: 23.9 },
+  { meses: 3,  inflacionAcumPct: 5.2,  inflacionTeaPct: 22.3 },
+  { meses: 6,  inflacionAcumPct: 10.4, inflacionTeaPct: 21.9 },
+  { meses: 12, inflacionAcumPct: 21.0, inflacionTeaPct: 21.0 },
+  { meses: 24, inflacionAcumPct: 41.8, inflacionTeaPct: 17.2 },
 ];
 
 // ─── Market Inflation Expectations — serie mensual ───
@@ -115,13 +113,13 @@ export const senderoMensualBEI: SenderoMensual[] = [
   { mes: 'may-26', dias: 31, bei: 2.94, rem: 2.38 },
   { mes: 'jun-26', dias: 30, bei: 2.61, rem: 2.10 },
   { mes: 'jul-26', dias: 31, bei: 2.23, rem: 2.00 },
-  { mes: 'ago-26', dias: 31, bei: 1.98, rem: 1.80 },
-  { mes: 'sep-26', dias: 30, bei: 1.78, rem: 1.87 },
-  { mes: 'oct-26', dias: 31, bei: 1.74, rem: 1.80 },
-  { mes: 'nov-26', dias: 30, bei: 1.62, rem: null },
-  { mes: 'dic-26', dias: 31, bei: 1.63, rem: null },
-  { mes: 'ene-27', dias: 31, bei: 1.58, rem: null },
-  { mes: 'feb-27', dias: 28, bei: 1.46, rem: null },
+  { mes: 'ago-26', dias: 31, bei: 1.98, rem: 1.70 },
+  { mes: 'sep-26', dias: 30, bei: 1.78, rem: 1.80 },
+  { mes: 'oct-26', dias: 31, bei: 1.74, rem: 1.70 },
+  { mes: 'nov-26', dias: 30, bei: 1.62, rem: 1.60 },
+  { mes: 'dic-26', dias: 31, bei: 1.63, rem: 1.80 },
+  { mes: 'ene-27', dias: 31, bei: 1.58, rem: 1.60 },
+  { mes: 'feb-27', dias: 28, bei: 1.46, rem: 1.60 },
   { mes: 'mar-27', dias: 31, bei: 1.51, rem: null },
   { mes: 'abr-27', dias: 30, bei: 1.44, rem: null },
 ];
@@ -147,5 +145,9 @@ export const inflacionMensualSerie: InflacionMensual[] = [
   { mes: 'May-26', headline: 2.1, rem: 2.3, bei: null },
   { mes: 'Jun-26', headline: 1.9, rem: 2.1, bei: null },
   { mes: 'Jul-26', headline: 2.1, rem: 2.0, bei: null },
-  { mes: 'Ago-26', headline: 1.7, rem: 1.8, bei: null },
+  { mes: 'Ago-26', headline: 1.7, rem: 1.7, bei: null },
+  { mes: 'Sep-26', headline: null, rem: 1.8, bei: null, esProyeccion: true },
+  { mes: 'Oct-26', headline: null, rem: 1.7, bei: null, esProyeccion: true },
+  { mes: 'Nov-26', headline: null, rem: 1.6, bei: null, esProyeccion: true },
+  { mes: 'Dic-26', headline: null, rem: 1.8, bei: null, esProyeccion: true },
 ];

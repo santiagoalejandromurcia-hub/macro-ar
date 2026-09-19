@@ -330,20 +330,26 @@ export const inflacionData = [
     // ← ÚLTIMO INDEC (10/09/2026) · IPC 1,7% · núcleo 1,8% · i.a. 33,5% · acum. 21,3%
 ];
 
-// REM — Expectativas inflación (BCRA) — Fuente: REM feb-26 e INDEC
+// REM — IPC nivel general, var. % mensual
+// Fuente: BCRA REM agosto 2026 (publicado 04/09; encuesta 27–31/08) + INDEC.
+// Pasado: mediana = nowcast de ese mes; bandas colapsadas (el fan de un REM viejo
+// no se reescribe). Desde ago-26: percentiles oficiales p10/p25/p75/p90.
 export const remData = [
-  { period: 'Dic 25', mediana: 2.9, actual: 2.9, r25: 2.6, r75: 3.2, r10: 2.3, r90: 3.5 },
-  { period: 'Ene 26', mediana: 2.8, actual: 2.9, r25: 2.4, r75: 3.0, r10: 2.1, r90: 3.3 },
-  { period: 'Feb 26', mediana: 2.9, actual: 2.9, r25: 2.2, r75: 2.8, r10: 1.9, r90: 3.1 },
-  { period: 'Mar 26', mediana: 3.4, actual: 3.4, r25: 1.9, r75: 2.6, r10: 1.6, r90: 2.9 },
-  { period: 'Abr 26', mediana: 2.6, actual: 2.6, r25: 1.6, r75: 2.3, r10: 1.3, r90: 2.7 },
-  { period: 'May 26', mediana: 2.3, actual: 2.1, r25: 1.5, r75: 2.2, r10: 1.2, r90: 2.5 },
-  { period: 'Jun 26', mediana: 2.1, actual: 1.9, r25: 1.4, r75: 2.1, r10: 1.1, r90: 2.4 },
-  { period: 'Jul 26', mediana: 2.0, actual: 2.1, r25: 1.2, r75: 1.9, r10: 1.0, r90: 2.2 },
-  { period: 'Ago 26', mediana: 1.8, actual: 1.7, r25: 1.1, r75: 1.8, r10: 0.9, r90: 2.0 },
-  { period: 'Sep 26', mediana: 1.9, actual: null, r25: 1.0, r75: 1.7, r10: 0.8, r90: 2.0 },
-  { period: 'Oct 26', mediana: 1.8, actual: null, r25: 0.9, r75: 1.6, r10: 0.7, r90: 1.8 },
-  
+  { period: 'Dic 25', mediana: 2.9, actual: 2.9, r25: 2.9, r75: 2.9, r10: 2.9, r90: 2.9 },
+  { period: 'Ene 26', mediana: 2.8, actual: 2.9, r25: 2.8, r75: 2.8, r10: 2.8, r90: 2.8 },
+  { period: 'Feb 26', mediana: 2.9, actual: 2.9, r25: 2.9, r75: 2.9, r10: 2.9, r90: 2.9 },
+  { period: 'Mar 26', mediana: 3.4, actual: 3.4, r25: 3.4, r75: 3.4, r10: 3.4, r90: 3.4 },
+  { period: 'Abr 26', mediana: 2.6, actual: 2.6, r25: 2.6, r75: 2.6, r10: 2.6, r90: 2.6 },
+  { period: 'May 26', mediana: 2.3, actual: 2.1, r25: 2.3, r75: 2.3, r10: 2.3, r90: 2.3 },
+  { period: 'Jun 26', mediana: 2.1, actual: 1.9, r25: 2.1, r75: 2.1, r10: 2.1, r90: 2.1 },
+  { period: 'Jul 26', mediana: 2.0, actual: 2.1, r25: 2.0, r75: 2.0, r10: 2.0, r90: 2.0 },
+  { period: 'Ago 26', mediana: 1.7, actual: 1.7, r25: 1.7, r75: 1.8, r10: 1.6, r90: 2.0 },
+  { period: 'Sep 26', mediana: 1.8, actual: null, r25: 1.7, r75: 1.9, r10: 1.6, r90: 2.0 },
+  { period: 'Oct 26', mediana: 1.7, actual: null, r25: 1.6, r75: 1.8, r10: 1.5, r90: 1.9 },
+  { period: 'Nov 26', mediana: 1.6, actual: null, r25: 1.6, r75: 1.7, r10: 1.4, r90: 1.8 },
+  { period: 'Dic 26', mediana: 1.8, actual: null, r25: 1.6, r75: 1.9, r10: 1.5, r90: 2.0 },
+  { period: 'Ene 27', mediana: 1.6, actual: null, r25: 1.5, r75: 1.9, r10: 1.3, r90: 1.9 },
+  { period: 'Feb 27', mediana: 1.6, actual: null, r25: 1.4, r75: 1.7, r10: 1.3, r90: 1.9 },
 ];
 // Inflación Mayorista — IPIM (INDEC) - Interanuales corregidos con datos oficiales INDEC
 export const inflacionMayoristaData = [

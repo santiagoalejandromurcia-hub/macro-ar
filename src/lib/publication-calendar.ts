@@ -117,10 +117,10 @@ export const PUBLICATION_CALENDAR: PublicationRule[] = [
   {
     id: 'rem',
     label: 'REM — Expectativas de Mercado',
-    days: [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
-    months: [1, 4, 7, 10], // trimestral
+    days: [3, 4, 5, 6, 7, 8],
+    months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     source: 'bcra',
-    description: 'BCRA publica el REM trimestralmente',
+    description: 'BCRA publica el REM a principios de cada mes (encuesta de fines del mes previo)',
   },
   {
     id: 'pbi',

@@ -158,7 +158,7 @@ export default function HomePage() {
           <SectionHeader
             id="precios"
             title="Precios e inflación"
-            subtitle="IPC mensual, núcleo, interanual, IPIM mayorista y expectativas REM — Fuente: INDEC, BCRA"
+            subtitle="IPC Ago 1,7% · IPIM 2,1%. REM ago-26: Sep 1,8% · Oct 1,7% · 12m 21% · dic-26 30% i.a. — INDEC / BCRA."
             accent="magenta"
           />
           <div className="space-y-6">

@@ -16,7 +16,7 @@ export default function REMChart() {
   return (
     <ChartCard
       title="Inflación Esperada — REM (BCRA)"
-      subtitle={isLive ? `Expectativas IPC mensual (%) · Actualizado ${updatedAt} · BCRA` : 'Expectativas IPC mensual (%) · Fuente: REM feb-26 e INDEC'}
+      subtitle={isLive ? `IPC mensual (%) · Actualizado ${updatedAt} · BCRA` : 'Mediana + p10–p90 · REM ago-26 (BCRA 04/09) · IPC INDEC. Ago 1,7% acertó. Sep 1,8 → Feb-27 1,6.'}
       isLive={isLive}
       csvData={csvData}
       csvFileName="rem-inflacion-esperada"
@@ -44,6 +44,10 @@ export default function REMChart() {
           />
         </ComposedChart>
       </ResponsiveContainer>
+      <p className="mt-3 text-[11px] text-theme-muted leading-relaxed">
+        Senda y bandas desde ago-26: mediana / p10–p90 del REM agosto (BCRA 04/09/2026).
+        Meses ya publicados: nowcast vs IPC INDEC (agosto 1,7% = 1,7%). No se arrastra el abanico de relevamientos viejos — eso dejaba la mediana por encima del p75.
+      </p>
     </ChartCard>
   );
 }
