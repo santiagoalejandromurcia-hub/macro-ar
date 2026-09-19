@@ -27,6 +27,7 @@ const MERCADOS_LINKS: SectionLink[] = [
   { href: '/carnes', label: 'Carnes',      desc: 'Faena bovina, exportaciones, precios FOB · SAGyP/IPCVA' },
   { href: '/granos', label: 'Granos (snapshot)', desc: 'Precios FOB soja, maíz, trigo, DJVE · MAGyP' },
   { href: '/uva',    label: 'Uva y vinos', desc: 'Producción, exportaciones, variedades · INV' },
+  { href: '/energia', label: 'Energía',    desc: 'Balanza comercial energética · INDEC ICA' },
 ];
 
 // Estructura del mega-menú (4 columnas en desktop)
@@ -41,6 +42,7 @@ const SECTION_GROUPS: SectionGroup[] = [
       { href: '/#fiscal',     label: 'Fiscal',          desc: 'Resultado primario y financiero' },
       { href: '/credito',     label: 'Crédito',         desc: 'Stock real, mora, crédito/PBI' },
       { href: '/dolares',     label: 'Dólares',         desc: 'Reservas, MULC, ITCRM, CC' },
+      { href: '/energia',     label: 'Energía',         desc: 'Balanza CyE 12m, crudo, Vaca Muerta' },
       { href: '/mundo',       label: 'Mundo / LatAm',   desc: 'Comparables CPI · tasa · FX' },
     ],
   },

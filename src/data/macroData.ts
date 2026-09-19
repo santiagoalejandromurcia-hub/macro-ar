@@ -247,7 +247,8 @@ export const tradeData = [
   { month: 'Abr 26', exports: 8914, imports: 6203, balance: 2711 },
   { month: 'May 26', exports: 9578, imports: 6128, balance: 3450 }, // récord mensual · ICA revisado ago-26
   { month: 'Jun 26', exports: 9112, imports: 6877, balance: 2235 },
-  { month: 'Jul 26', exports: 8854, imports: 6739, balance: 2115 }, // ← ÚLTIMO INDEC (20/08/2026) · acum. USD 16.080 M
+  { month: 'Jul 26', exports: 8854, imports: 6739, balance: 2115 },
+  { month: 'Ago 26', exports: 8883, imports: 6696, balance: 2187 }, // INDEC ICA 18/09/2026 · acum. ene–ago USD 18.249 M
 ];
 
 // Reservas Internacionales BCRA (USD millones) - Actualizado 16/03/2026

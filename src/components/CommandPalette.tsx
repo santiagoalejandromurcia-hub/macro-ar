@@ -50,6 +50,7 @@ const ITEMS: PaletteItem[] = [
   { group: 'Indicadores', label: 'Equilibrio fiscal',     href: '/#fiscal',      icon: '⚖️' },
   { group: 'Indicadores', label: 'Crédito al privado',    href: '/credito',      icon: '💳', keywords: 'mora prestamos fintech pbi' },
   { group: 'Indicadores', label: 'Dólares stock y flujo', href: '/dolares',      icon: '💵', keywords: 'mulc reservas itcrm cuenta corriente turismo' },
+  { group: 'Indicadores', label: 'Energía / Vaca Muerta', href: '/energia',      icon: '⚡', keywords: 'vaca muerta crudo combustibles balanza energetica cye' },
   { group: 'Indicadores', label: 'Sector externo y reservas', href: '/#externo', icon: '🌍' },
   { group: 'Indicadores', label: 'Precios e inflación',   href: '/#precios',     icon: '📊' },
   { group: 'Indicadores', label: 'Salarios y deuda pública', href: '/#salarios-deuda', icon: '💼' },
@@ -60,6 +61,7 @@ const ITEMS: PaletteItem[] = [
   { group: 'Mercados',  label: 'Carnes y ganadería (snapshot)', href: '/carnes', icon: '🥩' },
   { group: 'Mercados',  label: 'Granos (snapshot)',       href: '/granos',       icon: '🌾' },
   { group: 'Mercados',  label: 'Uva y vinos (snapshot)',  href: '/uva',          icon: '🍷' },
+  { group: 'Mercados',  label: 'Energía (balanza CyE)',   href: '/energia',      icon: '⚡', keywords: 'petroleo gas vaca muerta' },
 
   // Herramientas (BEI entra por SERIES_CONTEXT_LINKS, con aliases bei/lecap)
   { group: 'Herramientas', label: 'Calculadora de instrumentos', href: '/calculadora', icon: '🧮' },

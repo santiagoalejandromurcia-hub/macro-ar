@@ -153,6 +153,21 @@ export default function HomePage() {
           </div>
         </FadeSection>
 
+        <FadeSection id="energia" className="mt-20">
+          <SectionHeader
+            id="energia-home"
+            title="Energía"
+            subtitle="Balanza CyE 12m +USD 11.067 M (ago-26). Ene–ago +USD 7.830 M. INDEC ICA."
+            accent="sol"
+          />
+          <Link
+            href="/energia"
+            className="inline-flex items-center h-10 px-4 rounded-md border border-[var(--line-1)] text-[13px] font-mono text-[var(--fg-1)] hover:border-[var(--celeste)]/40 hover:text-[var(--fg-0)] transition"
+          >
+            Abrir energía (12m, crudo, destinos PNG/CSV) →
+          </Link>
+        </FadeSection>
+
         {/* ════════ PRECIOS ════════ */}
         <FadeSection id="precios" className="mt-20">
           <SectionHeader

@@ -34,4 +34,5 @@ export const SERIES_CATALOG: SeriesCatalogEntry[] = [
 export const SERIES_CONTEXT_LINKS = [
   { group: 'Contexto' as const, label: 'Mundo / LatAm', aliases: ['mundo', 'latam', 'peers'], href: '/mundo', icon: '🌎' },
   { group: 'Herramientas' as const, label: 'Break-Even Inflacionario', aliases: ['bei', 'be i', 'breakeven', 'break-even', 'lecap'], href: '/break-even', icon: '🎯' },
+  { group: 'Contexto' as const, label: 'Energía / Vaca Muerta', aliases: ['energia', 'vaca muerta', 'crudo', 'cye', 'petroleo'], href: '/energia', icon: '⚡' },
 ];
