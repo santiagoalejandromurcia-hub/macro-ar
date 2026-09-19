@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback, type CSSProperties } from 'react';
+import { useState, useEffect, useMemo, useCallback, Fragment, type CSSProperties } from 'react';
 import {
   AreaChart, Area, XAxis, YAxis,
   Tooltip, ResponsiveContainer, CartesianGrid,
@@ -9,10 +9,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   emaeData, inflacionData, reservasData, fiscalData,
   inflacionMayoristaData, remData, pbiData, tcrData, riesgoPaisData,
+  tradeData,
 } from '@/data/macroData';
 import { preciosFOB } from '@/data/granos';
-import { ENERGIA_MENSUAL, ENERGIA_KPI } from '@/data/energia';
+import { ENERGIA_MENSUAL, ENERGIA_KPI, CRUDO_FOB } from '@/data/energia';
 import { ypfCaba, YPF_CABA_FUENTE } from '@/data/combustibles';
+import { creditoStockMensual, MORA_OFICIAL, MORA_SERIE } from '@/data/credito';
 import { bonosNominales, bonosReales, remEsperado, ACTUALIZADO_AL } from '@/data/breakEven';
 import { construirCurvaBEI } from '@/lib/breakEven';
 import { downloadCSV } from '@/lib/csvUtils';
@@ -21,11 +23,13 @@ import { downloadCSV } from '@/lib/csvUtils';
 // MacroTerminal — Bloomberg-style dashboard
 //   · filas clickeables → grafican su serie histórica
 //   · sparklines inline por indicador
-//   · atajos de teclado: 1-5 tabs · ESC deselecciona
+//   · atajos de teclado: 1-8 tabs · ESC deselecciona
 //   · responsive (stack en mobile)
 // ══════════════════════════════════════════════════════════════════
 
-type Tab = 'TODOS' | 'ACTIVIDAD' | 'PRECIOS' | 'EXTERNO' | 'FISCAL';
+type Tab = 'TODOS' | 'ACTIVIDAD' | 'PRECIOS' | 'EXTERNO' | 'FISCAL' | 'ENERGIA' | 'AGRO' | 'CREDITO';
+
+const TAB_ORDER: Tab[] = ['TODOS', 'ACTIVIDAD', 'PRECIOS', 'ENERGIA', 'EXTERNO', 'FISCAL', 'AGRO', 'CREDITO'];
 type DeltaSign = 'pos' | 'neg' | 'flat' | 'live';
 
 interface DolarData {
@@ -79,6 +83,12 @@ const ROW_SERIES: Record<string, RowSeries> = {
   'ypf-super':      { title: 'YPF SUPER CABA (ARS/l)',         unit: '',   color: '#F97316', data: ypfCaba.map(d => ({ date: d.mes, value: d.super })) },
   'ypf-premium':    { title: 'YPF PREMIUM CABA (ARS/l)',       unit: '',   color: '#F0A500', data: ypfCaba.map(d => ({ date: d.mes, value: d.premium })) },
   'ypf-gasoil':     { title: 'YPF GASOIL CABA (ARS/l)',        unit: '',   color: '#64748B', data: ypfCaba.map(d => ({ date: d.mes, value: d.gasoil })) },
+  'ypf-euro':       { title: 'YPF EURO CABA (ARS/l)',          unit: '',   color: '#94A3B8', data: ypfCaba.map(d => ({ date: d.mes, value: d.euro })) },
+  'crudo-fob':      { title: 'CRUDO EXPORTADO (USD M FOB)',    unit: ' M', color: '#F97316', data: CRUDO_FOB.map(d => ({ date: d.mes, value: d.usdM })) },
+  'cye-x':          { title: 'EXPORTACIONES CYE (USD M)',      unit: ' M', color: '#74ACDF', data: ENERGIA_MENSUAL.map(d => ({ date: d.mes, value: d.x })) },
+  'ica-saldo':      { title: 'SALDO COMERCIAL ICA (USD M)',    unit: ' M', color: '#00C9A7', data: tradeData.map(d => ({ date: d.month, value: d.balance })) },
+  'credito-real':   { title: 'CRÉDITO PRIVADO REAL (Bn $ ago-26)', unit: '', color: '#5DC1E0', data: creditoStockMensual.map(d => ({ date: d.mes, value: d.realAgo26Bn })) },
+  'mora':           { title: 'MORA SISTEMA (%)',               unit: '%',  color: '#f85149', data: MORA_SERIE.filter(d => d.total != null).map(d => ({ date: d.mes, value: d.total as number })) },
 };
 
 type LiveKpi = { value: string; change: number; changeLabel: string } | null;
@@ -120,6 +130,14 @@ function buildRows(
   const ypfP = last(ypfCaba) === ypfL || ypfLive?.mes === last(ypfCaba).mes ? prev(ypfCaba) : last(ypfCaba);
   const cyeL = last(ENERGIA_MENSUAL.filter(d => d.ttm != null));
   const cyeP = prev(ENERGIA_MENSUAL.filter(d => d.ttm != null));
+  const icaL = last(tradeData);
+  const icaP = prev(tradeData);
+  const credL = last(creditoStockMensual);
+  const credP = prev(creditoStockMensual);
+  const crudoL = last(CRUDO_FOB);
+  const crudoP = prev(CRUDO_FOB);
+  const cyeMes = last(ENERGIA_MENSUAL);
+  const cyeMesP = prev(ENERGIA_MENSUAL);
 
   return [
     // ── ACTIVIDAD ─────────────────────────────────────────────
@@ -140,7 +158,21 @@ function buildRows(
       deltaMes: cyeP.ttm != null && cyeL.ttm != null
         ? `${cyeL.ttm >= cyeP.ttm ? '▲' : '▼'} ${cyeL.mes} · ICA`
         : `ICA · ${cyeL.mes}`,
-      sign: 'pos', fuente: 'INDEC', tabs: ['TODOS', 'EXTERNO'],
+      sign: 'pos', fuente: 'INDEC', tabs: ['TODOS', 'ENERGIA', 'EXTERNO'],
+    },
+    {
+      id: 'cye-x', label: 'X CyE mes',
+      value: `USD ${cyeMes.x.toLocaleString('es-AR')} M`,
+      deltaMes: `${cyeMes.x >= cyeMesP.x ? '▲' : '▼'} ${cyeMes.mes} · ICA`,
+      sign: cyeMes.x >= cyeMesP.x ? 'pos' : 'neg',
+      fuente: 'INDEC', tabs: ['ENERGIA'],
+    },
+    {
+      id: 'crudo-fob', label: 'Crudo exportado',
+      value: `USD ${crudoL.usdM.toLocaleString('es-AR')} M`,
+      deltaMes: `${ypfDelta(crudoL.usdM, crudoP.usdM)} · ${crudoL.mes}`,
+      sign: crudoL.usdM >= crudoP.usdM ? 'pos' : 'neg',
+      fuente: 'INDEC', tabs: ['ENERGIA'],
     },
 
     // ── PRECIOS: IPC ──────────────────────────────────────────
@@ -229,7 +261,7 @@ function buildRows(
         return `${d >= 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)}% m/m`;
       })(),
       sign: fobL.soja >= fobP.soja ? 'pos' : 'neg',
-      fuente: 'MAGyP', tabs: ['PRECIOS'],
+      fuente: 'MAGyP', tabs: ['TODOS', 'AGRO'],
     },
     {
       id: 'fob-maiz', label: 'Maíz FOB',
@@ -239,7 +271,7 @@ function buildRows(
         return `${d >= 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)}% m/m`;
       })(),
       sign: fobL.maiz >= fobP.maiz ? 'pos' : 'neg',
-      fuente: 'MAGyP', tabs: ['PRECIOS'],
+      fuente: 'MAGyP', tabs: ['AGRO'],
     },
     {
       id: 'fob-trigo', label: 'Trigo FOB',
@@ -249,7 +281,7 @@ function buildRows(
         return `${d >= 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)}% m/m`;
       })(),
       sign: fobL.trigo >= fobP.trigo ? 'pos' : 'neg',
-      fuente: 'MAGyP', tabs: ['PRECIOS'],
+      fuente: 'MAGyP', tabs: ['AGRO'],
     },
     {
       id: 'ypf-super', label: 'YPF Super (CABA)',
@@ -257,7 +289,7 @@ function buildRows(
       deltaMes: `${ypfDelta(ypfL.super, ypfP.super)} · ${ypfL.mes}`,
       sign: ypfL.super >= ypfP.super ? 'neg' : 'pos',
       fuente: ypfLive?.isLive ? 'SURTIDORES · live' : YPF_CABA_FUENTE,
-      tabs: ['TODOS', 'PRECIOS'],
+      tabs: ['TODOS', 'PRECIOS', 'ENERGIA'],
       isLive: !!ypfLive?.isLive,
     },
     {
@@ -265,14 +297,41 @@ function buildRows(
       value: `$${ypfL.premium.toLocaleString('es-AR')}/l`,
       deltaMes: `${ypfDelta(ypfL.premium, ypfP.premium)} · ${ypfL.mes}`,
       sign: ypfL.premium >= ypfP.premium ? 'neg' : 'pos',
-      fuente: YPF_CABA_FUENTE, tabs: ['PRECIOS'],
+      fuente: YPF_CABA_FUENTE, tabs: ['PRECIOS', 'ENERGIA'],
     },
     {
       id: 'ypf-gasoil', label: 'YPF Gasoil (CABA)',
       value: `$${ypfL.gasoil.toLocaleString('es-AR')}/l`,
       deltaMes: `${ypfDelta(ypfL.gasoil, ypfP.gasoil)} · ${ypfL.mes}`,
       sign: ypfL.gasoil >= ypfP.gasoil ? 'neg' : 'pos',
-      fuente: YPF_CABA_FUENTE, tabs: ['PRECIOS'],
+      fuente: YPF_CABA_FUENTE, tabs: ['ENERGIA'],
+    },
+    {
+      id: 'ypf-euro', label: 'YPF Euro (CABA)',
+      value: `$${ypfL.euro.toLocaleString('es-AR')}/l`,
+      deltaMes: `${ypfDelta(ypfL.euro, ypfP.euro)} · ${ypfL.mes}`,
+      sign: ypfL.euro >= ypfP.euro ? 'neg' : 'pos',
+      fuente: YPF_CABA_FUENTE, tabs: ['ENERGIA'],
+    },
+    {
+      id: 'ica-saldo', label: 'Saldo comercial',
+      value: `${icaL.balance >= 0 ? '+' : ''}USD ${icaL.balance.toLocaleString('es-AR')} M`,
+      deltaMes: `${icaL.balance >= icaP.balance ? '▲' : '▼'} ${icaL.month} · ICA`,
+      sign: icaL.balance >= 0 ? 'pos' : 'neg',
+      fuente: 'INDEC', tabs: ['TODOS', 'EXTERNO'],
+    },
+    {
+      id: 'credito-real', label: 'Crédito real',
+      value: `${credL.realAgo26Bn.toFixed(1)} Bn`,
+      deltaMes: `${credL.realAgo26Bn >= credP.realAgo26Bn ? '▲' : '▼'} ${credL.mes} · $ ago-26`,
+      sign: credL.realAgo26Bn >= credP.realAgo26Bn ? 'pos' : 'neg',
+      fuente: 'BCRA', tabs: ['TODOS', 'CREDITO'],
+    },
+    {
+      id: 'mora', label: 'Mora sistema',
+      value: `${MORA_OFICIAL.total}%`,
+      deltaMes: `Familias ${MORA_OFICIAL.familias}% · jun-26`,
+      sign: 'neg', fuente: 'BCRA', tabs: ['CREDITO'],
     },
 
     // ── LIVE ─────────────────────────────────────────────────
@@ -329,6 +388,12 @@ function getChartConfig(tab: Tab): ChartConfig {
       return { data: reservasData.slice(-14), key: 'value', colorHex: '#74ACDF', unit: 'M', title: 'RESERVAS BCRA (USD M)' };
     case 'FISCAL':
       return { data: fiscalData.slice(-14).map(d => ({ date: d.period, value: d.primario })), key: 'value', colorHex: '#F0A500', unit: '% PIB', title: 'RESULTADO PRIMARIO (% PIB)' };
+    case 'ENERGIA':
+      return { data: ROW_SERIES['cye-12m'].data.slice(-24).map(d => ({ date: d.date, value: d.value })), key: 'value', colorHex: '#D4A843', unit: ' M', title: 'SALDO CYE 12M (USD M)' };
+    case 'AGRO':
+      return { data: preciosFOB.slice(-14).map(d => ({ date: d.mes, value: d.soja })), key: 'value', colorHex: '#22C55E', unit: ' USD/tn', title: 'SOJA FOB (USD/tn)' };
+    case 'CREDITO':
+      return { data: creditoStockMensual.map(d => ({ date: d.mes, value: d.realAgo26Bn })), key: 'value', colorHex: '#5DC1E0', unit: '', title: 'CRÉDITO REAL (Bn $ ago-26)' };
     default:
       return { data: emaeData.slice(-16).map(d => ({ date: d.date, value: d.value })), key: 'value', colorHex: '#00C9A7', unit: '', title: 'EMAE — ÍNDICE 2004=100' };
   }
@@ -400,10 +465,13 @@ export default function MacroTerminal() {
     if (typeof window === 'undefined') return;
     const id = new URLSearchParams(window.location.search).get('kpi');
     if (id && ROW_SERIES[id]) {
-      if (['dolar-blue', 'dolar-oficial', 'brecha', 'riesgo', 'reservas', 'cye-12m'].includes(id)) setTabRaw('EXTERNO');
-      else if (['inflacion', 'ipc-interanual', 'ipc-nucleo', 'ipim', 'tamar', 'rem-prox', 'ypf-super', 'ypf-premium', 'ypf-gasoil'].includes(id)) setTabRaw('PRECIOS');
+      if (['dolar-blue', 'dolar-oficial', 'brecha', 'riesgo', 'reservas', 'ica-saldo'].includes(id)) setTabRaw('EXTERNO');
+      else if (['inflacion', 'ipc-interanual', 'ipc-nucleo', 'ipim', 'tamar', 'rem-prox'].includes(id)) setTabRaw('PRECIOS');
       else if (['emae', 'pbi'].includes(id)) setTabRaw('ACTIVIDAD');
       else if (id === 'superavit') setTabRaw('FISCAL');
+      else if (['cye-12m', 'cye-x', 'crudo-fob', 'ypf-super', 'ypf-premium', 'ypf-gasoil', 'ypf-euro'].includes(id)) setTabRaw('ENERGIA');
+      else if (['fob-soja', 'fob-maiz', 'fob-trigo'].includes(id)) setTabRaw('AGRO');
+      else if (['credito-real', 'mora'].includes(id)) setTabRaw('CREDITO');
       setSelRow(id);
       document.getElementById('dashboard')?.scrollIntoView({ behavior: 'smooth' });
     }
@@ -473,12 +541,12 @@ export default function MacroTerminal() {
 
   // atajos de teclado: 1-5 cambian tab · ESC deselecciona fila
   useEffect(() => {
-    const TABS_K: Tab[] = ['TODOS','ACTIVIDAD','PRECIOS','EXTERNO','FISCAL'];
+    const TABS_K = TAB_ORDER;
     function onKey(e: KeyboardEvent) {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       const t = e.target as HTMLElement | null;
       if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
-      if (e.key >= '1' && e.key <= '5') {
+      if (e.key >= '1' && e.key <= '8') {
         setTabRaw(TABS_K[Number(e.key) - 1]);
         setSelRow(null);
       } else if (e.key === 'Escape') {
@@ -490,7 +558,15 @@ export default function MacroTerminal() {
   }, []);
 
   const rows    = useMemo(() => buildRows(dolar, riesgo, riesgoPrev, liveKpis, ypfLive), [dolar, riesgo, riesgoPrev, liveKpis, ypfLive]);
-  const visible = useMemo(() => rows.filter(r => r.tabs.includes(tab)), [rows, tab]);
+  const visible = useMemo(() => {
+    const f = rows.filter(r => r.tabs.includes(tab));
+    if (tab !== 'TODOS') return f;
+    return [...f].sort((a, b) => {
+      const ga = TAB_ORDER.indexOf(a.tabs.find(t => t !== 'TODOS') ?? 'TODOS');
+      const gb = TAB_ORDER.indexOf(b.tabs.find(t => t !== 'TODOS') ?? 'TODOS');
+      return ga - gb;
+    });
+  }, [rows, tab]);
 
   // gráfico: fila seleccionada > default del tab
   const chart = useMemo<ChartConfig>(() => {
@@ -513,7 +589,7 @@ export default function MacroTerminal() {
   const timeStr = now ? now.toLocaleTimeString('es-AR', { hour:'2-digit', minute:'2-digit', second:'2-digit' }) : '--:--:--';
   const dateStr = now ? now.toLocaleDateString('es-AR', { day:'numeric', month:'short', year:'numeric' }) : '';
 
-  const TABS: Tab[] = ['TODOS','ACTIVIDAD','PRECIOS','EXTERNO','FISCAL'];
+  const TABS = TAB_ORDER;
 
   const S: Record<string, CSSProperties> = {
     wrap:   { fontFamily:'"JetBrains Mono","Geist Mono",ui-monospace,monospace', background:'var(--bg-0)', border:'1px solid var(--line-1)', borderRadius:4, overflow:'hidden' },
@@ -594,12 +670,25 @@ export default function MacroTerminal() {
           <AnimatePresence mode="wait">
             <motion.div key={tab} initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }} transition={{ duration:0.15 }}>
 
-              {visible.filter(r => !r.isLive).map(row => (
-                <Row key={row.id} row={row} hovered={hovered===row.id} selected={selRow===row.id}
-                  onHover={setHovered}
-                  onSelect={ROW_SERIES[row.id] ? () => setSelRow(s => s === row.id ? null : row.id) : undefined}
-                />
-              ))}
+              {visible.filter(r => !r.isLive).map((row, i, arr) => {
+                const g = tab === 'TODOS' ? (row.tabs.find(t => t !== 'TODOS') ?? '') : '';
+                const prevG = i > 0 ? (arr[i - 1].tabs.find(t => t !== 'TODOS') ?? '') : '';
+                const showHead = tab === 'TODOS' && g && g !== prevG;
+                return (
+                  <Fragment key={row.id}>
+                    {showHead && (
+                      <div style={{ padding:'6px 22px', fontSize:10, letterSpacing:'0.14em', color:'var(--fg-3)',
+                        background:'var(--bg-1)', borderTop:'1px solid var(--line-1)' }}>
+                        {g}
+                      </div>
+                    )}
+                    <Row row={row} hovered={hovered===row.id} selected={selRow===row.id}
+                      onHover={setHovered}
+                      onSelect={ROW_SERIES[row.id] ? () => setSelRow(s => s === row.id ? null : row.id) : undefined}
+                    />
+                  </Fragment>
+                );
+              })}
 
               {visible.some(r => r.isLive) && (
                 <div style={{ padding:'6px 22px', fontSize:10, letterSpacing:'0.12em', color:'var(--fg-2)',
@@ -622,7 +711,7 @@ export default function MacroTerminal() {
 
           <div style={S.footer}>
             <span suppressHydrationWarning>{dateStr} · {timeStr} ART</span>
-            <span style={{ color:'var(--fg-3)' }}>▸ click en una fila para graficar · 1-5 cambia tab</span>
+            <span style={{ color:'var(--fg-3)' }}>▸ click en una fila para graficar · 1-8 cambia tab</span>
           </div>
         </div>
 
