@@ -89,7 +89,51 @@ const ROW_SERIES: Record<string, RowSeries> = {
   'ica-saldo':      { title: 'SALDO COMERCIAL ICA (USD M)',    unit: ' M', color: '#00C9A7', data: tradeData.map(d => ({ date: d.month, value: d.balance })) },
   'credito-real':   { title: 'CRÉDITO PRIVADO REAL (Bn $ ago-26)', unit: '', color: '#5DC1E0', data: creditoStockMensual.map(d => ({ date: d.mes, value: d.realAgo26Bn })) },
   'mora':           { title: 'MORA SISTEMA (%)',               unit: '%',  color: '#f85149', data: MORA_SERIE.filter(d => d.total != null).map(d => ({ date: d.mes, value: d.total as number })) },
+  'financiero':     { title: 'RESULTADO FINANCIERO (% PIB)',   unit: '% PIB', color: '#74ACDF', data: fiscalData.map(d => ({ date: d.period, value: d.financiero })) },
 };
+
+/** Si tocás una fila, el gráfico de abajo es otra serie (nunca la misma). */
+const COMPANION: Record<string, string> = {
+  emae: 'pbi', pbi: 'emae',
+  inflacion: 'ipim', 'ipc-interanual': 'inflacion', 'ipc-nucleo': 'inflacion', ipim: 'inflacion',
+  'rem-prox': 'inflacion', tamar: 'rem-prox',
+  'cye-12m': 'ypf-super', 'cye-x': 'cye-12m', 'crudo-fob': 'cye-12m',
+  'ypf-super': 'fob-soja', 'ypf-premium': 'ypf-super', 'ypf-gasoil': 'ypf-super', 'ypf-euro': 'ypf-gasoil',
+  reservas: 'riesgo', 'dolar-blue': 'dolar-oficial', 'dolar-oficial': 'dolar-blue', brecha: 'dolar-blue', riesgo: 'reservas',
+  superavit: 'financiero', financiero: 'superavit',
+  'fob-soja': 'ypf-super', 'fob-maiz': 'fob-soja', 'fob-trigo': 'fob-soja',
+  'ica-saldo': 'cye-12m',
+  'credito-real': 'mora', mora: 'credito-real',
+};
+
+const TAB_COMPANION: Record<Tab, string> = {
+  TODOS: 'riesgo',
+  ACTIVIDAD: 'pbi',
+  PRECIOS: 'ipim',
+  ENERGIA: 'ypf-super',
+  EXTERNO: 'riesgo',
+  FISCAL: 'financiero',
+  COMMODITIES: 'ypf-super',
+  CREDITO: 'mora',
+};
+
+function seriesToConfig(id: string): ChartConfig | null {
+  const s = ROW_SERIES[id];
+  if (!s || s.data.length < 2) return null;
+  return {
+    data: s.data.slice(-18).map(d => ({ date: d.date, value: d.value })),
+    key: 'value',
+    colorHex: s.color,
+    unit: s.unit,
+    title: s.title,
+  };
+}
+
+function companionId(tab: Tab, sel: string | null): string {
+  const want = (sel && COMPANION[sel]) || TAB_COMPANION[tab];
+  if (want === sel) return TAB_COMPANION[tab] === sel ? 'riesgo' : TAB_COMPANION[tab];
+  return want;
+}
 
 type LiveKpi = { value: string; change: number; changeLabel: string } | null;
 type LiveYpf = { mes: string; super: number; premium: number; gasoil: number; euro: number; isLive?: boolean } | null;
@@ -572,11 +616,16 @@ export default function MacroTerminal() {
   const chart = useMemo<ChartConfig>(() => {
     if (selRow && ROW_SERIES[selRow]) {
       const s = ROW_SERIES[selRow];
-      return { data: s.data.slice(-18), key: 'value', colorHex: s.color, unit: s.unit, title: s.title };
+      return { data: s.data.slice(-18).map(d => ({ date: d.date, value: d.value })), key: 'value', colorHex: s.color, unit: s.unit, title: s.title };
     }
     return getChartConfig(tab);
   }, [tab, selRow]);
   const chartKey = selRow ?? tab; // id único para gradientes
+  const chart2 = useMemo<ChartConfig | null>(() => {
+    const id = companionId(tab, selRow);
+    if (selRow && id === selRow) return null;
+    return seriesToConfig(id);
+  }, [tab, selRow]);
 
   // BEI — solo se computa cuando el tab es PRECIOS
   const beiCurva = useMemo(() => {
@@ -601,8 +650,7 @@ export default function MacroTerminal() {
     cWrap:  { flex:1, padding:'16px 20px 12px', borderBottom:'1px solid var(--line-1)' },
   };
 
-  // altura del chart — más chico cuando hay BEI para que todo quepa
-  const chartH = tab === 'PRECIOS' && beiCurva && beiCurva.length > 0 ? 200 : 240;
+  const chartH = chart2 ? 168 : (tab === 'PRECIOS' && beiCurva && beiCurva.length > 0 ? 200 : 240);
 
   return (
     <div style={S.wrap}>
@@ -791,6 +839,39 @@ export default function MacroTerminal() {
               </AreaChart>
             </ResponsiveContainer>
           </div>
+
+          {chart2 && (
+            <div style={{ ...S.cWrap, flex: 1, borderBottom: '1px solid var(--line-1)' }}>
+              <div style={{ fontSize:11, letterSpacing:'0.1em', color:'var(--fg-2)', marginBottom:8, display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+                <span style={{ overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{chart2.title}</span>
+                <span style={{ color: chart2.colorHex }}>━━</span>
+              </div>
+              <ResponsiveContainer width="100%" height={chartH}>
+                <AreaChart data={chart2.data} margin={{ top:4, right:4, left:-20, bottom:0 }}>
+                  <defs>
+                    <linearGradient id={`tg-b-${chartKey}`} x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%"  stopColor={chart2.colorHex} stopOpacity={0.3} />
+                      <stop offset="90%" stopColor={chart2.colorHex} stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="2 4" stroke="var(--chart-grid)" strokeOpacity={0.5} vertical={false} />
+                  <XAxis dataKey="date" tick={{ fontSize:8, fill:'var(--fg-3)', fontFamily:'inherit' }} tickLine={false} axisLine={false} interval="preserveStartEnd" />
+                  <YAxis tick={{ fontSize:8, fill:'var(--fg-3)', fontFamily:'inherit' }} tickLine={false} axisLine={false} width={42} domain={['auto','auto']} />
+                  <Tooltip
+                    content={({ active, payload, label }) => (
+                      <TermTooltip active={active} payload={payload} label={label as string | undefined} unit={chart2.unit} />
+                    )}
+                    cursor={{ stroke:'var(--line-1)', strokeWidth:1, strokeDasharray:'3 3' }}
+                  />
+                  <Area type="monotone" dataKey={chart2.key} stroke={chart2.colorHex} strokeWidth={1.5}
+                    fill={`url(#tg-b-${chartKey})`} dot={false}
+                    activeDot={{ r:3, fill:chart2.colorHex, strokeWidth:0 }}
+                    animationDuration={500}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          )}
 
           {/* BEI breakeven — solo cuando tab = PRECIOS */}
           {tab === 'PRECIOS' && beiCurva && beiCurva.length > 0 && (
