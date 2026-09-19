@@ -27,9 +27,9 @@ import { downloadCSV } from '@/lib/csvUtils';
 //   · responsive (stack en mobile)
 // ══════════════════════════════════════════════════════════════════
 
-type Tab = 'TODOS' | 'ACTIVIDAD' | 'PRECIOS' | 'EXTERNO' | 'FISCAL' | 'ENERGIA' | 'AGRO' | 'CREDITO';
+type Tab = 'TODOS' | 'ACTIVIDAD' | 'PRECIOS' | 'EXTERNO' | 'FISCAL' | 'ENERGIA' | 'COMMODITIES' | 'CREDITO';
 
-const TAB_ORDER: Tab[] = ['TODOS', 'ACTIVIDAD', 'PRECIOS', 'ENERGIA', 'EXTERNO', 'FISCAL', 'AGRO', 'CREDITO'];
+const TAB_ORDER: Tab[] = ['TODOS', 'ACTIVIDAD', 'PRECIOS', 'ENERGIA', 'EXTERNO', 'FISCAL', 'COMMODITIES', 'CREDITO'];
 type DeltaSign = 'pos' | 'neg' | 'flat' | 'live';
 
 interface DolarData {
@@ -261,7 +261,7 @@ function buildRows(
         return `${d >= 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)}% m/m`;
       })(),
       sign: fobL.soja >= fobP.soja ? 'pos' : 'neg',
-      fuente: 'MAGyP', tabs: ['TODOS', 'AGRO'],
+      fuente: 'MAGyP', tabs: ['TODOS', 'COMMODITIES'],
     },
     {
       id: 'fob-maiz', label: 'Maíz FOB',
@@ -271,7 +271,7 @@ function buildRows(
         return `${d >= 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)}% m/m`;
       })(),
       sign: fobL.maiz >= fobP.maiz ? 'pos' : 'neg',
-      fuente: 'MAGyP', tabs: ['AGRO'],
+      fuente: 'MAGyP', tabs: ['COMMODITIES'],
     },
     {
       id: 'fob-trigo', label: 'Trigo FOB',
@@ -281,7 +281,7 @@ function buildRows(
         return `${d >= 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)}% m/m`;
       })(),
       sign: fobL.trigo >= fobP.trigo ? 'pos' : 'neg',
-      fuente: 'MAGyP', tabs: ['AGRO'],
+      fuente: 'MAGyP', tabs: ['COMMODITIES'],
     },
     {
       id: 'ypf-super', label: 'YPF Super (CABA)',
@@ -390,7 +390,7 @@ function getChartConfig(tab: Tab): ChartConfig {
       return { data: fiscalData.slice(-14).map(d => ({ date: d.period, value: d.primario })), key: 'value', colorHex: '#F0A500', unit: '% PIB', title: 'RESULTADO PRIMARIO (% PIB)' };
     case 'ENERGIA':
       return { data: ROW_SERIES['cye-12m'].data.slice(-24).map(d => ({ date: d.date, value: d.value })), key: 'value', colorHex: '#D4A843', unit: ' M', title: 'SALDO CYE 12M (USD M)' };
-    case 'AGRO':
+    case 'COMMODITIES':
       return { data: preciosFOB.slice(-14).map(d => ({ date: d.mes, value: d.soja })), key: 'value', colorHex: '#22C55E', unit: ' USD/tn', title: 'SOJA FOB (USD/tn)' };
     case 'CREDITO':
       return { data: creditoStockMensual.map(d => ({ date: d.mes, value: d.realAgo26Bn })), key: 'value', colorHex: '#5DC1E0', unit: '', title: 'CRÉDITO REAL (Bn $ ago-26)' };
@@ -470,7 +470,7 @@ export default function MacroTerminal() {
       else if (['emae', 'pbi'].includes(id)) setTabRaw('ACTIVIDAD');
       else if (id === 'superavit') setTabRaw('FISCAL');
       else if (['cye-12m', 'cye-x', 'crudo-fob', 'ypf-super', 'ypf-premium', 'ypf-gasoil', 'ypf-euro'].includes(id)) setTabRaw('ENERGIA');
-      else if (['fob-soja', 'fob-maiz', 'fob-trigo'].includes(id)) setTabRaw('AGRO');
+      else if (['fob-soja', 'fob-maiz', 'fob-trigo'].includes(id)) setTabRaw('COMMODITIES');
       else if (['credito-real', 'mora'].includes(id)) setTabRaw('CREDITO');
       setSelRow(id);
       document.getElementById('dashboard')?.scrollIntoView({ behavior: 'smooth' });

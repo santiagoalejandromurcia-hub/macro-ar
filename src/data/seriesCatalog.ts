@@ -1,4 +1,4 @@
-export type TerminalTab = 'TODOS' | 'ACTIVIDAD' | 'PRECIOS' | 'EXTERNO' | 'FISCAL' | 'ENERGIA' | 'AGRO' | 'CREDITO';
+export type TerminalTab = 'TODOS' | 'ACTIVIDAD' | 'PRECIOS' | 'EXTERNO' | 'FISCAL' | 'ENERGIA' | 'COMMODITIES' | 'CREDITO';
 
 export interface SeriesCatalogEntry {
   id: string;
@@ -26,9 +26,9 @@ export const SERIES_CATALOG: SeriesCatalogEntry[] = [
   { id: 'dolar-oficial', label: 'Dólar Oficial', aliases: ['oficial', 'a3500'], href: '/?kpi=dolar-oficial#dashboard', tabs: ['EXTERNO'], hasCsv: true, sourceHint: 'hist.', icon: '💵' },
   { id: 'brecha', label: 'Brecha cambiaria', aliases: ['brecha', 'gap'], href: '/?kpi=brecha#dashboard', tabs: ['EXTERNO'], hasCsv: true, sourceHint: 'derivada', icon: '📊' },
   { id: 'riesgo', label: 'Riesgo País', aliases: ['riesgo', 'embi', 'embigd'], href: '/?kpi=riesgo#dashboard', tabs: ['EXTERNO'], hasCsv: true, sourceHint: 'JP Morgan', icon: '📉' },
-  { id: 'fob-soja', label: 'Soja FOB', aliases: ['soja', 'granos', 'fob'], href: '/?kpi=fob-soja#dashboard', tabs: ['AGRO'], hasCsv: true, sourceHint: 'FOB', icon: '🌾' },
-  { id: 'fob-maiz', label: 'Maíz FOB', aliases: ['maiz', 'maíz'], href: '/?kpi=fob-maiz#dashboard', tabs: ['AGRO'], hasCsv: true, sourceHint: 'FOB', icon: '🌽' },
-  { id: 'fob-trigo', label: 'Trigo FOB', aliases: ['trigo'], href: '/?kpi=fob-trigo#dashboard', tabs: ['AGRO'], hasCsv: true, sourceHint: 'FOB', icon: '🌾' },
+  { id: 'fob-soja', label: 'Soja FOB', aliases: ['soja', 'granos', 'fob'], href: '/?kpi=fob-soja#dashboard', tabs: ['COMMODITIES'], hasCsv: true, sourceHint: 'FOB', icon: '🌾' },
+  { id: 'fob-maiz', label: 'Maíz FOB', aliases: ['maiz', 'maíz'], href: '/?kpi=fob-maiz#dashboard', tabs: ['COMMODITIES'], hasCsv: true, sourceHint: 'FOB', icon: '🌽' },
+  { id: 'fob-trigo', label: 'Trigo FOB', aliases: ['trigo'], href: '/?kpi=fob-trigo#dashboard', tabs: ['COMMODITIES'], hasCsv: true, sourceHint: 'FOB', icon: '🌾' },
   { id: 'cye-12m', label: 'Saldo CyE 12m', aliases: ['energia', 'cye', 'vaca muerta', 'balanza energetica'], href: '/?kpi=cye-12m#dashboard', tabs: ['ENERGIA'], hasCsv: true, sourceHint: 'INDEC ICA', icon: '⚡' },
   { id: 'ypf-super', label: 'YPF Super CABA', aliases: ['nafta', 'surtidor', 'ypf', 'super', 'combustible'], href: '/?kpi=ypf-super#dashboard', tabs: ['ENERGIA'], hasCsv: true, sourceHint: 'Surtidores YPF CABA', icon: '⛽' },
   { id: 'ypf-premium', label: 'YPF Premium CABA', aliases: ['infinia', 'premium'], href: '/?kpi=ypf-premium#dashboard', tabs: ['ENERGIA'], hasCsv: true, sourceHint: 'Surtidores YPF CABA', icon: '⛽' },
