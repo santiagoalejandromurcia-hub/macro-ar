@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback, Fragment, type CSSProperties } from 'react';
+import { useState, useEffect, useMemo, useCallback, type CSSProperties } from 'react';
 import {
   AreaChart, Area, XAxis, YAxis,
   Tooltip, ResponsiveContainer, CartesianGrid,
@@ -151,7 +151,7 @@ function buildRows(
       tabs: ['TODOS', 'ACTIVIDAD'],
       isLive: !!live?.emae,
     },
-    { id: 'pbi',       label: 'PBI Real',            value: '+2.0%',        deltaMes: '▼ −0,6% s.e. Q2-26', sign: 'neg', fuente: 'INDEC',  tabs: ['TODOS','ACTIVIDAD'] },
+    { id: 'pbi',       label: 'PBI Real',            value: '+2.0%',        deltaMes: '▼ −0,6% s.e. Q2-26', sign: 'neg', fuente: 'INDEC',  tabs: ['ACTIVIDAD'] },
     {
       id: 'cye-12m', label: 'Saldo CyE 12m',
       value: `+USD ${(cyeL.ttm ?? ENERGIA_KPI.ttmUsdM).toLocaleString('es-AR')} M`,
@@ -216,7 +216,7 @@ function buildRows(
         return `${d > 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)} pp`;
       })(),
       sign: ipimL.mensual <= ipimP.mensual ? 'pos' : 'neg',
-      fuente: 'INDEC', tabs: ['TODOS','PRECIOS'],
+      fuente: 'INDEC', tabs: ['PRECIOS'],
     },
 
     // ── FISCAL / EXTERNO ──────────────────────────────────────
@@ -238,7 +238,7 @@ function buildRows(
       deltaMes: live?.tamar?.changeLabel ?? '— sin cambio',
       sign: 'flat',
       fuente: live?.tamar ? 'BCRA · live' : 'BCRA',
-      tabs: ['TODOS', 'PRECIOS', 'FISCAL'],
+      tabs: ['PRECIOS', 'FISCAL'],
       isLive: !!live?.tamar,
     },
 
@@ -284,48 +284,48 @@ function buildRows(
       fuente: 'MAGyP', tabs: ['COMMODITIES'],
     },
     {
-      id: 'ypf-super', label: 'YPF Super (CABA)',
+      id: 'ypf-super', label: 'Nafta Super',
       value: `$${ypfL.super.toLocaleString('es-AR')}/l`,
-      deltaMes: `${ypfDelta(ypfL.super, ypfP.super)} · ${ypfL.mes}`,
+      deltaMes: `${ypfDelta(ypfL.super, ypfP.super)} · ${ypfL.mes} · YPF CABA`,
       sign: ypfL.super >= ypfP.super ? 'neg' : 'pos',
       fuente: ypfLive?.isLive ? 'SURTIDORES · live' : YPF_CABA_FUENTE,
-      tabs: ['TODOS', 'PRECIOS', 'ENERGIA'],
+      tabs: ['COMMODITIES', 'ENERGIA'],
       isLive: !!ypfLive?.isLive,
     },
     {
-      id: 'ypf-premium', label: 'YPF Premium (CABA)',
+      id: 'ypf-premium', label: 'Nafta Premium',
       value: `$${ypfL.premium.toLocaleString('es-AR')}/l`,
-      deltaMes: `${ypfDelta(ypfL.premium, ypfP.premium)} · ${ypfL.mes}`,
+      deltaMes: `${ypfDelta(ypfL.premium, ypfP.premium)} · ${ypfL.mes} · YPF CABA`,
       sign: ypfL.premium >= ypfP.premium ? 'neg' : 'pos',
-      fuente: YPF_CABA_FUENTE, tabs: ['PRECIOS', 'ENERGIA'],
+      fuente: YPF_CABA_FUENTE, tabs: ['COMMODITIES', 'ENERGIA'],
     },
     {
-      id: 'ypf-gasoil', label: 'YPF Gasoil (CABA)',
+      id: 'ypf-gasoil', label: 'Gasoil',
       value: `$${ypfL.gasoil.toLocaleString('es-AR')}/l`,
-      deltaMes: `${ypfDelta(ypfL.gasoil, ypfP.gasoil)} · ${ypfL.mes}`,
+      deltaMes: `${ypfDelta(ypfL.gasoil, ypfP.gasoil)} · ${ypfL.mes} · YPF CABA`,
       sign: ypfL.gasoil >= ypfP.gasoil ? 'neg' : 'pos',
-      fuente: YPF_CABA_FUENTE, tabs: ['ENERGIA'],
+      fuente: YPF_CABA_FUENTE, tabs: ['COMMODITIES', 'ENERGIA'],
     },
     {
-      id: 'ypf-euro', label: 'YPF Euro (CABA)',
+      id: 'ypf-euro', label: 'Diesel Euro',
       value: `$${ypfL.euro.toLocaleString('es-AR')}/l`,
-      deltaMes: `${ypfDelta(ypfL.euro, ypfP.euro)} · ${ypfL.mes}`,
+      deltaMes: `${ypfDelta(ypfL.euro, ypfP.euro)} · ${ypfL.mes} · YPF CABA`,
       sign: ypfL.euro >= ypfP.euro ? 'neg' : 'pos',
-      fuente: YPF_CABA_FUENTE, tabs: ['ENERGIA'],
+      fuente: YPF_CABA_FUENTE, tabs: ['COMMODITIES', 'ENERGIA'],
     },
     {
       id: 'ica-saldo', label: 'Saldo comercial',
       value: `${icaL.balance >= 0 ? '+' : ''}USD ${icaL.balance.toLocaleString('es-AR')} M`,
       deltaMes: `${icaL.balance >= icaP.balance ? '▲' : '▼'} ${icaL.month} · ICA`,
       sign: icaL.balance >= 0 ? 'pos' : 'neg',
-      fuente: 'INDEC', tabs: ['TODOS', 'EXTERNO'],
+      fuente: 'INDEC', tabs: ['EXTERNO'],
     },
     {
       id: 'credito-real', label: 'Crédito real',
       value: `${credL.realAgo26Bn.toFixed(1)} Bn`,
       deltaMes: `${credL.realAgo26Bn >= credP.realAgo26Bn ? '▲' : '▼'} ${credL.mes} · $ ago-26`,
       sign: credL.realAgo26Bn >= credP.realAgo26Bn ? 'pos' : 'neg',
-      fuente: 'BCRA', tabs: ['TODOS', 'CREDITO'],
+      fuente: 'BCRA', tabs: ['CREDITO'],
     },
     {
       id: 'mora', label: 'Mora sistema',
@@ -345,14 +345,14 @@ function buildRows(
       id: 'dolar-oficial', label: 'Dólar Oficial', isLive: true,
       value: dolar ? `$${dolar.oficial.value_sell.toLocaleString('es-AR')}` : '—',
       deltaMes: dolar ? `Compra $${dolar.oficial.value_buy.toLocaleString('es-AR')}` : null,
-      sign: 'live', fuente: 'BNA', tabs: ['TODOS','EXTERNO'],
+      sign: 'live', fuente: 'BNA', tabs: ['EXTERNO'],
     },
     {
       id: 'brecha', label: 'Brecha Cambiaria', isLive: true,
       value: brecha !== null ? `${brecha > 0 ? '+' : ''}${brecha.toFixed(1)}%` : '—',
       deltaMes: 'Blue vs Oficial',
       sign: brecha !== null ? (brecha > 5 ? 'neg' : brecha < 0 ? 'pos' : 'flat') : 'flat',
-      fuente: 'CALC.', tabs: ['TODOS','EXTERNO'],
+      fuente: 'CALC.', tabs: ['EXTERNO'],
     },
     {
       id: 'riesgo', label: 'Riesgo País (EMBIGD JP Morgan)', isLive: true,
@@ -469,8 +469,8 @@ export default function MacroTerminal() {
       else if (['inflacion', 'ipc-interanual', 'ipc-nucleo', 'ipim', 'tamar', 'rem-prox'].includes(id)) setTabRaw('PRECIOS');
       else if (['emae', 'pbi'].includes(id)) setTabRaw('ACTIVIDAD');
       else if (id === 'superavit') setTabRaw('FISCAL');
-      else if (['cye-12m', 'cye-x', 'crudo-fob', 'ypf-super', 'ypf-premium', 'ypf-gasoil', 'ypf-euro'].includes(id)) setTabRaw('ENERGIA');
-      else if (['fob-soja', 'fob-maiz', 'fob-trigo'].includes(id)) setTabRaw('COMMODITIES');
+      else if (['cye-12m', 'cye-x', 'crudo-fob'].includes(id)) setTabRaw('ENERGIA');
+      else if (['fob-soja', 'fob-maiz', 'fob-trigo', 'ypf-super', 'ypf-premium', 'ypf-gasoil', 'ypf-euro'].includes(id)) setTabRaw('COMMODITIES');
       else if (['credito-real', 'mora'].includes(id)) setTabRaw('CREDITO');
       setSelRow(id);
       document.getElementById('dashboard')?.scrollIntoView({ behavior: 'smooth' });
@@ -670,25 +670,12 @@ export default function MacroTerminal() {
           <AnimatePresence mode="wait">
             <motion.div key={tab} initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }} transition={{ duration:0.15 }}>
 
-              {visible.filter(r => !r.isLive).map((row, i, arr) => {
-                const g = tab === 'TODOS' ? (row.tabs.find(t => t !== 'TODOS') ?? '') : '';
-                const prevG = i > 0 ? (arr[i - 1].tabs.find(t => t !== 'TODOS') ?? '') : '';
-                const showHead = tab === 'TODOS' && g && g !== prevG;
-                return (
-                  <Fragment key={row.id}>
-                    {showHead && (
-                      <div style={{ padding:'6px 22px', fontSize:10, letterSpacing:'0.14em', color:'var(--fg-3)',
-                        background:'var(--bg-1)', borderTop:'1px solid var(--line-1)' }}>
-                        {g}
-                      </div>
-                    )}
-                    <Row row={row} hovered={hovered===row.id} selected={selRow===row.id}
-                      onHover={setHovered}
-                      onSelect={ROW_SERIES[row.id] ? () => setSelRow(s => s === row.id ? null : row.id) : undefined}
-                    />
-                  </Fragment>
-                );
-              })}
+              {visible.filter(r => !r.isLive).map(row => (
+                <Row key={row.id} row={row} hovered={hovered===row.id} selected={selRow===row.id}
+                  onHover={setHovered}
+                  onSelect={ROW_SERIES[row.id] ? () => setSelRow(s => s === row.id ? null : row.id) : undefined}
+                />
+              ))}
 
               {visible.some(r => r.isLive) && (
                 <div style={{ padding:'6px 22px', fontSize:10, letterSpacing:'0.12em', color:'var(--fg-2)',
