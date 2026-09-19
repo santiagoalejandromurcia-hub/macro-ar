@@ -25,7 +25,7 @@ export default function EnergiaPage() {
       <SectionHeader
         id="energia"
         title="Energía — Vaca Muerta y el superávit"
-        subtitle="Balanza comercial energética 12 meses (INDEC ICA). Sin inventar GNL ni pozos."
+        subtitle="Exportaciones CyE, importaciones de combustibles y saldo 12m. INDEC ICA. Sin GNL ni pozos."
         accent="sol"
       />
       <EnergiaContent />

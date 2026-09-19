@@ -1,9 +1,10 @@
 'use client';
 
 import {
-  AreaChart, Area, BarChart, Bar, LineChart, Line, Cell,
+  ComposedChart, BarChart, Bar, LineChart, Line, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, ResponsiveContainer,
 } from 'recharts';
+import { useChartTheme, ThemedTooltip } from '@/components/charts/useChartTheme';
 import {
   ACTUALIZADO_AL,
   ENERGIA_FUENTE,
@@ -20,11 +21,13 @@ import SectorChartCard from '@/components/SectorChartCard';
 import { SeriesAsOf } from '@/components/SeriesAsOf';
 import { downloadCSV } from '@/lib/csvUtils';
 
-const ttm = ENERGIA_MENSUAL.filter((r) => r.ttm != null).map((r) => ({
-  ...r,
-  pos: (r.ttm ?? 0) > 0 ? r.ttm : 0,
-  neg: (r.ttm ?? 0) < 0 ? r.ttm : 0,
-}));
+const rolling12 = ENERGIA_MENSUAL.map((r, i, arr) => {
+  if (i < 11) return null;
+  const w = arr.slice(i - 11, i + 1);
+  const x12 = w.reduce((s, p) => s + p.x, 0);
+  const m12 = w.reduce((s, p) => s + p.m, 0);
+  return { mes: r.mes, iso: r.iso, x12, m12, ttm: x12 - m12 };
+}).filter((r): r is NonNullable<typeof r> => r != null);
 
 const mensualReciente = ENERGIA_MENSUAL.filter((r) => r.iso >= '2025-01');
 
@@ -33,6 +36,7 @@ function tickYear(mes: string) {
 }
 
 export default function EnergiaContent() {
+  const t = useChartTheme();
   const k = ENERGIA_KPI;
 
   return (
@@ -62,35 +66,37 @@ export default function EnergiaContent() {
       </div>
 
       <SectorChartCard
-        title="Balanza comercial energética — 12 meses"
-        subtitle="USD millones · suma móvil 12 meses de (X CyE − M combustibles y lubricantes). INDEC."
+        title="CyE vs combustibles — suma 12 meses"
+        subtitle="Tres series: exportaciones CyE, importaciones de combustibles y el saldo. No es un área neto. INDEC ICA."
         fuente={ENERGIA_FUENTE}
         filePrefix="macrolibre-energia"
       >
-        <ResponsiveContainer width="100%" height={360}>
-          <AreaChart data={ttm} margin={{ top: 8, right: 8, left: -10, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="var(--line-1)" />
-            <XAxis dataKey="mes" tick={{ fill: 'var(--fg-3)', fontSize: 10 }} interval={11} tickFormatter={tickYear} />
-            <YAxis tick={{ fill: 'var(--fg-3)', fontSize: 11 }} />
-            <Tooltip
-              contentStyle={{ background: 'var(--bg-1)', border: '1px solid var(--line-1)' }}
-              formatter={(_v, _n, item) => {
-                const ttmVal = (item?.payload as { ttm?: number } | undefined)?.ttm;
-                return [`USD ${(ttmVal ?? 0).toLocaleString('es-AR')} M`, '12m'];
-              }}
-            />
-            <ReferenceLine y={0} stroke="var(--line-1)" />
-            <Area type="monotone" dataKey="pos" name="Superávit 12m" stroke="#15803d" fill="#15803d" fillOpacity={0.85} strokeWidth={0} />
-            <Area type="monotone" dataKey="neg" name="Déficit 12m" stroke="#b91c1c" fill="#b91c1c" fillOpacity={0.85} strokeWidth={0} />
-          </AreaChart>
+        <ResponsiveContainer width="100%" height={380}>
+          <ComposedChart data={rolling12} margin={{ top: 8, right: 8, left: -6, bottom: 0 }}>
+            <CartesianGrid {...t.grid} />
+            <XAxis dataKey="mes" tick={t.axis} interval={23} tickFormatter={tickYear} />
+            <YAxis tick={t.axis} />
+            <Tooltip content={<ThemedTooltip />} />
+            <Legend wrapperStyle={{ fontSize: 12, color: t.textSecondary }} />
+            <ReferenceLine y={0} stroke={t.refLine} />
+            <Line type="monotone" dataKey="x12" name="X CyE 12m" stroke="#74ACDF" strokeWidth={2.2} dot={false} />
+            <Line type="monotone" dataKey="m12" name="M comb. 12m" stroke="#EC4899" strokeWidth={2.2} dot={false} />
+            <Line type="monotone" dataKey="ttm" name="Saldo 12m" stroke="#D4A843" strokeWidth={2.6} strokeDasharray="6 3" dot={false} />
+          </ComposedChart>
         </ResponsiveContainer>
+        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono text-theme-muted">
+          <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#74ACDF' }} />X 12m</span>
+          <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#EC4899' }} />M 12m</span>
+          <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#D4A843' }} />Saldo (X−M)</span>
+          <span className="ml-auto">Ago-26 saldo <span className="text-ar-green font-semibold">+USD {k.ttmUsdM.toLocaleString('es-AR')} M</span></span>
+        </div>
       </SectorChartCard>
       <button
         type="button"
         className="text-[11px] font-mono text-[var(--fg-3)] hover:text-[var(--celeste)] cursor-pointer"
-        onClick={() => downloadCSV(ttm as unknown as Record<string, unknown>[], 'balanza-energetica-12m')}
+        onClick={() => downloadCSV(rolling12 as unknown as Record<string, unknown>[], 'energia-x-m-saldo-12m')}
       >
-        CSV ↓ 12 meses
+        CSV ↓ X / M / saldo 12m
       </button>
       <SeriesAsOf label="ICA CyE" asOf="2026-08" note="Jul = datos.gob.ar · Ago = ICA 18/09" />
 
@@ -108,8 +114,8 @@ export default function EnergiaContent() {
               <YAxis tick={{ fill: 'var(--fg-3)', fontSize: 11 }} />
               <Tooltip contentStyle={{ background: 'var(--bg-1)', border: '1px solid var(--line-1)' }} />
               <Legend />
-              <Bar dataKey="x" name="X CyE" fill="#15803d" />
-              <Bar dataKey="m" name="M comb." fill="#b91c1c" />
+              <Bar dataKey="x" name="X CyE" fill="#74ACDF" />
+              <Bar dataKey="m" name="M comb." fill="#EC4899" />
             </BarChart>
           </ResponsiveContainer>
         </SectorChartCard>
@@ -129,7 +135,7 @@ export default function EnergiaContent() {
               <ReferenceLine y={0} stroke="var(--line-1)" />
               <Bar dataKey="saldo" name="Saldo USD M" radius={[3, 3, 0, 0]}>
                 {ENERGIA_ANUAL.map((r) => (
-                  <Cell key={r.anio} fill={r.saldo >= 0 ? '#15803d' : '#b91c1c'} />
+                  <Cell key={r.anio} fill={r.saldo >= 0 ? '#74ACDF' : '#EC4899'} />
                 ))}
               </Bar>
             </BarChart>
