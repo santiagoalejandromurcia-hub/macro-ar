@@ -42,6 +42,7 @@ const SECTION_GROUPS: SectionGroup[] = [
       { href: '/#fiscal',     label: 'Fiscal',          desc: 'Resultado primario y financiero' },
       { href: '/credito',     label: 'Crédito',         desc: 'Stock real, mora, crédito/PBI' },
       { href: '/dolares',     label: 'Dólares',         desc: 'Reservas, MULC, ITCRM, CC' },
+      { href: '/calendario',  label: 'Calendario',      desc: 'IPC · EMAE · REM · horarios ART' },
       { href: '/energia',     label: 'Energía',         desc: 'Balanza CyE 12m, crudo, Vaca Muerta' },
       { href: '/mundo',       label: 'Mundo / LatAm',   desc: 'Comparables CPI · tasa · FX' },
     ],

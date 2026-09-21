@@ -78,6 +78,8 @@ const ITEMS: PaletteItem[] = [
   ...CONTEXT_EXTRA,
 
   // Contexto extra (peers; Mundo ya viene de SERIES_CONTEXT_LINKS)
+  { group: 'Contexto', label: 'Calendario económico AR', href: '/calendario', icon: '📅' },
+  { group: 'Series', label: 'Próximo IPC (calendario)', href: '/calendario', icon: '🔥' },
   { group: 'Contexto', label: 'Brasil — peers', href: '/mundo#BR', icon: '🇧🇷' },
   { group: 'Contexto', label: 'Estados Unidos — peers', href: '/mundo#US', icon: '🇺🇸' },
 

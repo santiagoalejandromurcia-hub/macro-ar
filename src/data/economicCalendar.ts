@@ -1,0 +1,247 @@
+export type CalSource = 'INDEC' | 'BCRA' | 'MECON';
+export type CalImportance = 1 | 2 | 3; // 3 = high
+
+export interface CalEvent {
+  id: string;
+  date: string;          // YYYY-MM-DD
+  timeArt: string;       // HH:mm America/Argentina/Buenos_Aires
+  title: string;
+  period?: string;       // "Ago 2026", "Q2 2026"
+  source: CalSource;
+  importance: CalImportance;
+  href?: string;
+  sourceUrl?: string;
+}
+
+/** Actualizado a mano desde PDFs oficiales — bump al reparsear */
+export const CALENDAR_SEED_ASOF = '2026-09-09'; // INDEC PDF "Actualizado al 9/9/2026"
+
+/**
+ * Eventos high/medium 2º sem 2026 (subset terminal).
+ * INDEC: https://www.indec.gob.ar/ftp/cuadros/publicaciones/calendario_2sem2026.pdf
+ * REM: https://www.bcra.gob.ar/calendario-de-informes/
+ * IPC 12/11 = Oct-26; IPC 15/12 = Nov-26. No hay IPC “Nov 15” para el mes de noviembre.
+ */
+export const ECONOMIC_CALENDAR: CalEvent[] = [
+  {
+    id: 'indec-emae-2026-09-24',
+    date: '2026-09-24',
+    timeArt: '16:00',
+    title: 'EMAE',
+    period: 'Jul 2026',
+    source: 'INDEC',
+    importance: 3,
+    href: '/?kpi=emae#dashboard',
+    sourceUrl: 'https://www.indec.gob.ar/indec/web/Calendario-Fecha-0',
+  },
+  {
+    id: 'indec-pobreza-2026-09-24',
+    date: '2026-09-24',
+    timeArt: '16:00',
+    title: 'Pobreza e indigencia (31 aglomerados)',
+    period: '1S 2026',
+    source: 'INDEC',
+    importance: 3,
+    href: '/indicadores/pobreza-argentina',
+    sourceUrl: 'https://www.indec.gob.ar/indec/web/Calendario-Fecha-0',
+  },
+  {
+    id: 'indec-bop-2026-09-29',
+    date: '2026-09-29',
+    timeArt: '16:00',
+    title: 'Balanza de pagos / PII / deuda externa',
+    period: 'Q2 2026',
+    source: 'INDEC',
+    importance: 2,
+    href: '/dolares',
+  },
+  {
+    id: 'bcra-rem-2026-10-06',
+    date: '2026-10-06',
+    timeArt: '18:00',
+    title: 'REM — Relevamiento Expectativas de Mercado',
+    period: 'Oct 2026',
+    source: 'BCRA',
+    importance: 3,
+    href: '/?kpi=rem-prox#dashboard',
+    sourceUrl: 'https://www.bcra.gob.ar/calendario-de-informes/',
+  },
+  {
+    id: 'indec-ipc-2026-10-13',
+    date: '2026-10-13',
+    timeArt: '16:00',
+    title: 'IPC nacional',
+    period: 'Sep 2026',
+    source: 'INDEC',
+    importance: 3,
+    href: '/?kpi=inflacion#dashboard',
+  },
+  {
+    id: 'indec-cba-2026-10-13',
+    date: '2026-10-13',
+    timeArt: '16:00',
+    title: 'CBA / CBT',
+    period: 'Sep 2026',
+    source: 'INDEC',
+    importance: 2,
+  },
+  {
+    id: 'indec-ipim-2026-10-16',
+    date: '2026-10-16',
+    timeArt: '16:00',
+    title: 'IPIM / SIPM mayorista',
+    period: 'Sep 2026',
+    source: 'INDEC',
+    importance: 2,
+    href: '/?kpi=ipim#dashboard',
+  },
+  {
+    id: 'indec-ica-2026-10-19',
+    date: '2026-10-19',
+    timeArt: '16:00',
+    title: 'ICA — Intercambio comercial',
+    period: 'Sep 2026',
+    source: 'INDEC',
+    importance: 2,
+    href: '/#externo',
+  },
+  {
+    id: 'indec-emae-2026-10-21',
+    date: '2026-10-21',
+    timeArt: '16:00',
+    title: 'EMAE',
+    period: 'Ago 2026',
+    source: 'INDEC',
+    importance: 3,
+    href: '/?kpi=emae#dashboard',
+  },
+  {
+    id: 'bcra-rem-2026-11-05',
+    date: '2026-11-05',
+    timeArt: '18:00',
+    title: 'REM',
+    period: 'Nov 2026',
+    source: 'BCRA',
+    importance: 3,
+    href: '/?kpi=rem-prox#dashboard',
+    sourceUrl: 'https://www.bcra.gob.ar/calendario-de-informes/',
+  },
+  {
+    id: 'indec-ipc-2026-11-12',
+    date: '2026-11-12',
+    timeArt: '16:00',
+    title: 'IPC nacional',
+    period: 'Oct 2026',
+    source: 'INDEC',
+    importance: 3,
+    href: '/?kpi=inflacion#dashboard',
+  },
+  {
+    id: 'indec-cba-2026-11-12',
+    date: '2026-11-12',
+    timeArt: '16:00',
+    title: 'CBA / CBT',
+    period: 'Oct 2026',
+    source: 'INDEC',
+    importance: 2,
+  },
+  {
+    id: 'indec-ipim-2026-11-17',
+    date: '2026-11-17',
+    timeArt: '16:00',
+    title: 'IPIM / SIPM mayorista',
+    period: 'Oct 2026',
+    source: 'INDEC',
+    importance: 2,
+    href: '/?kpi=ipim#dashboard',
+  },
+  {
+    id: 'indec-ica-2026-11-19',
+    date: '2026-11-19',
+    timeArt: '16:00',
+    title: 'ICA — Intercambio comercial',
+    period: 'Oct 2026',
+    source: 'INDEC',
+    importance: 2,
+    href: '/#externo',
+  },
+  {
+    id: 'indec-emae-2026-11-24',
+    date: '2026-11-24',
+    timeArt: '16:00',
+    title: 'EMAE',
+    period: 'Sep 2026',
+    source: 'INDEC',
+    importance: 3,
+    href: '/?kpi=emae#dashboard',
+  },
+  {
+    id: 'indec-ipc-2026-12-15',
+    date: '2026-12-15',
+    timeArt: '16:00',
+    title: 'IPC nacional',
+    period: 'Nov 2026',
+    source: 'INDEC',
+    importance: 3,
+    href: '/?kpi=inflacion#dashboard',
+  },
+  {
+    id: 'indec-cba-2026-12-15',
+    date: '2026-12-15',
+    timeArt: '16:00',
+    title: 'CBA / CBT',
+    period: 'Nov 2026',
+    source: 'INDEC',
+    importance: 2,
+  },
+  {
+    id: 'indec-pbi-2026-12-16',
+    date: '2026-12-16',
+    timeArt: '16:00',
+    title: 'PBI — informe de avance',
+    period: 'Q3 2026',
+    source: 'INDEC',
+    importance: 3,
+    href: '/?kpi=pbi#dashboard',
+  },
+  {
+    id: 'indec-ipim-2026-12-17',
+    date: '2026-12-17',
+    timeArt: '16:00',
+    title: 'IPIM / SIPM mayorista',
+    period: 'Nov 2026',
+    source: 'INDEC',
+    importance: 2,
+    href: '/?kpi=ipim#dashboard',
+  },
+  {
+    id: 'indec-ica-2026-12-18',
+    date: '2026-12-18',
+    timeArt: '16:00',
+    title: 'ICA — Intercambio comercial',
+    period: 'Nov 2026',
+    source: 'INDEC',
+    importance: 2,
+    href: '/#externo',
+  },
+  {
+    id: 'indec-emae-2026-12-21',
+    date: '2026-12-21',
+    timeArt: '16:00',
+    title: 'EMAE',
+    period: 'Oct 2026',
+    source: 'INDEC',
+    importance: 3,
+    href: '/?kpi=emae#dashboard',
+  },
+  {
+    id: 'indec-bop-2026-12-22',
+    date: '2026-12-22',
+    timeArt: '16:00',
+    title: 'Balanza de pagos / PII / deuda externa',
+    period: 'Q3 2026',
+    source: 'INDEC',
+    importance: 2,
+    href: '/dolares',
+  },
+];

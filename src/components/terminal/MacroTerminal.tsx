@@ -18,6 +18,7 @@ import { creditoStockMensual, MORA_OFICIAL, MORA_SERIE } from '@/data/credito';
 import { bonosNominales, bonosReales, remEsperado, ACTUALIZADO_AL } from '@/data/breakEven';
 import { construirCurvaBEI } from '@/lib/breakEven';
 import { downloadCSV } from '@/lib/csvUtils';
+import CalendarCard from '@/components/terminal/CalendarCard';
 
 // ══════════════════════════════════════════════════════════════════
 // MacroTerminal — Bloomberg-style dashboard
@@ -906,6 +907,8 @@ export default function MacroTerminal() {
               </div>
             </div>
           )}
+
+          <CalendarCard />
 
           {/* live strip — tab-aware */}
           <LiveStrip tab={tab} dolar={dolar} riesgo={riesgo} riesgoPrev={riesgoPrev} />

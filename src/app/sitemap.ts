@@ -115,6 +115,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}/calendario`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.75,
+    },
+    {
       url: `${BASE_URL}/informes`,
       lastModified: now,
       changeFrequency: 'monthly',
