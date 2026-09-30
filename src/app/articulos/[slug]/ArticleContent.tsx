@@ -3,6 +3,7 @@
 export default function ArticleContent({ content }: { content: string }) {
   const renderMarkdown = (md: string): string => {
     return md
+      .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2" class="text-ar-celeste underline underline-offset-2 hover:text-ar-gold">$1</a>')
       .replace(/^### (.+)$/gm, '<h3 class="text-lg font-semibold text-theme-primary mt-8 mb-3">$1</h3>')
       .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold text-theme-primary mt-10 mb-4" style="font-family: Instrument Serif, serif">$1</h2>')
       .replace(/\*\*(.+?)\*\*/g, '<strong class="text-theme-primary font-semibold">$1</strong>')

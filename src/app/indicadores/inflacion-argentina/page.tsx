@@ -96,21 +96,50 @@ export default function InflacionArgentinaPage() {
   };
 
   return (
-    <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+    <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-10 md:pt-5 md:pb-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
 
-      <Link href="/" className="text-sm text-[var(--fg-2)] hover:text-[var(--celeste)] transition mb-6 inline-block">
+      <Link href="/" className="text-sm text-[var(--fg-2)] hover:text-[var(--celeste)] transition mb-3 inline-block">
         ← Volver al Dashboard
       </Link>
 
-      <header className="mb-10">
+      <header className="mb-8">
         <p className="text-[11px] font-mono text-[var(--fg-3)] uppercase tracking-widest mb-2">
           MacroLibre · Indicadores · Inflación
         </p>
-        <h1 className="text-3xl sm:text-4xl font-bold text-[var(--fg-0)] mb-4 leading-tight" style={{ fontFamily: "'Instrument Serif', serif" }}>
+        <h1 className="text-2xl sm:text-3xl font-bold text-[var(--fg-0)] mb-4 leading-tight" style={{ fontFamily: "'Instrument Serif', serif" }}>
           Inflación Argentina — IPC mensual e interanual 2026
         </h1>
+
+        {(() => {
+          const ipc = inflacionData[inflacionData.length - 1];
+          const ipim = inflacionMayoristaData[inflacionMayoristaData.length - 1];
+          return (
+            <div className="mb-5">
+              <p className="text-[11px] font-mono uppercase tracking-wider text-[var(--fg-3)]">
+                IPC general · {ipc.date} · mensual
+              </p>
+              <p className="text-5xl sm:text-6xl font-semibold text-[var(--fg-0)] font-mono leading-none mt-1">
+                {ipc.mensual.toFixed(1)}%
+              </p>
+              <div className="grid grid-cols-3 gap-3 mt-4">
+                {[
+                  { k: 'IPC núcleo', v: `${ipc.nucleo.toFixed(1)}%`, s: 'igual que julio' },
+                  { k: 'IPC interanual', v: `${ipc.interanual.toFixed(1)}%`, s: 'acum. 2026: 21,3%' },
+                  { k: 'IPIM mayorista', v: `${ipim.mensual.toFixed(1)}%`, s: `${ipim.date} · Ago 16/09` },
+                ].map((x) => (
+                  <div key={x.k} className="bg-[var(--bg-1)] border border-[var(--line-1)] rounded-xl p-3">
+                    <p className="text-[10px] font-mono uppercase tracking-wider text-[var(--fg-3)]">{x.k}</p>
+                    <p className="text-xl font-semibold text-[var(--fg-0)] font-mono mt-0.5">{x.v}</p>
+                    <p className="text-[11px] text-[var(--fg-3)] mt-0.5">{x.s}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
+
         <p className="text-[15px] text-[var(--fg-1)] leading-relaxed max-w-3xl">
           El <strong>IPC Argentina</strong> actualizado mes a mes: <strong>inflación mensual</strong>,{' '}
           <strong>inflación interanual</strong>, inflación núcleo e inflación mayorista (IPIM).
@@ -119,27 +148,6 @@ export default function InflacionArgentinaPage() {
         </p>
         <div className="mt-5 h-px bg-gradient-to-r from-[var(--magenta)]/30 via-[var(--celeste)]/20 to-transparent" />
       </header>
-
-      {(() => {
-        const ipc = inflacionData[inflacionData.length - 1];
-        const ipim = inflacionMayoristaData[inflacionMayoristaData.length - 1];
-        return (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
-            {[
-              { k: 'IPC general', v: `${ipc.mensual.toFixed(1)}%`, s: `${ipc.date} · mens.` },
-              { k: 'IPC núcleo', v: `${ipc.nucleo.toFixed(1)}%`, s: 'igual que julio' },
-              { k: 'IPC interanual', v: `${ipc.interanual.toFixed(1)}%`, s: 'acum. 2026: 21,3%' },
-              { k: 'IPIM mayorista', v: `${ipim.mensual.toFixed(1)}%`, s: `${ipim.date} · Ago 16/09` },
-            ].map((x) => (
-              <div key={x.k} className="bg-[var(--bg-1)] border border-[var(--line-1)] rounded-xl p-3">
-                <p className="text-[10px] font-mono uppercase tracking-wider text-[var(--fg-3)]">{x.k}</p>
-                <p className="text-xl font-semibold text-[var(--fg-0)] font-mono mt-0.5">{x.v}</p>
-                <p className="text-[11px] text-[var(--fg-3)] mt-0.5">{x.s}</p>
-              </div>
-            ))}
-          </div>
-        );
-      })()}
 
       <div className="space-y-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
