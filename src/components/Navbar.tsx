@@ -140,6 +140,8 @@ export default function Navbar() {
     return () => document.removeEventListener('keydown', handler);
   }, []);
 
+  if (pathname === '/terminal') return null;
+
   return (
     <div className="sticky top-0 z-40">
     {/* ⌘K Command Palette */}
@@ -181,6 +183,12 @@ export default function Navbar() {
             className="px-3 py-1.5 rounded-md hover:bg-[var(--bg-1)] hover:text-[var(--fg-0)] transition"
           >
             Inicio
+          </Link>
+          <Link
+            href="/terminal"
+            className="px-3 py-1.5 rounded-md hover:bg-[var(--bg-1)] hover:text-[var(--fg-0)] transition"
+          >
+            Terminal
           </Link>
 
           {/* ── Dropdown MERCADOS ───────────────────────── */}
@@ -408,6 +416,13 @@ export default function Navbar() {
               className="block px-3 py-2.5 mb-2 text-sm font-medium text-[var(--fg-0)] bg-[var(--bg-1)] rounded-md"
             >
               Inicio
+            </Link>
+            <Link
+              href="/terminal"
+              onClick={() => setMobileOpen(false)}
+              className="block px-3 py-2.5 mb-2 text-sm font-medium text-[var(--fg-1)] hover:text-[var(--fg-0)] rounded-md"
+            >
+              Terminal
             </Link>
 
             {/* Mercados mobile */}

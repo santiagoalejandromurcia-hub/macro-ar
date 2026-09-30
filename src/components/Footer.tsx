@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 // ════════════════════════════════════════════════════
 // Footer MacroLibre · grilla compacta, mono micro-text,
@@ -17,7 +18,9 @@ const sources = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
   const year = new Date().getFullYear();
+  if (pathname === '/terminal') return null;
 
   return (
     <footer className="border-t border-[var(--line-1)] mt-24 bg-[var(--bg-0)]">
