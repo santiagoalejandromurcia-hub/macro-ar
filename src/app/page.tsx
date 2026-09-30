@@ -53,14 +53,22 @@ export default function HomePage() {
       <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-3">
         {MINI.map((item) => (
           <HideOnError key={item.id}>
-            <Link
-              href={item.href}
-              className="block rounded-xl border border-[var(--line-1)] bg-[var(--bg-1)] p-3 hover:border-[var(--celeste)]/40 transition"
-            >
-              <span className="block text-[13px] font-semibold text-[var(--fg-0)]">{item.label}</span>
-              <span className="sr-only">Abrir la serie</span>
-              {item.chart}
-            </Link>
+            <div className="relative rounded-xl border border-[var(--line-1)] bg-[var(--bg-1)] p-3 transition hover:border-[var(--celeste)]/40">
+              <span className="block text-[13px] font-semibold text-[var(--fg-0)]" aria-hidden>
+                {item.label}
+              </span>
+              {/* El SVG de Recharts se queda con el click si está dentro del link. La capa cubre la tarjeta entera. */}
+              <div className="pointer-events-none [&_*]:!pointer-events-none" aria-hidden>
+                {item.chart}
+              </div>
+              <Link
+                href={item.href}
+                aria-label={`${item.label}: abrir la serie`}
+                className="absolute inset-0 z-20 rounded-xl cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--celeste)]"
+              >
+                <span className="sr-only">Abrir la serie</span>
+              </Link>
+            </div>
           </HideOnError>
         ))}
       </div>
