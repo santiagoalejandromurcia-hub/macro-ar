@@ -21,7 +21,7 @@ const fallback: TickerItem[] = [
   { label: 'RIESGO PAÍS',     value: '—', source: 'JP MORGAN EMBIGD' },
   { label: 'INFLACIÓN MENS.', value: '1.7%',      delta: -0.4, source: 'INDEC' },
   { label: 'RESERVAS BCRA',   value: 'USD 50.5K M', delta: 4.6, source: 'BCRA' },
-  { label: 'EMAE YoY',        value: '+2.7%',     delta: 2.5,  source: 'INDEC' },
+  { label: 'EMAE YoY',        value: '-1.4%',     delta: -2.9, source: 'INDEC' },
   { label: 'IPC NÚCLEO',      value: '1.8%',      delta: 0,   source: 'INDEC' },
   { label: 'MERVAL',          value: '2.4M pts',  delta: 1.8,  source: 'BYMA' },
 ];
