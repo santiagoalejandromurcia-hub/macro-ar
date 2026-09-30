@@ -42,8 +42,7 @@ export default function Footer() {
             </Link>
 
             <p className="mt-4 text-[13px] text-[var(--fg-1)] max-w-sm leading-relaxed">
-              340+ indicadores oficiales de la macro argentina — procesados, cruzados y graficados sin fricción.
-              Fuentes públicas, código abierto, cero ruido.
+              Series de la macro argentina, con la fuente al lado.
             </p>
 
             {/* Social */}
@@ -92,11 +91,11 @@ export default function Footer() {
           <div>
             <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--fg-2)] mb-4">Indicadores</h4>
             <ul className="space-y-2.5 text-[13px]">
-              <li><a href="#dashboard"  className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Dashboard</a></li>
-              <li><a href="#actividad"  className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Actividad</a></li>
-              <li><a href="#fiscal"     className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Fiscal</a></li>
-              <li><a href="#externo"    className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Sector externo</a></li>
-              <li><a href="#precios"    className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Precios</a></li>
+              <li><Link href="/actividad" className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Actividad</Link></li>
+              <li><Link href="/precios" className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Precios</Link></li>
+              <li><Link href="/fiscal" className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Fiscal</Link></li>
+              <li><Link href="/externo" className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Sector externo</Link></li>
+              <li><Link href="/todos" className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Catálogo</Link></li>
             </ul>
           </div>
 
@@ -109,10 +108,9 @@ export default function Footer() {
               <li><Link href="/uva"        className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Uva y vinos</Link></li>
               <li><Link href="/break-even" className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Break-Even</Link></li>
               <li><Link href="/proxys"     className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Datasets</Link></li>
-              <li><Link href="/articulos"  className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Informes</Link></li>
+              <li><Link href="/articulos"  className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Artículos</Link></li>
               <li><Link href="/glosario"   className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Glosario</Link></li>
-              <li><a href="#simulador"    className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">MacroBot</a></li>
-              <li><a href="#newsletter"   className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Newsletter</a></li>
+              <li><Link href="/calendario" className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Calendario</Link></li>
             </ul>
           </div>
 
@@ -121,7 +119,8 @@ export default function Footer() {
             <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--fg-2)] mb-4">Equipo</h4>
             <ul className="space-y-2.5 text-[13px]">
               <li><Link href="/acerca"   className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Acerca de</Link></li>
-              <li><Link href="/contacto" className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Contacto</Link></li>
+              <li><a href="mailto:macrolibrearg@gmail.com" className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Contacto</a></li>
+              <li><Link href="/trabaja" className="text-[var(--fg-1)] hover:text-[var(--celeste)] transition">Trabajá</Link></li>
               <li>
                 <a
                   href="https://www.instagram.com/macrolibre/"

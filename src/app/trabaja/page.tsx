@@ -1,22 +1,18 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Contacto',
+  title: 'Trabajá con nosotros',
   description: 'Escribinos a macrolibrearg@gmail.com.',
 };
 
-export default function ContactoPage() {
+export default function TrabajaPage() {
   return (
     <div className="max-w-[640px] mx-auto px-4 sm:px-6 py-16">
-      <Link href="/" className="text-[13px] text-[var(--fg-2)] hover:text-[var(--celeste)]">
-        ← Inicio
-      </Link>
-      <h1 className="mt-6 font-display text-[32px] sm:text-[40px] text-[var(--fg-0)] leading-tight">
-        Contacto
+      <h1 className="font-display text-[32px] sm:text-[40px] text-[var(--fg-0)] leading-tight">
+        Trabajá con nosotros
       </h1>
       <p className="mt-4 text-[15px] text-[var(--fg-1)] leading-relaxed">
-        Datos mal cargados, una serie que falta o una idea. Mandá un mail.
+        Si querés sumarte, escribí. Contá en qué andás y qué te interesa del proyecto.
       </p>
       <a
         href="mailto:macrolibrearg@gmail.com"

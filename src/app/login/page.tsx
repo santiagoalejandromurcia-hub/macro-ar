@@ -42,9 +42,7 @@ export default async function LoginPage(
           Iniciá sesión
         </h1>
         <p className="text-sm text-[var(--fg-2)] leading-relaxed">
-          Para descargar datasets, suscribirte a alertas y guardar tus análisis.
-          <br />
-          <span className="text-[var(--fg-3)]">Sin spam. Sin reventa de datos.</span>
+          Entrá con Google. No hay paywall: las series se ven igual sin cuenta.
         </p>
       </header>
 

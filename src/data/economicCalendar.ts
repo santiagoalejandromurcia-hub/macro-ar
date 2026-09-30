@@ -31,7 +31,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Jul 2026',
     source: 'INDEC',
     importance: 3,
-    href: '/?kpi=emae#dashboard',
+    href: '/actividad#emae',
     sourceUrl: 'https://www.indec.gob.ar/indec/web/Calendario-Fecha-0',
   },
   {
@@ -63,7 +63,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Oct 2026',
     source: 'BCRA',
     importance: 3,
-    href: '/?kpi=rem-prox#dashboard',
+    href: '/precios#rem',
     sourceUrl: 'https://www.bcra.gob.ar/calendario-de-informes/',
   },
   {
@@ -74,7 +74,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Sep 2026',
     source: 'INDEC',
     importance: 3,
-    href: '/?kpi=inflacion#dashboard',
+    href: '/precios#ipc',
   },
   {
     id: 'indec-cba-2026-10-13',
@@ -93,7 +93,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Sep 2026',
     source: 'INDEC',
     importance: 2,
-    href: '/?kpi=ipim#dashboard',
+    href: '/precios#ipim',
   },
   {
     id: 'indec-ica-2026-10-19',
@@ -103,7 +103,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Sep 2026',
     source: 'INDEC',
     importance: 2,
-    href: '/#externo',
+    href: '/externo#ica',
   },
   {
     id: 'indec-emae-2026-10-21',
@@ -113,7 +113,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Ago 2026',
     source: 'INDEC',
     importance: 3,
-    href: '/?kpi=emae#dashboard',
+    href: '/actividad#emae',
   },
   {
     id: 'bcra-rem-2026-11-05',
@@ -123,7 +123,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Nov 2026',
     source: 'BCRA',
     importance: 3,
-    href: '/?kpi=rem-prox#dashboard',
+    href: '/precios#rem',
     sourceUrl: 'https://www.bcra.gob.ar/calendario-de-informes/',
   },
   {
@@ -134,7 +134,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Oct 2026',
     source: 'INDEC',
     importance: 3,
-    href: '/?kpi=inflacion#dashboard',
+    href: '/precios#ipc',
   },
   {
     id: 'indec-cba-2026-11-12',
@@ -153,7 +153,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Oct 2026',
     source: 'INDEC',
     importance: 2,
-    href: '/?kpi=ipim#dashboard',
+    href: '/precios#ipim',
   },
   {
     id: 'indec-ica-2026-11-19',
@@ -163,7 +163,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Oct 2026',
     source: 'INDEC',
     importance: 2,
-    href: '/#externo',
+    href: '/externo#ica',
   },
   {
     id: 'indec-emae-2026-11-24',
@@ -173,7 +173,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Sep 2026',
     source: 'INDEC',
     importance: 3,
-    href: '/?kpi=emae#dashboard',
+    href: '/actividad#emae',
   },
   {
     id: 'indec-ipc-2026-12-15',
@@ -183,7 +183,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Nov 2026',
     source: 'INDEC',
     importance: 3,
-    href: '/?kpi=inflacion#dashboard',
+    href: '/precios#ipc',
   },
   {
     id: 'indec-cba-2026-12-15',
@@ -202,7 +202,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Q3 2026',
     source: 'INDEC',
     importance: 3,
-    href: '/?kpi=pbi#dashboard',
+    href: '/actividad#pbi',
   },
   {
     id: 'indec-ipim-2026-12-17',
@@ -212,7 +212,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Nov 2026',
     source: 'INDEC',
     importance: 2,
-    href: '/?kpi=ipim#dashboard',
+    href: '/precios#ipim',
   },
   {
     id: 'indec-ica-2026-12-18',
@@ -222,7 +222,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Nov 2026',
     source: 'INDEC',
     importance: 2,
-    href: '/#externo',
+    href: '/externo#ica',
   },
   {
     id: 'indec-emae-2026-12-21',
@@ -232,7 +232,7 @@ export const ECONOMIC_CALENDAR: CalEvent[] = [
     period: 'Oct 2026',
     source: 'INDEC',
     importance: 3,
-    href: '/?kpi=emae#dashboard',
+    href: '/actividad#emae',
   },
   {
     id: 'indec-bop-2026-12-22',

@@ -39,57 +39,42 @@ const CONTEXT_EXTRA: PaletteItem[] = SERIES_CONTEXT_LINKS.map((s) => ({
 
 // ── Ítems del paleta ────────────────────────────────────────
 const ITEMS: PaletteItem[] = [
-  // Secciones del home
-  { group: 'Dashboard', label: 'Dashboard en vivo',       href: '/#dashboard',   icon: '📊' },
-  { group: 'Dashboard', label: 'Dólar Blue y tipos de cambio', href: '/#externo', icon: '💵' },
-  { group: 'Dashboard', label: 'Riesgo País (EMBI)',      href: '/#externo',     icon: '📉' },
+  { group: 'Indicadores', label: 'Actividad', href: '/actividad', icon: '📈', keywords: 'emae pbi' },
+  { group: 'Indicadores', label: 'Precios', href: '/precios', icon: '📊', keywords: 'ipc ipim rem' },
+  { group: 'Indicadores', label: 'Energía', href: '/energia', icon: '⚡', keywords: 'cye vaca muerta' },
+  { group: 'Indicadores', label: 'Sector externo', href: '/externo', icon: '🌍', keywords: 'reservas dolar riesgo' },
+  { group: 'Indicadores', label: 'Fiscal', href: '/fiscal', icon: '⚖️' },
+  { group: 'Indicadores', label: 'Commodities', href: '/commodities', icon: '🌾' },
+  { group: 'Indicadores', label: 'Crédito', href: '/credito', icon: '💳', keywords: 'mora' },
+  { group: 'Indicadores', label: 'Catálogo de series', href: '/todos', icon: '📚' },
+  { group: 'Indicadores', label: 'Dólares', href: '/dolares', icon: '💵', keywords: 'mulc itcrm' },
+  { group: 'Indicadores', label: 'Inflación (ficha)', href: '/inflacion', icon: '🔥' },
 
-  // Indicadores
-  { group: 'Indicadores', label: 'Inflación IPC',         href: '/inflacion',    icon: '🔥' },
-  { group: 'Indicadores', label: 'Actividad económica (EMAE)', href: '/#actividad', icon: '📈' },
-  { group: 'Indicadores', label: 'Equilibrio fiscal',     href: '/#fiscal',      icon: '⚖️' },
-  { group: 'Indicadores', label: 'Crédito al privado',    href: '/credito',      icon: '💳', keywords: 'mora prestamos fintech pbi' },
-  { group: 'Indicadores', label: 'Dólares stock y flujo', href: '/dolares',      icon: '💵', keywords: 'mulc reservas itcrm cuenta corriente turismo' },
-  { group: 'Indicadores', label: 'Energía / Vaca Muerta', href: '/energia',      icon: '⚡', keywords: 'vaca muerta crudo combustibles balanza energetica cye' },
-  { group: 'Indicadores', label: 'Sector externo y reservas', href: '/#externo', icon: '🌍' },
-  { group: 'Indicadores', label: 'Precios e inflación',   href: '/#precios',     icon: '📊' },
-  { group: 'Indicadores', label: 'Salarios y deuda pública', href: '/#salarios-deuda', icon: '💼' },
-  { group: 'Indicadores', label: 'Inflación histórica 1990-2026', href: '/#historico', icon: '🕰️' },
-  { group: 'Indicadores', label: 'Consumo y pobreza',     href: '/#bienestar',   icon: '🏠' },
+  { group: 'Mercados', label: 'Carnes', href: '/carnes', icon: '🥩' },
+  { group: 'Mercados', label: 'Granos', href: '/granos', icon: '🌾' },
+  { group: 'Mercados', label: 'Uva y vinos', href: '/uva', icon: '🍷' },
 
-  // Mercados
-  { group: 'Mercados',  label: 'Carnes y ganadería (snapshot)', href: '/carnes', icon: '🥩' },
-  { group: 'Mercados',  label: 'Granos (snapshot)',       href: '/granos',       icon: '🌾' },
-  { group: 'Mercados',  label: 'Uva y vinos (snapshot)',  href: '/uva',          icon: '🍷' },
-  { group: 'Mercados',  label: 'Energía (balanza CyE)',   href: '/energia',      icon: '⚡', keywords: 'petroleo gas vaca muerta' },
+  { group: 'Herramientas', label: 'Break-even', href: '/break-even', icon: '🎯', keywords: 'bei' },
+  { group: 'Herramientas', label: 'Datasets', href: '/proxys', icon: '📦' },
 
-  // Herramientas (BEI entra por SERIES_CONTEXT_LINKS, con aliases bei/lecap)
-  { group: 'Herramientas', label: 'Calculadora de instrumentos', href: '/calculadora', icon: '🧮' },
-  { group: 'Herramientas', label: 'MacroBot — consultas IA',     href: '/#simulador',  icon: '🤖' },
-  { group: 'Herramientas', label: 'Datasets descargables',       href: '/proxys',      icon: '📦' },
-
-  // Contenido
-  { group: 'Contenido', label: 'Artículos y análisis',    href: '/articulos',    icon: '📝' },
-  { group: 'Contenido', label: 'Glosario económico',      href: '/glosario',     icon: '📖' },
-  { group: 'Contenido', label: 'Newsletter',              href: '/#newsletter',  icon: '✉️' },
-  { group: 'Contenido', label: 'Informes mensuales',      href: '/informes',     icon: '📋' },
+  { group: 'Contenido', label: 'Artículos', href: '/articulos', icon: '📝' },
+  { group: 'Contenido', label: 'Glosario', href: '/glosario', icon: '📖' },
+  { group: 'Contenido', label: 'Informes', href: '/informes', icon: '📋' },
+  { group: 'Contenido', label: 'Calendario', href: '/calendario', icon: '📅' },
 
   ...SERIES_ITEMS,
   ...CONTEXT_EXTRA,
 
-  // Contexto extra (peers; Mundo ya viene de SERIES_CONTEXT_LINKS)
-  { group: 'Contexto', label: 'Calendario económico AR', href: '/calendario', icon: '📅' },
-  { group: 'Series', label: 'Próximo IPC (calendario)', href: '/calendario', icon: '🔥' },
-  { group: 'Contexto', label: 'Brasil — peers', href: '/mundo#BR', icon: '🇧🇷' },
-  { group: 'Contexto', label: 'Estados Unidos — peers', href: '/mundo#US', icon: '🇺🇸' },
+  { group: 'Contexto', label: 'Brasil', href: '/mundo#BR', icon: '🇧🇷' },
+  { group: 'Contexto', label: 'Estados Unidos', href: '/mundo#US', icon: '🇺🇸' },
 
-  // Sitio
-  { group: 'Sitio',    label: 'Acerca de MacroLibre',    href: '/acerca',       icon: 'ℹ️' },
-  { group: 'Sitio',    label: 'Contacto',                href: '/contacto',     icon: '📬' },
-  { group: 'Sitio',    label: 'Servicios',               href: '/servicios',    icon: '💎' },
+  { group: 'Sitio', label: 'Acerca de', href: '/acerca', icon: 'ℹ️' },
+  { group: 'Sitio', label: 'Contacto', href: '/contacto', icon: '📬' },
+  { group: 'Sitio', label: 'Trabajá', href: '/trabaja', icon: '✉️' },
+  { group: 'Sitio', label: 'Iniciar sesión', href: '/login', icon: '🔑' },
 ];
 
-const GROUPS = ['Dashboard', 'Indicadores', 'Series', 'Contexto', 'Mercados', 'Herramientas', 'Contenido', 'Sitio'] as const;
+const GROUPS = ['Indicadores', 'Series', 'Contexto', 'Mercados', 'Herramientas', 'Contenido', 'Sitio'] as const;
 
 interface Props {
   open: boolean;
