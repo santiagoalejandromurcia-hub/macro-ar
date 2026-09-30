@@ -146,21 +146,18 @@ export default function Navbar() {
     <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} />
 
     <nav className="border-b border-[var(--line-1)] bg-[oklch(0.12_0.018_250_/_0.85)] backdrop-blur-xl">
-      <div className={`max-w-[1440px] mx-auto px-4 sm:px-6 flex items-center gap-4 lg:gap-8 ${pathname === '/' ? 'min-h-16 py-2' : 'h-14'}`}>
-        {/* ── Wordmark. En la home: logo + título y bajada. ── */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 flex items-center gap-4 lg:gap-8 h-14">
+        {/* ── Wordmark. En la home: logo + «Macro Libre» chico. El título grande vive arriba del buscador. ── */}
         {pathname === '/' ? (
-          <Link href="/" className="flex items-center gap-2.5 shrink-0 min-w-0 group">
+          <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/MACRO.png"
               alt=""
               aria-hidden
-              className="w-8 h-8 rounded-md object-contain shrink-0 group-hover:opacity-90 transition"
+              className="w-8 h-8 rounded-md object-contain group-hover:opacity-90 transition"
             />
-            <span className="flex flex-col leading-tight min-w-0">
-              <h1 className="font-syne text-[18px] sm:text-[20px] font-bold tracking-tight text-[var(--fg-0)]">Macro Libre</h1>
-              <span className="mt-0.5 text-[11px] sm:text-[12px] text-[var(--fg-2)]">datos de Argentina oficial</span>
-            </span>
+            <span className="text-[14px] font-semibold tracking-tight text-[var(--fg-0)]">Macro Libre</span>
           </Link>
         ) : (
           <Link href="/" className="flex items-center gap-2.5 group shrink-0">

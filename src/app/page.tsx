@@ -33,6 +33,14 @@ export default function HomePage() {
   return (
     <div className="max-w-[960px] mx-auto px-4 sm:px-6 pt-16 sm:pt-28 pb-24">
       <div className="max-w-[720px] mx-auto">
+        <div className="mb-8 text-center">
+          <h1 className="font-syne text-[40px] sm:text-[56px] font-bold tracking-tight leading-none text-[var(--fg-0)]">
+            Macro Libre
+          </h1>
+          <p className="mt-3 text-[15px] sm:text-[18px] text-[var(--fg-2)]">
+            datos de Argentina oficial
+          </p>
+        </div>
         <HomeSearch />
         {chips.length > 0 && (
           <ul className="mt-8 flex flex-wrap justify-center gap-2">
