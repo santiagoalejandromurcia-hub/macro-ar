@@ -75,7 +75,7 @@ export default function HomeSearch() {
             }
             if (e.key === 'Escape') setOpen(false);
           }}
-          placeholder="Buscá IPC, EMAE, reservas…"
+          placeholder="Buscá tu dato"
           className="flex-1 bg-transparent text-[16px] text-[var(--fg-0)] placeholder:text-[var(--fg-3)] outline-none"
           autoComplete="off"
         />
