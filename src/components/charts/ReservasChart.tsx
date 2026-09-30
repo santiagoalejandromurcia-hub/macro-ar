@@ -8,7 +8,7 @@ import { reservasData } from '@/data/macroData';
 import { useIndicatorData } from '@/hooks/useIndicatorData';
 import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
 
-export default function ReservasChart() {
+export default function ReservasChart({ compact = false }: { compact?: boolean }) {
   const t = useChartTheme();
   const [period, setPeriod] = useState(0);
 
@@ -17,6 +17,22 @@ export default function ReservasChart() {
   );
 
   const displayData = useMemo(() => filterByPeriod(data, period), [data, period]);
+  if (compact) {
+    return (
+      <div className="h-[128px]" aria-hidden>
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={displayData} margin={{ top: 8, right: 4, left: -18, bottom: 0 }}>
+            <CartesianGrid {...t.grid} />
+            <XAxis dataKey="date" tick={{ ...t.axis, fontSize: 9 }} interval="preserveStartEnd" />
+            <YAxis tick={{ ...t.axis, fontSize: 9 }} width={36} domain={['auto', 'auto']} />
+            <Tooltip content={<ThemedTooltip />} />
+            <Area type="monotone" dataKey="value" name="Reservas (USD M)" stroke="#D4A843" fill="#D4A843" fillOpacity={0.1} strokeWidth={2} dot={false} isAnimationActive={false} />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+    );
+  }
+
   const csvData = displayData as unknown as Record<string, unknown>[];
 
   return (

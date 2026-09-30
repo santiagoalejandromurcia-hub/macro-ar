@@ -8,7 +8,7 @@ import { inflacionData } from '@/data/macroData';
 import { useIndicatorData } from '@/hooks/useIndicatorData';
 import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
 
-export default function InflacionMensualChart() {
+export default function InflacionMensualChart({ compact = false }: { compact?: boolean }) {
   const t = useChartTheme();
   const [period, setPeriod] = useState(0);
 
@@ -17,6 +17,25 @@ export default function InflacionMensualChart() {
   );
 
   const displayData = useMemo(() => filterByPeriod(data, period), [data, period]);
+  if (compact) {
+    return (
+      <div className="h-[128px]" aria-hidden>
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart data={displayData} margin={{ top: 8, right: 4, left: -22, bottom: 0 }}>
+            <CartesianGrid {...t.grid} />
+            <XAxis dataKey="date" tick={{ ...t.axis, fontSize: 9 }} interval="preserveStartEnd" />
+            <YAxis tick={{ ...t.axis, fontSize: 9 }} width={28} />
+            <Tooltip content={<ThemedTooltip />} />
+            <Bar dataKey="mensual" name="IPC Mensual %" fill="#EF4444" radius={[2, 2, 0, 0]} opacity={0.7} isAnimationActive={false} />
+            {displayData.some((d) => d.nucleo != null) && (
+              <Line type="monotone" dataKey="nucleo" name="Núcleo %" stroke="#D4A843" strokeWidth={2} dot={false} isAnimationActive={false} />
+            )}
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+    );
+  }
+
   const csvData = displayData as unknown as Record<string, unknown>[];
 
   return (
