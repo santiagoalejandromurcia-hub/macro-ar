@@ -38,7 +38,7 @@ export default function HomePage() {
             Macro Libre
           </h1>
           <p className="mt-3 text-[15px] sm:text-[18px] text-[var(--fg-2)]">
-            datos de Argentina oficial
+            🇦🇷 datos de Argentina oficial 🇦🇷
           </p>
         </div>
         <HomeSearch />
