@@ -36,7 +36,7 @@ export default function HomePage() {
           <SectionHeader
             id="actividad"
             title="Actividad económica"
-            subtitle="PIB Q2-26: +2,0% i.a. · −0,6% s.e. (17/09). EMAE Jun-26: +2,7% i.a. · +0,8% s.e. (INDEC 20/08). Julio sale 24/09."
+            subtitle="PIB Q2-26: +2,0% i.a. · −0,6% s.e. (17/09). EMAE Jul-26: −1,4% i.a. · −2,9% s.e. (INDEC 24/09). Agosto sale 21/10."
             accent="celeste"
           />
           <div className="space-y-6">

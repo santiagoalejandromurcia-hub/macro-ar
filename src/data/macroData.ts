@@ -26,12 +26,12 @@ export const kpiCards: KPICard[] = [
   {
     id: 'emae',
     title: 'EMAE',
-    value: '+2.7%',
-    change: 2.7,
-    changeLabel: 'var. i.a. (Jun 26) · +0,8% s.e. · tend-ciclo +0,2%',
+    value: '-1.4%',
+    change: -2.9,
+    changeLabel: 'var. i.a. (Jul 26) · −2,9% s.e. · tend-ciclo +0,2%',
     unit: 'Índice 2004=100',
     icon: '📊',
-    updatedAt: 'Jun 26',
+    updatedAt: 'Jul 26',
     source: 'INDEC',
   },
   {
@@ -110,13 +110,14 @@ export const emaeData = [
   { date: 'Sep 25', value: 151.8, trend: 152.4 },
   { date: 'Nov 25', value: 147.7, trend: 153.2 },
   { date: 'Dic 25', value: 153.5, trend: 153.7 },
-  { date: 'Ene 26', value: 148.6, trend: 154.3 },
-  { date: 'Feb 26', value: 138.3, trend: 154.9 },
-  { date: 'Mar 26', value: 158.6, trend: 155.6 },
-  { date: 'Abr 26', value: 161.7, trend: 156.1 }, // orig 161,72 · INDEC 29/06 · +1,6% i.a. · −1,5% s.e. · tend-ciclo +0,3%
-  { date: 'May 26', value: 165.7, trend: 156.0 }, // orig 165,67 · INDEC 22/07 · +0,2% i.a. · −0,5% s.e.
-  { date: 'Jun 26', value: 161.0, trend: 156.3 }, // orig 161,01 · INDEC 20/08 · +2,7% i.a. · +0,8% s.e. · tend-ciclo +0,2%
-    // Julio 2026: calendario INDEC 24/09/2026
+  { date: 'Ene 26', value: 149.5, trend: 153.9 }, // orig 149,5 · tend-ciclo 153,9 · +2,0% i.a. · 0,0% s.e. · INDEC 24/09/2026 (rev.)
+  { date: 'Feb 26', value: 139.3, trend: 154.2 }, // orig 139,3 · tend-ciclo 154,2 · −1,5% i.a. · −2,2% s.e.
+  { date: 'Mar 26', value: 160.2, trend: 154.5 }, // orig 160,2 · tend-ciclo 154,5 · +6,4% i.a. · +2,7% s.e.
+  { date: 'Abr 26', value: 162.3, trend: 154.8 }, // orig 162,3 · tend-ciclo 154,8 · +2,1% i.a. · −1,4% s.e. · tend-ciclo +0,2%
+  { date: 'May 26', value: 166.3, trend: 155.1 }, // orig 166,3 · tend-ciclo 155,1 · +0,7% i.a. · −0,6% s.e.
+  { date: 'Jun 26', value: 161.7, trend: 155.5 }, // orig 161,7 (revisado; antes 161,0) · +3,1% i.a. · +0,3% s.e. · tend-ciclo +0,2%
+  { date: 'Jul 26', value: 151.6, trend: 155.8 }, // orig 151,6 · desest. 149,6 · −1,4% i.a. · −2,9% s.e. · tend-ciclo +0,2% · INDEC 24/09/2026
+    // Agosto 2026: calendario INDEC 21/10/2026 — no publicado
 ];
 
 // PBI Trimestral (variación interanual % YoY)
@@ -717,9 +718,9 @@ export const inflacionLargoPlazoData: Array<{
 
 // ============================================================
 // EMAE largo plazo — Serie desestacionalizada (puntos clave 2017-2026)
-// Fuente: Econométrica en base a INDEC
+// Fuente: Econométrica en base a INDEC. 2026 alineado al informe INDEC 24/09/2026.
 // Hitos: nov-17 J×C ~152 · COVID 2020 ~137 · jun-22 pico azul ~152 ·
-//        dic-23 punto partida Milei · Mar-26 ~156 (desest., INDEC)
+//        dic-23 punto partida Milei · Jul-26 desest. 149,6 (INDEC)
 // ============================================================
 export const emaeLargoPlazoData: Array<{
   date: string;
@@ -748,10 +749,11 @@ export const emaeLargoPlazoData: Array<{
   { date: 'Dic 24',  value: 148.0, etapa: 'lla' },
   { date: 'Jun 25',  value: 152.0, etapa: 'lla' },
   { date: 'Dic 25',  value: 155.5, etapa: 'lla' },
-  { date: 'Mar 26',  value: 156.3, etapa: 'lla' },   // +5,5% i.a. · +3,5% s.e.
-  { date: 'Abr 26',  value: 154.0, etapa: 'lla' },   // −1,5% s.e. (INDEC 29/06)
-  { date: 'May 26',  value: 153.2, etapa: 'lla' },   // −0,5% s.e. · +0,2% i.a.
-  { date: 'Jun 26',  value: 154.4, etapa: 'lla' },   // +0,8% s.e. · +2,7% i.a. (INDEC 20/08)
+  { date: 'Mar 26',  value: 156.7, etapa: 'lla' },   // desest. 156,7 · +6,4% i.a. · +2,7% s.e. (INDEC 24/09/2026, rev.)
+  { date: 'Abr 26',  value: 154.6, etapa: 'lla' },   // desest. 154,6 · −1,4% s.e. · +2,1% i.a.
+  { date: 'May 26',  value: 153.7, etapa: 'lla' },   // desest. 153,7 · −0,6% s.e. · +0,7% i.a.
+  { date: 'Jun 26',  value: 154.1, etapa: 'lla' },   // desest. 154,1 · +0,3% s.e. · +3,1% i.a. (revisado)
+  { date: 'Jul 26',  value: 149.6, etapa: 'lla' },   // desest. 149,6 · −2,9% s.e. · −1,4% i.a. (INDEC 24/09/2026)
 ];
 
 // ============================================================
