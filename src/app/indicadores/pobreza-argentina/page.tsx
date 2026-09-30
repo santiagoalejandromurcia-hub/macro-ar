@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PobrezaChart, SalarioRealChart } from '@/components/Charts';
+import { pobrezaData } from '@/data/macroData';
 
 const SITE_URL = 'https://macrolibre.com';
 
@@ -82,21 +83,35 @@ export default function PobrezaArgentinaPage() {
   };
 
   return (
-    <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+    <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-10 md:pt-5 md:pb-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
 
-      <Link href="/" className="text-sm text-[var(--fg-2)] hover:text-[var(--celeste)] transition mb-6 inline-block">
+      <Link href="/" className="text-sm text-[var(--fg-2)] hover:text-[var(--celeste)] transition mb-3 inline-block">
         ← Volver al Dashboard
       </Link>
 
-      <header className="mb-10">
+      <header className="mb-8">
         <p className="text-[11px] font-mono text-[var(--fg-3)] uppercase tracking-widest mb-2">
           MacroLibre · Indicadores · Pobreza e indigencia
         </p>
-        <h1 className="text-3xl sm:text-4xl font-bold text-[var(--fg-0)] mb-4 leading-tight" style={{ fontFamily: "'Instrument Serif', serif" }}>
+        <h1 className="text-2xl sm:text-3xl font-bold text-[var(--fg-0)] mb-4 leading-tight" style={{ fontFamily: "'Instrument Serif', serif" }}>
           Tasa de pobreza e indigencia en Argentina
         </h1>
+        {(() => {
+          const ultimo = pobrezaData[pobrezaData.length - 1];
+          const pct = ultimo.value.toFixed(1).replace('.', ',');
+          return (
+            <div className="mb-5">
+              <p className="text-[11px] font-mono uppercase tracking-wider text-[var(--fg-3)]">
+                Pobreza · {ultimo.period} · % de la población
+              </p>
+              <p className="text-5xl sm:text-6xl font-semibold text-[var(--fg-0)] font-mono leading-none mt-1">
+                {pct}%
+              </p>
+            </div>
+          );
+        })()}
         <p className="text-[15px] text-[var(--fg-1)] leading-relaxed max-w-3xl">
           Evolución de la <strong>tasa de pobreza en Argentina</strong> y la <strong>indigencia</strong>
           según el INDEC (Encuesta Permanente de Hogares). Porcentaje de personas y hogares bajo la

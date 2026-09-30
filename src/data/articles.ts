@@ -275,7 +275,7 @@ El camino importa tanto como el destino. Argentina ya demostró que puede bajar 
 
 ---
 
-*Los datos de inflación son los publicados por el INDEC. Las proyecciones corresponden al Relevamiento de Expectativas de Mercado (REM) del BCRA de mayo 2026. Los datos actualizados están disponibles en [MacroLibre — Indicadores de Inflación](/indicadores/inflacion-argentina).*`,
+*Los datos de inflación son los publicados por el INDEC. Las proyecciones corresponden al Relevamiento de Expectativas de Mercado (REM) del BCRA de mayo 2026. Los datos actualizados están disponibles en <a href="/indicadores/inflacion-argentina">MacroLibre — Indicadores de Inflación</a>.*`,
   },
 
   {

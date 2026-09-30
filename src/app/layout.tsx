@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -98,18 +97,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es">
       <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-JMF7YPTCNY"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
+        {/* gtag en el <head> servido. next/script afterInteractive lo mandaba
+            al final del body; beforeInteractive en el App Router solo encola
+            __next_s y no deja el snippet dentro de <head>. Acá el layout ya
+            pone scripts crudos en <head> (JSON-LD), que es lo que llega al HTML. */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-JMF7YPTCNY" />
+        <script
+          id="google-analytics"
+          dangerouslySetInnerHTML={{
+            __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-JMF7YPTCNY');
-          `}
-        </Script>
+          `,
+          }}
+        />
         {/* JSON-LD para Google Rich Results */}
         <script
           type="application/ld+json"
