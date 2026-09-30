@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import LionToggle from './LionToggle';
 import UserMenu from './UserMenu';
@@ -33,43 +34,44 @@ const MERCADOS_LINKS: SectionLink[] = [
 // Estructura del mega-menú (4 columnas en desktop)
 const SECTION_GROUPS: SectionGroup[] = [
   {
-    title: 'Datos en vivo',
+    title: 'Series',
     links: [
-      { href: '/#dashboard',  label: 'Dashboard',       desc: 'Todos los indicadores en vivo' },
-      { href: '/inflacion',   label: 'Inflación',       desc: 'IPC, núcleo, mayorista, REM' },
-      { href: '/#externo',    label: 'Dólar y reservas', desc: 'Blue, MEP, BCRA' },
-      { href: '/#actividad',  label: 'Actividad',       desc: 'EMAE, PBI, sectorial' },
-      { href: '/#fiscal',     label: 'Fiscal',          desc: 'Resultado primario y financiero' },
-      { href: '/credito',     label: 'Crédito',         desc: 'Stock real, mora, crédito/PBI' },
-      { href: '/dolares',     label: 'Dólares',         desc: 'Reservas, MULC, ITCRM, CC' },
-      { href: '/calendario',  label: 'Calendario',      desc: 'IPC · EMAE · REM · horarios ART' },
-      { href: '/energia',     label: 'Energía',         desc: 'Balanza CyE 12m, crudo, Vaca Muerta' },
-      { href: '/mundo',       label: 'Mundo / LatAm',   desc: 'Comparables CPI · tasa · FX' },
+      { href: '/actividad',   label: 'Actividad',   desc: 'EMAE, PBI, salarios' },
+      { href: '/precios',     label: 'Precios',     desc: 'IPC, IPIM, REM' },
+      { href: '/energia',     label: 'Energía',     desc: 'Balanza CyE' },
+      { href: '/externo',     label: 'Externo',     desc: 'Comercio, reservas, riesgo' },
+      { href: '/fiscal',      label: 'Fiscal',      desc: 'Resultado y deuda' },
+      { href: '/commodities', label: 'Commodities', desc: 'FOB y surtidor' },
+      { href: '/credito',     label: 'Crédito',     desc: 'Stock y mora' },
+      { href: '/todos',       label: 'Catálogo',    desc: 'Todas las series, sin gráficos' },
     ],
   },
   {
     title: 'Herramientas',
     links: [
-      { href: '/calculadora', label: 'Calculadora histórica', desc: '¿Dólar, plazo fijo o bonos?' },
-      { href: '/break-even',  label: 'Break-Even Inflacionario', desc: 'CER vs tasa fija por plazo' },
-      { href: '/migracion',   label: 'Migración Interna', desc: 'VAR + Gravity: AMBA→Interior 2024-2029' },
-      { href: '/proxys',      label: 'Proxys macro', desc: 'Datasets descargables' },
+      { href: '/break-even',  label: 'Break-even', desc: 'CER vs tasa fija' },
+      { href: '/dolares',     label: 'Dólares',    desc: 'Reservas, MULC, ITCRM' },
+      { href: '/calendario',  label: 'Calendario', desc: 'INDEC y BCRA' },
+      { href: '/mundo',       label: 'Mundo',      desc: 'Comparables' },
+      { href: '/proxys',      label: 'Proxys',     desc: 'Datasets' },
     ],
   },
   {
     title: 'Contenido',
     links: [
-      { href: '/informes',  label: 'Informes',  desc: 'Análisis mensual de coyuntura macro · Edición N°1' },
-      { href: '/articulos', label: 'Artículos', desc: 'Análisis y opinión' },
-      { href: '/glosario',  label: 'Glosario',  desc: 'Conceptos económicos explicados' },
+      { href: '/informes',  label: 'Informes',  desc: 'Coyuntura' },
+      { href: '/articulos', label: 'Artículos', desc: 'Análisis' },
+      { href: '/glosario',  label: 'Glosario',  desc: 'Conceptos' },
+      { href: '/inflacion', label: 'Inflación', desc: 'Ficha larga de IPC' },
     ],
   },
   {
     title: 'Sobre nosotros',
     links: [
-      { href: '/acerca',    label: 'Acerca de MacroLibre', desc: 'Misión, fuentes, metodología' },
-      { href: '/servicios', label: 'Servicios' },
-      { href: '/contacto',  label: 'Contacto' },
+      { href: '/acerca',   label: 'Acerca de', desc: 'Fuentes y método' },
+      { href: '/trabaja',  label: 'Trabajá',   desc: 'macrolibrearg@gmail.com' },
+      { href: '/contacto', label: 'Contacto',  desc: 'macrolibrearg@gmail.com' },
+      { href: '/login',    label: 'Iniciar sesión', desc: 'Google, sin paywall' },
     ],
   },
 ];
@@ -103,6 +105,7 @@ export default function Navbar() {
   const sectionsRef = useRef<HTMLDivElement>(null);
   const mercadosRef = useRef<HTMLDivElement>(null);
   const clock = useClock();
+  const pathname = usePathname();
   const { data: session, status } = useSession();
 
   // Click afuera → cerrar dropdowns
@@ -315,8 +318,8 @@ export default function Navbar() {
 
         {/* ── Right cluster ────────────────────────────── */}
         <div className="ml-auto flex items-center gap-2 sm:gap-3">
-          {/* Search — abre CommandPalette */}
-          <button
+          {/* En la home el buscador es el del centro. Acá no se duplica. */}
+          {pathname !== '/' && <button
             type="button"
             onClick={() => setCmdOpen(true)}
             className="hidden md:flex items-center gap-2.5 h-8 px-2.5 text-[12px] text-[var(--fg-2)] bg-[var(--bg-1)] border border-[var(--line-1)] rounded-md hover:border-[var(--gold)]/40 hover:text-[var(--fg-1)] transition"
@@ -328,7 +331,7 @@ export default function Navbar() {
             </svg>
             <span className="font-mono">Buscar IPC, dólar, reservas…</span>
             <span className="ml-4 font-mono text-[10px] px-1.5 py-0.5 bg-[var(--bg-2)] border border-[var(--line-1)] rounded" style={{ color: 'var(--gold)' }}>⌘K</span>
-          </button>
+          </button>}
 
           {/* Status */}
           <div className="hidden md:flex items-center gap-2 h-8 px-3 bg-[var(--bg-1)] border border-[var(--line-1)] rounded-md">
@@ -435,7 +438,7 @@ export default function Navbar() {
               </div>
             ))}
             <Link
-              href="/contacto"
+              href="/login"
               onClick={() => setMobileOpen(false)}
               className="mt-3 inline-flex items-center justify-center w-full h-9 px-3.5 text-[13px] font-semibold rounded-md"
               style={{
