@@ -25,7 +25,23 @@ const EMPRESAS: { label: string; symbol: string }[] = [
   { label: 'LOMA', symbol: 'BCBA:LOMA' },
   { label: 'SUPV', symbol: 'BCBA:SUPV' },
   { label: 'CEPU', symbol: 'BCBA:CEPU' },
+  { label: 'TGSU2', symbol: 'BCBA:TGSU2' },
+  { label: 'EDN', symbol: 'BCBA:EDN' },
+  { label: 'ALUA', symbol: 'BCBA:ALUA' },
+  { label: 'TECO2', symbol: 'BCBA:TECO2' },
+  { label: 'TRAN', symbol: 'BCBA:TRAN' },
+  { label: 'VIST', symbol: 'BCBA:VIST' },
+  { label: 'BBAR', symbol: 'BCBA:BBAR' },
+  { label: 'BYMA', symbol: 'BCBA:BYMA' },
 ];
+
+/**
+ * Mini Symbol Overview: el ticker (nombre + último + variación) mide 94px.
+ * El gráfico solo se monta si el alto es >= 150. A 72px el precio y el %
+ * quedan cortados y a la derecha del ticker no hay gráfico.
+ */
+const TV_ROW_H = 160;
+const TV_CARD_H = 112;
 
 /** Precio lo imprime el widget. No hay TIR acá: data912 no trae rendimiento. */
 const BONOS_TV: { label: string; symbol: string }[] = [
@@ -264,7 +280,7 @@ export default function TerminalScreen() {
   }).filter((c): c is NonNullable<typeof c> => c !== null);
 
   return (
-    <div className="h-dvh max-lg:h-auto max-lg:min-h-dvh overflow-hidden max-lg:overflow-visible bg-[#0b0b0b] text-white font-mono flex flex-col">
+    <div className="min-h-dvh bg-[#0b0b0b] text-white font-mono flex flex-col">
       <header className="shrink-0 h-auto lg:h-9 border-b border-[#2a2a2a] grid grid-cols-1 lg:grid-cols-[minmax(160px,1fr)_minmax(220px,440px)_minmax(160px,1fr)] items-center gap-2 px-3 py-1.5 lg:py-0">
         <Link href="/" className="text-[12px] tracking-[0.16em] text-[#e2b340] hover:text-[#f0d48a]">
           MACROLÍBRE TERMINAL
@@ -286,7 +302,7 @@ export default function TerminalScreen() {
         </p>
       </header>
 
-      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-[minmax(0,1.35fr)_minmax(0,1fr)_minmax(0,0.92fr)]">
+      <div className="grid grid-cols-1 lg:grid-cols-2">
         <Panel title="YPF · SURTIDOR">
           {ypf === null && <p className="text-[12px] text-[#9a9a9a]">cargando</p>}
           {ypf === 'no' && <SinSerie />}
@@ -318,17 +334,15 @@ export default function TerminalScreen() {
         </Panel>
 
         <Panel title="COMMODITIES · TradingView">
-          <div className="h-full min-h-0 overflow-auto">
+          <div>
             {COMMODITIES.map((row) => (
-              <div key={row.symbol} className="grid grid-cols-[128px_minmax(0,1fr)] border-t border-[#222] h-[72px]">
-                <div className="pr-1 pt-1">
+              <div key={row.symbol} className="relative border-t border-[#222]">
+                <div className="pointer-events-none absolute top-1.5 right-2 z-10 max-w-[46%] text-right">
                   <p className="text-[11px] leading-tight text-white">{row.label}</p>
                   {row.unit && <p className="text-[10px] text-[#9a9a9a]">{row.unit}</p>}
                   <p className="text-[10px] text-[#6a6a6a]">{row.symbol}</p>
                 </div>
-                <div className="h-[72px] overflow-hidden">
-                  <TvMini symbol={row.symbol} height={72} />
-                </div>
+                <TvMini symbol={row.symbol} height={TV_ROW_H} />
               </div>
             ))}
           </div>
@@ -357,7 +371,7 @@ export default function TerminalScreen() {
         </Panel>
 
         <Panel title="BONOS · CURVA">
-          <div className="h-full min-h-0 grid grid-cols-1 sm:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(300px,0.9fr)] gap-2">
             <div className="min-h-0 flex flex-col">
               <p className="text-[11px] text-[#e2b340]">Curva soberana USD · TIR</p>
               <svg viewBox="0 0 320 150" className="w-full flex-1 min-h-[120px]" role="img" aria-label="Eje de TIR sin serie">
@@ -381,13 +395,15 @@ export default function TerminalScreen() {
               </svg>
               <p className="text-[10px] text-[#6a6a6a]">eje TIR % · vencimientos</p>
             </div>
-            <div className="min-h-0 flex flex-col gap-1 overflow-auto">
+            <div className="min-w-[280px] flex flex-col gap-1">
               <SinSerie />
-              <div className="grid grid-cols-2 gap-1">
+              <div className="grid grid-cols-1 gap-1">
                 {BONOS_TV.map((b) => (
-                  <div key={b.symbol} className="min-w-0">
-                    <p className="text-[10px] text-[#9a9a9a]">{b.label} <span className="text-[#6a6a6a]">{b.symbol}</span></p>
-                    <TvMini symbol={b.symbol} height={64} />
+                  <div key={b.symbol} className="relative min-w-0">
+                    <p className="pointer-events-none absolute top-1.5 right-2 z-10 text-[10px] text-[#9a9a9a]">
+                      {b.label} <span className="text-[#6a6a6a]">{b.symbol}</span>
+                    </p>
+                    <TvMini symbol={b.symbol} height={TV_ROW_H} />
                   </div>
                 ))}
               </div>
@@ -396,16 +412,14 @@ export default function TerminalScreen() {
         </Panel>
 
         <Panel title="EMPRESAS AR · TradingView" className="lg:col-span-2">
-          <div className="h-full min-h-0 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-px bg-[#2a2a2a] max-lg:h-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-px bg-[#2a2a2a]">
             {EMPRESAS.map((card) => (
-              <div key={card.symbol} className="bg-[#111] min-h-0 flex flex-col h-[128px] lg:h-full lg:min-h-[128px]">
+              <div key={card.symbol} className="bg-[#111] min-w-0 flex flex-col">
                 <p className="shrink-0 px-1.5 pt-1 text-[11px] text-white">
                   {card.label} <span className="text-[#6a6a6a]">{card.symbol}</span>
                 </p>
                 <p className="shrink-0 px-1.5 text-[10px] text-[#9a9a9a]">ARS</p>
-                <div className="h-[100px] overflow-hidden">
-                  <TvMini symbol={card.symbol} height={100} />
-                </div>
+                <TvMini symbol={card.symbol} height={TV_CARD_H} />
               </div>
             ))}
           </div>
