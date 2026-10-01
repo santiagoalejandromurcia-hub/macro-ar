@@ -15,15 +15,13 @@ export default function LionToggle() {
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/lion.png"
+        src="/marca-white.png"
         alt="Cambiar tema"
         width={28}
         height={28}
         style={{
           transition: 'filter 0.5s ease',
-          filter: isDark
-            ? 'drop-shadow(0 0 4px rgba(212,168,67,0.3))'
-            : 'hue-rotate(180deg) saturate(2) brightness(0.7) drop-shadow(0 0 4px rgba(116,172,223,0.3))',
+          filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.25))',
         }}
       />
     </button>

@@ -72,7 +72,7 @@ export default async function InformePage({ params }: Props) {
       url: 'https://macrolibre.com',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://macrolibre.com/MACRO.png',
+        url: 'https://macrolibre.com/marca.png',
       },
     },
     inLanguage: 'es-AR',

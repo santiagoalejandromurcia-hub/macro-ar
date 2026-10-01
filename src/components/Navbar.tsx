@@ -154,7 +154,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/MACRO.png"
+              src="/marca-white.png"
               alt=""
               aria-hidden
               className="w-8 h-8 rounded-md object-contain group-hover:opacity-90 transition"
@@ -165,7 +165,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2.5 group shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/MACRO.png"
+              src="/marca-white.png"
               alt="MacroLibre"
               className="w-8 h-8 rounded-md object-contain group-hover:opacity-90 transition"
             />
