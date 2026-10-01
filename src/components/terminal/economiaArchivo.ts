@@ -1,11 +1,20 @@
 import { emaeData, inflacionData, kpiCards } from '@/data/macroData';
 
+export type Tono = 'up' | 'down' | null;
+
 export interface CeldaArchivo {
   id: string;
   label: string;
   value: string;
   period: string;
   source: string;
+  /** Signo del último cambio de la propia serie. null si no hay punto anterior. */
+  tono: Tono;
+}
+
+export function tonoDe(delta: number | null | undefined): Tono {
+  if (delta == null || !Number.isFinite(delta) || delta === 0) return null;
+  return delta > 0 ? 'up' : 'down';
 }
 
 function last<T>(rows: readonly T[]): T | undefined {
@@ -31,10 +40,12 @@ export function celdasArchivo(): CeldaArchivo[] {
       value: `${fiscal.value.replace('.', ',')} PIB`,
       period: `acum. ${fiscal.updatedAt} · ${fiscal.changeLabel}`,
       source: fiscal.source ?? 'MECON',
+      tono: null,
     });
   }
 
   const ipc = last(inflacionData);
+  const ipcPrev = inflacionData.length >= 2 ? inflacionData[inflacionData.length - 2] : undefined;
   if (ipc && ipc.mensual != null && ipc.interanual != null) {
     out.push({
       id: 'ipc',
@@ -42,6 +53,7 @@ export function celdasArchivo(): CeldaArchivo[] {
       value: `${coma(ipc.mensual)}% m/m · ${coma(ipc.interanual)}% i.a.`,
       period: ipc.date,
       source: 'INDEC · inflacionData',
+      tono: ipcPrev && ipcPrev.mensual != null ? tonoDe(ipc.mensual - ipcPrev.mensual) : null,
     });
   }
   if (ipc && ipc.nucleo != null) {
@@ -51,6 +63,7 @@ export function celdasArchivo(): CeldaArchivo[] {
       value: `${coma(ipc.nucleo)}% m/m`,
       period: ipc.date,
       source: 'INDEC · inflacionData.nucleo',
+      tono: ipcPrev && ipcPrev.nucleo != null ? tonoDe(ipc.nucleo - ipcPrev.nucleo) : null,
     });
   }
 
@@ -64,6 +77,7 @@ export function celdasArchivo(): CeldaArchivo[] {
       value: `${mm}% m/m s.e. · ${emaeKpi.value.replace('.', ',')} i.a.`,
       period: emae.date,
       source: emaeKpi.source ?? 'INDEC',
+      tono: tonoDe(emaeKpi.change),
     });
   }
 

@@ -3,16 +3,16 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import TvMini from '@/components/terminal/TvMini';
-import { celdasArchivo } from '@/components/terminal/economiaArchivo';
+import { celdasArchivo, tonoDe, type Tono } from '@/components/terminal/economiaArchivo';
 
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const TZ = 'America/Argentina/Mendoza';
 
 const COMMODITIES: { label: string; symbol: string; unit: string }[] = [
   { label: 'WTI PETRÓLEO', symbol: 'TVC:USOIL', unit: 'USD/bbl' },
-  { label: 'SOJA', symbol: 'CBOT:ZS1!', unit: '' },
-  { label: 'MAÍZ', symbol: 'CBOT:ZC1!', unit: '' },
-  { label: 'TRIGO', symbol: 'CBOT:ZW1!', unit: '' },
+  { label: 'SOJA', symbol: 'CAPITALCOM:SOYBEAN', unit: 'CFD · ZS' },
+  { label: 'MAÍZ', symbol: 'CAPITALCOM:CORN', unit: 'CFD · ZC' },
+  { label: 'TRIGO', symbol: 'CAPITALCOM:WHEAT', unit: 'CFD · ZW' },
   { label: 'ORO', symbol: 'TVC:GOLD', unit: '' },
 ];
 
@@ -44,6 +44,7 @@ type LiveCell = {
   value: string | null;
   period: string | null;
   source: string;
+  tono?: Tono;
 };
 
 type YpfLive = {
@@ -177,13 +178,16 @@ export default function TerminalScreen() {
 
       const ultimo = rieRes?.ultimo as { valor?: number; fecha?: string } | undefined;
       const rieFecha = fechaFuente(ultimo?.fecha);
+      const anterior = rieRes?.anterior as { valor?: number } | undefined;
       if (ultimo && typeof ultimo.valor === 'number' && rieFecha) {
+        const delta = typeof anterior?.valor === 'number' ? ultimo.valor - anterior.valor : null;
         setRiesgo({
           id: 'riesgo',
           label: 'Riesgo país',
           value: `${fmtNum(ultimo.valor)} bps`,
           period: rieFecha,
           source: 'JP Morgan EMBIGD · ArgentinaDatos',
+          tono: tonoDe(delta),
         });
       } else if (!cancel) {
         setRiesgo(null);
@@ -226,6 +230,7 @@ export default function TerminalScreen() {
               value: valor,
               period: cuando,
               source: `BCRA var ${row.idVariable}`,
+              tono: tonoDe(typeof row.cambio === 'number' ? row.cambio : null),
             });
           }
           if (!cancel) setBcra(cells);
@@ -315,7 +320,7 @@ export default function TerminalScreen() {
         <Panel title="COMMODITIES · TradingView">
           <div className="h-full min-h-0 overflow-auto">
             {COMMODITIES.map((row) => (
-              <div key={row.symbol} className="grid grid-cols-[104px_minmax(0,1fr)] border-t border-[#222] h-[72px]">
+              <div key={row.symbol} className="grid grid-cols-[128px_minmax(0,1fr)] border-t border-[#222] h-[72px]">
                 <div className="pr-1 pt-1">
                   <p className="text-[11px] leading-tight text-white">{row.label}</p>
                   {row.unit && <p className="text-[10px] text-[#9a9a9a]">{row.unit}</p>}
@@ -333,10 +338,10 @@ export default function TerminalScreen() {
           <ul className="h-full min-h-0 grid grid-cols-2 gap-x-3 gap-y-1 content-start overflow-auto">
             {[...econ, ...(bcra ?? []).map((c) => ({ kind: 'live' as const, ...c }))].map((cell) => (
               <li key={cell.id} className="min-w-0 border-t border-[#222] pt-1">
-                <p className="text-[10px] tracking-wide text-[#9a9a9a]">{cell.label}</p>
+                <p className="text-[10px] tracking-wide text-[#e2b340]">{cell.label}</p>
                 {cell.value ? (
                   <>
-                    <p className="text-[13px] leading-tight tabular-nums text-white">{cell.value}</p>
+                    <p className={`text-[13px] leading-tight tabular-nums ${cell.tono === 'up' ? 'text-[#3cba6a]' : cell.tono === 'down' ? 'text-[#e0544a]' : 'text-white'}`}>{cell.value}</p>
                     <p className="text-[10px] text-[#b5b5b5] leading-snug">
                       {cell.period} · {cell.source}
                     </p>

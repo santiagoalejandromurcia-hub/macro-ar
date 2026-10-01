@@ -34,6 +34,7 @@ export async function GET() {
           .filter((d) => typeof d.fecha === 'string' && typeof d.valor === 'number')
           .sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)));
         const last = puntos[puntos.length - 1];
+        const prev = puntos.length >= 2 ? puntos[puntos.length - 2] : undefined;
         if (!last?.fecha || typeof last.valor !== 'number') return null;
         return {
           key: serie.key,
@@ -42,6 +43,7 @@ export async function GET() {
           idVariable: serie.id,
           valor: last.valor,
           fecha: last.fecha,
+          cambio: prev && typeof prev.valor === 'number' ? last.valor - prev.valor : null,
         };
       } catch {
         return null;
