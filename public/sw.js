@@ -6,8 +6,8 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll([
         '/',
-        '/lion.png',
-        '/logo.png',
+        '/marca-white.png',
+        '/marca.png',
       ]);
     })
   );

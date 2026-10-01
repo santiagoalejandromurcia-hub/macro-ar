@@ -439,6 +439,12 @@ button:focus-visible, a:focus-visible {
 .lion-logo { transition: transform 0.3s ease; }
 .lion-logo:hover { transform: scale(1.1); }
 
+/* Marca: blanca sobre superficie oscura (default). Negra en modo claro.
+   El header no usa estas clases: su barra es oscura en los dos temas. */
+.brand-on-light { display: none; }
+html.light .brand-on-dark { display: none; }
+html.light .brand-on-light { display: block; }
+
 /* ════════════════════════════════════════════════════
    INFORME MACROECONÓMICO — estilos de contenido
    ════════════════════════════════════════════════════ */

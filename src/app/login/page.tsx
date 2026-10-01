@@ -31,7 +31,9 @@ export default async function LoginPage(
 
       <header className="mb-8 text-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/MACRO.png" alt="MacroLibre" className="w-14 h-14 mx-auto mb-4 rounded-xl object-contain" />
+        <img src="/marca-white.png" alt="MacroLibre" className="brand-on-dark w-14 h-14 mx-auto mb-4 rounded-xl object-contain" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/marca.png" alt="" aria-hidden className="brand-on-light w-14 h-14 mx-auto mb-4 rounded-xl object-contain" />
         <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--celeste)] mb-3">
           ◆ MacroLibre · Acceso
         </p>

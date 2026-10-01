@@ -34,9 +34,16 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-2.5 group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/MACRO.png"
+                src="/marca-white.png"
                 alt="MacroLibre"
-                className="w-7 h-7 rounded-md object-contain"
+                className="brand-on-dark w-7 h-7 rounded-md object-contain"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/marca.png"
+                alt=""
+                aria-hidden
+                className="brand-on-light w-7 h-7 rounded-md object-contain"
               />
               <div className="flex flex-col leading-none">
                 <span className="text-[15px] font-semibold tracking-tight text-[var(--fg-0)]">MacroLibre</span>
