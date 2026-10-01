@@ -356,7 +356,7 @@ export default function TerminalScreen() {
       </header>
 
       <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-[minmax(0,0.96fr)_minmax(0,1fr)_minmax(0,1.08fr)] lg:grid-rows-1">
-        <div className="min-h-0 lg:h-full grid grid-rows-[auto_auto_auto] lg:grid-rows-[112px_164px_minmax(0,1fr)] lg:gap-0">
+        <div className="min-h-0 lg:h-full grid grid-rows-[auto_auto_auto] lg:grid-rows-[136px_200px_minmax(0,1fr)] lg:gap-0">
           <Panel title="YPF · SURTIDOR" className="lg:border-b-0">
             {ypf === null && <p className="text-[12px] text-[#9a9a9a]">cargando</p>}
             {ypf === 'no' && <SinSerie />}
