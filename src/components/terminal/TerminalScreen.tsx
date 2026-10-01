@@ -23,6 +23,16 @@ const EMPRESAS: { label: string; symbol: string }[] = [
   { label: 'BMA', symbol: 'BCBA:BMA' },
   { label: 'TXAR', symbol: 'BCBA:TXAR' },
   { label: 'LOMA', symbol: 'BCBA:LOMA' },
+  { label: 'SUPV', symbol: 'BCBA:SUPV' },
+  { label: 'CEPU', symbol: 'BCBA:CEPU' },
+];
+
+/** Precio lo imprime el widget. No hay TIR acá: data912 no trae rendimiento. */
+const BONOS_TV: { label: string; symbol: string }[] = [
+  { label: 'GD30', symbol: 'BCBA:GD30' },
+  { label: 'AL30', symbol: 'BCBA:AL30' },
+  { label: 'GD35', symbol: 'BCBA:GD35' },
+  { label: 'AL35', symbol: 'BCBA:AL35' },
 ];
 
 const CURVA_X = ['29', '30', '35', '38', '41', '46'];
@@ -102,6 +112,7 @@ export default function TerminalScreen() {
   const [riesgo, setRiesgo] = useState<LiveCell | null>(null);
   const [ypf, setYpf] = useState<YpfLive | null | 'no'>(null);
   const [listo, setListo] = useState(false);
+  const [bcra, setBcra] = useState<LiveCell[] | null>(null);
 
   useEffect(() => {
     setHoy(fechaMendoza());
@@ -199,6 +210,28 @@ export default function TerminalScreen() {
       } else {
         setYpf('no');
       }
+        try {
+          const bcraRes = await fetch('/api/terminal/bcra').then((r) => (r.ok ? r.json() : null));
+          const rows = Array.isArray(bcraRes?.series) ? bcraRes.series : [];
+          const cells: LiveCell[] = [];
+          for (const row of rows) {
+            const cuando = fechaFuente(row?.fecha);
+            if (typeof row?.valor !== 'number' || !cuando) continue;
+            const valor = row.key === 'base'
+              ? `${fmtNum(row.valor)} ${row.unit ?? ''}`.trim()
+              : `${row.valor.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}% n.a.`;
+            cells.push({
+              id: String(row.key),
+              label: String(row.label),
+              value: valor,
+              period: cuando,
+              source: `BCRA var ${row.idVariable}`,
+            });
+          }
+          if (!cancel) setBcra(cells);
+        } catch {
+          if (!cancel) setBcra([]);
+        }
       } finally {
         if (!cancel) setListo(true);
       }
@@ -280,16 +313,16 @@ export default function TerminalScreen() {
         </Panel>
 
         <Panel title="COMMODITIES · TradingView">
-          <div className="h-full min-h-0 grid grid-rows-5 max-lg:h-[380px]">
+          <div className="h-full min-h-0 overflow-auto">
             {COMMODITIES.map((row) => (
-              <div key={row.symbol} className="min-h-0 grid grid-cols-[104px_minmax(0,1fr)] border-t border-[#222] max-lg:h-[76px]">
+              <div key={row.symbol} className="grid grid-cols-[104px_minmax(0,1fr)] border-t border-[#222] h-[72px]">
                 <div className="pr-1 pt-1">
                   <p className="text-[11px] leading-tight text-white">{row.label}</p>
                   {row.unit && <p className="text-[10px] text-[#9a9a9a]">{row.unit}</p>}
                   <p className="text-[10px] text-[#6a6a6a]">{row.symbol}</p>
                 </div>
-                <div className="min-h-0 h-full overflow-hidden">
-                  <TvMini symbol={row.symbol} />
+                <div className="h-[72px] overflow-hidden">
+                  <TvMini symbol={row.symbol} height={72} />
                 </div>
               </div>
             ))}
@@ -298,7 +331,7 @@ export default function TerminalScreen() {
 
         <Panel title="ECONOMÍA">
           <ul className="h-full min-h-0 grid grid-cols-2 gap-x-3 gap-y-1 content-start overflow-auto">
-            {econ.map((cell) => (
+            {[...econ, ...(bcra ?? []).map((c) => ({ kind: 'live' as const, ...c }))].map((cell) => (
               <li key={cell.id} className="min-w-0 border-t border-[#222] pt-1">
                 <p className="text-[10px] tracking-wide text-[#9a9a9a]">{cell.label}</p>
                 {cell.value ? (
@@ -322,7 +355,7 @@ export default function TerminalScreen() {
           <div className="h-full min-h-0 grid grid-cols-1 sm:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] gap-2">
             <div className="min-h-0 flex flex-col">
               <p className="text-[11px] text-[#e2b340]">Curva soberana USD · TIR</p>
-              <svg viewBox="0 0 320 150" className="w-full flex-1 min-h-[120px]" role="img" aria-label="Eje de TIR vacío">
+              <svg viewBox="0 0 320 150" className="w-full flex-1 min-h-[120px]" role="img" aria-label="Eje de TIR sin serie">
                 <line x1="36" y1="12" x2="36" y2="124" stroke="#3a3a3a" strokeWidth="1" />
                 <line x1="36" y1="124" x2="308" y2="124" stroke="#3a3a3a" strokeWidth="1" />
                 {CURVA_Y.map((tick, i) => {
@@ -343,22 +376,30 @@ export default function TerminalScreen() {
               </svg>
               <p className="text-[10px] text-[#6a6a6a]">eje TIR % · vencimientos</p>
             </div>
-            <div className="flex items-center">
+            <div className="min-h-0 flex flex-col gap-1 overflow-auto">
               <SinSerie />
+              <div className="grid grid-cols-2 gap-1">
+                {BONOS_TV.map((b) => (
+                  <div key={b.symbol} className="min-w-0">
+                    <p className="text-[10px] text-[#9a9a9a]">{b.label} <span className="text-[#6a6a6a]">{b.symbol}</span></p>
+                    <TvMini symbol={b.symbol} height={64} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </Panel>
 
         <Panel title="EMPRESAS AR · TradingView" className="lg:col-span-2">
-          <div className="h-full min-h-0 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-[#2a2a2a] max-lg:h-auto">
+          <div className="h-full min-h-0 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-px bg-[#2a2a2a] max-lg:h-auto">
             {EMPRESAS.map((card) => (
-              <div key={card.symbol} className="bg-[#111] min-h-0 flex flex-col max-lg:h-[140px] lg:h-full">
+              <div key={card.symbol} className="bg-[#111] min-h-0 flex flex-col h-[128px] lg:h-full lg:min-h-[128px]">
                 <p className="shrink-0 px-1.5 pt-1 text-[11px] text-white">
                   {card.label} <span className="text-[#6a6a6a]">{card.symbol}</span>
                 </p>
                 <p className="shrink-0 px-1.5 text-[10px] text-[#9a9a9a]">ARS</p>
-                <div className="flex-1 min-h-0 overflow-hidden">
-                  <TvMini symbol={card.symbol} />
+                <div className="h-[100px] overflow-hidden">
+                  <TvMini symbol={card.symbol} height={100} />
                 </div>
               </div>
             ))}
