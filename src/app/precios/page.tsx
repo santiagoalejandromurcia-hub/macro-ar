@@ -10,6 +10,7 @@ import {
 } from '@/components/Charts';
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://macrolibre.com/precios' },
   title: 'Precios',
   description: 'IPC, IPIM y REM. Sin proyección en el título.',
 };

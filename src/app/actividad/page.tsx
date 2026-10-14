@@ -12,6 +12,7 @@ import {
 } from '@/components/Charts';
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://macrolibre.com/actividad' },
   title: 'Actividad',
   description: 'EMAE, PBI y salarios. Series de INDEC que ya están en el sitio.',
 };

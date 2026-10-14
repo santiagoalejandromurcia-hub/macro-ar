@@ -12,6 +12,7 @@ import {
 } from '@/components/Charts';
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://macrolibre.com/externo' },
   title: 'Sector externo',
   description: 'Intercambio comercial, reservas, tipo de cambio y una serie de riesgo país.',
 };

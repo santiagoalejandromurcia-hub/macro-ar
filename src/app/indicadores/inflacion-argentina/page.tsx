@@ -9,7 +9,7 @@ const SITE_URL = 'https://macrolibre.com';
 export const metadata: Metadata = {
   title: 'Inflación Argentina — IPC mensual, inflación interanual y expectativas 2026 · INDEC',
   description:
-    'IPC agosto 2026: 1,7% mensual, 33,5% interanual, núcleo 1,8%. IPIM agosto 2,1% (29,8% i.a.). Expectativas REM del BCRA. Datos oficiales INDEC.',
+    'IPC septiembre 2026: 1,9% mensual, 33,4% interanual, núcleo 1,7%. IPIM agosto 2,1% (29,8% i.a.). Expectativas REM del BCRA. Datos oficiales INDEC.',
   alternates: { canonical: `${SITE_URL}/indicadores/inflacion-argentina` },
   keywords: [
     'inflación Argentina',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     'inflación mayo 2026',
     'inflación junio 2026',
     'inflación julio 2026',
-    'inflación agosto 2026',
+    'inflación septiembre 2026',
     'IPIM argentina',
     'inflación mayorista argentina',
     'REM BCRA expectativas inflación',
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: '¿Cuál fue la inflación mensual en Argentina en agosto 2026?',
-    a: 'La inflación mensual de agosto 2026 fue del 1,7% según el IPC del INDEC (publicado 10/09/2026), la más baja de 2026. La variación interanual fue 33,5% y el acumulado enero–agosto 21,3%. El IPC núcleo se mantuvo en 1,8% (igual que julio). Los regulados subieron 2,2% y los estacionales cayeron 0,9%. El IPIM mayorista de agosto fue 2,1% mensual y 29,8% interanual (INDEC 16/09/2026).',
+    q: '¿Cuál fue la inflación mensual en Argentina en septiembre 2026?',
+    a: 'La inflación mensual de septiembre 2026 fue del 1,9% según el IPC del INDEC (publicado 13/10/2026), frente al 1,7% de agosto. La variación interanual fue 33,4% y el acumulado enero–septiembre 23,6%. El IPC núcleo fue 1,7% (31,6% interanual). Los estacionales subieron 2,9%, los regulados 2,3%, los bienes 1,7% y los servicios 2,4%. El IPIM mayorista de agosto fue 2,1% mensual y 29,8% interanual (INDEC 16/09/2026).',
   },
   {
     q: '¿Qué es el IPC Argentina?',
@@ -165,7 +165,7 @@ export default function InflacionArgentinaPage() {
           Argentina experimentó en diciembre de 2023 una aceleración inflacionaria extrema, con una{' '}
           <strong className="text-[var(--fg-0)]">inflación mensual que tocó el 25.5%</strong> tras la devaluación
           del peso. Desde ese pico, el <strong>IPC Argentina</strong> mostró una desaceleración sostenida:
-          10.6% en febrero 2024, 8.8% en marzo, hasta el 1,7% de agosto 2026 (mínimo del año; núcleo 1,8%).
+          10.6% en febrero 2024, 8.8% en marzo, hasta el 1,9% de septiembre 2026 (núcleo 1,7%; el mínimo del año fue el 1,7% de agosto).
         </p>
         <p className="mb-3">
           La <strong className="text-[var(--fg-0)]">inflación interanual</strong> cerró 2024 en 117.8%

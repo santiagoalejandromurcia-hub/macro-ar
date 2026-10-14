@@ -11,6 +11,7 @@ import {
 } from '@/components/Charts';
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://macrolibre.com/fiscal' },
   title: 'Fiscal',
   description: 'Resultado fiscal, gasto y deuda. Series que ya estaban en la home.',
 };
