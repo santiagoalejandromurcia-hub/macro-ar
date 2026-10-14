@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { M2ProxySection } from "@/components/M2ProxySection";
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://macrolibre.com/proxys/m2' },
   title: "M2 Proxy ML | MacroLibre",
   description:
     "Estimador de M2 Privado Transaccional con modelos de Machine Learning (Gradient Boosting, Markov Switching, Double ML). Proyecciones 2026.",

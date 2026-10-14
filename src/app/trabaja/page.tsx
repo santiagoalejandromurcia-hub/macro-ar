@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://macrolibre.com/trabaja' },
   title: 'Trabajá con nosotros',
   description: 'Escribinos a macrolibrearg@gmail.com.',
 };

@@ -7,7 +7,8 @@ import { inflacionData, inflacionMayoristaData } from '@/data/macroData';
 
 export const metadata = {
   title: 'Inflación Argentina en tiempo real — IPC, IPIM y REM',
-  description: 'IPC agosto 2026: 1,7% mensual · núcleo 1,8% · 33,5% interanual. IPIM agosto 2,1% · 29,8% i.a. REM del BCRA. Datos INDEC.',
+  description: 'IPC septiembre 2026: 1,9% mensual · núcleo 1,7% · 33,4% interanual · 23,6% acumulado. IPIM agosto 2,1% · 29,8% i.a. REM del BCRA. Datos INDEC.',
+  alternates: { canonical: 'https://macrolibre.com/inflacion' },
 };
 
 export default function InflacionPage() {
@@ -22,11 +23,14 @@ export default function InflacionPage() {
         <div className="flex items-center gap-3 mb-2">
           <span className="text-2xl">🏷️</span>
           <h1 className="text-3xl sm:text-4xl font-bold text-theme-primary" style={{ fontFamily: "'Instrument Serif', serif" }}>
-            Inflación
+            Inflación en Argentina mes a mes 2026 (INDEC)
           </h1>
         </div>
         <p className="text-theme-secondary ml-11">
           IPC mensual, interanual, núcleo, inflación mayorista (IPIM) y expectativas REM del BCRA. Fuente: INDEC, BCRA.
+        </p>
+        <p className="text-theme-primary font-medium ml-11 mt-2">
+          Inflación de septiembre 2026: 1,9% mensual (INDEC, publicado el 13/10)
         </p>
         <div className="mt-5 h-px bg-gradient-to-r from-ar-celeste/30 via-ar-gold/20 to-transparent" />
       </div>
@@ -51,6 +55,31 @@ export default function InflacionPage() {
           </div>
         );
       })()}
+
+      {/* Tabla serie mensual 2026 (SSR) */}
+      <div className="bg-theme-surface border border-theme rounded-xl p-5 mb-8 overflow-x-auto">
+        <h2 className="text-sm font-semibold text-theme-primary mb-3">IPC 2026 mes a mes (INDEC)</h2>
+        <table className="w-full text-sm font-mono">
+          <thead>
+            <tr className="text-theme-muted text-xs uppercase">
+              <th className="text-left py-1 pr-4">Mes</th>
+              <th className="text-right py-1 pr-4">Mensual</th>
+              <th className="text-right py-1 pr-4">Interanual</th>
+              <th className="text-right py-1">Núcleo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {inflacionData.filter((r) => r.date.endsWith(' 26')).map((r) => (
+              <tr key={r.date} className="border-t border-theme text-theme-primary">
+                <td className="py-1 pr-4">{r.date}</td>
+                <td className="text-right py-1 pr-4">{r.mensual.toFixed(1).replace('.', ',')}%</td>
+                <td className="text-right py-1 pr-4">{r.interanual.toFixed(1).replace('.', ',')}%</td>
+                <td className="text-right py-1">{r.nucleo.toFixed(1).replace('.', ',')}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* All charts */}
       <div className="space-y-6">

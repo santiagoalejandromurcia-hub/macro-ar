@@ -47,11 +47,11 @@ export const kpiCards: KPICard[] = [
   {
     id: 'inflacion',
     title: 'Inflación Mensual',
-    value: '1.7%',
-    change: -0.4,
-    changeLabel: 'Ago 26 (vs Jul 2.1%) · núcleo 1,8%',
+    value: '1.9%',
+    change: 0.2,
+    changeLabel: 'Sep 26 (vs Ago 1.7%) · núcleo 1,7%',
     icon: '🏷️',
-    updatedAt: 'Ago 26',
+    updatedAt: 'Sep 26',
     source: 'INDEC',
   },
   {
@@ -329,7 +329,8 @@ export const inflacionData = [
   { date: 'Jun 26', mensual: 1.9, interanual: 33.5, nucleo: 1.6 },
   { date: 'Jul 26', mensual: 2.1, interanual: 33.8, nucleo: 1.8 },
   { date: 'Ago 26', mensual: 1.7, interanual: 33.5, nucleo: 1.8 },
-    // ← ÚLTIMO INDEC (10/09/2026) · IPC 1,7% · núcleo 1,8% · i.a. 33,5% · acum. 21,3%
+  { date: 'Sep 26', mensual: 1.9, interanual: 33.4, nucleo: 1.7 },
+    // ← ÚLTIMO INDEC (13/10/2026) · IPC 1,9% · núcleo 1,7% (31,6% i.a.) · i.a. 33,4% · acum. 23,6% · estac. 2,9% · regul. 2,3% · bienes 1,7% · servicios 2,4%
 ];
 
 // REM — IPC nivel general, var. % mensual

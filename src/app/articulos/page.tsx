@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { articles } from '@/data/articles';
 
 export const metadata = {
+  alternates: { canonical: 'https://macrolibre.com/articulos' },
   title: 'Artículos de macroeconomía argentina',
   description: 'Análisis y opinión sobre la economía argentina.',
 };

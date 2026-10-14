@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://macrolibre.com/contacto' },
   title: 'Contacto',
   description: 'Escribinos a macrolibrearg@gmail.com.',
 };

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://macrolibre.com/servicios' },
   title: 'Servicios — Advisory, Auditoría y Dashboards',
   description:
     'Dashboard de facturación para PYMES, auditorías de ads y consultoría macroeconómica C-level. Data macro aplicada a tu negocio.',

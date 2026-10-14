@@ -4,6 +4,7 @@ import SectionHeader from '@/components/SectionHeader';
 import { SERIES_CATALOG, type TerminalTab } from '@/data/seriesCatalog';
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://macrolibre.com/todos' },
   title: 'Catálogo de series',
   description: 'Listado de series. Sin gráficos.',
 };

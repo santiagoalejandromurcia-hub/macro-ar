@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 export const metadata = {
+  alternates: { canonical: 'https://macrolibre.com/proxys' },
   title: 'Proxys Macroeconómicos — MacroLibre',
   description: 'Hub de indicadores alternativos: M2, Expectativas de inflación, Dolarización de portafolios.',
 };

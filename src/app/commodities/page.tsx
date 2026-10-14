@@ -4,6 +4,7 @@ import SectionHeader from '@/components/SectionHeader';
 import CommoditiesCharts from './CommoditiesCharts';
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://macrolibre.com/commodities' },
   title: 'Commodities',
   description: 'FOB de granos y precios de surtidor YPF CABA. Las fichas de granos, carnes y uva siguen en su ruta.',
 };
