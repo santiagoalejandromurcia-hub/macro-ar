@@ -252,7 +252,7 @@ export const tradeData = [
   { month: 'Ago 26', exports: 8883, imports: 6696, balance: 2187 }, // INDEC ICA 18/09/2026 · acum. ene–ago USD 18.249 M
 ];
 
-// Reservas Internacionales BCRA (USD millones) - Actualizado 16/03/2026
+// Reservas Internacionales BCRA (USD millones) - Actualizado 17/10/2026 (dato al 14/10/2026)
 export const reservasData = [
   { date: 'Dic 23', value: 23068 },
   { date: 'Feb 24', value: 26400 },
@@ -275,7 +275,8 @@ export const reservasData = [
   { date: 'Jun 26', value: 44870 },   // 30/06/2026
   { date: 'Jul 26', value: 47599 },   // 31/07/2026
   { date: 'Ago 26', value: 48259 },   // 31/08/2026
-  { date: 'Sep 26', value: 50492 },   // ← ÚLTIMO (02/09/2026) · BCRA API
+  { date: 'Sep 26', value: 46092 },   // 30/09/2026 · BCRA API v4 (var. 1)
+  { date: 'Oct 26', value: 49723 },   // ← ÚLTIMO (14/10/2026) · BCRA API v4 (var. 1)
 ];
 
 // Tipo de cambio (ARS/USD) - Actualizado 16/03/2026
