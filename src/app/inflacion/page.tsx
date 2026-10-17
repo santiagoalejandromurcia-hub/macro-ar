@@ -7,7 +7,7 @@ import { inflacionData, inflacionMayoristaData } from '@/data/macroData';
 
 export const metadata = {
   title: 'Inflación Argentina en tiempo real — IPC, IPIM y REM',
-  description: 'IPC septiembre 2026: 1,9% mensual · núcleo 1,7% · 33,4% interanual · 23,6% acumulado. IPIM agosto 2,1% · 29,8% i.a. REM del BCRA. Datos INDEC.',
+  description: 'IPC septiembre 2026: 1,9% mensual · núcleo 1,7% · 33,4% interanual · 23,6% acumulado. IPIM septiembre 3,2% · 29,2% i.a. REM del BCRA. Datos INDEC.',
   alternates: { canonical: 'https://macrolibre.com/inflacion' },
 };
 
