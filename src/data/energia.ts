@@ -3,23 +3,25 @@
  * M: 74.3_IICL_0_M_42 (combustibles y lubricantes).
  * ttm = suma 12 meses de (X−M), derivada de series oficiales.
  * Ago-26: ICA 18/09/2026 (datos.gob.ar cortaba en jul-26).
+ * Sep-26: ICA 19/10/2026 cuadros c12 (CyE X 1.781) y c14 (CyL M 181). Meses previos sin revisar (el xls solo da sep y acumulado).
+ * Acumulado ene–sep oficial (c12/c14): X 12.452 · M 3.025.
  */
 
-export const ACTUALIZADO_AL = '2026-09-18';
+export const ACTUALIZADO_AL = '2026-10-19';
 
 export const ENERGIA_FUENTE =
   'INDEC ICA · CyE FOB (75.3_ITCE) − combustibles y lubricantes (74.3_IICL) · 12m derivado';
 
 export const ENERGIA_KPI = {
-  ttmUsdM: 11067,
-  ttmAsOf: 'Ago 26',
-  ytdUsdM: 7830,
-  ytdX: 10645,
-  ytdM: 2815,
-  agoX: 1494,
-  agoM: 517,
-  agoSaldo: 977,
-  ytdShareComercial: 43, // 7830 / ~18249 ICA total ene–ago
+  ttmUsdM: 11900,
+  ttmAsOf: 'Sep 26',
+  ytdUsdM: 9428,
+  ytdX: 12452,
+  ytdM: 3025,
+  agoX: 1781,
+  agoM: 181,
+  agoSaldo: 1600,
+  ytdShareComercial: 44, // 9428 / 21198 ICA total ene–sep
 };
 
 /** Producción: no hay serie diaria oficial en la API. Snapshot Secretaría de Energía. */
@@ -96,7 +98,7 @@ export const ENERGIA_ANUAL: { anio: string; x: number; m: number; saldo: number 
   { anio: '2023', x: 7911, m: 7924, saldo: -13 },
   { anio: '2024', x: 9717, m: 3987, saldo: 5730 },
   { anio: '2025', x: 11100, m: 3271, saldo: 7829 },
-  { anio: '2026', x: 10645, m: 2815, saldo: 7830 }
+  { anio: '2026', x: 12452, m: 3025, saldo: 9428 }
 ];
 
 export const ENERGIA_MENSUAL: { iso: string; mes: string; x: number; m: number; saldo: number; ttm: number | null }[] = [
@@ -371,5 +373,6 @@ export const ENERGIA_MENSUAL: { iso: string; mes: string; x: number; m: number; 
   { iso: '2026-05', mes: 'May 26', x: 1775, m: 297, saldo: 1478, ttm: 10146 },
   { iso: '2026-06', mes: 'Jun 26', x: 1433, m: 810, saldo: 623, ttm: 10048 },
   { iso: '2026-07', mes: 'Jul 26', x: 1506, m: 614, saldo: 892, ttm: 10841 },
-  { iso: '2026-08', mes: 'Ago 26', x: 1494, m: 517, saldo: 977, ttm: 11067 }
+  { iso: '2026-08', mes: 'Ago 26', x: 1494, m: 517, saldo: 977, ttm: 11067 },
+  { iso: '2026-09', mes: 'Sep 26', x: 1781, m: 181, saldo: 1600, ttm: 11900 }
 ];

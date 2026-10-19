@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   alternates: { canonical: 'https://macrolibre.com/externo' },
   title: 'Sector externo',
-  description: 'Intercambio comercial, reservas, tipo de cambio y una serie de riesgo país.',
+  description: 'Balanza comercial de septiembre 2026: superávit de USD 2.976 M (INDEC, 19/10); ene–sep +USD 21.198 M. Reservas, tipo de cambio y riesgo país.',
 };
 
 export default function ExternoPage() {
@@ -28,6 +28,9 @@ export default function ExternoPage() {
       />
       <div className="space-y-6">
         <div id="ica" className="scroll-mt-24">
+          <p className="mb-3 text-[13px] text-[var(--fg-1)]">
+            Balanza comercial de septiembre 2026: superávit de USD 2.976 M (INDEC, publicado el 19/10)
+          </p>
           <HideOnError><TradeChart /></HideOnError>
         </div>
         <div id="reservas" className="scroll-mt-24 grid grid-cols-1 lg:grid-cols-2 gap-6">

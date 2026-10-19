@@ -47,8 +47,8 @@ export default function EnergiaContent() {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <Kpi label="Saldo 12m" value={`+${k.ttmUsdM.toLocaleString('es-AR')}`} hint={`USD M · ${k.ttmAsOf}`} />
-        <Kpi label="Saldo ene–ago" value={`+${k.ytdUsdM.toLocaleString('es-AR')}`} hint={`X ${k.ytdX.toLocaleString('es-AR')} − M ${k.ytdM.toLocaleString('es-AR')}`} />
-        <Kpi label="CyE agosto" value={k.agoX.toLocaleString('es-AR')} hint={`X USD M · M ${k.agoM} · saldo +${k.agoSaldo}`} />
+        <Kpi label="Saldo ene–sep" value={`+${k.ytdUsdM.toLocaleString('es-AR')}`} hint={`X ${k.ytdX.toLocaleString('es-AR')} − M ${k.ytdM.toLocaleString('es-AR')}`} />
+        <Kpi label="CyE septiembre" value={k.agoX.toLocaleString('es-AR')} hint={`X USD M · M ${k.agoM} · saldo +${k.agoSaldo}`} />
         <Kpi label="Petróleo" value={`${PETROLEO_SNAP.kbd}`} hint={`${PETROLEO_SNAP.kbd} kb/d · ${PETROLEO_SNAP.asOf} · +${PETROLEO_SNAP.yoy}% i.a.`} />
       </div>
 
@@ -56,9 +56,9 @@ export default function EnergiaContent() {
         <h2 className="text-[15px] font-semibold text-[var(--fg-0)] mb-2">De déficit energético a superávit récord</h2>
         <p className="mb-2">
           El saldo 12 meses de combustibles y energía cruzó a rojo en 2011, tocó piso cerca de USD −7.400 M en 2014
-          y volvió a verde de forma sostenida desde 2024. En ago-26 el acumulado 12 meses es
+          y volvió a verde de forma sostenida desde 2024. En sep-26 el acumulado 12 meses es
           {' '}<span className="font-mono text-[var(--up)]">+USD {k.ttmUsdM.toLocaleString('es-AR')} M</span>.
-          Ene–ago 2026 ya suma +USD {k.ytdUsdM.toLocaleString('es-AR')} M — del orden del {k.ytdShareComercial}% del superávit comercial total del ICA.
+          Ene–sep 2026 ya suma +USD {k.ytdUsdM.toLocaleString('es-AR')} M — del orden del {k.ytdShareComercial}% del superávit comercial total del ICA.
         </p>
         <p className="text-[12px] text-[var(--fg-3)]">
           No es una serie diaria de Vaca Muerta. Es el rubro CyE del ICA menos combustibles y lubricantes.
@@ -89,7 +89,7 @@ export default function EnergiaContent() {
           <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#74ACDF' }} />X 12m</span>
           <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#EC4899' }} />M 12m</span>
           <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#D4A843' }} />Saldo (X−M)</span>
-          <span className="ml-auto">Ago-26 saldo <span className="text-ar-green font-semibold">+USD {k.ttmUsdM.toLocaleString('es-AR')} M</span></span>
+          <span className="ml-auto">Sep-26 saldo <span className="text-ar-green font-semibold">+USD {k.ttmUsdM.toLocaleString('es-AR')} M</span></span>
         </div>
       </SectorChartCard>
       <button
@@ -99,7 +99,7 @@ export default function EnergiaContent() {
       >
         CSV ↓ X / M / saldo 12m
       </button>
-      <SeriesAsOf label="ICA CyE" asOf="2026-08" note="Jul = datos.gob.ar · Ago = ICA 18/09" />
+      <SeriesAsOf label="ICA CyE" asOf="2026-09" note="Jul = datos.gob.ar · Ago = ICA 18/09 · Sep = ICA 19/10" />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <SectorChartCard
@@ -123,7 +123,7 @@ export default function EnergiaContent() {
 
         <SectorChartCard
           title="Saldo anual"
-          subtitle="Suma calendario. 2026 = ene–ago (incompleto)."
+          subtitle="Suma calendario. 2026 = ene–sep (incompleto)."
           fuente={ENERGIA_FUENTE}
           filePrefix="macrolibre-energia"
         >

@@ -228,7 +228,7 @@ export const taxData = [
 ];
 
 // Balanza Comercial (USD millones)
-// Actualizado al 20-may-2026 · Fuente: INDEC — Intercambio Comercial Argentino
+// Actualizado al 19-oct-2026 (ICA sep-26) · Fuente: INDEC — Intercambio Comercial Argentino
 export const tradeData = [
   { month: 'Ene 25', exports: 5915, imports: 5753, balance: 162 },
   { month: 'Feb 25', exports: 6140, imports: 5864, balance: 275 },
@@ -242,14 +242,15 @@ export const tradeData = [
   { month: 'Oct 25', exports: 7963, imports: 7150, balance: 813 },
   { month: 'Nov 25', exports: 8133, imports: 5598, balance: 2535 },
   { month: 'Dic 25', exports: 7482, imports: 5556, balance: 1927 },
-  { month: 'Ene 26', exports: 7057, imports: 5070, balance: 1987 },
-  { month: 'Feb 26', exports: 5962, imports: 5174, balance: 788 },
-  { month: 'Mar 26', exports: 8645, imports: 6122, balance: 2523 },
-  { month: 'Abr 26', exports: 8914, imports: 6203, balance: 2711 },
+  { month: 'Ene 26', exports: 7245, imports: 5057, balance: 2189 }, // revisado ICA 19/10/2026
+  { month: 'Feb 26', exports: 5963, imports: 5167, balance: 797 }, // revisado ICA 19/10/2026
+  { month: 'Mar 26', exports: 8697, imports: 6116, balance: 2581 }, // revisado ICA 19/10/2026
+  { month: 'Abr 26', exports: 8916, imports: 6203, balance: 2713 }, // revisado ICA 19/10/2026
   { month: 'May 26', exports: 9578, imports: 6128, balance: 3450 }, // récord mensual · ICA revisado ago-26
   { month: 'Jun 26', exports: 9112, imports: 6877, balance: 2235 },
-  { month: 'Jul 26', exports: 8854, imports: 6739, balance: 2115 },
-  { month: 'Ago 26', exports: 8883, imports: 6696, balance: 2187 }, // INDEC ICA 18/09/2026 · acum. ene–ago USD 18.249 M
+  { month: 'Jul 26', exports: 8854, imports: 6756, balance: 2098 }, // revisado ICA 19/10/2026
+  { month: 'Ago 26', exports: 8866, imports: 6707, balance: 2159 }, // revisado ICA 19/10/2026 (antes 8883/6696/2187)
+  { month: 'Sep 26', exports: 10036, imports: 7060, balance: 2976 }, // INDEC ICA 19/10/2026 · acum. ene–sep X 77.267 · M 56.069 · saldo 21.198
 ];
 
 // Reservas Internacionales BCRA (USD millones) - Actualizado 17/10/2026 (dato al 14/10/2026)
