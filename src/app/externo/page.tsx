@@ -13,13 +13,16 @@ import {
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://macrolibre.com/externo' },
-  title: 'Sector externo',
+  title: { absolute: 'Balanza comercial Argentina septiembre 2026: superávit de USD 2.976 M | MacroLibre' },
   description: 'Balanza comercial de septiembre 2026: superávit de USD 2.976 M (INDEC, 19/10); ene–sep +USD 21.198 M. Reservas, tipo de cambio y riesgo país.',
 };
 
 export default function ExternoPage() {
   return (
     <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+      <h1 className="mb-6 font-display text-[26px] sm:text-[30px] leading-tight text-[var(--fg-0)]">
+        Balanza comercial Argentina septiembre 2026 (INDEC)
+      </h1>
       <SectionHeader
         id="externo"
         title="Sector externo"
@@ -30,6 +33,9 @@ export default function ExternoPage() {
         <div id="ica" className="scroll-mt-24">
           <p className="mb-3 text-[13px] text-[var(--fg-1)]">
             Balanza comercial de septiembre 2026: superávit de USD 2.976 M (INDEC, publicado el 19/10)
+          </p>
+          <p className="-mt-2 mb-3 text-[12px] text-[var(--fg-2)]">
+            Exportaciones USD 10.036 M (+23,5% i.a.), importaciones USD 7.060 M (−1,8% i.a.), intercambio USD 17.095 M (+11,6% i.a.). (INDEC 19/10)
           </p>
           <HideOnError><TradeChart /></HideOnError>
         </div>
