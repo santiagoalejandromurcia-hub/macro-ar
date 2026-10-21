@@ -49,7 +49,7 @@ MacroLibre expone endpoints REST públicos para que herramientas, IAs y desarrol
 - `GET https://macrolibre.com/api/riesgo-pais` — Índice EMBIGD para Argentina.
 - `GET https://macrolibre.com/api/reservas` — Reservas internacionales BCRA.
 - `GET https://macrolibre.com/api/inflacion` — IPC mensual e interanual.
-- `GET https://macrolibre.com/api/emae` — Estimador Mensual de Actividad Económica.
+- `GET https://macrolibre.com/api/emae` — Estimador Mensual de Actividad Económica. Último dato: agosto 2026, −1,7% interanual, +0,1% mensual desestacionalizado, acumulado ene–ago +1,2% (INDEC, publicado el 21/10/2026). Página: https://macrolibre.com/actividad#emae
 - `GET https://macrolibre.com/api/ipim` — Inflación mayorista.
 
 ## Datasets descargables

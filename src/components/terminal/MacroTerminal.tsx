@@ -189,8 +189,8 @@ function buildRows(
     {
       id: 'emae',
       label: 'EMAE',
-      value: live?.emae?.value ?? '-1.4%',
-      deltaMes: live?.emae?.changeLabel ?? '▼ −2,9% s.e. Jul-26',
+      value: live?.emae?.value ?? '-1.7%',
+      deltaMes: live?.emae?.changeLabel ?? '▲ +0,1% s.e. Ago-26',
       sign: live?.emae ? ((live.emae.change ?? 0) >= 0 ? 'pos' : 'neg') : 'neg',
       fuente: live?.emae ? 'INDEC · live' : 'INDEC',
       tabs: ['TODOS', 'ACTIVIDAD'],
