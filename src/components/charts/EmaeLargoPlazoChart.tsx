@@ -20,7 +20,7 @@ import { useIndicatorData } from '@/hooks/useIndicatorData';
 /**
  * Actividad Económica EMAE — Largo plazo, serie desestacionalizada.
  * Hitos: Nov-17 J×C ~152 · COVID ~137 · Jun-22 pico azul ~152 ·
- * Dic-23 punto partida Milei · Jul-26 desest. 149,6 (INDEC · −1,4% i.a. · −2,9% s.e.).
+ * Dic-23 punto partida Milei · Ago-26 desest. 149,9 (INDEC · −1,7% i.a. · +0,1% s.e.).
  * Fuente: Econométrica en base a INDEC.
  */
 export default function EmaeLargoPlazoChart() {
@@ -33,7 +33,7 @@ export default function EmaeLargoPlazoChart() {
   return (
     <ChartCard
       title="Actividad Económica EMAE"
-      subtitle={isLive ? `Serie desestacionalizada · Actualizado ${updatedAt} · INDEC` : 'Desest. · Jul-26 149,6 · −1,4% i.a. · −2,9% s.e. · INDEC 24/09/2026'}
+      subtitle={isLive ? `Serie desestacionalizada · Actualizado ${updatedAt} · INDEC` : 'Desest. · Ago-26 149,9 · −1,7% i.a. · +0,1% s.e. · INDEC 21/10/2026'}
       isLive={isLive}
       csvData={csvData}
       csvFileName="emae-largo-plazo"
@@ -71,7 +71,7 @@ export default function EmaeLargoPlazoChart() {
           <ReferenceDot x="Jun 22" y={152} r={5} fill="#74ACDF" stroke="#fff" strokeWidth={2} label={{ value: 'Pico azul', position: 'top', fill: t.textSecondary, fontSize: 9 }} />
           <ReferenceDot x="Dic 23" y={143.6} r={5} fill="#A78BFA" stroke="#fff" strokeWidth={2} />
           <ReferenceDot x="Mar 26" y={156.7} r={4} fill="#A78BFA" stroke="#fff" strokeWidth={1.5} />
-          <ReferenceDot x="Jul 26" y={149.6} r={6} fill="#EF4444" stroke="#fff" strokeWidth={2} label={{ value: 'Jul-26', position: 'top', fill: '#EF4444', fontSize: 10, fontWeight: 600 }} />
+          <ReferenceDot x="Ago 26" y={149.9} r={6} fill="#EF4444" stroke="#fff" strokeWidth={2} label={{ value: 'Ago-26', position: 'top', fill: '#EF4444', fontSize: 10, fontWeight: 600 }} />
         </ComposedChart>
       </ResponsiveContainer>
 
@@ -79,7 +79,7 @@ export default function EmaeLargoPlazoChart() {
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#D4A843' }} />J×C (Nov-17 ~152)</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#74ACDF' }} />Fernández (Jun-22 pico ~152)</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#A78BFA' }} />Milei (Dic-23 ~143)</span>
-        <span className="ml-auto text-theme-primary font-semibold">Jul-26: <span className="text-ar-red">−1,4% i.a.</span> · −2,9% s.e. · desest. 149,6</span>
+        <span className="ml-auto text-theme-primary font-semibold">Ago-26: <span className="text-ar-red">−1,7% i.a.</span> · +0,1% s.e. · desest. 149,9</span>
       </div>
     </ChartCard>
   );

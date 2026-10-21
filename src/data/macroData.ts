@@ -26,12 +26,12 @@ export const kpiCards: KPICard[] = [
   {
     id: 'emae',
     title: 'EMAE',
-    value: '-1.4%',
-    change: -2.9,
-    changeLabel: 'var. i.a. (Jul 26) · −2,9% s.e. · tend-ciclo +0,2%',
+    value: '-1.7%',
+    change: 0.1,
+    changeLabel: 'var. i.a. (Ago 26) · +0,1% s.e. · tend-ciclo 0,0% · acum. ene–ago +1,2%',
     unit: 'Índice 2004=100',
     icon: '📊',
-    updatedAt: 'Jul 26',
+    updatedAt: 'Ago 26',
     source: 'INDEC',
   },
   {
@@ -91,33 +91,33 @@ export const kpiCards: KPICard[] = [
 // EMAE — Estimador Mensual de Actividad Económica
 export const emaeData = [
 
-  { date: 'Ene 23', value: 143.0, trend: 149.3 },
-  { date: 'Mar 23', value: 155.1, trend: 148.6 },
-  { date: 'May 23', value: 153.8, trend: 148.0 },
-  { date: 'Jul 23', value: 150.2, trend: 147.2 },
-  { date: 'Sep 23', value: 148.4, trend: 146.2 },
+  { date: 'Ene 23', value: 143.0, trend: 149.4 },
+  { date: 'Mar 23', value: 155.1, trend: 148.8 },
+  { date: 'May 23', value: 153.8, trend: 148.1 },
+  { date: 'Jul 23', value: 150.2, trend: 147.3 },
+  { date: 'Sep 23', value: 148.4, trend: 146.3 },
   { date: 'Nov 23', value: 146.4, trend: 145.2 },
-  { date: 'Ene 24', value: 137.5, trend: 144.3 },
-  { date: 'Mar 24', value: 142.6, trend: 144.0 },
+  { date: 'Ene 24', value: 137.4, trend: 144.3 },
+  { date: 'Mar 24', value: 142.4, trend: 144.0 },
   { date: 'May 24', value: 156.8, trend: 144.5 },
-  { date: 'Jul 24', value: 149.7, trend: 145.7 },
-  { date: 'Sep 24', value: 144.8, trend: 147.4 },
-  { date: 'Nov 24', value: 148.1, trend: 149.0 },
-  { date: 'Ene 25', value: 146.3, trend: 150.4 },
-  { date: 'Mar 25', value: 150.4, trend: 151.2 },
-  { date: 'May 25', value: 164.9, trend: 151.7 },
-  { date: 'Jul 25', value: 153.9, trend: 152.0 },
-  { date: 'Sep 25', value: 151.8, trend: 152.4 },
-  { date: 'Nov 25', value: 147.7, trend: 153.2 },
-  { date: 'Dic 25', value: 153.5, trend: 153.7 },
-  { date: 'Ene 26', value: 149.5, trend: 153.9 }, // orig 149,5 · tend-ciclo 153,9 · +2,0% i.a. · 0,0% s.e. · INDEC 24/09/2026 (rev.)
-  { date: 'Feb 26', value: 139.3, trend: 154.2 }, // orig 139,3 · tend-ciclo 154,2 · −1,5% i.a. · −2,2% s.e.
-  { date: 'Mar 26', value: 160.2, trend: 154.5 }, // orig 160,2 · tend-ciclo 154,5 · +6,4% i.a. · +2,7% s.e.
-  { date: 'Abr 26', value: 162.3, trend: 154.8 }, // orig 162,3 · tend-ciclo 154,8 · +2,1% i.a. · −1,4% s.e. · tend-ciclo +0,2%
-  { date: 'May 26', value: 166.3, trend: 155.1 }, // orig 166,3 · tend-ciclo 155,1 · +0,7% i.a. · −0,6% s.e.
-  { date: 'Jun 26', value: 161.7, trend: 155.5 }, // orig 161,7 (revisado; antes 161,0) · +3,1% i.a. · +0,3% s.e. · tend-ciclo +0,2%
-  { date: 'Jul 26', value: 151.6, trend: 155.8 }, // orig 151,6 · desest. 149,6 · −1,4% i.a. · −2,9% s.e. · tend-ciclo +0,2% · INDEC 24/09/2026
-    // Agosto 2026: calendario INDEC 21/10/2026 — no publicado
+  { date: 'Jul 24', value: 149.7, trend: 145.8 },
+  { date: 'Sep 24', value: 144.8, trend: 147.5 },
+  { date: 'Nov 24', value: 148.2, trend: 149.2 },
+  { date: 'Ene 25', value: 146.5, trend: 150.7 },
+  { date: 'Mar 25', value: 150.6, trend: 151.6 },
+  { date: 'May 25', value: 165.1, trend: 152.2 },
+  { date: 'Jul 25', value: 153.8, trend: 152.6 },
+  { date: 'Sep 25', value: 151.7, trend: 153.0 },
+  { date: 'Nov 25', value: 148.0, trend: 153.5 },
+  { date: 'Dic 25', value: 153.9, trend: 153.7 },
+  { date: 'Ene 26', value: 149.4, trend: 153.9 }, // orig 149,4 · desest. 155,8 · tend-ciclo 153,9 · +2,0% i.a. · −0,1% s.e. · tend-ciclo +0,1% · INDEC 21/10/2026 (rev.)
+  { date: 'Feb 26', value: 139.3, trend: 154.0 }, // orig 139,3 · desest. 152,7 · tend-ciclo 154,0 · −1,5% i.a. · −2,0% s.e. · tend-ciclo +0,1% · INDEC 21/10/2026 (rev.)
+  { date: 'Mar 26', value: 160.3, trend: 154.1 }, // orig 160,3 · desest. 156,8 · tend-ciclo 154,1 · +6,5% i.a. · +2,7% s.e. · tend-ciclo +0,1% · INDEC 21/10/2026 (rev.)
+  { date: 'Abr 26', value: 162.4, trend: 154.2 }, // orig 162,4 · desest. 154,7 · tend-ciclo 154,2 · +2,2% i.a. · −1,4% s.e. · tend-ciclo 0,0% · INDEC 21/10/2026 (rev.)
+  { date: 'May 26', value: 166.3, trend: 154.3 }, // orig 166,3 · desest. 153,7 · tend-ciclo 154,3 · +0,7% i.a. · −0,6% s.e. · tend-ciclo 0,0% · INDEC 21/10/2026 (rev.)
+  { date: 'Jun 26', value: 161.7, trend: 154.3 }, // orig 161,7 · desest. 154,1 · tend-ciclo 154,3 · +3,1% i.a. · +0,3% s.e. · tend-ciclo 0,0% · INDEC 21/10/2026 (rev.)
+  { date: 'Jul 26', value: 151.5, trend: 154.3 }, // orig 151,5 · desest. 149,8 · tend-ciclo 154,3 · −1,5% i.a. · −2,8% s.e. · tend-ciclo 0,0% · INDEC 21/10/2026 (rev.)
+  { date: 'Ago 26', value: 147.8, trend: 154.3 }, // orig 147,8 · desest. 149,9 · tend-ciclo 154,3 · −1,7% i.a. · +0,1% s.e. · tend-ciclo 0,0% · acum. ene–ago +1,2% · INDEC 21/10/2026
 ];
 
 // PBI Trimestral (variación interanual % YoY)
@@ -753,11 +753,12 @@ export const emaeLargoPlazoData: Array<{
   { date: 'Dic 24',  value: 148.0, etapa: 'lla' },
   { date: 'Jun 25',  value: 152.0, etapa: 'lla' },
   { date: 'Dic 25',  value: 155.5, etapa: 'lla' },
-  { date: 'Mar 26',  value: 156.7, etapa: 'lla' },   // desest. 156,7 · +6,4% i.a. · +2,7% s.e. (INDEC 24/09/2026, rev.)
-  { date: 'Abr 26',  value: 154.6, etapa: 'lla' },   // desest. 154,6 · −1,4% s.e. · +2,1% i.a.
-  { date: 'May 26',  value: 153.7, etapa: 'lla' },   // desest. 153,7 · −0,6% s.e. · +0,7% i.a.
-  { date: 'Jun 26',  value: 154.1, etapa: 'lla' },   // desest. 154,1 · +0,3% s.e. · +3,1% i.a. (revisado)
-  { date: 'Jul 26',  value: 149.6, etapa: 'lla' },   // desest. 149,6 · −2,9% s.e. · −1,4% i.a. (INDEC 24/09/2026)
+  { date: 'Mar 26',  value: 156.8, etapa: 'lla' },   // desest. 156,8 · +2,7% s.e. · +6,5% i.a. (INDEC 21/10/2026)
+  { date: 'Abr 26',  value: 154.7, etapa: 'lla' },   // desest. 154,7 · −1,4% s.e. · +2,2% i.a. (INDEC 21/10/2026)
+  { date: 'May 26',  value: 153.7, etapa: 'lla' },   // desest. 153,7 · −0,6% s.e. · +0,7% i.a. (INDEC 21/10/2026)
+  { date: 'Jun 26',  value: 154.1, etapa: 'lla' },   // desest. 154,1 · +0,3% s.e. · +3,1% i.a. (INDEC 21/10/2026)
+  { date: 'Jul 26',  value: 149.8, etapa: 'lla' },   // desest. 149,8 · −2,8% s.e. · −1,5% i.a. (INDEC 21/10/2026, rev.)
+  { date: 'Ago 26',  value: 149.9, etapa: 'lla' },   // desest. 149,9 · +0,1% s.e. · −1,7% i.a. (INDEC 21/10/2026)
 ];
 
 // ============================================================

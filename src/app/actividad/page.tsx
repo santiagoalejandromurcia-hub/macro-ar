@@ -13,13 +13,20 @@ import {
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://macrolibre.com/actividad' },
-  title: 'Actividad',
-  description: 'EMAE, PBI y salarios. Series de INDEC que ya están en el sitio.',
+  title: { absolute: 'EMAE agosto 2026: −1,7% interanual | MacroLibre' },
+  description:
+    'EMAE agosto 2026 (INDEC, 21/10): actividad económica −1,7% interanual, +0,1% mensual desestacionalizado, tendencia-ciclo 0,0% y acumulado enero–agosto +1,2%. Julio revisado a −1,5% i.a.',
 };
 
 export default function ActividadPage() {
   return (
     <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+      <h1 className="font-display text-[26px] sm:text-[30px] leading-tight tracking-tight text-[var(--fg-0)] mb-2">
+        EMAE agosto 2026: actividad económica Argentina (INDEC)
+      </h1>
+      <p className="text-[14px] text-[var(--fg-1)] mb-8">
+        Actividad económica (EMAE) de agosto 2026: −1,7% interanual y +0,1% mensual desestacionalizado (INDEC, publicado el 21/10)
+      </p>
       <SectionHeader
         id="actividad"
         title="Actividad"
