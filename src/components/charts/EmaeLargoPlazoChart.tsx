@@ -15,13 +15,14 @@ import {
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { emaeLargoPlazoData } from '@/data/macroData';
+import { indec, emaeUltimo, fuenteIndec, num } from '@/data/indec';
 import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 /**
  * Actividad Económica EMAE — Largo plazo, serie desestacionalizada.
  * Hitos: Nov-17 J×C ~152 · COVID ~137 · Jun-22 pico azul ~152 ·
  * Dic-23 punto partida Milei · Ago-26 desest. 149,9 (INDEC · −1,7% i.a. · +0,1% s.e.).
- * Fuente: Econométrica en base a INDEC.
+ * Fuente: API del INDEC (serie desestacionalizada), snapshot en data/indec/.
  */
 export default function EmaeLargoPlazoChart() {
   const t = useChartTheme();
@@ -33,7 +34,12 @@ export default function EmaeLargoPlazoChart() {
   return (
     <ChartCard
       title="Actividad Económica EMAE"
-      subtitle={isLive ? `Serie desestacionalizada · Actualizado ${updatedAt} · INDEC` : 'Desest. · Ago-26 149,9 · −1,7% i.a. · +0,1% s.e. · INDEC 21/10/2026'}
+      subtitle={isLive ? `Serie desestacionalizada · Actualizado ${updatedAt} · INDEC` : `Desest. · ${[
+        emaeUltimo.date,
+        num(emaeUltimo.desest),
+        num(emaeUltimo.ia, 1, true) && `${num(emaeUltimo.ia, 1, true)}% i.a.`,
+        num(emaeUltimo.mmDesest, 1, true) && `${num(emaeUltimo.mmDesest, 1, true)}% s.e.`,
+      ].filter(Boolean).join(' · ')} · ${fuenteIndec(indec.emae)}`}
       isLive={isLive}
       csvData={csvData}
       csvFileName="emae-largo-plazo"

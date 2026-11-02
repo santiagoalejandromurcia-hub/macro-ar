@@ -1,3 +1,4 @@
+import { indec, emaeUltimo, ipcUltimo, num } from './indec';
 // ============================================================
 // MacroLibre — Datos Macroeconómicos de Argentina
 // ============================================================
@@ -24,14 +25,19 @@ export interface KPICard {
 
 export const kpiCards: KPICard[] = [
   {
+    // API del INDEC (EMAE). Sin dato → se arma la etiqueta solo con lo que hay.
     id: 'emae',
     title: 'EMAE',
-    value: '-1.7%',
-    change: 0.1,
-    changeLabel: 'var. i.a. (Ago 26) · +0,1% s.e. · tend-ciclo 0,0% · acum. ene–ago +1,2%',
+    value: emaeUltimo.ia != null ? `${emaeUltimo.ia > 0 ? '+' : ''}${emaeUltimo.ia.toFixed(1)}%` : '',
+    change: emaeUltimo.mmDesest != null ? Math.round(emaeUltimo.mmDesest * 10) / 10 : 0,
+    changeLabel: [
+      `var. i.a. (${emaeUltimo.date})`,
+      num(emaeUltimo.mmDesest, 1, true) && `${num(emaeUltimo.mmDesest, 1, true)}% s.e.`,
+      num(emaeUltimo.mmTendencia, 1, true) && `tend-ciclo ${num(emaeUltimo.mmTendencia, 1, true)}%`,
+    ].filter(Boolean).join(' · '),
     unit: 'Índice 2004=100',
     icon: '📊',
-    updatedAt: 'Ago 26',
+    updatedAt: emaeUltimo.date,
     source: 'INDEC',
   },
   {
@@ -45,13 +51,23 @@ export const kpiCards: KPICard[] = [
     source: 'INDEC',
   },
   {
+    // API del INDEC (IPC nacional)
     id: 'inflacion',
     title: 'Inflación Mensual',
-    value: '1.9%',
-    change: 0.2,
-    changeLabel: 'Sep 26 (vs Ago 1.7%) · núcleo 1,7%',
+    value: `${ipcUltimo.mensual?.toFixed(1) ?? ''}%`,
+    change: (() => {
+      const prev = indec.ipc.serie[indec.ipc.serie.length - 2];
+      return ipcUltimo.mensual != null && prev?.mensual != null ? Math.round((ipcUltimo.mensual - prev.mensual) * 10) / 10 : 0;
+    })(),
+    changeLabel: (() => {
+      const prev = indec.ipc.serie[indec.ipc.serie.length - 2];
+      return [
+        prev?.mensual != null ? `${ipcUltimo.date} (vs ${prev.date.split(' ')[0]} ${prev.mensual.toFixed(1)}%)` : ipcUltimo.date,
+        num(ipcUltimo.nucleo) && `núcleo ${num(ipcUltimo.nucleo)}%`,
+      ].filter(Boolean).join(' · ');
+    })(),
     icon: '🏷️',
-    updatedAt: 'Sep 26',
+    updatedAt: ipcUltimo.date,
     source: 'INDEC',
   },
   {
@@ -89,36 +105,16 @@ export const kpiCards: KPICard[] = [
 ];
 
 // EMAE — Estimador Mensual de Actividad Económica
-export const emaeData = [
-
-  { date: 'Ene 23', value: 143.0, trend: 149.4 },
-  { date: 'Mar 23', value: 155.1, trend: 148.8 },
-  { date: 'May 23', value: 153.8, trend: 148.1 },
-  { date: 'Jul 23', value: 150.2, trend: 147.3 },
-  { date: 'Sep 23', value: 148.4, trend: 146.3 },
-  { date: 'Nov 23', value: 146.4, trend: 145.2 },
-  { date: 'Ene 24', value: 137.4, trend: 144.3 },
-  { date: 'Mar 24', value: 142.4, trend: 144.0 },
-  { date: 'May 24', value: 156.8, trend: 144.5 },
-  { date: 'Jul 24', value: 149.7, trend: 145.8 },
-  { date: 'Sep 24', value: 144.8, trend: 147.5 },
-  { date: 'Nov 24', value: 148.2, trend: 149.2 },
-  { date: 'Ene 25', value: 146.5, trend: 150.7 },
-  { date: 'Mar 25', value: 150.6, trend: 151.6 },
-  { date: 'May 25', value: 165.1, trend: 152.2 },
-  { date: 'Jul 25', value: 153.8, trend: 152.6 },
-  { date: 'Sep 25', value: 151.7, trend: 153.0 },
-  { date: 'Nov 25', value: 148.0, trend: 153.5 },
-  { date: 'Dic 25', value: 153.9, trend: 153.7 },
-  { date: 'Ene 26', value: 149.4, trend: 153.9 }, // orig 149,4 · desest. 155,8 · tend-ciclo 153,9 · +2,0% i.a. · −0,1% s.e. · tend-ciclo +0,1% · INDEC 21/10/2026 (rev.)
-  { date: 'Feb 26', value: 139.3, trend: 154.0 }, // orig 139,3 · desest. 152,7 · tend-ciclo 154,0 · −1,5% i.a. · −2,0% s.e. · tend-ciclo +0,1% · INDEC 21/10/2026 (rev.)
-  { date: 'Mar 26', value: 160.3, trend: 154.1 }, // orig 160,3 · desest. 156,8 · tend-ciclo 154,1 · +6,5% i.a. · +2,7% s.e. · tend-ciclo +0,1% · INDEC 21/10/2026 (rev.)
-  { date: 'Abr 26', value: 162.4, trend: 154.2 }, // orig 162,4 · desest. 154,7 · tend-ciclo 154,2 · +2,2% i.a. · −1,4% s.e. · tend-ciclo 0,0% · INDEC 21/10/2026 (rev.)
-  { date: 'May 26', value: 166.3, trend: 154.3 }, // orig 166,3 · desest. 153,7 · tend-ciclo 154,3 · +0,7% i.a. · −0,6% s.e. · tend-ciclo 0,0% · INDEC 21/10/2026 (rev.)
-  { date: 'Jun 26', value: 161.7, trend: 154.3 }, // orig 161,7 · desest. 154,1 · tend-ciclo 154,3 · +3,1% i.a. · +0,3% s.e. · tend-ciclo 0,0% · INDEC 21/10/2026 (rev.)
-  { date: 'Jul 26', value: 151.5, trend: 154.3 }, // orig 151,5 · desest. 149,8 · tend-ciclo 154,3 · −1,5% i.a. · −2,8% s.e. · tend-ciclo 0,0% · INDEC 21/10/2026 (rev.)
-  { date: 'Ago 26', value: 147.8, trend: 154.3 }, // orig 147,8 · desest. 149,9 · tend-ciclo 154,3 · −1,7% i.a. · +0,1% s.e. · tend-ciclo 0,0% · acum. ene–ago +1,2% · INDEC 21/10/2026
-];
+// Fuente: API del INDEC (estimador-mensual-de-actividad-economica-nivel-general), snapshot en data/indec/.
+// value = serie original · desest = desestacionalizada · trend = tendencia-ciclo (índice 2004=100).
+export const emaeData: Array<{ date: string; value: number; desest?: number; trend?: number }> = indec.emae.serie
+  .filter((r) => r.periodo >= '202301' && r.original != null)
+  .map((r) => ({
+    date: r.date,
+    value: r.original as number,
+    ...(r.desest != null ? { desest: r.desest } : {}),
+    ...(r.tendencia != null ? { trend: r.tendencia } : {}),
+  }));
 
 // PBI Trimestral (variación interanual % YoY)
 // Último: INDEC Informe de Avance 17/09/2026 · Q2-26 +2,0% i.a. · −0,6% s.e.
@@ -305,35 +301,21 @@ export const tcrData = [
 ];
 
 // Inflación IPC
-export const inflacionData = [
-  { date: 'Dic 23', mensual: 25.5, interanual: 211.4, nucleo: 28.3 },
-  { date: 'Feb 24', mensual: 13.2, interanual: 276.2, nucleo: 15.1 },
-  { date: 'Abr 24', mensual: 8.8, interanual: 289.4, nucleo: 9.4 },
-  { date: 'Jun 24', mensual: 4.6, interanual: 271.5, nucleo: 4.8 },
-  { date: 'Ago 24', mensual: 4.2, interanual: 236.7, nucleo: 4.3 },
-  { date: 'Oct 24', mensual: 2.7, interanual: 193.0, nucleo: 2.9 },
-  { date: 'Dic 24', mensual: 2.7, interanual: 117.8, nucleo: 2.8 },
-  { date: 'Feb 25', mensual: 2.4, interanual: 66.9, nucleo: 2.5 },
-  { date: 'Abr 25', mensual: 2.8, interanual: 47.3, nucleo: 2.6 },
-  { date: 'May 25', mensual: 2.2, interanual: 40.1, nucleo: 2.3 },
-  { date: 'Jun 25', mensual: 1.6, interanual: 39.4, nucleo: 2.0 },
-  { date: 'Jul 25', mensual: 1.9, interanual: 36.6, nucleo: 2.0 },
-  { date: 'Ago 25', mensual: 1.9, interanual: 33.6, nucleo: 2.0 },
-  { date: 'Sep 25', mensual: 2.1, interanual: 31.8, nucleo: 2.2 },
-  { date: 'Oct 25', mensual: 2.3, interanual: 31.3, nucleo: 2.6 },
-  { date: 'Nov 25', mensual: 2.5, interanual: 31.4, nucleo: 2.7 },
-  { date: 'Dic 25', mensual: 2.8, interanual: 31.5, nucleo: 3.0 },
-  { date: 'Ene 26', mensual: 2.9, interanual: 32.4, nucleo: 3.1 },
-  { date: 'Feb 26', mensual: 2.9, interanual: 33.1, nucleo: 3.2 },
-  { date: 'Mar 26', mensual: 3.4, interanual: 32.6, nucleo: 3.2 }, 
-  { date: 'Abr 26', mensual: 2.6, interanual: 32.4, nucleo: 2.3 },
-  { date: 'May 26', mensual: 2.1, interanual: 33.2, nucleo: 1.9 },
-  { date: 'Jun 26', mensual: 1.9, interanual: 33.5, nucleo: 1.6 },
-  { date: 'Jul 26', mensual: 2.1, interanual: 33.8, nucleo: 1.8 },
-  { date: 'Ago 26', mensual: 1.7, interanual: 33.5, nucleo: 1.8 },
-  { date: 'Sep 26', mensual: 1.9, interanual: 33.4, nucleo: 1.7 },
-    // ← ÚLTIMO INDEC (13/10/2026) · IPC 1,9% · núcleo 1,7% (31,6% i.a.) · i.a. 33,4% · acum. 23,6% · estac. 2,9% · regul. 2,3% · bienes 1,7% · servicios 2,4%
-];
+// Fuente: API del INDEC (ipc_nacional, región Nacional), snapshot en data/indec/.
+// Se omiten los meses sin dato completo (nunca se rellena).
+export const inflacionData: Array<{ date: string; mensual: number; interanual: number; nucleo: number; acumulada?: number; regulados?: number; estacional?: number; bienes?: number; servicios?: number }> = indec.ipc.serie
+  .filter((r) => r.mensual != null && r.interanual != null && r.nucleo != null)
+  .map((r) => ({
+    date: r.date,
+    mensual: r.mensual as number,
+    interanual: r.interanual as number,
+    nucleo: r.nucleo as number,
+    ...(r.acumulada != null ? { acumulada: r.acumulada } : {}),
+    ...(r.regulados != null ? { regulados: r.regulados } : {}),
+    ...(r.estacional != null ? { estacional: r.estacional } : {}),
+    ...(r.bienes != null ? { bienes: r.bienes } : {}),
+    ...(r.servicios != null ? { servicios: r.servicios } : {}),
+  }));
 
 // REM — IPC nivel general, var. % mensual
 // Fuente: BCRA REM agosto 2026 (publicado 04/09; encuesta 27–31/08) + INDEC.
@@ -498,32 +480,25 @@ export const pbiDesestacionalizadoData: Array<{
 // Hitos: 32,2% (II-16) · 25,7% (I-17, mín J×C) · 35,5% (II-19) ·
 //        ~41,7% (2021-2023) · 52,9% (II-24, pico) · 28,2% (II-25, mín 7 años)
 // ============================================================
+const etapaDe = (anio: number): EtapaPolitica => (anio <= 2019 ? 'jxc' : anio <= 2023 ? 'fdt' : 'lla');
+// Fuente: API del INDEC (pobreza_eph, 31 aglomerados urbanos), snapshot en data/indec/.
 export const pobrezaData: Array<{
   period: string;
   value: number;
   etapa: EtapaPolitica;
-}> = [
-  { period: 'I-16',  value: 30.3, etapa: 'jxc' },
-  { period: 'II-16', value: 32.2, etapa: 'jxc' },
-  { period: 'I-17',  value: 25.7, etapa: 'jxc' },   // Mínimo J×C
-  { period: 'II-17', value: 25.7, etapa: 'jxc' },
-  { period: 'I-18',  value: 27.3, etapa: 'jxc' },
-  { period: 'II-18', value: 32.0, etapa: 'jxc' },
-  { period: 'I-19',  value: 35.4, etapa: 'jxc' },
-  { period: 'II-19', value: 35.5, etapa: 'jxc' },
-  { period: 'I-20',  value: 40.9, etapa: 'fdt' },
-  { period: 'II-20', value: 42.0, etapa: 'fdt' },
-  { period: 'I-21',  value: 40.6, etapa: 'fdt' },
-  { period: 'II-21', value: 37.3, etapa: 'fdt' },
-  { period: 'I-22',  value: 36.5, etapa: 'fdt' },
-  { period: 'II-22', value: 39.2, etapa: 'fdt' },
-  { period: 'I-23',  value: 40.1, etapa: 'fdt' },
-  { period: 'II-23', value: 41.7, etapa: 'fdt' },
-  { period: 'I-24',  value: 52.9, etapa: 'lla' },   // Pico
-  { period: 'II-24', value: 38.1, etapa: 'lla' },
-  { period: 'I-25',  value: 31.6, etapa: 'lla' },
-  { period: 'II-25', value: 28.2, etapa: 'lla' },   // Menor registro en 7 años
-];
+  indigencia?: number;
+  hogares?: number;
+  observaciones?: string;
+}> = indec.pobreza.serie
+  .filter((r) => r.personas != null)
+  .map((r) => ({
+    period: r.period,
+    value: r.personas as number,
+    etapa: etapaDe(Number(r.periodo.slice(0, 4))),
+    ...(r.indigenciaPersonas != null ? { indigencia: r.indigenciaPersonas } : {}),
+    ...(r.hogares != null ? { hogares: r.hogares } : {}),
+    ...(r.observaciones ? { observaciones: r.observaciones } : {}),
+  }));
 
 // ============================================================
 // Exportaciones de Argentina — USD miles de millones (anual)
@@ -726,40 +701,46 @@ export const inflacionLargoPlazoData: Array<{
 // Hitos: nov-17 J×C ~152 · COVID 2020 ~137 · jun-22 pico azul ~152 ·
 //        dic-23 punto partida Milei · Jul-26 desest. 149,6 (INDEC)
 // ============================================================
+// Fuente: API del INDEC (EMAE serie desestacionalizada), mismos cortes que antes; se omite el corte sin dato.
+const emaeLargoPlazoCortes: Array<[string, EtapaPolitica]> = [
+  ['Ene 17', 'jxc'],
+  ['Jul 17', 'jxc'],
+  ['Nov 17', 'jxc'],
+  ['May 18', 'jxc'],
+  ['Nov 18', 'jxc'],
+  ['May 19', 'jxc'],
+  ['Nov 19', 'jxc'],
+  ['Mar 20', 'fdt'],
+  ['Jun 20', 'fdt'],
+  ['Sep 20', 'fdt'],
+  ['Dic 20', 'fdt'],
+  ['Jun 21', 'fdt'],
+  ['Dic 21', 'fdt'],
+  ['Jun 22', 'fdt'],
+  ['Dic 22', 'fdt'],
+  ['Jun 23', 'fdt'],
+  ['Dic 23', 'lla'],
+  ['Jun 24', 'lla'],
+  ['Dic 24', 'lla'],
+  ['Jun 25', 'lla'],
+  ['Dic 25', 'lla'],
+  ['Mar 26', 'lla'],
+  ['Abr 26', 'lla'],
+  ['May 26', 'lla'],
+  ['Jun 26', 'lla'],
+  ['Jul 26', 'lla'],
+  ['Ago 26', 'lla'],
+];
+const emaeDesestPorFecha = new Map(indec.emae.serie.map((r) => [r.date, r.desest]));
 export const emaeLargoPlazoData: Array<{
   date: string;
   value: number;
   etapa: EtapaPolitica;
   isEstimate?: boolean;
-}> = [
-  { date: 'Ene 17',  value: 145.0, etapa: 'jxc' },
-  { date: 'Jul 17',  value: 148.5, etapa: 'jxc' },
-  { date: 'Nov 17',  value: 152.0, etapa: 'jxc' },   // Pico J×C
-  { date: 'May 18',  value: 150.0, etapa: 'jxc' },
-  { date: 'Nov 18',  value: 145.5, etapa: 'jxc' },
-  { date: 'May 19',  value: 144.0, etapa: 'jxc' },
-  { date: 'Nov 19',  value: 142.6, etapa: 'jxc' },
-  { date: 'Mar 20',  value: 138.0, etapa: 'fdt' },
-  { date: 'Jun 20',  value: 119.5, etapa: 'fdt' },   // Mínimo COVID
-  { date: 'Sep 20',  value: 130.0, etapa: 'fdt' },
-  { date: 'Dic 20',  value: 137.0, etapa: 'fdt' },   // Recuperación post-covid
-  { date: 'Jun 21',  value: 142.0, etapa: 'fdt' },
-  { date: 'Dic 21',  value: 147.5, etapa: 'fdt' },
-  { date: 'Jun 22',  value: 152.0, etapa: 'fdt' },   // Pico azul
-  { date: 'Dic 22',  value: 151.0, etapa: 'fdt' },
-  { date: 'Jun 23',  value: 149.0, etapa: 'fdt' },
-  { date: 'Dic 23',  value: 143.6, etapa: 'lla' },   // Punto partida Milei
-  { date: 'Jun 24',  value: 138.8, etapa: 'lla' },
-  { date: 'Dic 24',  value: 148.0, etapa: 'lla' },
-  { date: 'Jun 25',  value: 152.0, etapa: 'lla' },
-  { date: 'Dic 25',  value: 155.5, etapa: 'lla' },
-  { date: 'Mar 26',  value: 156.8, etapa: 'lla' },   // desest. 156,8 · +2,7% s.e. · +6,5% i.a. (INDEC 21/10/2026)
-  { date: 'Abr 26',  value: 154.7, etapa: 'lla' },   // desest. 154,7 · −1,4% s.e. · +2,2% i.a. (INDEC 21/10/2026)
-  { date: 'May 26',  value: 153.7, etapa: 'lla' },   // desest. 153,7 · −0,6% s.e. · +0,7% i.a. (INDEC 21/10/2026)
-  { date: 'Jun 26',  value: 154.1, etapa: 'lla' },   // desest. 154,1 · +0,3% s.e. · +3,1% i.a. (INDEC 21/10/2026)
-  { date: 'Jul 26',  value: 149.8, etapa: 'lla' },   // desest. 149,8 · −2,8% s.e. · −1,5% i.a. (INDEC 21/10/2026, rev.)
-  { date: 'Ago 26',  value: 149.9, etapa: 'lla' },   // desest. 149,9 · +0,1% s.e. · −1,7% i.a. (INDEC 21/10/2026)
-];
+}> = emaeLargoPlazoCortes.flatMap(([date, etapa]) => {
+  const v = emaeDesestPorFecha.get(date);
+  return v == null ? [] : [{ date, value: v, etapa }];
+});
 
 // ============================================================
 // Riesgo País — EMBI+ Argentina (puntos básicos, mensual)

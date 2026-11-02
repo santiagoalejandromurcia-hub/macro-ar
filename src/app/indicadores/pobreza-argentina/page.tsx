@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PobrezaChart, SalarioRealChart } from '@/components/Charts';
 import { pobrezaData } from '@/data/macroData';
+import { indec, pobrezaUltimo, fuenteIndec, num, periodoLargo } from '@/data/indec';
 
 const SITE_URL = 'https://macrolibre.com';
 
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     q: '¿Cuál es la tasa de pobreza en Argentina en 2026?',
-    a: 'Según los últimos datos del INDEC (segundo semestre 2025), la tasa de pobreza en Argentina se ubica en torno al 36-38% de las personas. Es una mejora respecto al pico del primer semestre 2024, cuando rozó el 53%. Los datos del primer semestre 2026 se publicarán en septiembre 2026.',
+    a: `Según el último dato del INDEC (${periodoLargo(pobrezaUltimo.periodo)}${pobrezaUltimo.observaciones ? `, ${pobrezaUltimo.observaciones.toLowerCase()}` : ''}), la pobreza alcanza al ${num(pobrezaUltimo.personas)}% de las personas y la indigencia al ${num(pobrezaUltimo.indigenciaPersonas)}% (31 aglomerados urbanos, EPH). El pico de la serie fue el primer semestre de 2024 (52,9%). Fuente: ${fuenteIndec(indec.pobreza)}.`,
   },
   {
     q: '¿Qué es la línea de pobreza?',
@@ -109,6 +110,18 @@ export default function PobrezaArgentinaPage() {
               <p className="text-5xl sm:text-6xl font-semibold text-[var(--fg-0)] font-mono leading-none mt-1">
                 {pct}%
               </p>
+              <div className="flex flex-wrap gap-x-5 gap-y-1 mt-2 text-[12px] font-mono text-[var(--fg-2)]">
+                {[
+                  ['Hogares', num(pobrezaUltimo.hogares)],
+                  ['Indigencia personas', num(pobrezaUltimo.indigenciaPersonas)],
+                  ['Indigencia hogares', num(pobrezaUltimo.indigenciaHogares)],
+                ].filter(([, v]) => v).map(([k, v]) => (
+                  <span key={k}>{k}: <strong className="text-[var(--fg-0)]">{v}%</strong></span>
+                ))}
+              </div>
+              <p className="text-[11px] text-[var(--fg-3)] mt-1">
+                {pobrezaUltimo.observaciones ? `${pobrezaUltimo.observaciones} · ` : ''}31 aglomerados urbanos · Fuente: {fuenteIndec(indec.pobreza)}
+              </p>
             </div>
           );
         })()}
@@ -123,6 +136,43 @@ export default function PobrezaArgentinaPage() {
 
       <div className="space-y-6">
         <PobrezaChart />
+        {/* Canastas CBA/CBT (API del INDEC) — solo celdas con dato */}
+        {indec.canastas.regiones.map((r) => (
+          <div key={r.region} className="border border-[var(--line-1)] rounded-xl p-5 overflow-x-auto">
+            <h2 className="text-[15px] font-semibold text-[var(--fg-0)] mb-3">
+              Canasta Básica Alimentaria y Total · {r.region} · {periodoLargo(indec.canastas.periodo)}
+            </h2>
+            <table className="w-full text-sm font-mono">
+              <thead>
+                <tr className="text-[var(--fg-3)] text-xs uppercase">
+                  <th className="text-left py-1 pr-4"></th>
+                  <th className="text-right py-1 pr-4">Adulto equiv.</th>
+                  <th className="text-right py-1 pr-4">Hogar 1</th>
+                  <th className="text-right py-1 pr-4">Hogar 2</th>
+                  <th className="text-right py-1 pr-4">Hogar 3</th>
+                  <th className="text-right py-1 pr-4">Mensual</th>
+                  <th className="text-right py-1">Interanual</th>
+                </tr>
+              </thead>
+              <tbody>
+                {([['CBA (indigencia)', r.cba], ['CBT (pobreza)', r.cbt]] as const).map(([k, c]) => (
+                  <tr key={k} className="border-t border-[var(--line-1)] text-[var(--fg-0)]">
+                    <td className="py-1 pr-4 font-sans text-[13px]">{k}</td>
+                    <td className="text-right py-1 pr-4">{c.adultoEquivalente != null ? `$${num(c.adultoEquivalente, 0)}` : ''}</td>
+                    <td className="text-right py-1 pr-4">{c.hogar1 != null ? `$${num(c.hogar1, 0)}` : ''}</td>
+                    <td className="text-right py-1 pr-4">{c.hogar2 != null ? `$${num(c.hogar2, 0)}` : ''}</td>
+                    <td className="text-right py-1 pr-4">{c.hogar3 != null ? `$${num(c.hogar3, 0)}` : ''}</td>
+                    <td className="text-right py-1 pr-4">{c.mensual != null ? `${num(c.mensual)}%` : ''}</td>
+                    <td className="text-right py-1">{c.interanual != null ? `${num(c.interanual)}%` : ''}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="text-[11px] text-[var(--fg-3)] mt-2">
+              Hogar 1: 3 integrantes · Hogar 2: 4 integrantes · Hogar 3: 5 integrantes (hogares tipo del INDEC). Fuente: {fuenteIndec(indec.canastas)}.
+            </p>
+          </div>
+        ))}
         <SalarioRealChart />
       </div>
 
