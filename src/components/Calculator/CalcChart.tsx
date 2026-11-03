@@ -12,12 +12,12 @@ import { macroChartOptions } from '@/lib/lwChartUtils';
 import type { CalcOutput, InstrumentId } from '@/lib/calc/types';
 
 const COLORS: Record<InstrumentId, string> = {
-  plazoFijo: '#74ACDF',
-  dolarMEP:  '#D4A843',
+  plazoFijo: '#0099FF',
+  dolarMEP:  '#E73F25',
   dolarBlue: '#22C55E',
-  lecap:     '#A78BFA',
-  al30:      '#F97316',
-  gd30:      '#EC4899',
+  lecap:     '#0070C2',
+  al30:      '#B02E19',
+  gd30:      '#F28C7A',
 };
 
 interface Props {
@@ -37,7 +37,7 @@ export function CalcChart({ output }: Props) {
       if (!r.available || r.series.length === 0) continue;
 
       const series = chart.addSeries(LineSeries, {
-        color: COLORS[r.id] ?? '#74ACDF',
+        color: COLORS[r.id] ?? '#0099FF',
         lineWidth: 2,
         priceLineVisible: false,
         lastValueVisible: true,

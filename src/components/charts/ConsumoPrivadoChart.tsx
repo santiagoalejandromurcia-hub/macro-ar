@@ -41,8 +41,8 @@ export default function ConsumoPrivadoChart() {
         <ComposedChart data={liveData} margin={{ top: 10, right: 10, left: -10, bottom: 5 }}>
           <defs>
             <linearGradient id="consumoFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#A78BFA" stopOpacity={0.25} />
-              <stop offset="100%" stopColor="#A78BFA" stopOpacity={0.02} />
+              <stop offset="0%" stopColor="#0070C2" stopOpacity={0.25} />
+              <stop offset="100%" stopColor="#0070C2" stopOpacity={0.02} />
             </linearGradient>
           </defs>
           <CartesianGrid {...t.grid} />
@@ -59,20 +59,20 @@ export default function ConsumoPrivadoChart() {
             type="monotone"
             dataKey="value"
             name="Consumo (I-17=100)"
-            stroke="#A78BFA"
+            stroke="#0070C2"
             strokeWidth={2.5}
             fill="url(#consumoFill)"
             dot={false}
           />
-          <Line type="monotone" dataKey="value" name="Consumo (I-17=100)" stroke="#A78BFA" strokeWidth={0} dot={{ r: 2.5, fill: '#A78BFA', strokeWidth: 0 }} legendType="none" />
+          <Line type="monotone" dataKey="value" name="Consumo (I-17=100)" stroke="#0070C2" strokeWidth={0} dot={{ r: 2.5, fill: '#0070C2', strokeWidth: 0 }} legendType="none" />
         </ComposedChart>
       </ResponsiveContainer>
 
       {/* Pie de hito */}
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono text-theme-muted">
-        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#D4A843' }} />J×C 2017-2019</span>
-        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#74ACDF' }} />Fernández 2019-2023</span>
-        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#A78BFA' }} />Milei 2024-2025</span>
+        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#E73F25' }} />J×C 2017-2019</span>
+        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#0099FF' }} />Fernández 2019-2023</span>
+        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#0070C2' }} />Milei 2024-2025</span>
         <span className="ml-auto text-theme-primary font-semibold">II-26 vs II-24: <span className="text-ar-green">+12,1%</span> · s.e. −2,4%</span>
       </div>
     </ChartCard>

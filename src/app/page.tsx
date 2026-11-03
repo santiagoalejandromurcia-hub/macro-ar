@@ -31,15 +31,15 @@ export default function HomePage() {
   const chips = homeChips();
 
   return (
-    <div className="max-w-[960px] mx-auto px-4 sm:px-6 pt-16 sm:pt-28 pb-24">
-      <div className="max-w-[720px] mx-auto">
-        <div className="mb-8 text-center">
-          <h1 className="font-syne text-[40px] sm:text-[56px] font-bold tracking-tight leading-none text-[var(--fg-0)]">
-            Macro Libre
+    <div className="relative isolate">
+      {/* Degradé del hero: solo en la home, se funde con el fondo de la página. */}
+      <div aria-hidden className="home-hero-gradient pointer-events-none absolute inset-x-0 -top-14 bottom-0 -z-10" />
+    <div className="max-w-[880px] mx-auto px-5 sm:px-6 pt-14 sm:pt-24 pb-24 flex flex-col items-center">
+      <div className="w-full max-w-[680px] mx-auto">
+        <div className="mb-10 text-center">
+          <h1 className="font-syne text-[44px] sm:text-[88px] font-bold tracking-tight leading-none text-white home-hero-title">
+            Macro Libre: no son solo números
           </h1>
-          <p className="mt-3 text-[15px] sm:text-[18px] text-[var(--fg-2)]">
-            🇦🇷 datos de Argentina oficial 🇦🇷
-          </p>
         </div>
         <HomeSearch />
         {chips.length > 0 && (
@@ -48,7 +48,7 @@ export default function HomePage() {
               <li key={c.id}>
                 <Link
                   href={c.href}
-                  className="inline-flex items-center h-8 px-3 rounded-full border border-[var(--line-1)] bg-[var(--bg-1)] text-[12px] font-mono text-[var(--fg-1)] hover:border-[var(--celeste)]/40 hover:text-[var(--fg-0)] transition"
+                  className="inline-flex items-center h-8 px-3 rounded-full home-float text-[12px] font-mono text-[var(--fg-1)] hover:border-[var(--celeste)]/40 hover:text-[var(--fg-0)] transition"
                 >
                   {c.label}
                 </Link>
@@ -58,10 +58,10 @@ export default function HomePage() {
         )}
       </div>
 
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="w-full mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
         {MINI.map((item) => (
           <HideOnError key={item.id}>
-            <div className="relative rounded-xl border border-[var(--line-1)] bg-[var(--bg-1)] p-3 transition hover:border-[var(--celeste)]/40">
+            <div className="relative home-float rounded-xl p-3 transition">
               <span className="block text-[13px] font-semibold text-[var(--fg-0)]" aria-hidden>
                 {item.label}
               </span>
@@ -80,6 +80,7 @@ export default function HomePage() {
           </HideOnError>
         ))}
       </div>
+    </div>
     </div>
   );
 }

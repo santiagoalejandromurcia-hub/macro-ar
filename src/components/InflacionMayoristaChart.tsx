@@ -45,8 +45,8 @@ export default function InflacionMayoristaChart() {
           <YAxis yAxisId="right" orientation="right" tick={t.axis} domain={['auto', 'auto']} />
           <Tooltip content={<ThemedTooltip />} />
           <Legend wrapperStyle={{ fontSize: 12, color: t.textSecondary }} />
-          <Bar yAxisId="left" dataKey="mensual" name="IPIM Mensual %" fill="#F97316" radius={[3, 3, 0, 0]} opacity={0.7} />
-          <Line yAxisId="right" type="monotone" dataKey="interanual" name="Interanual %" stroke="#D4A843" strokeWidth={2} dot={false} connectNulls={false} />
+          <Bar yAxisId="left" dataKey="mensual" name="IPIM Mensual %" fill="#B02E19" radius={[3, 3, 0, 0]} opacity={0.7} />
+          <Line yAxisId="right" type="monotone" dataKey="interanual" name="Interanual %" stroke="#E73F25" strokeWidth={2} dot={false} connectNulls={false} />
         </ComposedChart>
       </ResponsiveContainer>
     </ChartCard>

@@ -26,7 +26,7 @@ function RiesgoPaisInnerChart({ data }: { data: typeof riesgoPaisData }) {
     const area = chart.addSeries(AreaSeries, {
       topColor:    'rgba(236, 72, 153, 0.28)',
       bottomColor: 'rgba(236, 72, 153, 0.02)',
-      lineColor:   '#EC4899',
+      lineColor:   '#F28C7A',
       lineWidth: 2,
       priceLineVisible: false,
       lastValueVisible: true,
@@ -52,7 +52,7 @@ function RiesgoPaisInnerChart({ data }: { data: typeof riesgoPaisData }) {
         position: (d.highlight === 'minimo' ? 'belowBar' : 'aboveBar') as SeriesMarker<Time>['position'],
         color:
           d.highlight === 'pico'   ? '#EF4444' :
-          d.highlight === 'minimo' ? '#22C55E' : '#D4A843',
+          d.highlight === 'minimo' ? '#22C55E' : '#E73F25',
         shape: 'circle' as SeriesMarker<Time>['shape'],
         text: `${d.value} pb`,
         size: 1,
@@ -109,7 +109,7 @@ export default function RiesgoPaisChart() {
           </span>
         )}
         <span>
-          <span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#D4A843' }} />
+          <span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#E73F25' }} />
           {last.date}: {last.value} pb (actual)
         </span>
         <span className="ml-auto text-theme-primary font-semibold">

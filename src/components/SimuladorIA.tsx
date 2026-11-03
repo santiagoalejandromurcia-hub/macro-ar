@@ -451,7 +451,7 @@ export default function SimuladorIA() {
                   <Legend wrapperStyle={{ fontSize: 12, color: isDark ? '#94A3B8' : '#64748B', paddingTop: 8 }} />
                   <ReferenceLine y={0} stroke={isDark ? '#475569' : '#CBD5E1'} strokeDasharray="4 2" />
                   <Line type="monotone" dataKey="pib" name="PIB Acumulado (%)" stroke="#22C55E" strokeWidth={2.5} dot={false} />
-                  <Line type="monotone" dataKey="empleo" name="Empleo (%)" stroke="#74ACDF" strokeWidth={2.5} dot={false} />
+                  <Line type="monotone" dataKey="empleo" name="Empleo (%)" stroke="#0099FF" strokeWidth={2.5} dot={false} />
                   <Line type="monotone" dataKey="inflacion" name="Inflación Mensual (%)" stroke="#EF4444" strokeWidth={2.5} dot={false} strokeDasharray="6 3" />
                 </ComposedChart>
               </ResponsiveContainer>

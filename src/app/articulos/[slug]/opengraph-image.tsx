@@ -50,8 +50,8 @@ export default async function Image(
   const FG_PRIMARY = '#f5f7fa';
   const FG_SECONDARY = '#a8b2c1';
   const FG_MUTED = '#6b7787';
-  const ACCENT = '#5DC1E0'; // celeste argentino
-  const GOLD = '#D4A843';
+  const ACCENT = '#0099FF';
+  const GOLD = '#E73F25';
 
   return new ImageResponse(
     (

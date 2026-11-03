@@ -157,11 +157,11 @@ export const pbiQoqData = [
 // Fuente: INDEC — PIB Q2 2026 (17/09/2026)
 export const sectorData = [
   { sector: 'Pesca', value: 44.7, color: '#10B981' },
-  { sector: 'Minería', value: 16.4, color: '#F97316' },
+  { sector: 'Minería', value: 16.4, color: '#B02E19' },
   { sector: 'Agro', value: 6.9, color: '#22C55E' },
-  { sector: 'Industria', value: -2.1, color: '#74ACDF' },
-  { sector: 'Adm. pública', value: -1.4, color: '#A78BFA' },
-  { sector: 'Otros servicios', value: -0.9, color: '#EC4899' },
+  { sector: 'Industria', value: -2.1, color: '#0099FF' },
+  { sector: 'Adm. pública', value: -1.4, color: '#0070C2' },
+  { sector: 'Otros servicios', value: -0.9, color: '#F28C7A' },
 ];
 // Resultado Fiscal (% del PIB) — acumulado 12 meses
 // Fuente: MECON + UBA IIEP (serie 12m comparable, excl. privatizaciones hidro)

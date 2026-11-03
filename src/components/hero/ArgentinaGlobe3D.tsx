@@ -71,7 +71,7 @@ function ArgentinaShape() {
       {/* Contorno glowing en el borde superior */}
       <line>
         <primitive object={outlineGeometry} attach="geometry" />
-        <lineBasicMaterial color="#74ACDF" transparent opacity={0.9} />
+        <lineBasicMaterial color="#0099FF" transparent opacity={0.9} />
       </line>
     </group>
   );
@@ -107,7 +107,7 @@ function CityPoint({
     ref.current.scale.setScalar(base + Math.sin(t * 2 + city.id.length) * 0.08);
   });
 
-  const color = city.indicator === 'dolar' ? '#D4A843' : '#74ACDF';
+  const color = city.indicator === 'dolar' ? '#E73F25' : '#0099FF';
 
   return (
     <group position={[x, y, z]}>
@@ -197,8 +197,8 @@ function Scene({ live }: { live: LiveMap }) {
       {/* Luces */}
       <ambientLight intensity={0.35} />
       <directionalLight position={[5, 5, 5]} intensity={0.9} color="#FFFFFF" />
-      <pointLight position={[-3, 2, 2]} intensity={0.6} color="#74ACDF" />
-      <pointLight position={[3, -2, 2]} intensity={0.3} color="#D4A843" />
+      <pointLight position={[-3, 2, 2]} intensity={0.6} color="#0099FF" />
+      <pointLight position={[3, -2, 2]} intensity={0.3} color="#E73F25" />
 
       {/* Fondo de estrellas */}
       <Stars radius={40} depth={30} count={2500} factor={3} fade speed={0.3} />
@@ -207,7 +207,7 @@ function Scene({ live }: { live: LiveMap }) {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -3.2, 0]}>
         <planeGeometry args={[40, 40, 40, 40]} />
         <meshBasicMaterial
-          color="#74ACDF"
+          color="#0099FF"
           wireframe
           transparent
           opacity={0.08}

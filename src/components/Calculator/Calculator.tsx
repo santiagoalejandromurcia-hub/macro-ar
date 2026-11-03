@@ -17,12 +17,12 @@ interface InstrumentOption {
 }
 
 const INSTRUMENTS: InstrumentOption[] = [
-  { id: 'plazoFijo', label: 'Plazo Fijo',    hint: 'TNA BADLAR BCRA',        color: '#74ACDF' },
-  { id: 'dolarMEP',  label: 'Dólar MEP',     hint: 'Bolsa',                    color: '#D4A843' },
+  { id: 'plazoFijo', label: 'Plazo Fijo',    hint: 'TNA BADLAR BCRA',        color: '#0099FF' },
+  { id: 'dolarMEP',  label: 'Dólar MEP',     hint: 'Bolsa',                    color: '#E73F25' },
   { id: 'dolarBlue', label: 'Dólar Blue',    hint: 'Bluelytics',               color: '#22C55E' },
-  { id: 'lecap',     label: 'LECAP',         hint: 'Letras del Tesoro',        color: '#A78BFA' },
-  { id: 'al30',      label: 'AL30',          hint: 'Bonar 2030 (ley Arg)',     color: '#F97316' },
-  { id: 'gd30',      label: 'GD30',          hint: 'Global 2030 (ley NY)',     color: '#EC4899' },
+  { id: 'lecap',     label: 'LECAP',         hint: 'Letras del Tesoro',        color: '#0070C2' },
+  { id: 'al30',      label: 'AL30',          hint: 'Bonar 2030 (ley Arg)',     color: '#B02E19' },
+  { id: 'gd30',      label: 'GD30',          hint: 'Global 2030 (ley NY)',     color: '#F28C7A' },
 ];
 
 const DEFAULT_FROM = '2023-12-01';
@@ -43,7 +43,7 @@ function formatPct(n: number): string {
 }
 
 function colorFor(id: InstrumentId): string {
-  return INSTRUMENTS.find((i) => i.id === id)?.color ?? '#74ACDF';
+  return INSTRUMENTS.find((i) => i.id === id)?.color ?? '#0099FF';
 }
 
 // useMemo aún usado por ResultRow vía colorFor

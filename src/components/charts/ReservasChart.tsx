@@ -26,7 +26,7 @@ export default function ReservasChart({ compact = false }: { compact?: boolean }
             <XAxis dataKey="date" tick={{ ...t.axis, fontSize: 9 }} interval="preserveStartEnd" />
             <YAxis tick={{ ...t.axis, fontSize: 9 }} width={36} domain={['auto', 'auto']} />
             <Tooltip content={<ThemedTooltip />} />
-            <Area type="monotone" dataKey="value" name="Reservas (USD M)" stroke="#D4A843" fill="#D4A843" fillOpacity={0.1} strokeWidth={2} dot={false} isAnimationActive={false} />
+            <Area type="monotone" dataKey="value" name="Reservas (USD M)" stroke="#E73F25" fill="#E73F25" fillOpacity={0.1} strokeWidth={2} dot={false} isAnimationActive={false} />
           </AreaChart>
         </ResponsiveContainer>
       </div>
@@ -52,7 +52,7 @@ export default function ReservasChart({ compact = false }: { compact?: boolean }
           <XAxis dataKey="date" tick={t.axis} />
           <YAxis tick={t.axis} domain={['auto', 'auto']} />
           <Tooltip content={<ThemedTooltip />} />
-          <Area type="monotone" dataKey="value" name="Reservas (USD M)" stroke="#D4A843" fill="#D4A843" fillOpacity={0.1} strokeWidth={2.5} dot={false} />
+          <Area type="monotone" dataKey="value" name="Reservas (USD M)" stroke="#E73F25" fill="#E73F25" fillOpacity={0.1} strokeWidth={2.5} dot={false} />
         </AreaChart>
       </ResponsiveContainer>
     </ChartCard>

@@ -136,7 +136,7 @@ export async function downloadChartImage(
   const BG2 = toRgb('var(--bg-2)') || '#1e2640';
   const FG0 = toRgb('var(--fg-0)') || '#f8f9fb';
   const FG2 = toRgb('var(--fg-2)') || '#8b9ab0';
-  const ACCENT = toRgb('var(--gold)') || toRgb('var(--celeste)') || '#F0A500';
+  const ACCENT = toRgb('var(--gold)') || toRgb('var(--celeste)') || '#D63A21';
 
   const lwCanvas = wrapperEl.querySelector('canvas');
   if (lwCanvas && lwCanvas.width > 32 && lwCanvas.height > 32) {

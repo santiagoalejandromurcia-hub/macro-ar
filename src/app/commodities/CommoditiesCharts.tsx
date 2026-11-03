@@ -59,12 +59,12 @@ export default function CommoditiesCharts() {
     <div className="space-y-6">
       <SeriesChart id="fob-soja" title="Soja FOB" data={soja} color="#22C55E" file="fob-soja" />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <SeriesChart id="fob-maiz" title="Maíz FOB" data={maiz} color="#F0A500" file="fob-maiz" />
-        <SeriesChart id="fob-trigo" title="Trigo FOB" data={trigo} color="#D4A843" file="fob-trigo" />
+        <SeriesChart id="fob-maiz" title="Maíz FOB" data={maiz} color="#F28C7A" file="fob-maiz" />
+        <SeriesChart id="fob-trigo" title="Trigo FOB" data={trigo} color="#E73F25" file="fob-trigo" />
       </div>
       <div id="ypf" className="scroll-mt-24 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <SeriesChart id="ypf-super" title="YPF Super CABA" data={superN} color="#F97316" file="ypf-super" />
-        <SeriesChart id="ypf-premium" title="YPF Premium CABA" data={premium} color="#F0A500" file="ypf-premium" />
+        <SeriesChart id="ypf-super" title="YPF Super CABA" data={superN} color="#B02E19" file="ypf-super" />
+        <SeriesChart id="ypf-premium" title="YPF Premium CABA" data={premium} color="#F28C7A" file="ypf-premium" />
         <SeriesChart id="ypf-gasoil" title="YPF Gasoil CABA" data={gasoil} color="#64748B" file="ypf-gasoil" />
         <SeriesChart id="ypf-euro" title="YPF Euro CABA" data={euro} color="#94A3B8" file="ypf-euro" />
       </div>

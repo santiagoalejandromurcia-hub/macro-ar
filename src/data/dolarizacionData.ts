@@ -161,9 +161,9 @@ export interface EventoPoint {
 
 export const eventosHistoricos: EventoPoint[] = [
   { fecha: "2018-09", label: "Crisis TC", color: "#ef4444" },
-  { fecha: "2019-08", label: "Post-PASO", color: "#f97316" },
-  { fecha: "2019-10", label: "Cepo 2.0", color: "#eab308" },
-  { fecha: "2020-03", label: "COVID", color: "#8b5cf6" },
-  { fecha: "2023-12", label: "Deval. Milei", color: "#ec4899" },
+  { fecha: "2019-08", label: "Post-PASO", color: "#B02E19" },
+  { fecha: "2019-10", label: "Cepo 2.0", color: "#D63A21" },
+  { fecha: "2020-03", label: "COVID", color: "#0070C2" },
+  { fecha: "2023-12", label: "Deval. Milei", color: "#F28C7A" },
   { fecha: "2024-03", label: "Normalización", color: "#22c55e" },
 ];

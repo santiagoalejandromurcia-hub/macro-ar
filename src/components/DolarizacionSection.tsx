@@ -96,12 +96,12 @@ function TabEvolucion() {
         <AreaChart data={dolarizacionData} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id="gradOf" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.25} />
-              <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+              <stop offset="5%" stopColor="#005A9C" stopOpacity={0.25} />
+              <stop offset="95%" stopColor="#005A9C" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="gradBlue" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.15} />
-              <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
+              <stop offset="5%" stopColor="#0070C2" stopOpacity={0.15} />
+              <stop offset="95%" stopColor="#0070C2" stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -134,7 +134,7 @@ function TabEvolucion() {
             type="monotone"
             dataKey="dolarOf"
             name="TC Oficial"
-            stroke="#3b82f6"
+            stroke="#005A9C"
             fill="url(#gradOf)"
             strokeWidth={2}
             dot={false}
@@ -143,7 +143,7 @@ function TabEvolucion() {
             type="monotone"
             dataKey="dolarBlue"
             name="TC Blue"
-            stroke="#8b5cf6"
+            stroke="#0070C2"
             fill="url(#gradBlue)"
             strokeWidth={1.5}
             strokeDasharray="5 3"
@@ -297,18 +297,18 @@ function TabContexto() {
           <YAxis
             yAxisId="dol"
             orientation="left"
-            tick={{ fill: "#3b82f6", fontSize: 11 }}
+            tick={{ fill: "#005A9C", fontSize: 11 }}
             tickFormatter={(v) => `${v}%`}
             domain={[0, 45]}
-            label={{ value: "Dolariz. (%)", angle: -90, position: "insideLeft", fill: "#3b82f6", fontSize: 11, dx: -5 }}
+            label={{ value: "Dolariz. (%)", angle: -90, position: "insideLeft", fill: "#005A9C", fontSize: 11, dx: -5 }}
           />
           <YAxis
             yAxisId="ipc"
             orientation="right"
-            tick={{ fill: "#f97316", fontSize: 11 }}
+            tick={{ fill: "#B02E19", fontSize: 11 }}
             tickFormatter={(v) => `${v}%`}
             domain={[0, 320]}
-            label={{ value: "IPC i.a. (%)", angle: 90, position: "insideRight", fill: "#f97316", fontSize: 11, dx: 10 }}
+            label={{ value: "IPC i.a. (%)", angle: 90, position: "insideRight", fill: "#B02E19", fontSize: 11, dx: 10 }}
           />
           <Tooltip content={<MacroTooltip />} />
           <Legend wrapperStyle={{ color: "#9ca3af", fontSize: 12 }} />
@@ -327,7 +327,7 @@ function TabContexto() {
             type="monotone"
             dataKey="dolarOf"
             name="Dolarización TC Of. (%)"
-            stroke="#3b82f6"
+            stroke="#005A9C"
             strokeWidth={2}
             dot={false}
           />
@@ -336,7 +336,7 @@ function TabContexto() {
             type="monotone"
             dataKey="ipc"
             name="IPC interanual (%)"
-            stroke="#f97316"
+            stroke="#B02E19"
             strokeWidth={1.5}
             strokeDasharray="5 3"
             dot={false}

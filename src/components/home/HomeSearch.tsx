@@ -58,11 +58,11 @@ export default function HomeSearch() {
   return (
     <div className="relative">
       <label htmlFor="home-search" className="sr-only">Buscar una serie</label>
-      <div className="flex items-center gap-3 h-14 px-4 rounded-xl border border-[var(--line-1)] bg-[var(--bg-1)] focus-within:border-[var(--celeste)]/50">
-        <svg className="w-4 h-4 shrink-0 text-[var(--fg-2)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
+      <div className="flex items-center gap-3 h-14 pl-2 pr-4 rounded-xl home-search-box border-2 border-[#E73F25] focus-within:ring-4 focus-within:ring-[#E73F25]/25">
+        <span className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[#D63A21] text-white shrink-0" aria-hidden><svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
           <circle cx="11" cy="11" r="7" />
           <path d="m21 21-4.3-4.3" />
-        </svg>
+        </svg></span>
         <input
           id="home-search"
           value={q}

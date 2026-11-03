@@ -41,7 +41,7 @@ export default function Sparkline({
         linePath: '',
         areaPath: '',
         lastPoint: null as { x: number; y: number } | null,
-        stroke: color ?? '#74ACDF',
+        stroke: color ?? '#0099FF',
         area1: 'rgba(116,172,223,0.25)',
         area2: 'rgba(116,172,223,0)',
       };

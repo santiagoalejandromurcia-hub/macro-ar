@@ -26,15 +26,15 @@ import { SeriesAsOf } from '@/components/SeriesAsOf';
 // Colores
 // ────────────────────────────────────────────────────────────
 const COLOR = {
-  soja:    '#D4A843',   // sol / gold
-  maiz:    '#5DC1E0',   // celeste
-  trigo:   '#EC4899',   // magenta
+  soja:    '#E73F25',   // sol / gold
+  maiz:    '#4DB8FF',   // celeste
+  trigo:   '#F28C7A',   // magenta
   girasol: '#10B981',   // green
   up:      'var(--up)',
   down:    'var(--down)',
 };
 
-const PIE_COLORS = ['#5DC1E0','#D4A843','#EC4899','#10B981','#A78BFA','#F59E0B','#3B82F6','#9CA3AF'];
+const PIE_COLORS = ['#4DB8FF','#E73F25','#F28C7A','#10B981','#0070C2','#D63A21','#005A9C','#9CA3AF'];
 
 // ────────────────────────────────────────────────────────────
 // Componentes reutilizables

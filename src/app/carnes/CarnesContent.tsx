@@ -35,7 +35,7 @@ const COLORS = {
   line1:   'var(--line-1)',
 };
 
-const PIE_COLORS = ['#5DC1E0', '#D4A843', '#EC4899', '#10B981', '#A78BFA', '#F59E0B', '#3B82F6', '#EF4444'];
+const PIE_COLORS = ['#4DB8FF', '#E73F25', '#F28C7A', '#10B981', '#0070C2', '#D63A21', '#005A9C', '#EF4444'];
 
 export default function CarnesContent() {
   return (

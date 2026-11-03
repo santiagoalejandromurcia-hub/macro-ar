@@ -48,8 +48,8 @@ export default function EmaeLargoPlazoChart() {
         <ComposedChart data={liveData} margin={{ top: 20, right: 10, left: -10, bottom: 5 }}>
           <defs>
             <linearGradient id="emaeLPFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#A78BFA" stopOpacity={0.30} />
-              <stop offset="100%" stopColor="#A78BFA" stopOpacity={0.02} />
+              <stop offset="0%" stopColor="#0070C2" stopOpacity={0.30} />
+              <stop offset="100%" stopColor="#0070C2" stopOpacity={0.02} />
             </linearGradient>
           </defs>
           <CartesianGrid {...t.grid} />
@@ -64,27 +64,27 @@ export default function EmaeLargoPlazoChart() {
             type="monotone"
             dataKey="value"
             name="EMAE (desestacionalizado)"
-            stroke="#A78BFA"
+            stroke="#0070C2"
             strokeWidth={2.5}
             fill="url(#emaeLPFill)"
             dot={false}
           />
-          <Line type="monotone" dataKey="value" stroke="#A78BFA" strokeWidth={0} dot={{ r: 2.5, fill: '#A78BFA' }} legendType="none" name="EMAE" />
+          <Line type="monotone" dataKey="value" stroke="#0070C2" strokeWidth={0} dot={{ r: 2.5, fill: '#0070C2' }} legendType="none" name="EMAE" />
 
           {/* Hitos */}
-          <ReferenceDot x="Nov 17" y={152} r={5} fill="#D4A843" stroke="#fff" strokeWidth={2} label={{ value: 'Nov-17', position: 'top', fill: t.textSecondary, fontSize: 9 }} />
+          <ReferenceDot x="Nov 17" y={152} r={5} fill="#E73F25" stroke="#fff" strokeWidth={2} label={{ value: 'Nov-17', position: 'top', fill: t.textSecondary, fontSize: 9 }} />
           <ReferenceDot x="Jun 20" y={119.5} r={5} fill="#EF4444" stroke="#fff" strokeWidth={2} label={{ value: 'COVID', position: 'bottom', fill: t.textSecondary, fontSize: 9 }} />
-          <ReferenceDot x="Jun 22" y={152} r={5} fill="#74ACDF" stroke="#fff" strokeWidth={2} label={{ value: 'Pico azul', position: 'top', fill: t.textSecondary, fontSize: 9 }} />
-          <ReferenceDot x="Dic 23" y={143.6} r={5} fill="#A78BFA" stroke="#fff" strokeWidth={2} />
-          <ReferenceDot x="Mar 26" y={156.7} r={4} fill="#A78BFA" stroke="#fff" strokeWidth={1.5} />
+          <ReferenceDot x="Jun 22" y={152} r={5} fill="#0099FF" stroke="#fff" strokeWidth={2} label={{ value: 'Pico azul', position: 'top', fill: t.textSecondary, fontSize: 9 }} />
+          <ReferenceDot x="Dic 23" y={143.6} r={5} fill="#0070C2" stroke="#fff" strokeWidth={2} />
+          <ReferenceDot x="Mar 26" y={156.7} r={4} fill="#0070C2" stroke="#fff" strokeWidth={1.5} />
           <ReferenceDot x="Ago 26" y={149.9} r={6} fill="#EF4444" stroke="#fff" strokeWidth={2} label={{ value: 'Ago-26', position: 'top', fill: '#EF4444', fontSize: 10, fontWeight: 600 }} />
         </ComposedChart>
       </ResponsiveContainer>
 
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono text-theme-muted">
-        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#D4A843' }} />J×C (Nov-17 ~152)</span>
-        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#74ACDF' }} />Fernández (Jun-22 pico ~152)</span>
-        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#A78BFA' }} />Milei (Dic-23 ~143)</span>
+        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#E73F25' }} />J×C (Nov-17 ~152)</span>
+        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#0099FF' }} />Fernández (Jun-22 pico ~152)</span>
+        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#0070C2' }} />Milei (Dic-23 ~143)</span>
         <span className="ml-auto text-theme-primary font-semibold">Ago-26: <span className="text-ar-red">−1,7% i.a.</span> · +0,1% s.e. · desest. 149,9</span>
       </div>
     </ChartCard>

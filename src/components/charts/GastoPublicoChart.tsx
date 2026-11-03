@@ -55,8 +55,8 @@ const gastoPublicoFallback = [
 
 // Rangos de cada presidente (para fondo semitransparente)
 const ERAS = [
-  { x1: 'Ene 15', x2: 'Oct 15', fill: '#f97316', label: 'CFK' },
-  { x1: 'Ene 16', x2: 'Oct 19', fill: '#3B82F6', label: 'Macri' },
+  { x1: 'Ene 15', x2: 'Oct 15', fill: '#B02E19', label: 'CFK' },
+  { x1: 'Ene 16', x2: 'Oct 19', fill: '#005A9C', label: 'Macri' },
   { x1: 'Ene 20', x2: 'Oct 23', fill: '#EF4444', label: 'Alberto' },
   { x1: 'Ene 24', x2: 'May 26', fill: '#10B981', label: 'Milei' },
 ];
@@ -105,8 +105,8 @@ export default function GastoPublicoChart() {
         <AreaChart data={liveData} margin={{ top: 10, right: 16, left: -4, bottom: 5 }}>
           <defs>
             <linearGradient id="gastoFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stopColor="#74ACDF" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="#74ACDF" stopOpacity={0.03} />
+              <stop offset="0%"   stopColor="#0099FF" stopOpacity={0.3} />
+              <stop offset="100%" stopColor="#0099FF" stopOpacity={0.03} />
             </linearGradient>
           </defs>
 
@@ -149,7 +149,7 @@ export default function GastoPublicoChart() {
             type="monotone"
             dataKey="value"
             name="Gasto primario % PIB"
-            stroke="#74ACDF"
+            stroke="#0099FF"
             strokeWidth={2.5}
             fill="url(#gastoFill)"
             dot={false}
@@ -157,10 +157,10 @@ export default function GastoPublicoChart() {
           />
 
           {/* Hitos clave */}
-          <ReferenceDot x="Ene 17" y={24.0} r={5} fill="#3B82F6"  stroke="#fff" strokeWidth={2} label={{ value: '24,0%', position: 'top',    fontSize: 10, fill: t.textSecondary }} />
+          <ReferenceDot x="Ene 17" y={24.0} r={5} fill="#005A9C"  stroke="#fff" strokeWidth={2} label={{ value: '24,0%', position: 'top',    fontSize: 10, fill: t.textSecondary }} />
           <ReferenceDot x="Ene 20" y={18.7} r={5} fill="#6B7280"  stroke="#fff" strokeWidth={2} label={{ value: '18,7%', position: 'bottom', fontSize: 10, fill: t.textSecondary }} />
           <ReferenceDot x="Jul 21" y={23.6} r={5} fill="#EF4444"  stroke="#fff" strokeWidth={2} label={{ value: '23,6%', position: 'top',    fontSize: 10, fill: t.textSecondary }} />
-          <ReferenceDot x="Oct 23" y={19.2} r={5} fill="#8B5CF6"  stroke="#fff" strokeWidth={2} label={{ value: '19,2%', position: 'top',    fontSize: 10, fill: t.textSecondary }} />
+          <ReferenceDot x="Oct 23" y={19.2} r={5} fill="#0070C2"  stroke="#fff" strokeWidth={2} label={{ value: '19,2%', position: 'top',    fontSize: 10, fill: t.textSecondary }} />
           <ReferenceDot x="May 26" y={14.0} r={5} fill="#10B981"  stroke="#fff" strokeWidth={2} label={{ value: '14,0%', position: 'bottom', fontSize: 10, fill: t.textSecondary }} />
         </AreaChart>
       </ResponsiveContainer>
@@ -168,8 +168,8 @@ export default function GastoPublicoChart() {
       {/* Leyenda presidencial */}
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-[11px] font-mono text-theme-muted">
         {[
-          { color: '#f97316', label: 'CFK (2015)' },
-          { color: '#3B82F6', label: 'Macri (2016–2019)' },
+          { color: '#B02E19', label: 'CFK (2015)' },
+          { color: '#005A9C', label: 'Macri (2016–2019)' },
           { color: '#EF4444', label: 'Alberto (2020–2023)' },
           { color: '#10B981', label: 'Milei (2024–2026)' },
         ].map(({ color, label }) => (

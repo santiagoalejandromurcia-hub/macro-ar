@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Anton, Inter } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ThemeProvider from '@/components/ThemeProvider';
 import PWARegister from '@/components/PWARegister';
 import Providers from '@/components/Providers';
+
+// Tipografía: Anton (titulares condensados) + Inter (cuerpo)
+const anton = Anton({ subsets: ['latin'], weight: '400', variable: '--font-anton', display: 'swap' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 
 export const metadata: Metadata = {
   title: {
@@ -95,7 +100,7 @@ const WEBSITE_JSON_LD = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
+    <html lang="es" className={`light ${anton.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         {/* gtag en el <head> servido. next/script afterInteractive lo mandaba
             al final del body; beforeInteractive en el App Router solo encola
@@ -125,7 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="theme-color" content="#0a1018" />
+        <meta name="theme-color" content="#0099FF" />
       </head>
       <body className="antialiased min-h-screen flex flex-col">
         <Providers>
