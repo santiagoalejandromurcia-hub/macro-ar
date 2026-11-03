@@ -106,6 +106,15 @@ export default function Navbar() {
   const mercadosRef = useRef<HTMLDivElement>(null);
   const clock = useClock();
   const pathname = usePathname();
+  const isHome = pathname === '/';
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const { data: session, status } = useSession();
 
   // Click afuera → cerrar dropdowns
@@ -147,8 +156,8 @@ export default function Navbar() {
     {/* ⌘K Command Palette */}
     <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} />
 
-    <nav className="border-b border-[var(--line-1)] bg-[var(--navbar-bg)] backdrop-blur-xl">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 flex items-center gap-4 lg:gap-8 h-14">
+    <nav data-home={isHome ? "1" : undefined} data-scrolled={scrolled ? "1" : undefined} className="site-nav transition-colors duration-300">
+      <div className="nav-bar max-w-[1440px] mx-auto px-4 sm:px-6 flex items-center gap-4 lg:gap-8 h-14">
         {/* ── Wordmark. En la home: logo + «Macro Libre» chico. El título grande vive arriba del buscador. ── */}
         {pathname === '/' ? (
           <Link href="/" className="flex items-center gap-2.5 group shrink-0">
@@ -215,7 +224,7 @@ export default function Navbar() {
 
             {mercadosOpen && (
               <div
-                className="absolute left-0 top-full mt-2 w-72 p-4 bg-[var(--bg-0)] border border-[var(--line-1)] rounded-xl shadow-2xl shadow-black/40"
+                className="nav-panel absolute left-0 top-full mt-2 w-72 p-4 bg-[var(--bg-0)] border border-[var(--line-1)] rounded-xl shadow-2xl shadow-black/40"
                 role="menu"
               >
                 <h3 className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--fg-2)] mb-3 pb-2 border-b border-[var(--line-1)]">
@@ -280,7 +289,7 @@ export default function Navbar() {
             {/* Panel del mega-menú */}
             {sectionsOpen && (
               <div
-                className="absolute left-0 top-full mt-2 w-[640px] xl:w-[760px] p-6 bg-[var(--bg-0)] border border-[var(--line-1)] rounded-xl shadow-2xl shadow-black/40"
+                className="nav-panel absolute left-0 top-full mt-2 w-[640px] xl:w-[760px] p-6 bg-[var(--bg-0)] border border-[var(--line-1)] rounded-xl shadow-2xl shadow-black/40"
                 role="menu"
               >
                 <div className="grid grid-cols-2 xl:grid-cols-4 gap-x-6 gap-y-6">
@@ -343,7 +352,7 @@ export default function Navbar() {
           {pathname !== '/' && <button
             type="button"
             onClick={() => setCmdOpen(true)}
-            className="hidden md:flex items-center gap-2.5 h-8 px-2.5 text-[12px] text-[var(--fg-2)] bg-[var(--bg-1)] border border-[var(--line-1)] rounded-md hover:border-[var(--gold)]/40 hover:text-[var(--fg-1)] transition"
+            className="hidden md:flex items-center whitespace-nowrap gap-2.5 h-8 px-2.5 text-[12px] text-[var(--fg-2)] bg-[var(--bg-1)] border border-[var(--line-1)] rounded-md hover:border-[var(--gold)]/40 hover:text-[var(--fg-1)] transition"
             aria-label="Buscar (⌘K)"
           >
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
@@ -355,7 +364,7 @@ export default function Navbar() {
           </button>}
 
           {/* Status */}
-          <div className="hidden md:flex items-center gap-2 h-8 px-3 bg-[var(--bg-1)] border border-[var(--line-1)] rounded-md">
+          <div className="hidden md:flex items-center whitespace-nowrap gap-2 h-8 px-3 bg-[var(--bg-1)] border border-[var(--line-1)] rounded-md">
             <span className="live-dot" aria-hidden />
             <span className="text-[11px] font-mono uppercase tracking-wider text-[var(--fg-1)]">En vivo</span>
             <span className="text-[11px] font-mono text-[var(--fg-2)] tnum">{clock}</span>
@@ -367,20 +376,7 @@ export default function Navbar() {
           ) : (
             <Link
               href="/login"
-              className="hidden sm:inline-flex items-center h-8 px-3.5 text-[12px] font-semibold rounded-md transition-all duration-200"
-              style={{
-                color: 'var(--gold)',
-                border: '1px solid color-mix(in oklch, var(--gold) 45%, transparent)',
-                background: 'color-mix(in oklch, var(--gold) 8%, transparent)',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.background = 'color-mix(in oklch, var(--gold) 18%, transparent)';
-                (e.currentTarget as HTMLElement).style.borderColor = 'color-mix(in oklch, var(--gold) 65%, transparent)';
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.background = 'color-mix(in oklch, var(--gold) 8%, transparent)';
-                (e.currentTarget as HTMLElement).style.borderColor = 'color-mix(in oklch, var(--gold) 45%, transparent)';
-              }}
+              className="hidden sm:inline-flex items-center whitespace-nowrap h-8 px-3.5 text-[12px] font-semibold rounded-md bg-white text-[#0B3A66] hover:bg-[#E6F4FF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition"
             >
               Iniciar sesión
             </Link>

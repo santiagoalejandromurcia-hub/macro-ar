@@ -31,19 +31,19 @@ const config: Config = {
           2: 'oklch(0.32 0.020 248 / 0.5)',
         },
         accent: {
-          celeste: 'oklch(0.78 0.15 230)',
-          'celeste-dim': 'oklch(0.55 0.12 230)',
-          sol: 'oklch(0.82 0.14 85)',
-          'sol-dim': 'oklch(0.62 0.12 85)',
-          magenta: 'oklch(0.68 0.22 350)',
-          'magenta-dim': 'oklch(0.50 0.18 350)',
+          celeste: '#0070C2',
+          'celeste-dim': '#005A9C',
+          sol: '#D63A21',
+          'sol-dim': '#B02E19',
+          magenta: '#D63A21',
+          'magenta-dim': '#B02E19',
           // MEGA redesign
-          gold: 'oklch(0.76 0.18 78)',
-          'gold-dim': 'oklch(0.60 0.15 78)',
+          gold: '#D63A21',
+          'gold-dim': '#B02E19',
           teal: 'oklch(0.74 0.14 172)',
           'teal-dim': 'oklch(0.55 0.11 172)',
-          sky: 'oklch(0.76 0.12 217)',
-          'sky-dim': 'oklch(0.58 0.10 217)',
+          sky: '#0099FF',
+          'sky-dim': '#0070C2',
         },
         signal: {
           up:   'oklch(0.74 0.14 172)', /* teal */
@@ -52,8 +52,8 @@ const config: Config = {
         },
         // ── Aliases legados para que no se rompan componentes aún no migrados ──
         ar: {
-          celeste: 'oklch(0.78 0.15 230)',
-          gold:    'oklch(0.82 0.14 85)',
+          celeste: '#0070C2',
+          gold:    '#E73F25',
           dark:    'oklch(0.12 0.018 250)',
           card:    'oklch(0.16 0.020 250)',
           border:  'oklch(0.28 0.018 250 / 0.8)',
@@ -85,7 +85,7 @@ const config: Config = {
         serif:     ['"Fraunces"', 'ui-serif', 'Georgia', 'serif'],
       },
       boxShadow: {
-        'glow-celeste':  '0 0 24px -4px oklch(0.78 0.15 230 / 0.45), 0 0 48px -8px oklch(0.78 0.15 230 / 0.25)',
+        'glow-celeste':  '0 0 24px -4px rgb(0 153 255 / 0.45), 0 0 48px -8px rgb(0 153 255 / 0.25)',
         'glow-sol':      '0 0 24px -4px oklch(0.82 0.14 85 / 0.45), 0 0 48px -8px oklch(0.82 0.14 85 / 0.25)',
         'glow-up':       '0 0 20px -4px oklch(0.76 0.16 155 / 0.45)',
         'glow-down':     '0 0 20px -4px oklch(0.68 0.22 25 / 0.45)',
@@ -94,7 +94,7 @@ const config: Config = {
       },
       backgroundImage: {
         'gradient-ar':
-          'linear-gradient(135deg, oklch(0.78 0.15 230 / 0.35), oklch(0.82 0.14 85 / 0.12) 60%, transparent)',
+          'linear-gradient(135deg, rgb(0 153 255 / 0.35), rgb(231 63 37 / 0.12) 60%, transparent)',
         'data-grid':
           'linear-gradient(to right, oklch(0.28 0.018 250 / 0.18) 1px, transparent 1px), linear-gradient(to bottom, oklch(0.28 0.018 250 / 0.18) 1px, transparent 1px)',
         'data-grid-fine':

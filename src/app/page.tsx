@@ -33,16 +33,13 @@ export default function HomePage() {
   return (
     <div className="relative isolate">
       {/* Degradé del hero: solo en la home, se funde con el fondo de la página. */}
-      <div aria-hidden className="home-hero-gradient pointer-events-none absolute inset-0 -z-10" />
+      <div aria-hidden className="home-hero-gradient pointer-events-none absolute inset-x-0 -top-14 bottom-0 -z-10" />
     <div className="max-w-[880px] mx-auto px-5 sm:px-6 pt-14 sm:pt-24 pb-24 flex flex-col items-center">
       <div className="w-full max-w-[680px] mx-auto">
         <div className="mb-10 text-center">
           <h1 className="font-syne text-[44px] sm:text-[88px] font-bold tracking-tight leading-none text-white home-hero-title">
             Macro Libre: no son solo números
           </h1>
-          <p className="mt-3 text-[15px] sm:text-[18px] font-medium text-white/95 home-hero-sub">
-            🇦🇷 datos de Argentina oficial 🇦🇷
-          </p>
         </div>
         <HomeSearch />
         {chips.length > 0 && (

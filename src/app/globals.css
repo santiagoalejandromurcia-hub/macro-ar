@@ -569,3 +569,30 @@ html.dark .home-float {
   border-color: rgba(255, 255, 255, 0.08);
   box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.6);
 }
+
+/* Barra del header: siempre oscura (#0070C2 claro / #08111E oscuro) → texto blanco. */
+.nav-bar {
+  --fg-0: #FFFFFF;
+  --fg-1: #FFFFFF;
+  --fg-2: rgba(255, 255, 255, 0.88);
+  --fg-3: rgba(255, 255, 255, 0.78);
+  --bg-1: rgba(255, 255, 255, 0.12);
+  --bg-2: rgba(255, 255, 255, 0.18);
+  --line-1: rgba(255, 255, 255, 0.28);
+  color: #FFFFFF;
+}
+.nav-bar > div > a:hover, .nav-bar > div > button:hover { text-decoration: underline; text-underline-offset: 4px; }
+/* Paneles desplegables: vuelven a la paleta normal del tema. */
+.nav-panel { --fg-0: #0B1626; --fg-1: #2E3B4E; --fg-2: #4F5D70; --fg-3: #6B7889; --bg-1: #F1F6FC; --bg-2: #E4EEF9; --line-1: rgb(11 22 38 / 0.14); color: var(--fg-1); }
+html.dark .nav-panel { --fg-0: #F4F8FD; --fg-1: #C3CEDC; --fg-2: #8D9AAD; --fg-3: #65738A; --bg-1: #0E1A2B; --bg-2: #142338; --line-1: rgb(255 255 255 / 0.12); }
+/* Home: sin línea arriba del footer para que el fade sea continuo. */
+body:has(.home-hero-gradient) footer { border-top-color: transparent; }
+
+/* Header sin borde: sólido #0070C2 en páginas internas, transparente sobre el degradé en la home. */
+.site-nav { background-color: var(--navbar-bg); }
+.site-nav[data-home] { background-color: transparent; }
+.site-nav[data-home][data-scrolled] {
+  background-color: rgb(0 112 194 / 0.72);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+html.dark .site-nav[data-home][data-scrolled] { background-color: rgb(8 17 30 / 0.75); }

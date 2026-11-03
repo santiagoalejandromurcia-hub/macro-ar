@@ -24,7 +24,7 @@ export default function ProxysPage() {
       subtitle: 'NSS + VAR(2) Wild Bootstrap',
       description: 'Desancle de expectativas de largo plazo (3 años) mediante Nelson-Siegel + análisis de impulso-respuesta. Fuente: REM-BCRA.',
       tags: ['Expectativas', 'REM-BCRA', 'VAR'],
-      borderColor: 'from-amber-500/40 to-orange-500/20',
+      borderColor: 'from-[#E73F25]/40 to-[#D63A21]/20',
     },
     {
       href: '/dolarizacion',
