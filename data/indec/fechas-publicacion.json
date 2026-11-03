@@ -1,0 +1,6 @@
+{
+  "_nota": "Fecha de publicación del informe INDEC por servicio|periodo. Cargar SOLO fechas verificadas en el calendario del INDEC (https://www.indec.gob.ar/indec/web/Calendario-Fecha-0). Si falta, el sitio muestra «dato hasta <periodo>».",
+  "estimador-mensual-de-actividad-economica-nivel-general|202608": "2026-10-21",
+  "estimador-mensual-de-actividad-economica-sectores|202608": "2026-10-21",
+  "ipc_nacional|202609": "2026-10-13"
+}

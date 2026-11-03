@@ -15,6 +15,7 @@ import {
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { pobrezaData } from '@/data/macroData';
+import { indec, pobrezaUltimo, fuenteIndec, num } from '@/data/indec';
 import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 const ETAPA_COLORS: Record<string, string> = {
@@ -25,7 +26,7 @@ const ETAPA_COLORS: Record<string, string> = {
 
 /**
  * Pobreza en Argentina — Porcentaje de la población (semestral)
- * Fuente: Econométrica en base a INDEC (EPH).
+ * Fuente: API del INDEC (pobreza_eph), snapshot en data/indec/.
  * Hitos: 25,7% (I-17, mín J×C) · 52,9% (I-24, pico) · 28,2% (II-25, mín 7 años).
  */
 export default function PobrezaChart() {
@@ -38,7 +39,11 @@ export default function PobrezaChart() {
   return (
     <ChartCard
       title="Pobreza en Argentina"
-      subtitle={isLive ? `% de la población · Actualizado ${updatedAt} · INDEC` : '% de la población · Semestral 2016–2025 · Fuente: Econométrica en base a INDEC'}
+      subtitle={isLive ? `% de la población · Actualizado ${updatedAt} · INDEC` : `% de personas · Semestral ${pobrezaData[0]?.period ?? ''}–${pobrezaUltimo.period} · ${[
+        num(pobrezaUltimo.personas) && `pobreza ${num(pobrezaUltimo.personas)}%`,
+        num(pobrezaUltimo.indigenciaPersonas) && `indigencia ${num(pobrezaUltimo.indigenciaPersonas)}%`,
+        pobrezaUltimo.observaciones,
+      ].filter(Boolean).join(' · ')} · ${fuenteIndec(indec.pobreza)}`}
       isLive={isLive}
       csvData={csvData}
       csvFileName="pobreza"

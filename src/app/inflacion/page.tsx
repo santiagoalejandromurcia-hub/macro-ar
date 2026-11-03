@@ -4,6 +4,7 @@ import {
 } from '@/components/Charts';
 import InflacionMayoristaChart from '@/components/InflacionMayoristaChart';
 import { inflacionData, inflacionMayoristaData } from '@/data/macroData';
+import { indec, fuenteIndec, num } from '@/data/indec';
 
 export const metadata = {
   title: 'Inflación Argentina en tiempo real — IPC, IPIM y REM',
@@ -65,7 +66,8 @@ export default function InflacionPage() {
               <th className="text-left py-1 pr-4">Mes</th>
               <th className="text-right py-1 pr-4">Mensual</th>
               <th className="text-right py-1 pr-4">Interanual</th>
-              <th className="text-right py-1">Núcleo</th>
+              <th className="text-right py-1 pr-4">Núcleo</th>
+              <th className="text-right py-1">Acumulada</th>
             </tr>
           </thead>
           <tbody>
@@ -74,11 +76,46 @@ export default function InflacionPage() {
                 <td className="py-1 pr-4">{r.date}</td>
                 <td className="text-right py-1 pr-4">{r.mensual.toFixed(1).replace('.', ',')}%</td>
                 <td className="text-right py-1 pr-4">{r.interanual.toFixed(1).replace('.', ',')}%</td>
-                <td className="text-right py-1">{r.nucleo.toFixed(1).replace('.', ',')}%</td>
+                <td className="text-right py-1 pr-4">{r.nucleo.toFixed(1).replace('.', ',')}%</td>
+                <td className="text-right py-1">{r.acumulada != null ? `${r.acumulada.toFixed(1).replace('.', ',')}%` : ''}</td>
               </tr>
             ))}
           </tbody>
         </table>
+        <p className="text-[11px] text-theme-muted mt-2">Fuente: {fuenteIndec(indec.ipc)}. Nivel general nacional, base dic-2016=100.</p>
+      </div>
+
+      {/* IPC por región y por división (último mes, SSR) — solo filas con dato */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        {[
+          { t: 'IPC por región', rows: indec.ipc.regiones.map((r) => ({ k: r.region, ...r })) },
+          { t: 'IPC por división (COICOP)', rows: indec.ipc.divisiones.map((r) => ({ k: r.descripcion, ...r })) },
+        ].map((tab) => (
+          <div key={tab.t} className="bg-theme-surface border border-theme rounded-xl p-5 overflow-x-auto">
+            <h2 className="text-sm font-semibold text-theme-primary mb-3">{tab.t} · {inflacionData[inflacionData.length - 1].date}</h2>
+            <table className="w-full text-sm font-mono">
+              <thead>
+                <tr className="text-theme-muted text-xs uppercase">
+                  <th className="text-left py-1 pr-4"></th>
+                  <th className="text-right py-1 pr-4">Mensual</th>
+                  <th className="text-right py-1 pr-4">Interanual</th>
+                  <th className="text-right py-1">Acumulada</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tab.rows.filter((r) => r.mensual != null && r.interanual != null && r.acumulada != null).map((r) => (
+                  <tr key={r.k} className="border-t border-theme text-theme-primary">
+                    <td className="py-1 pr-4 font-sans text-[13px]">{r.k}</td>
+                    <td className="text-right py-1 pr-4">{num(r.mensual)}%</td>
+                    <td className="text-right py-1 pr-4">{num(r.interanual)}%</td>
+                    <td className="text-right py-1">{num(r.acumulada)}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="text-[11px] text-theme-muted mt-2">Fuente: {fuenteIndec(indec.ipc)}.</p>
+          </div>
+        ))}
       </div>
 
       {/* All charts */}

@@ -5,6 +5,7 @@ import { ComposedChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 import ChartCard from '@/components/ChartCard';
 import { useChartTheme, ThemedTooltip } from './useChartTheme';
 import { emaeData } from '@/data/macroData';
+import { indec, emaeUltimo, fuenteIndec, num } from '@/data/indec';
 import { useIndicatorData } from '@/hooks/useIndicatorData';
 import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
 
@@ -22,7 +23,13 @@ export default function EmaeChart() {
   return (
     <ChartCard
       title="EMAE — Estimador Mensual de Actividad Económica"
-      subtitle={isLive ? `Índice base 2004=100 · Actualizado ${updatedAt} · INDEC` : 'Índice original 2004=100 · Ago-26 147,8 · −1,7% i.a. · +0,1% s.e. · INDEC 21/10/2026'}
+      subtitle={isLive ? `Índice base 2004=100 · Actualizado ${updatedAt} · INDEC` : `Índice 2004=100 · ${[
+        emaeUltimo.date,
+        num(emaeUltimo.original) && `orig. ${num(emaeUltimo.original)}`,
+        num(emaeUltimo.desest) && `desest. ${num(emaeUltimo.desest)}`,
+        num(emaeUltimo.ia, 1, true) && `${num(emaeUltimo.ia, 1, true)}% i.a.`,
+        num(emaeUltimo.mmDesest, 1, true) && `${num(emaeUltimo.mmDesest, 1, true)}% s.e.`,
+      ].filter(Boolean).join(' · ')} · ${fuenteIndec(indec.emae)}`}
       isLive={isLive}
       periods={[...MONTHLY_PERIODS]}
       selectedPeriod={period}
@@ -38,8 +45,11 @@ export default function EmaeChart() {
           <Tooltip content={<ThemedTooltip />} />
           <Legend wrapperStyle={{ fontSize: 12, color: t.textSecondary }} />
           <Area type="monotone" dataKey="value" name="EMAE" stroke="#74ACDF" fill="#74ACDF" fillOpacity={0.08} strokeWidth={2} dot={false} />
+          {displayData.some((d) => d.desest !== undefined) && (
+            <Line type="monotone" dataKey="desest" name="Desestacionalizada" stroke="#00C9A7" strokeWidth={1.5} dot={false} />
+          )}
           {displayData.some((d) => d.trend !== undefined) && (
-            <Line type="monotone" dataKey="trend" name="Tendencia" stroke="#D4A843" strokeWidth={2} strokeDasharray="6 3" dot={false} />
+            <Line type="monotone" dataKey="trend" name="Tendencia-ciclo" stroke="#D4A843" strokeWidth={2} strokeDasharray="6 3" dot={false} />
           )}
         </ComposedChart>
       </ResponsiveContainer>

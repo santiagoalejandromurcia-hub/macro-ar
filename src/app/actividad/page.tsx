@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { EmaeSectoresTabla, MercadoTrabajoTabla } from '@/components/IndecTablas';
 import SectionHeader from '@/components/SectionHeader';
 import HideOnError from '@/components/HideOnError';
 import {
@@ -42,6 +43,7 @@ export default function ActividadPage() {
         <div id="emae" className="scroll-mt-24">
           <HideOnError><EmaeLargoPlazoChart /></HideOnError>
         </div>
+        <EmaeSectoresTabla />
         <div id="pbi" className="scroll-mt-24 grid grid-cols-1 lg:grid-cols-2 gap-6">
           <HideOnError><PBIBarChart /></HideOnError>
           <HideOnError><SectorChart /></HideOnError>
@@ -49,6 +51,9 @@ export default function ActividadPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <HideOnError><PBIDesestacionalizadoChart /></HideOnError>
           <HideOnError><ConsumoPrivadoChart /></HideOnError>
+        </div>
+        <div id="empleo" className="scroll-mt-24">
+          <MercadoTrabajoTabla />
         </div>
         <div id="pobreza" className="scroll-mt-24">
           <HideOnError><PobrezaChart /></HideOnError>
