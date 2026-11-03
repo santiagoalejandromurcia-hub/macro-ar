@@ -13,8 +13,8 @@ import {
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://macrolibre.com/externo' },
-  title: { absolute: 'Balanza comercial Argentina septiembre 2026: superávit de USD 2.976 M | MacroLibre' },
-  description: 'Balanza comercial de septiembre 2026: superávit de USD 2.976 M (INDEC, 19/10); ene–sep +USD 21.198 M. Reservas, tipo de cambio y riesgo país.',
+  title: { absolute: 'Sector externo Argentina: términos del intercambio 3T 2026 +4,2% y balanza comercial | MacroLibre' },
+  description: '3T 2026: precios de exportación +15,2% i.a., importación +10,5%, términos del intercambio +4,2% (INDEC, 03/11). Balanza de septiembre: superávit USD 2.976 M (INDEC, 19/10). Reservas y riesgo país.',
 };
 
 export default function ExternoPage() {
@@ -36,6 +36,13 @@ export default function ExternoPage() {
           </p>
           <p className="-mt-2 mb-3 text-[12px] text-[var(--fg-2)]">
             Exportaciones USD 10.036 M (+23,5% i.a.), importaciones USD 7.060 M (−1,8% i.a.), intercambio USD 17.095 M (+11,6% i.a.). (INDEC 19/10)
+          </p>
+          <p className="mb-3 text-[13px] text-[var(--fg-1)]">
+            En el tercer trimestre de 2026, los precios de exportación subieron 15,2% interanual y los de importación 10,5%, por lo que los términos del intercambio mejoraron 4,2%, según el INDEC (publicado el 03/11/2026).
+          </p>
+          <p className="-mt-2 mb-3 text-[12px] text-[var(--fg-2)]">
+            En el 3T 2026 las cantidades exportadas crecieron 1,3% i.a. y las importadas cayeron 9,5%; en valor, las exportaciones subieron 16,7% y las importaciones 0,1%. El saldo del trimestre fue de USD 7.234 M y la ganancia por términos del intercambio, USD 1.016 M. En ene–sep 2026: exportaciones USD 77.267 M (+21,6% i.a.), importaciones USD 56.069 M (−2,5% i.a.), saldo USD 21.198 M. Fuente:{' '}
+            <a href="https://www.indec.gob.ar/uploads/informesdeprensa/ipcext_11_260C47AFE7FE.pdf" className="underline" rel="noopener" target="_blank">INDEC, Índices de precios y cantidades del comercio exterior, 3T 2026</a> (publicado el 03/11/2026).
           </p>
           <HideOnError><TradeChart /></HideOnError>
         </div>

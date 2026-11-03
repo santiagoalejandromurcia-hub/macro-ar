@@ -210,17 +210,19 @@ export const fiscalGastoRealData: Array<{ concepto: string; variacionReal: strin
   { concepto: 'Pensiones no contributivas', variacionReal: '+4,2%' },
 ];
 
-// Recaudación Tributaria Nacional (millones de pesos) — Agosto 2026
-// Fuente oficial: ARCA / DNIAF — informe mensual agosto 2026
+// Recaudación Tributaria Nacional (millones de pesos) — Octubre 2026
+// Fuente oficial: ARCA — informe mensual octubre 2026 (publicado 02/11/2026)
+// https://www.afip.gob.ar/institucional/documentos/ARCA-Recaudacion-102026.pdf
+// Acumulado ene–oct: $196.013.106 M (+29,8% i.a.)
 export const taxData = [
-  { concepto: 'IVA', monto: '6.675.409', pctPIB: '-', variacion: '+25,3%' },
-  { concepto: 'Ganancias', monto: '4.636.836', pctPIB: '-', variacion: '+45,2%' },
-  { concepto: 'Seg. Social', monto: '4.833.581', pctPIB: '-', variacion: '+31,9%' },
-  { concepto: 'Créditos y Débitos', monto: '1.520.865', pctPIB: '-', variacion: '+21,5%' },
-  { concepto: 'Der. Exportación', monto: '1.015.506', pctPIB: '-', variacion: '+155,1%' },
-  { concepto: 'Combustibles', monto: '724.899', pctPIB: '-', variacion: '+50,4%' },
-  { concepto: 'Bienes Personales', monto: '137.797', pctPIB: '-', variacion: '+24,8%' },
-  { concepto: 'TOTAL', monto: '20.508.537', pctPIB: '-', variacion: '+33,5%' },
+  { concepto: 'IVA', monto: '7.032.743', pctPIB: '-', variacion: '+21,8%' },
+  { concepto: 'Ganancias', monto: '5.085.492', pctPIB: '-', variacion: '+55,1%' },
+  { concepto: 'Seg. Social', monto: '5.033.064', pctPIB: '-', variacion: '+33,8%' },
+  { concepto: 'Créditos y Débitos', monto: '1.631.977', pctPIB: '-', variacion: '+21,5%' },
+  { concepto: 'Der. Exportación', monto: '870.052', pctPIB: '-', variacion: '+238,4%' },
+  { concepto: 'Combustibles', monto: '688.197', pctPIB: '-', variacion: '+51,1%' },
+  { concepto: 'Bienes Personales', monto: '122.441', pctPIB: '-', variacion: '+26,6%' },
+  { concepto: 'TOTAL', monto: '21.608.201', pctPIB: '-', variacion: '+33,7%' },
 ];
 
 // Balanza Comercial (USD millones)
@@ -770,7 +772,8 @@ export const riesgoPaisData: Array<{
   { date: 'Abr 26', value: 557 },
   { date: 'May 26', value: 490 },
   { date: 'Jun 26', value: 470, note: 'Mínimo reciente EMBIGD' },
-  { date: 'Sep 26', value: 490, highlight: 'actual', note: 'JP Morgan EMBIGD · 07/09/2026' },
+  { date: 'Sep 26', value: 490, note: 'JP Morgan EMBIGD · 07/09/2026' },
+  { date: 'Nov 26', value: 805, highlight: 'actual', note: 'EMBIGD · 02/11/2026 · ArgentinaDatos' },
 ];
 
 // Última actualización
