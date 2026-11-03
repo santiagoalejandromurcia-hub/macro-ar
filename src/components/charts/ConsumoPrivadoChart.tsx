@@ -70,8 +70,8 @@ export default function ConsumoPrivadoChart() {
 
       {/* Pie de hito */}
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono text-theme-muted">
-        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#D4A843' }} />J×C 2017-2019</span>
-        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#74ACDF' }} />Fernández 2019-2023</span>
+        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#E73F25' }} />J×C 2017-2019</span>
+        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#0099FF' }} />Fernández 2019-2023</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#A78BFA' }} />Milei 2024-2025</span>
         <span className="ml-auto text-theme-primary font-semibold">II-26 vs II-24: <span className="text-ar-green">+12,1%</span> · s.e. −2,4%</span>
       </div>

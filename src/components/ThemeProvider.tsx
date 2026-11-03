@@ -8,14 +8,14 @@ const ThemeContext = createContext<{
   theme: Theme;
   toggleTheme: () => void;
 }>({
-  theme: 'dark',
+  theme: 'light',
   toggleTheme: () => {},
 });
 
 export const useTheme = () => useContext(ThemeContext);
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -24,6 +24,7 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
     if (saved) {
       setTheme(saved);
       document.documentElement.classList.toggle('light', saved === 'light');
+      document.documentElement.classList.toggle('dark', saved === 'dark');
     }
   }, []);
 
@@ -32,10 +33,11 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
     setTheme(next);
     localStorage.setItem('macroar-theme', next);
     document.documentElement.classList.toggle('light', next === 'light');
+    document.documentElement.classList.toggle('dark', next === 'dark');
   };
 
   if (!mounted) {
-    return <div style={{ minHeight: '100vh', backgroundColor: '#0A0E17' }}>{children}</div>;
+    return <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-0)' }}>{children}</div>;
   }
 
   return (

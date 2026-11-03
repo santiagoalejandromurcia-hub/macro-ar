@@ -147,7 +147,7 @@ export default function Navbar() {
     {/* ⌘K Command Palette */}
     <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} />
 
-    <nav className="border-b border-[var(--line-1)] bg-[oklch(0.12_0.018_250_/_0.85)] backdrop-blur-xl">
+    <nav className="border-b border-[var(--line-1)] bg-[var(--navbar-bg)] backdrop-blur-xl">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 flex items-center gap-4 lg:gap-8 h-14">
         {/* ── Wordmark. En la home: logo + «Macro Libre» chico. El título grande vive arriba del buscador. ── */}
         {pathname === '/' ? (

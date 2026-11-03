@@ -49,7 +49,7 @@ export default function ExportacionesChart() {
             {liveData.map((d, i) => (
               <Cell
                 key={i}
-                fill={d.isEstimate ? '#22C55E' : '#74ACDF'}
+                fill={d.isEstimate ? '#22C55E' : '#0099FF'}
                 fillOpacity={d.isEstimate ? 0.85 : 1}
                 stroke={d.isEstimate ? '#22C55E' : 'transparent'}
                 strokeDasharray={d.isEstimate ? '4 2' : undefined}
@@ -67,7 +67,7 @@ export default function ExportacionesChart() {
       </ResponsiveContainer>
 
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono text-theme-muted">
-        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#74ACDF' }} />Dato oficial</span>
+        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#0099FF' }} />Dato oficial</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#22C55E' }} />Estimación 2026</span>
         <span className="ml-auto text-theme-primary font-semibold">2026e: <span className="text-ar-green">USD 100 MM</span> (récord histórico, +15%)</span>
       </div>

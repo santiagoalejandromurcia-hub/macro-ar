@@ -28,7 +28,7 @@ export default function InflacionMensualChart({ compact = false }: { compact?: b
             <Tooltip content={<ThemedTooltip />} />
             <Bar dataKey="mensual" name="IPC Mensual %" fill="#EF4444" radius={[2, 2, 0, 0]} opacity={0.7} isAnimationActive={false} />
             {displayData.some((d) => d.nucleo != null) && (
-              <Line type="monotone" dataKey="nucleo" name="Núcleo %" stroke="#D4A843" strokeWidth={2} dot={false} isAnimationActive={false} />
+              <Line type="monotone" dataKey="nucleo" name="Núcleo %" stroke="#E73F25" strokeWidth={2} dot={false} isAnimationActive={false} />
             )}
           </ComposedChart>
         </ResponsiveContainer>
@@ -58,7 +58,7 @@ export default function InflacionMensualChart({ compact = false }: { compact?: b
           <Legend wrapperStyle={{ fontSize: 12, color: t.textSecondary }} />
           <Bar dataKey="mensual" name="IPC Mensual %" fill="#EF4444" radius={[3, 3, 0, 0]} opacity={0.7} />
           {displayData.some((d) => d.nucleo != null) && (
-            <Line type="monotone" dataKey="nucleo" name="Núcleo %" stroke="#D4A843" strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="nucleo" name="Núcleo %" stroke="#E73F25" strokeWidth={2} dot={false} />
           )}
         </ComposedChart>
       </ResponsiveContainer>

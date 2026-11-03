@@ -44,12 +44,12 @@ export default function EmaeChart() {
           <YAxis tick={t.axis} domain={['auto', 'auto']} />
           <Tooltip content={<ThemedTooltip />} />
           <Legend wrapperStyle={{ fontSize: 12, color: t.textSecondary }} />
-          <Area type="monotone" dataKey="value" name="EMAE" stroke="#74ACDF" fill="#74ACDF" fillOpacity={0.08} strokeWidth={2} dot={false} />
+          <Area type="monotone" dataKey="value" name="EMAE" stroke="#0099FF" fill="#0099FF" fillOpacity={0.08} strokeWidth={2} dot={false} />
           {displayData.some((d) => d.desest !== undefined) && (
             <Line type="monotone" dataKey="desest" name="Desestacionalizada" stroke="#00C9A7" strokeWidth={1.5} dot={false} />
           )}
           {displayData.some((d) => d.trend !== undefined) && (
-            <Line type="monotone" dataKey="trend" name="Tendencia-ciclo" stroke="#D4A843" strokeWidth={2} strokeDasharray="6 3" dot={false} />
+            <Line type="monotone" dataKey="trend" name="Tendencia-ciclo" stroke="#E73F25" strokeWidth={2} strokeDasharray="6 3" dot={false} />
           )}
         </ComposedChart>
       </ResponsiveContainer>

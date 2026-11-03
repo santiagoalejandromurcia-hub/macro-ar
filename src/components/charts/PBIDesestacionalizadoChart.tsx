@@ -40,8 +40,8 @@ export default function PBIDesestacionalizadoChart() {
         <ComposedChart data={liveData} margin={{ top: 10, right: 10, left: -10, bottom: 5 }}>
           <defs>
             <linearGradient id="pbiFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#74ACDF" stopOpacity={0.28} />
-              <stop offset="100%" stopColor="#74ACDF" stopOpacity={0.02} />
+              <stop offset="0%" stopColor="#0099FF" stopOpacity={0.28} />
+              <stop offset="100%" stopColor="#0099FF" stopOpacity={0.02} />
             </linearGradient>
           </defs>
           <CartesianGrid {...t.grid} />
@@ -57,18 +57,18 @@ export default function PBIDesestacionalizadoChart() {
             type="monotone"
             dataKey="value"
             name="PBI (I-17=100)"
-            stroke="#74ACDF"
+            stroke="#0099FF"
             strokeWidth={2.5}
             fill="url(#pbiFill)"
             dot={false}
           />
-          <Line type="monotone" dataKey="value" name="PBI (I-17=100)" stroke="#74ACDF" strokeWidth={0} dot={{ r: 2.5, fill: '#74ACDF', strokeWidth: 0 }} legendType="none" />
+          <Line type="monotone" dataKey="value" name="PBI (I-17=100)" stroke="#0099FF" strokeWidth={0} dot={{ r: 2.5, fill: '#0099FF', strokeWidth: 0 }} legendType="none" />
         </ComposedChart>
       </ResponsiveContainer>
 
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono text-theme-muted">
-        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#D4A843' }} />J×C</span>
-        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#74ACDF' }} />Fernández (pico II-22 ~104)</span>
+        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#E73F25' }} />J×C</span>
+        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#0099FF' }} />Fernández (pico II-22 ~104)</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#A78BFA' }} />Milei (mín II-24 ~95)</span>
         <span className="ml-auto text-theme-primary font-semibold">II-26 vs II-24: <span className="text-ar-green">+7,9%</span> · s.e. −0,6%</span>
       </div>

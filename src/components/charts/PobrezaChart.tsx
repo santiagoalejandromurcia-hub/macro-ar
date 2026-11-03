@@ -19,8 +19,8 @@ import { indec, pobrezaUltimo, fuenteIndec, num } from '@/data/indec';
 import { useIndicatorData } from '@/hooks/useIndicatorData';
 
 const ETAPA_COLORS: Record<string, string> = {
-  jxc: '#D4A843',  // amarillo
-  fdt: '#74ACDF',  // celeste/azul
+  jxc: '#E73F25',  // amarillo
+  fdt: '#0099FF',  // celeste/azul
   lla: '#A78BFA',  // violeta
 };
 

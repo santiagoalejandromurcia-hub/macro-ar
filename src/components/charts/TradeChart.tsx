@@ -38,7 +38,7 @@ export default function TradeChart() {
           <Legend wrapperStyle={{ fontSize: 12, color: t.textSecondary }} />
           <Bar dataKey="exports" name="Exportaciones" fill="#22C55E" radius={[4, 4, 0, 0]} opacity={0.8} />
           <Bar dataKey="imports" name="Importaciones" fill="#EF4444" radius={[4, 4, 0, 0]} opacity={0.8} />
-          <Line type="monotone" dataKey="balance" name="Saldo" stroke="#D4A843" strokeWidth={2.5} dot={{ r: 3, fill: '#D4A843' }} />
+          <Line type="monotone" dataKey="balance" name="Saldo" stroke="#E73F25" strokeWidth={2.5} dot={{ r: 3, fill: '#E73F25' }} />
         </ComposedChart>
       </ResponsiveContainer>
     </ChartCard>

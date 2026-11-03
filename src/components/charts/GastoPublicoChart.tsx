@@ -105,8 +105,8 @@ export default function GastoPublicoChart() {
         <AreaChart data={liveData} margin={{ top: 10, right: 16, left: -4, bottom: 5 }}>
           <defs>
             <linearGradient id="gastoFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stopColor="#74ACDF" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="#74ACDF" stopOpacity={0.03} />
+              <stop offset="0%"   stopColor="#0099FF" stopOpacity={0.3} />
+              <stop offset="100%" stopColor="#0099FF" stopOpacity={0.03} />
             </linearGradient>
           </defs>
 
@@ -149,7 +149,7 @@ export default function GastoPublicoChart() {
             type="monotone"
             dataKey="value"
             name="Gasto primario % PIB"
-            stroke="#74ACDF"
+            stroke="#0099FF"
             strokeWidth={2.5}
             fill="url(#gastoFill)"
             dot={false}

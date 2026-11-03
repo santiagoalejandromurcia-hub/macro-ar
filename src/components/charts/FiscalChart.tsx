@@ -41,7 +41,7 @@ export default function FiscalChart() {
           <Legend wrapperStyle={{ fontSize: 12, color: t.textSecondary }} />
           <ReferenceLine y={0} stroke={t.refLine} strokeDasharray="4 2" />
           <Area type="monotone" dataKey="primario" name="Resultado Primario" stroke="#22C55E" fill="#22C55E" fillOpacity={0.06} strokeWidth={2.5} dot={false} />
-          <Line type="monotone" dataKey="financiero" name="Resultado Financiero" stroke="#74ACDF" strokeWidth={2.5} dot={false} />
+          <Line type="monotone" dataKey="financiero" name="Resultado Financiero" stroke="#0099FF" strokeWidth={2.5} dot={false} />
         </ComposedChart>
       </ResponsiveContainer>
     </ChartCard>

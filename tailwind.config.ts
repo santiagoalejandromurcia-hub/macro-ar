@@ -70,13 +70,13 @@ const config: Config = {
       },
       fontFamily: {
         // Fraunces para display editorial (Fortune / Bloomberg-like headlines)
-        display:   ['"Fraunces"', 'ui-serif', 'Georgia', 'serif'],
+        display:   ['var(--font-anton)', '"Anton"', '"Bebas Neue"', 'Impact', 'sans-serif'],
         // Syne para headlines MEGA redesign — impacto visual máximo
-        syne:      ['"Syne"', 'system-ui', 'sans-serif'],
+        syne:      ['var(--font-anton)', '"Anton"', 'Impact', 'sans-serif'],
         // Geist como sans del producto
-        sans:      ['"Geist"', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        sans:      ['var(--font-inter)', '"Inter"', 'system-ui', '-apple-system', 'Segoe UI', 'Helvetica', 'sans-serif'],
         // Inter como body alternativo — legibilidad superior en texto largo
-        inter:     ['"Inter"', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        inter:     ['var(--font-inter)', '"Inter"', 'system-ui', 'sans-serif'],
         // Geist Mono para etiquetas, timestamps, tickers
         mono:      ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
         // JetBrains Mono para valores numéricos clave (KPI cards, precios)

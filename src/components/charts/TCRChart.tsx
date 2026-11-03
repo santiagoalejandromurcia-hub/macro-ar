@@ -15,9 +15,9 @@ import { MONTHLY_PERIODS, filterByPeriod } from '@/lib/dataUtils';
 import { spanishToISO, macroChartOptions } from '@/lib/lwChartUtils';
 
 const SERIES_CONFIG = [
-  { key: 'oficial' as const, color: '#74ACDF', title: 'Oficial' },
+  { key: 'oficial' as const, color: '#0099FF', title: 'Oficial' },
   { key: 'blue'    as const, color: '#22C55E', title: 'Blue'    },
-  { key: 'mep'     as const, color: '#D4A843', title: 'MEP'     },
+  { key: 'mep'     as const, color: '#E73F25', title: 'MEP'     },
 ] as const;
 
 type TcrRow = (typeof tcrData)[number];
