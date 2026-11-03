@@ -13,11 +13,11 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'sw
 
 export const metadata: Metadata = {
   title: {
-    default: 'MacroLibre: datos de la economía argentina',
+    default: 'MacroLibre | Datos de la economía argentina',
     template: '%s | MacroLibre',
   },
   description:
-    'MacroLibre: no son solo números. Datos oficiales de la economía argentina: inflación, PBI, EMAE, reservas del BCRA, resultado fiscal, dólar y más.',
+    'Dólar, inflación, riesgo país, reservas del BCRA, EMAE y más: los datos de la economía argentina con su fuente y su fecha, para entender qué pasa.',
   keywords: [
     'Argentina', 'macroeconomía', 'dólar blue', 'inflación', 'PBI',
     'EMAE', 'BCRA', 'reservas', 'fiscal', 'superávit', 'estadísticas',
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     locale: 'es_AR',
     url: 'https://macrolibre.com',
     siteName: 'MacroLibre',
-    title: 'MacroLibre: datos de la economía argentina',
-    description: 'MacroLibre: no son solo números. Inflación, PBI, EMAE, reservas, dólar y más, con datos oficiales de Argentina.',
+    title: 'MacroLibre | Datos de la economía argentina',
+    description: 'Dólar, inflación, riesgo país, reservas del BCRA, EMAE y más: los datos de la economía argentina con su fuente y su fecha, para entender qué pasa.',
     // Nota: NO seteamos `images` acá. Next 15 inyecta automáticamente la OG
     // dinámica de src/app/opengraph-image.tsx (y la del slug en artículos).
   },
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@MacroLibre',
     creator: '@MacroLibre',
-    title: 'MacroLibre: datos de la economía argentina',
-    description: 'MacroLibre: no son solo números. Inflación, PBI, EMAE, reservas, dólar y más, con datos oficiales de Argentina.',
+    title: 'MacroLibre | Datos de la economía argentina',
+    description: 'Los datos de la economía argentina, explicados y con su fuente.',
   },
   icons: {
     icon: '/icon.png',
@@ -72,7 +72,7 @@ const ORG_JSON_LD = {
   url: 'https://macrolibre.com',
   logo: 'https://macrolibre.com/logo-app-icon.png',
   description:
-    'Plataforma de estadísticas macroeconómicas de Argentina en tiempo real.',
+    'Dólar, inflación, riesgo país, reservas del BCRA, EMAE y más: los datos de la economía argentina con su fuente y su fecha, para entender qué pasa.',
   sameAs: [
     'https://www.instagram.com/macrolibre/',
     'https://www.linkedin.com/in/macrolibre/',
