@@ -13,11 +13,11 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'sw
 
 export const metadata: Metadata = {
   title: {
-    default: 'MacroLibre — Pulso económico en tiempo real',
+    default: 'MacroLibre: datos de la economía argentina',
     template: '%s | MacroLibre',
   },
   description:
-    'Plataforma de estadísticas macroeconómicas de Argentina en tiempo real. Dólar blue, inflación, PBI, EMAE, reservas BCRA, resultado fiscal, simulador económico y más.',
+    'MacroLibre: no son solo números. Datos oficiales de la economía argentina: inflación, PBI, EMAE, reservas del BCRA, resultado fiscal, dólar y más.',
   keywords: [
     'Argentina', 'macroeconomía', 'dólar blue', 'inflación', 'PBI',
     'EMAE', 'BCRA', 'reservas', 'fiscal', 'superávit', 'estadísticas',
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     locale: 'es_AR',
     url: 'https://macrolibre.com',
     siteName: 'MacroLibre',
-    title: 'MacroLibre — Pulso económico en tiempo real',
-    description: 'Dólar blue en vivo, inflación, PBI, reservas, resultado fiscal y simulador económico.',
+    title: 'MacroLibre: datos de la economía argentina',
+    description: 'MacroLibre: no son solo números. Inflación, PBI, EMAE, reservas, dólar y más, con datos oficiales de Argentina.',
     // Nota: NO seteamos `images` acá. Next 15 inyecta automáticamente la OG
     // dinámica de src/app/opengraph-image.tsx (y la del slug en artículos).
   },
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@MacroLibre',
     creator: '@MacroLibre',
-    title: 'MacroLibre — Pulso económico en tiempo real',
-    description: 'Dólar blue en vivo, inflación, PBI, reservas y simulador económico.',
+    title: 'MacroLibre: datos de la economía argentina',
+    description: 'MacroLibre: no son solo números. Inflación, PBI, EMAE, reservas, dólar y más, con datos oficiales de Argentina.',
   },
   icons: {
     icon: '/icon.png',
