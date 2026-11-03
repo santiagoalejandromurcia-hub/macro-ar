@@ -80,14 +80,14 @@ function CityDots({ radius }: { radius: number }) {
       {argPositions.map((pos, i) => (
         <mesh key={`ar-${i}`} position={pos}>
           <sphereGeometry args={[0.045, 16, 16]} />
-          <meshBasicMaterial color="#D4A843" />
+          <meshBasicMaterial color="#E73F25" />
         </mesh>
       ))}
       {/* Resto del mundo — celestes */}
       {worldPositions.map((pos, i) => (
         <mesh key={`w-${i}`} position={pos}>
           <sphereGeometry args={[0.028, 12, 12]} />
-          <meshBasicMaterial color="#5DC1E0" />
+          <meshBasicMaterial color="#4DB8FF" />
         </mesh>
       ))}
     </>
@@ -133,7 +133,7 @@ function ExportArcs({ radius }: { radius: number }) {
             object={
               (() => {
                 const mat = new THREE.LineDashedMaterial({
-                  color: '#F0A500', // gold
+                  color: '#F28C7A', // gold
                   linewidth: 1,
                   dashSize: 0.18,
                   gapSize: 0.12,
@@ -182,7 +182,7 @@ function EarthGlobe() {
       {/* Atmósfera celeste (glow exterior) */}
       <Sphere args={[radius * 1.04, 32, 32]}>
         <meshBasicMaterial
-          color="#5DC1E0"
+          color="#4DB8FF"
           transparent
           opacity={0.10}
           side={THREE.BackSide}
@@ -209,11 +209,11 @@ function WireframeGlobe() {
         <meshBasicMaterial color="#0a1018" transparent opacity={0.92} />
       </Sphere>
       <Sphere args={[radius, 36, 24]}>
-        <meshBasicMaterial color="#5DC1E0" wireframe transparent opacity={0.32} />
+        <meshBasicMaterial color="#4DB8FF" wireframe transparent opacity={0.32} />
       </Sphere>
       <Sphere args={[radius * 1.05, 32, 32]}>
         <meshBasicMaterial
-          color="#5DC1E0"
+          color="#4DB8FF"
           transparent
           opacity={0.06}
           side={THREE.BackSide}
@@ -238,7 +238,7 @@ export default function Globe() {
       {/* Luz ambiente suave + directional fuerte que simula el sol */}
       <ambientLight intensity={0.5} />
       <directionalLight position={[5, 3, 5]} intensity={1.4} color="#ffffff" />
-      <pointLight position={[-5, -3, -5]} intensity={0.3} color="#5DC1E0" />
+      <pointLight position={[-5, -3, -5]} intensity={0.3} color="#4DB8FF" />
 
       <Suspense fallback={<WireframeGlobe />}>
         <EarthGlobe />

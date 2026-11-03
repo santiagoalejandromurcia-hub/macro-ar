@@ -80,15 +80,15 @@ export default function EnergiaContent() {
             <Tooltip content={<ThemedTooltip />} />
             <Legend wrapperStyle={{ fontSize: 12, color: t.textSecondary }} />
             <ReferenceLine y={0} stroke={t.refLine} />
-            <Line type="monotone" dataKey="x12" name="X CyE 12m" stroke="#74ACDF" strokeWidth={2.2} dot={false} />
-            <Line type="monotone" dataKey="m12" name="M comb. 12m" stroke="#EC4899" strokeWidth={2.2} dot={false} />
-            <Line type="monotone" dataKey="ttm" name="Saldo 12m" stroke="#D4A843" strokeWidth={2.6} strokeDasharray="6 3" dot={false} />
+            <Line type="monotone" dataKey="x12" name="X CyE 12m" stroke="#0099FF" strokeWidth={2.2} dot={false} />
+            <Line type="monotone" dataKey="m12" name="M comb. 12m" stroke="#F28C7A" strokeWidth={2.2} dot={false} />
+            <Line type="monotone" dataKey="ttm" name="Saldo 12m" stroke="#E73F25" strokeWidth={2.6} strokeDasharray="6 3" dot={false} />
           </ComposedChart>
         </ResponsiveContainer>
         <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono text-theme-muted">
-          <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#74ACDF' }} />X 12m</span>
-          <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#EC4899' }} />M 12m</span>
-          <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#D4A843' }} />Saldo (X−M)</span>
+          <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#0099FF' }} />X 12m</span>
+          <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#F28C7A' }} />M 12m</span>
+          <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#E73F25' }} />Saldo (X−M)</span>
           <span className="ml-auto">Sep-26 saldo <span className="text-ar-green font-semibold">+USD {k.ttmUsdM.toLocaleString('es-AR')} M</span></span>
         </div>
       </SectorChartCard>
@@ -115,8 +115,8 @@ export default function EnergiaContent() {
               <YAxis tick={{ fill: 'var(--fg-3)', fontSize: 11 }} />
               <Tooltip contentStyle={{ background: 'var(--bg-1)', border: '1px solid var(--line-1)' }} />
               <Legend />
-              <Bar dataKey="x" name="X CyE" fill="#74ACDF" />
-              <Bar dataKey="m" name="M comb." fill="#EC4899" />
+              <Bar dataKey="x" name="X CyE" fill="#0099FF" />
+              <Bar dataKey="m" name="M comb." fill="#F28C7A" />
             </BarChart>
           </ResponsiveContainer>
         </SectorChartCard>
@@ -136,7 +136,7 @@ export default function EnergiaContent() {
               <ReferenceLine y={0} stroke="var(--line-1)" />
               <Bar dataKey="saldo" name="Saldo USD M" radius={[3, 3, 0, 0]}>
                 {ENERGIA_ANUAL.map((r) => (
-                  <Cell key={r.anio} fill={r.saldo >= 0 ? '#74ACDF' : '#EC4899'} />
+                  <Cell key={r.anio} fill={r.saldo >= 0 ? '#0099FF' : '#F28C7A'} />
                 ))}
               </Bar>
             </BarChart>
@@ -157,7 +157,7 @@ export default function EnergiaContent() {
               <XAxis dataKey="mes" tick={{ fill: 'var(--fg-3)', fontSize: 10 }} interval={2} />
               <YAxis tick={{ fill: 'var(--fg-3)', fontSize: 11 }} />
               <Tooltip contentStyle={{ background: 'var(--bg-1)', border: '1px solid var(--line-1)' }} />
-              <Line type="monotone" dataKey="usdM" name="Crudo USD M" stroke="#F97316" strokeWidth={2.5} dot={false} />
+              <Line type="monotone" dataKey="usdM" name="Crudo USD M" stroke="#B02E19" strokeWidth={2.5} dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </SectorChartCard>
@@ -174,7 +174,7 @@ export default function EnergiaContent() {
               <XAxis type="number" tick={{ fill: 'var(--fg-3)', fontSize: 11 }} />
               <YAxis type="category" dataKey="pais" width={110} tick={{ fill: 'var(--fg-2)', fontSize: 11 }} />
               <Tooltip />
-              <Bar dataKey="usdM" name="USD M" fill="#F97316" radius={[0, 4, 4, 0]} />
+              <Bar dataKey="usdM" name="USD M" fill="#B02E19" radius={[0, 4, 4, 0]} />
             </BarChart>
           </ResponsiveContainer>
           <p className="text-[12px] text-[var(--fg-3)] mt-2">
@@ -196,8 +196,8 @@ export default function EnergiaContent() {
             <YAxis tick={{ fill: 'var(--fg-3)', fontSize: 11 }} />
             <Tooltip contentStyle={{ background: 'var(--bg-1)', border: '1px solid var(--line-1)' }} />
             <Legend />
-            <Line type="monotone" dataKey="super" name="Super" stroke="#F97316" strokeWidth={2.2} dot={false} />
-            <Line type="monotone" dataKey="premium" name="Premium" stroke="#F0A500" strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="super" name="Super" stroke="#B02E19" strokeWidth={2.2} dot={false} />
+            <Line type="monotone" dataKey="premium" name="Premium" stroke="#F28C7A" strokeWidth={2} dot={false} />
             <Line type="monotone" dataKey="gasoil" name="Gasoil" stroke="#64748B" strokeWidth={2} dot={false} />
           </LineChart>
         </ResponsiveContainer>

@@ -47,7 +47,7 @@ export default function DeudaConsolidadaChart() {
           <Legend wrapperStyle={{ fontSize: 11, color: t.textSecondary }} />
 
           <Bar dataKey="tesoro" name="Tesoro" stackId="a" fill="#0099FF" radius={[0, 0, 0, 0]} />
-          <Bar dataKey="bcra"   name="BCRA"   stackId="a" fill="#A78BFA" radius={[6, 6, 0, 0]}>
+          <Bar dataKey="bcra"   name="BCRA"   stackId="a" fill="#0070C2" radius={[6, 6, 0, 0]}>
             <LabelList
               dataKey="total"
               position="top"

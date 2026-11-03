@@ -12,13 +12,13 @@ import {
 
 // ── Colores ──────────────────────────────────────────────────────────────────
 const C = {
-  real:      "#74ACDF",   // celeste — M2 real
+  real:      "#0099FF",   // celeste — M2 real
   gb:        "#22C55E",   // verde   — Gradient Boosting
-  ols:       "#F97316",   // naranja — OLS Baseline
-  proy_base: "#A78BFA",   // violeta
+  ols:       "#B02E19",   // naranja — OLS Baseline
+  proy_base: "#0070C2",   // azul
   proy_opt:  "#34D399",   // verde claro
   proy_pes:  "#F87171",   // rojo claro
-  brecha:    "#FBBF24",   // amarillo
+  brecha:    "#D63A21",   // amarillo
 };
 
 // ── Tooltip personalizado ────────────────────────────────────────────────────
@@ -46,8 +46,8 @@ function CustomTooltip({ active, payload, label }: any) {
 // ── Badge de régimen ─────────────────────────────────────────────────────────
 function RegimeBadge({ label }: { label: string }) {
   return (
-    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-violet-500/10 text-violet-400 border border-violet-500/20">
-      <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
+    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-[#0070C2]/10 text-[#4DB8FF] border border-[#0070C2]/20">
+      <span className="w-1.5 h-1.5 rounded-full bg-[#4DB8FF] animate-pulse" />
       {label}
     </span>
   );
@@ -223,7 +223,7 @@ export function M2ProxySection() {
                   <YAxis
                     yAxisId="brecha"
                     orientation="right"
-                    tick={{ fill: "#FBBF24", fontSize: 11 }}
+                    tick={{ fill: "#D63A21", fontSize: 11 }}
                     tickFormatter={(v) => `${v}%`}
                   />
                 )}
@@ -303,9 +303,9 @@ export function M2ProxySection() {
                 <ReferenceLine
                   x="Ene 25"
                   yAxisId="m2"
-                  stroke="#A78BFA"
+                  stroke="#0070C2"
                   strokeDasharray="3 3"
-                  label={{ value: "Remonetiz.", fill: "#A78BFA", fontSize: 10, position: "top" }}
+                  label={{ value: "Remonetiz.", fill: "#0070C2", fontSize: 10, position: "top" }}
                 />
               </ComposedChart>
             </ResponsiveContainer>
@@ -327,8 +327,8 @@ export function M2ProxySection() {
                 </span>.
               </p>
             </div>
-            <div className="bg-violet-500/5 border border-violet-500/20 rounded-xl p-4">
-              <h4 className="text-sm font-semibold text-violet-300 mb-2">
+            <div className="bg-[#0070C2]/5 border border-[#0070C2]/20 rounded-xl p-4">
+              <h4 className="text-sm font-semibold text-[#4DB8FF] mb-2">
                 Régimen actual: Remonetización
               </h4>
               <p className="text-xs text-gray-400 leading-relaxed">
@@ -378,7 +378,7 @@ export function M2ProxySection() {
                 <tr className="text-gray-500 text-xs border-b border-gray-700">
                   <th className="text-left py-2 px-3">Mes</th>
                   <th className="text-right py-2 px-3 text-green-400">Optimista</th>
-                  <th className="text-right py-2 px-3 text-violet-400">Base</th>
+                  <th className="text-right py-2 px-3 text-[#4DB8FF]">Base</th>
                   <th className="text-right py-2 px-3 text-red-400">Pesimista</th>
                 </tr>
               </thead>
@@ -387,7 +387,7 @@ export function M2ProxySection() {
                   <tr key={p.fecha} className="border-b border-gray-800 hover:bg-gray-800/30">
                     <td className="py-2 px-3 text-gray-300 font-mono">{p.fecha}</td>
                     <td className="py-2 px-3 text-right text-green-400 font-mono">ARS {p.optimista}T</td>
-                    <td className="py-2 px-3 text-right text-violet-400 font-mono font-semibold">ARS {p.base}T</td>
+                    <td className="py-2 px-3 text-right text-[#4DB8FF] font-mono font-semibold">ARS {p.base}T</td>
                     <td className="py-2 px-3 text-right text-red-400 font-mono">ARS {p.pesimista}T</td>
                   </tr>
                 ))}
@@ -464,7 +464,7 @@ export function M2ProxySection() {
                     <td className="py-2 text-right text-gray-400">8</td>
                   </tr>
                   <tr>
-                    <td className="py-2 text-violet-400">Markov Switching</td>
+                    <td className="py-2 text-[#4DB8FF]">Markov Switching</td>
                     <td className="py-2 text-right text-green-400">0.9894</td>
                     <td className="py-2 text-right text-green-400">0.0318</td>
                     <td className="py-2 text-right text-green-400">-1.3%</td>
@@ -548,7 +548,7 @@ export function M2ProxySection() {
                   Captura no-linealidades y quiebres estructurales (cepos, devaluaciones).
                 </p>
                 <p>
-                  <span className="text-violet-400 font-medium">Markov Switching</span>: 5 regímenes
+                  <span className="text-[#4DB8FF] font-medium">Markov Switching</span>: 5 regímenes
                   identificados (2010-17, crisis 2018-19, pandemia 2020-22, shock 2023-24,
                   remonetización 2025+). OLS por régimen, inspirado en
                   <code className="text-gray-300 mx-1">quantecon.MarkovChain</code>.

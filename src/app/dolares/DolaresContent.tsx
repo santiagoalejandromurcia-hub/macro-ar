@@ -82,7 +82,7 @@ export default function DolaresContent() {
               <XAxis dataKey="fecha" tick={{ fill: 'var(--fg-3)', fontSize: 9 }} hide />
               <YAxis tick={{ fill: 'var(--fg-3)', fontSize: 11 }} />
               <Tooltip />
-              <Bar dataKey="usdM" name="USD M" fill="#5DC1E0" />
+              <Bar dataKey="usdM" name="USD M" fill="#4DB8FF" />
             </BarChart>
           </ResponsiveContainer>
         </SectorChartCard>
@@ -101,7 +101,7 @@ export default function DolaresContent() {
             <YAxis domain={[70, 130]} tick={{ fill: 'var(--fg-3)', fontSize: 11 }} />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="valor" name="ITCRM" stroke="#D4A843" strokeWidth={2.5} dot={false} />
+            <Line type="monotone" dataKey="valor" name="ITCRM" stroke="#E73F25" strokeWidth={2.5} dot={false} />
           </LineChart>
         </ResponsiveContainer>
       </SectorChartCard>
@@ -118,7 +118,7 @@ export default function DolaresContent() {
               <Legend />
               <Bar dataKey="exports" name="X" fill="#22C55E" />
               <Bar dataKey="imports" name="M" fill="#EF4444" />
-              <Line type="monotone" dataKey="balance" name="Saldo ICA" stroke="#D4A843" strokeWidth={2} />
+              <Line type="monotone" dataKey="balance" name="Saldo ICA" stroke="#E73F25" strokeWidth={2} />
             </ComposedChart>
           </ResponsiveContainer>
           <p className="text-[12px] text-[var(--fg-2)] mt-3">
@@ -134,7 +134,7 @@ export default function DolaresContent() {
               <XAxis type="number" tick={{ fill: 'var(--fg-3)', fontSize: 11 }} />
               <YAxis type="category" dataKey="rubro" width={120} tick={{ fill: 'var(--fg-2)', fontSize: 11 }} />
               <Tooltip />
-              <Bar dataKey="usdM" name="USD M" fill="#A78BFA" />
+              <Bar dataKey="usdM" name="USD M" fill="#0070C2" />
             </BarChart>
           </ResponsiveContainer>
           <p className="text-[12px] text-[var(--fg-3)] mt-2">{cc.note}</p>

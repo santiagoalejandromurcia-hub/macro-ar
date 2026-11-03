@@ -61,7 +61,7 @@ export default function CreditoContent() {
             <YAxis tick={{ fill: 'var(--fg-3)', fontSize: 11 }} />
             <Tooltip contentStyle={{ background: 'var(--bg-1)', border: '1px solid var(--line-1)' }} />
             <Legend />
-            <Line type="monotone" dataKey="realAgo26Bn" name="Stock real (Bn $ ago-26)" stroke="#5DC1E0" strokeWidth={2.5} dot={false} />
+            <Line type="monotone" dataKey="realAgo26Bn" name="Stock real (Bn $ ago-26)" stroke="#4DB8FF" strokeWidth={2.5} dot={false} />
           </LineChart>
         </ResponsiveContainer>
       </SectorChartCard>
@@ -77,8 +77,8 @@ export default function CreditoContent() {
             <Tooltip contentStyle={{ background: 'var(--bg-1)', border: '1px solid var(--line-1)' }} />
             <Legend />
             <Line type="monotone" dataKey="total" name="Total" stroke="#f85149" strokeWidth={2.5} />
-            <Line type="monotone" dataKey="familias" name="Familias" stroke="#EC4899" strokeWidth={2} />
-            <Line type="monotone" dataKey="empresas" name="Empresas" stroke="#D4A843" strokeWidth={2} />
+            <Line type="monotone" dataKey="familias" name="Familias" stroke="#F28C7A" strokeWidth={2} />
+            <Line type="monotone" dataKey="empresas" name="Empresas" stroke="#E73F25" strokeWidth={2} />
           </LineChart>
         </ResponsiveContainer>
       </SectorChartCard>

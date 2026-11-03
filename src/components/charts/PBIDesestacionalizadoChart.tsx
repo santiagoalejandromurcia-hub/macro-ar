@@ -69,7 +69,7 @@ export default function PBIDesestacionalizadoChart() {
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono text-theme-muted">
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#E73F25' }} />J×C</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#0099FF' }} />Fernández (pico II-22 ~104)</span>
-        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#A78BFA' }} />Milei (mín II-24 ~95)</span>
+        <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#0070C2' }} />Milei (mín II-24 ~95)</span>
         <span className="ml-auto text-theme-primary font-semibold">II-26 vs II-24: <span className="text-ar-green">+7,9%</span> · s.e. −0,6%</span>
       </div>
     </ChartCard>

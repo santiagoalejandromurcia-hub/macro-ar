@@ -1,38 +1,24 @@
 import { ImageResponse } from 'next/og';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { OG_LOGO_DATA_URL } from '@/lib/ogLogo';
 
-// ============================================================
-// OG Image global (para la home y rutas que no tengan su propia)
-// Reemplaza /og-image.png estática.
-// Aparece como og:image y twitter:image automáticamente.
-// ============================================================
+// OG Image global (home y rutas sin imagen propia). Paleta: azul #0099FF/#0070C2,
+// fondo #FDFDFE, acento #E73F25 / #D63A21, titular en Anton.
 
 export const contentType = 'image/png';
 export const size = { width: 1200, height: 630 };
-export const alt = 'MacroLibre — Pulso económico de Argentina en tiempo real';
+export const alt = 'Macro Libre: no son solo números';
 
 export default async function Image() {
-  const logoSrc = OG_LOGO_DATA_URL;
-
-  const BG_DARK = '#0a1018';
-  const BG_CARD = '#10182a';
-  const FG_PRIMARY = '#f5f7fa';
-  const FG_SECONDARY = '#a8b2c1';
-  const FG_MUTED = '#6b7787';
-  const ACCENT = '#5DC1E0';
-  const GOLD = '#D4A843';
-  const UP = '#10b981';
-  const DOWN = '#ef4444';
-
-  // Mini-tablero con valores de ejemplo (no se actualizan; es portada).
-  // Si querés OG con datos en vivo más adelante, hay que mover esto a una
-  // route handler /api/og que fetchee el endpoint público.
-  const stats = [
-    { k: 'Inflación may', v: '2.1%', color: DOWN },
-    { k: 'Reservas BCRA', v: 'USD 46Bn', color: UP },
-    { k: 'Riesgo país', v: '535 pb', color: ACCENT },
-    { k: 'Dólar blue', v: '$1.450', color: GOLD },
-  ];
+  let anton: ArrayBuffer | null = null;
+  try {
+    const buf = await readFile(join(process.cwd(), 'src/app/fonts/Anton-Regular.ttf'));
+    anton = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
+  } catch {
+    anton = null;
+  }
+  const display = anton ? 'Anton' : 'sans-serif';
 
   return new ImageResponse(
     (
@@ -42,152 +28,33 @@ export default async function Image() {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          background: `linear-gradient(135deg, ${BG_DARK} 0%, ${BG_CARD} 100%)`,
-          padding: '72px',
+          justifyContent: 'space-between',
+          padding: '56px 72px',
+          background: 'linear-gradient(180deg, #0070C2 0%, #0099FF 45%, #9AD6FF 80%, #FDFDFE 100%)',
           fontFamily: 'sans-serif',
-          position: 'relative',
         }}
       >
-        {/* Glow celeste decorativo */}
-        <div
-          style={{
-            position: 'absolute',
-            top: -150,
-            right: -150,
-            width: 500,
-            height: 500,
-            borderRadius: '50%',
-            background: `radial-gradient(circle, ${ACCENT}33 0%, transparent 70%)`,
-            display: 'flex',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            bottom: -120,
-            left: -120,
-            width: 380,
-            height: 380,
-            borderRadius: '50%',
-            background: `radial-gradient(circle, ${GOLD}22 0%, transparent 70%)`,
-            display: 'flex',
-          }}
-        />
-
-        {/* ─── Header marca ─── */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 56 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={logoSrc}
-            alt="MacroLibre"
-            width={64}
-            height={64}
-            style={{ width: 64, height: 64, borderRadius: 12, objectFit: 'contain' }}
-          />
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ color: FG_PRIMARY, fontSize: 32, fontWeight: 700, lineHeight: 1 }}>
-              MacroLibre
-            </span>
-            <span
-              style={{
-                color: FG_MUTED,
-                fontSize: 14,
-                fontFamily: 'monospace',
-                letterSpacing: 2.5,
-                textTransform: 'uppercase',
-                marginTop: 6,
-              }}
-            >
-              ARGENTINA · ECONOMÍA EN VIVO
-            </span>
-          </div>
+          <img src={OG_LOGO_DATA_URL} width={56} height={56} alt="" style={{ borderRadius: 12 }} />
+          <span style={{ color: '#FFFFFF', fontSize: 30, fontWeight: 700 }}>Macro Libre</span>
         </div>
-
-        {/* ─── Título principal ─── */}
-        <div
-          style={{
-            display: 'flex',
-            color: FG_PRIMARY,
-            fontSize: 80,
-            fontWeight: 700,
-            lineHeight: 1.05,
-            letterSpacing: -2,
-            marginBottom: 18,
-            maxWidth: 1000,
-          }}
-        >
-          Pulso económico
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <span style={{ fontFamily: display, color: '#FFFFFF', fontSize: 112, lineHeight: 1.02, textTransform: 'uppercase', letterSpacing: 1 }}>
+            Macro Libre:
+          </span>
+          <span style={{ fontFamily: display, color: '#FFFFFF', fontSize: 112, lineHeight: 1.02, textTransform: 'uppercase', letterSpacing: 1 }}>
+            no son solo números
+          </span>
+          <div style={{ display: 'flex', marginTop: 24, width: 160, height: 10, borderRadius: 5, background: '#E73F25' }} />
         </div>
-        <div
-          style={{
-            display: 'flex',
-            color: ACCENT,
-            fontSize: 80,
-            fontWeight: 700,
-            lineHeight: 1.05,
-            letterSpacing: -2,
-            marginBottom: 32,
-          }}
-        >
-          en tiempo real
-        </div>
-
-        {/* ─── Subtítulo ─── */}
-        <div
-          style={{
-            display: 'flex',
-            color: FG_SECONDARY,
-            fontSize: 24,
-            lineHeight: 1.4,
-            maxWidth: 900,
-          }}
-        >
-          Dólar, inflación, riesgo país, reservas BCRA, simulador histórico y análisis macro.
-        </div>
-
-        {/* ─── Spacer ─── */}
-        <div style={{ flex: 1, display: 'flex' }} />
-
-        {/* ─── Mini-tablero KPIs ─── */}
-        <div
-          style={{
-            display: 'flex',
-            gap: 18,
-            paddingTop: 32,
-            borderTop: `1px solid ${FG_MUTED}33`,
-          }}
-        >
-          {stats.map((s) => (
-            <div
-              key={s.k}
-              style={{
-                flex: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                padding: '18px 22px',
-                background: `${BG_DARK}88`,
-                border: `1px solid ${FG_MUTED}22`,
-                borderRadius: 12,
-              }}
-            >
-              <span
-                style={{
-                  color: FG_MUTED,
-                  fontSize: 13,
-                  fontFamily: 'monospace',
-                  textTransform: 'uppercase',
-                  letterSpacing: 1.5,
-                  marginBottom: 8,
-                }}
-              >
-                {s.k}
-              </span>
-              <span style={{ color: s.color, fontSize: 28, fontWeight: 700 }}>{s.v}</span>
-            </div>
-          ))}
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <span style={{ display: 'flex', background: '#D63A21', color: '#FFFFFF', fontSize: 24, fontWeight: 700, padding: '12px 24px', borderRadius: 12 }}>
+            macrolibre.com
+          </span>
         </div>
       </div>
     ),
-    size,
+    { ...size, fonts: anton ? [{ name: 'Anton', data: anton, style: 'normal', weight: 400 }] : [] },
   );
 }

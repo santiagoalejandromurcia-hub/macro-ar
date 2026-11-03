@@ -21,7 +21,7 @@ import { useIndicatorData } from '@/hooks/useIndicatorData';
 const ETAPA_COLORS: Record<string, string> = {
   jxc: '#E73F25',  // amarillo
   fdt: '#0099FF',  // celeste/azul
-  lla: '#A78BFA',  // violeta
+  lla: '#0070C2',  // violeta
 };
 
 /**

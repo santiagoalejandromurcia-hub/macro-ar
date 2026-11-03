@@ -62,11 +62,11 @@ export const MORA_SERIE: { mes: string; total: number | null; familias: number |
 ];
 
 export const LINEAS_PRESTAMO = [
-  { id: 110, label: 'Adelantos CC', color: '#74ACDF' },
-  { id: 111, label: 'Documentos', color: '#5DC1E0' },
+  { id: 110, label: 'Adelantos CC', color: '#0099FF' },
+  { id: 111, label: 'Documentos', color: '#4DB8FF' },
   { id: 112, label: 'Hipotecarios', color: '#10B981' },
-  { id: 113, label: 'Prendarios', color: '#D4A843' },
-  { id: 114, label: 'Personales', color: '#EC4899' },
-  { id: 115, label: 'Tarjetas', color: '#A78BFA' },
+  { id: 113, label: 'Prendarios', color: '#E73F25' },
+  { id: 114, label: 'Personales', color: '#F28C7A' },
+  { id: 115, label: 'Tarjetas', color: '#0070C2' },
   { id: 116, label: 'Otros', color: '#9CA3AF' },
 ];

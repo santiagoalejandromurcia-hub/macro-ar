@@ -30,7 +30,7 @@ const COLORS = {
   line1:   'var(--line-1)',
 };
 
-const PIE_COLORS = ['#7C2D5C', '#D4A843', '#5DC1E0', '#A78BFA', '#EC4899'];
+const PIE_COLORS = ['#8A2A17', '#E73F25', '#4DB8FF', '#0070C2', '#F28C7A'];
 
 export default function UvaContent() {
   return (
@@ -89,7 +89,7 @@ export default function UvaContent() {
             />
             <Legend wrapperStyle={{ fontSize: 12 }} />
             <Bar dataKey="vinosUsdMiles"  stackId="a" name="Vinos"  fill={COLORS.magenta} radius={[0, 0, 0, 0]} />
-            <Bar dataKey="mostosUsdMiles" stackId="a" name="Mostos" fill={COLORS.sol}     radius={[4, 4, 0, 0]} />
+            <Bar dataKey="mostosUsdMiles" stackId="a" name="Mostos" fill="#0099FF" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </SectorChartCard>

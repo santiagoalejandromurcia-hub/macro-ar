@@ -596,3 +596,12 @@ body:has(.home-hero-gradient) footer { border-top-color: transparent; }
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
 }
 html.dark .site-nav[data-home][data-scrolled] { background-color: rgb(8 17 30 / 0.75); }
+/* Buscador de la home */
+.home-search-box { background: #FFFFFF; box-shadow: 0 10px 30px -12px rgba(214, 58, 33, 0.55); }
+html.dark .home-search-box {
+  background: rgba(12, 26, 46, 0.72);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+}
+html.dark .home-search-box input { color: #F4F8FD; }
+html.dark .home-search-box input::placeholder { color: #9AA8BA; }

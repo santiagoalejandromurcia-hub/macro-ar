@@ -48,7 +48,7 @@ export default function SalarioRealChart() {
 
           <Line type="monotone" dataKey="privadoNoReg"   name="Privado no Registrado (EIL)" stroke="#22C55E" strokeWidth={2.5} dot={false} />
           <Line type="monotone" dataKey="privadoRegSipa" name="Privado Registrado (SIPA)"   stroke="#0099FF" strokeWidth={2.5} dot={false} />
-          <Line type="monotone" dataKey="privadoRegEil"  name="Privado Registrado (EIL)"    stroke="#A78BFA" strokeWidth={2}   dot={false} strokeDasharray="5 3" />
+          <Line type="monotone" dataKey="privadoRegEil"  name="Privado Registrado (EIL)"    stroke="#0070C2" strokeWidth={2}   dot={false} strokeDasharray="5 3" />
           <Line type="monotone" dataKey="publico"        name="Sector Público (EIL)"        stroke="#EF4444" strokeWidth={2.5} dot={false} />
         </LineChart>
       </ResponsiveContainer>

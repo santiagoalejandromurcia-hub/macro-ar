@@ -26,7 +26,7 @@ function RiesgoPaisInnerChart({ data }: { data: typeof riesgoPaisData }) {
     const area = chart.addSeries(AreaSeries, {
       topColor:    'rgba(236, 72, 153, 0.28)',
       bottomColor: 'rgba(236, 72, 153, 0.02)',
-      lineColor:   '#EC4899',
+      lineColor:   '#F28C7A',
       lineWidth: 2,
       priceLineVisible: false,
       lastValueVisible: true,
