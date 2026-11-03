@@ -539,3 +539,33 @@ h1:not(.font-mono *), h2:not(.font-mono *) {
 .bg-brand-sky {
   background: linear-gradient(180deg, #0099FF 0%, #5CBDFF 55%, #E6F4FF 100%);
 }
+
+/* Hero de la home: azul profundo arriba (contraste AA para texto blanco) que se aclara
+   suavemente hasta el fondo de la página, sin corte visible. */
+.home-hero-gradient {
+  background: linear-gradient(180deg,
+    #0070C2 0%, #0079CF 12%, #0099FF 24%, #4DB8FF 40%,
+    #9AD6FF 58%, #D6EEFF 76%, #F2F9FF 90%, var(--bg-0) 100%);
+}
+.home-hero-gradient.variant-b {
+  background: linear-gradient(0deg,
+    #0070C2 0%, #0099FF 30%, #4DB8FF 50%, #9AD6FF 68%, #D6EEFF 84%, var(--bg-0) 100%);
+}
+.home-hero-title { text-shadow: 0 1px 2px rgba(0, 40, 80, 0.18); }
+html.dark .home-hero-gradient {
+  background: linear-gradient(180deg,
+    #0A3D6B 0%, #0B3560 35%, #0B2A4C 60%, #0A1D35 82%, var(--bg-0) 100%);
+}
+.home-float {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 24px -12px rgba(0, 50, 100, 0.28);
+}
+.home-float:hover { box-shadow: 0 12px 28px -12px rgba(0, 60, 120, 0.38); }
+html.dark .home-float {
+  background: rgba(12, 26, 46, 0.72);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+}
