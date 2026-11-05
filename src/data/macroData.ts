@@ -248,7 +248,7 @@ export const tradeData = [
   { month: 'Jun 26', exports: 9112, imports: 6877, balance: 2235 },
   { month: 'Jul 26', exports: 8854, imports: 6756, balance: 2098 }, // revisado ICA 19/10/2026
   { month: 'Ago 26', exports: 8866, imports: 6707, balance: 2159 }, // revisado ICA 19/10/2026 (antes 8883/6696/2187)
-  { month: 'Sep 26', exports: 10036, imports: 7060, balance: 2976 }, // INDEC ICA 19/10/2026 · acum. ene–sep X 77.267 · M 56.069 · saldo 21.198
+  { month: 'Sep 26', exports: 10036, imports: 7060, balance: 2976 }, // INDEC ICA 19/10/2026 · acum. ene–sep X 77.267 · M 56.069 · saldo 21.198 (reconfirmado ICA 05/11/2026; sin dato mensual oct-26 en ese informe)
 ];
 
 // Reservas Internacionales BCRA (USD millones) - Actualizado 17/10/2026 (dato al 14/10/2026)
