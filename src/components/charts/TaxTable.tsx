@@ -14,7 +14,7 @@ export default function TaxTable() {
   return (
     <ChartCard
       title="Recaudación Tributaria Nacional"
-      subtitle={isLive ? `Agosto 2026 · Actualizado ${updatedAt} · ARCA` : 'Agosto 2026 · millones de ARS · var. i.a. nominal · Fuente: ARCA / DNIAF'}
+      subtitle={isLive ? `Octubre 2026 · Actualizado ${updatedAt} · ARCA` : 'Octubre 2026 · millones de ARS · var. i.a. nominal · Fuente: ARCA (publicado 02/11/2026)'}
       isLive={isLive}
     >
       <div className="overflow-x-auto -mx-2">
