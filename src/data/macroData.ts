@@ -773,7 +773,7 @@ export const riesgoPaisData: Array<{
   { date: 'May 26', value: 490 },
   { date: 'Jun 26', value: 470, note: 'Mínimo reciente EMBIGD' },
   { date: 'Sep 26', value: 490, note: 'JP Morgan EMBIGD · 07/09/2026' },
-  { date: 'Nov 26', value: 939, highlight: 'actual', note: 'EMBIGD · cierre 06/11/2026 · ArgentinaDatos' },
+  { date: 'Nov 26', value: 873, highlight: 'actual', note: 'EMBIGD · cierre 09/11/2026 · ArgentinaDatos' },
 ];
 
 // Última actualización
