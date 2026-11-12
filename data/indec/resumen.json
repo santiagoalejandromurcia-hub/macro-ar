@@ -1542,9 +1542,9 @@
  "ipc": {
   "fuente": "INDEC — API de datos (api.indec.gob.ar)",
   "servicio": "ipc_nacional",
-  "fechaConsulta": "2026-11-02T21:59:02.697Z",
-  "ultimoPeriodo": "202609",
-  "fechaPublicacion": "2026-10-13",
+  "fechaConsulta": "2026-11-12T19:17:56.262Z",
+  "ultimoPeriodo": "202610",
+  "fechaPublicacion": "2026-11-12",
   "serie": [
    {
     "periodo": "202312",
@@ -2055,50 +2055,65 @@
     "bienes": 1.7,
     "servicios": 2.4,
     "observaciones": null
+   },
+   {
+    "periodo": "202610",
+    "date": "Oct 26",
+    "mensual": 2.2,
+    "interanual": 33.1,
+    "acumulada": 26.3,
+    "indice": 12785.93,
+    "nucleo": 1.5,
+    "nucleoIa": 30.7,
+    "regulados": 2.9,
+    "estacional": 5.5,
+    "bienes": 1.9,
+    "servicios": 2.7,
+    "observaciones": null
    }
   ],
   "regiones": [
    {
     "region": "Nacional",
-    "mensual": 1.9,
-    "interanual": 33.4,
-    "acumulada": 23.6
+    "mensual": 2.2,
+    "interanual": 33.1,
+    "acumulada": 26.3
    },
    {
     "region": "GBA",
     "mensual": 2,
-    "interanual": 33.5,
-    "acumulada": 23.8
+    "interanual": 33,
+    "acumulada": 26.3
    },
    {
     "region": "Pampeana",
-    "mensual": 2,
-    "interanual": 33.1,
-    "acumulada": 23.3
+    "mensual": 2.6,
+    "interanual": 33.4,
+    "acumulada": 26.5
    },
    {
     "region": "Noreste",
-    "mensual": 1.7,
-    "interanual": 36.9,
-    "acumulada": 26.6
+    "mensual": 1.5,
+    "interanual": 35.9,
+    "acumulada": 28.4
    },
    {
     "region": "Noroeste",
-    "mensual": 1.9,
-    "interanual": 33.6,
-    "acumulada": 24.6
+    "mensual": 1.7,
+    "interanual": 33,
+    "acumulada": 26.7
    },
    {
     "region": "Cuyo",
-    "mensual": 1.9,
+    "mensual": 2.3,
     "interanual": 33,
-    "acumulada": 22.8
+    "acumulada": 25.6
    },
    {
     "region": "Patagonia",
-    "mensual": 1.4,
-    "interanual": 30.3,
-    "acumulada": 21.2
+    "mensual": 2.5,
+    "interanual": 30.4,
+    "acumulada": 24.2
    }
   ],
   "divisiones": [
@@ -2106,113 +2121,113 @@
     "codigo": "01",
     "descripcion": "Alimentos y bebidas no alcohólicas",
     "mensual": 2,
-    "interanual": 35.1,
-    "acumulada": 24.5
+    "interanual": 34.6,
+    "acumulada": 27
    },
    {
     "codigo": "02",
     "descripcion": "Bebidas alcohólicas y tabaco",
-    "mensual": 1.4,
-    "interanual": 22.4,
-    "acumulada": 15
+    "mensual": 0.8,
+    "interanual": 20.6,
+    "acumulada": 15.9
    },
    {
     "codigo": "03",
     "descripcion": "Prendas de vestir y calzado",
-    "mensual": 1.4,
-    "interanual": 10.3,
-    "acumulada": 6
+    "mensual": 2.2,
+    "interanual": 10,
+    "acumulada": 8.3
    },
    {
     "codigo": "04",
     "descripcion": "Vivienda, agua, electricidad, gas y otros combustibles",
-    "mensual": 3.1,
-    "interanual": 49.1,
-    "acumulada": 35.6
+    "mensual": 4.2,
+    "interanual": 51.1,
+    "acumulada": 41.3
    },
    {
     "codigo": "05",
     "descripcion": "Equipamiento y mantenimiento del hogar",
-    "mensual": 1.6,
-    "interanual": 23.7,
-    "acumulada": 18
+    "mensual": 1.4,
+    "interanual": 23.5,
+    "acumulada": 19.7
    },
    {
     "codigo": "06",
     "descripcion": "Salud",
-    "mensual": 2.4,
-    "interanual": 33.3,
-    "acumulada": 25.2
+    "mensual": 1.7,
+    "interanual": 33.1,
+    "acumulada": 27.3
    },
    {
     "codigo": "07",
     "descripcion": "Transporte",
-    "mensual": 1.5,
-    "interanual": 36.2,
-    "acumulada": 22.9
+    "mensual": 2.1,
+    "interanual": 34.4,
+    "acumulada": 25.4
    },
    {
     "codigo": "08",
     "descripcion": "Comunicación",
-    "mensual": 2.5,
-    "interanual": 37.3,
-    "acumulada": 26.6
+    "mensual": 2,
+    "interanual": 36.9,
+    "acumulada": 29.1
    },
    {
     "codigo": "09",
     "descripcion": "Recreación y cultura",
-    "mensual": 1.9,
-    "interanual": 32.2,
-    "acumulada": 23.8
+    "mensual": 3.3,
+    "interanual": 34.3,
+    "acumulada": 27.9
    },
    {
     "codigo": "10",
     "descripcion": "Educación",
-    "mensual": 3,
-    "interanual": 39.9,
-    "acumulada": 34
+    "mensual": 1.3,
+    "interanual": 39.4,
+    "acumulada": 35.8
    },
    {
     "codigo": "11",
     "descripcion": "Restaurantes y hoteles",
-    "mensual": 1.1,
-    "interanual": 34.6,
-    "acumulada": 24.5
+    "mensual": 1.5,
+    "interanual": 33.6,
+    "acumulada": 26.4
    },
    {
     "codigo": "12",
     "descripcion": "Bienes y servicios varios",
-    "mensual": 1.9,
-    "interanual": 32.5,
-    "acumulada": 22.9
+    "mensual": 2.3,
+    "interanual": 32.3,
+    "acumulada": 25.7
    }
   ]
  },
  "canastas": {
   "fuente": "INDEC — API de datos (api.indec.gob.ar)",
   "servicio": "valorizacion_canastas_cba_cbt",
-  "fechaConsulta": "2026-11-02T21:59:02.697Z",
-  "ultimoPeriodo": "202609",
-  "fechaPublicacion": null,
-  "periodo": "202609",
+  "fechaConsulta": "2026-11-12T19:17:56.262Z",
+  "ultimoPeriodo": "202610",
+  "fechaPublicacion": "2026-11-12",
+  "periodo": "202610",
   "regiones": [
    {
     "region": "GBA",
     "cba": {
-     "adultoEquivalente": 239058.22,
-     "mensual": 1.7,
-     "interanual": 40,
-     "hogar1": 588083.22,
-     "hogar2": 738689.9,
-     "hogar3": 776939.22
+     "adultoEquivalente": 246362.93,
+     "mensual": 3.1,
+     "interanual": 39.9,
+     "hogar1": 606052.81,
+     "hogar2": 761261.45,
+     "hogar3": 800679.52
     },
     "cbt": {
-     "adultoEquivalente": 528318.67,
-     "mensual": 1.7,
-     "interanual": 38.7,
-     "hogar1": 1299663.93,
-     "hogar2": 1632504.69,
-     "hogar3": 1717035.68
+     "adultoEquivalente": 546925.7,
+     "mensual": 3.5,
+     "interanual": 39.2,
+     "hogar1": 1345437.22,
+     "hogar2": 1690000.41,
+     "hogar3": 1777508.52
     },
     "observaciones": null
    }
