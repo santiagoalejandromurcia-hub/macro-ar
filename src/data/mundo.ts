@@ -38,9 +38,9 @@ export const MANUAL_CPI: Partial<
   Record<MundoCountryId, { value: number | null; asOf: string; note: string }>
 > = {
   AR: {
-    value: 33.4,
-    asOf: '2026-09',
-    note: 'INDEC IPC nivel general, variación interanual septiembre 2026 (no el 1,9% mensual)',
+    value: 33.1,
+    asOf: '2026-10',
+    note: 'INDEC IPC nivel general, variación interanual octubre 2026 (publicado 12/11/2026; no el 2,2% mensual)',
   },
   CL: {
     value: 4.1,

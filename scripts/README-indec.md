@@ -34,7 +34,9 @@ en el calendario del INDEC**; si no, el sitio muestra «dato hasta <periodo>». 
 | valorizacion_canastas_cba_cbt | canastas-cba-cbt | desde 2024 |
 | mercado_trabajo_eph | mercado-trabajo-eph | desde 2016 |
 | pobreza_eph | pobreza-eph | desde 2016 |
-| indice_salarios | indice-salarios | desde 2024 (todavía no se muestra en el sitio) |
+| indice_salarios | indice-salarios | desde 2024; se muestra en /actividad#indice-salarios |
+
+UCII no está en la API del INDEC: el snapshot `data/indec/ucii.json` solo tiene valores verificados en el informe técnico y se muestra en `/actividad#ucii`.
 
 Paginación: 1000 filas por pedido (`limit`/`offset`, ordenado por la clave completa).
 Base `https://api.indec.gob.ar/v1/` (la barra final es obligatoria).

@@ -36,7 +36,7 @@ const SECTION_GROUPS: SectionGroup[] = [
   {
     title: 'Series',
     links: [
-      { href: '/actividad',   label: 'Actividad',   desc: 'EMAE, PBI, salarios' },
+      { href: '/actividad',   label: 'Actividad',   desc: 'EMAE, PBI, salarios, UCII' },
       { href: '/precios',     label: 'Precios',     desc: 'IPC, IPIM, REM' },
       { href: '/energia',     label: 'Energía',     desc: 'Balanza CyE' },
       { href: '/externo',     label: 'Externo',     desc: 'Comercio, reservas, riesgo' },

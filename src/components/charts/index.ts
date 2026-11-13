@@ -21,6 +21,8 @@ export { default as ExportacionesChart } from './ExportacionesChart';
 
 // Bloque "Salarios y Deuda"
 export { default as SalarioRealChart } from './SalarioRealChart';
+export { default as IndiceSalariosChart } from './IndiceSalariosChart';
+export { default as UciiChart } from './UciiChart';
 export { default as DeudaPibChart } from './DeudaPibChart';
 export { default as DeudaConsolidadaChart } from './DeudaConsolidadaChart';
 

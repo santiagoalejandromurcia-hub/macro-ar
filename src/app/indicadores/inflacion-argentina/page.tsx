@@ -9,7 +9,7 @@ const SITE_URL = 'https://macrolibre.com';
 export const metadata: Metadata = {
   title: 'Inflación Argentina — IPC mensual, inflación interanual y expectativas 2026 · INDEC',
   description:
-    'IPC septiembre 2026: 1,9% mensual, 33,4% interanual, núcleo 1,7%. IPIM agosto 2,1% (29,8% i.a.). Expectativas REM del BCRA. Datos oficiales INDEC.',
+    'IPC octubre 2026: 2,2% mensual, 33,1% interanual, 26,3% acumulado, núcleo 1,5%. IPIM septiembre 3,2% (29,2% i.a.). Expectativas REM del BCRA. Datos oficiales INDEC.',
   alternates: { canonical: `${SITE_URL}/indicadores/inflacion-argentina` },
   keywords: [
     'inflación Argentina',
@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     'inflación junio 2026',
     'inflación julio 2026',
     'inflación septiembre 2026',
+    'inflación octubre 2026',
     'IPIM argentina',
     'inflación mayorista argentina',
     'REM BCRA expectativas inflación',
@@ -43,8 +44,8 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: '¿Cuál fue la inflación mensual en Argentina en septiembre 2026?',
-    a: 'La inflación mensual de septiembre 2026 fue del 1,9% según el IPC del INDEC (publicado 13/10/2026), frente al 1,7% de agosto. La variación interanual fue 33,4% y el acumulado enero–septiembre 23,6%. El IPC núcleo fue 1,7% (31,6% interanual). Los estacionales subieron 2,9%, los regulados 2,3%, los bienes 1,7% y los servicios 2,4%. El IPIM mayorista de agosto fue 2,1% mensual y 29,8% interanual (INDEC 16/09/2026).',
+    q: '¿Cuál fue la inflación mensual en Argentina en octubre 2026?',
+    a: 'La inflación mensual de octubre 2026 fue del 2,2% según el IPC del INDEC (publicado 12/11/2026), frente al 1,9% de septiembre. La variación interanual fue 33,1% y el acumulado enero–octubre 26,3%. El IPC núcleo fue 1,5% (30,7% interanual). Los estacionales subieron 5,5%, los regulados 2,9%, los bienes 1,9% y los servicios 2,7%. La división de mayor aumento fue Vivienda, agua, electricidad, gas y otros combustibles (4,2%); le siguió Recreación y cultura (3,3%). Alimentos y bebidas no alcohólicas subió 2,0%. Las de menor aumento fueron Bebidas alcohólicas y tabaco (0,8%) y Educación (1,3%). El IPIM mayorista de septiembre fue 3,2% mensual y 29,2% interanual (INDEC 16/10/2026).',
   },
   {
     q: '¿Qué es el IPC Argentina?',
@@ -125,9 +126,9 @@ export default function InflacionArgentinaPage() {
               </p>
               <div className="grid grid-cols-3 gap-3 mt-4">
                 {[
-                  { k: 'IPC núcleo', v: `${ipc.nucleo.toFixed(1)}%`, s: 'igual que julio' },
-                  { k: 'IPC interanual', v: `${ipc.interanual.toFixed(1)}%`, s: 'acum. 2026: 21,3%' },
-                  { k: 'IPIM mayorista', v: `${ipim.mensual.toFixed(1)}%`, s: `${ipim.date} · Ago 16/09` },
+                  { k: 'IPC núcleo', v: `${ipc.nucleo.toFixed(1)}%`, s: 'frente a 1,7% en septiembre' },
+                  { k: 'IPC interanual', v: `${ipc.interanual.toFixed(1)}%`, s: 'acum. 2026: 26,3%' },
+                  { k: 'IPIM mayorista', v: `${ipim.mensual.toFixed(1)}%`, s: `${ipim.date} · ${ipim.interanual.toFixed(1).replace('.', ',')}% i.a.` },
                 ].map((x) => (
                   <div key={x.k} className="bg-[var(--bg-1)] border border-[var(--line-1)] rounded-xl p-3">
                     <p className="text-[10px] font-mono uppercase tracking-wider text-[var(--fg-3)]">{x.k}</p>
@@ -165,7 +166,7 @@ export default function InflacionArgentinaPage() {
           Argentina experimentó en diciembre de 2023 una aceleración inflacionaria extrema, con una{' '}
           <strong className="text-[var(--fg-0)]">inflación mensual que tocó el 25.5%</strong> tras la devaluación
           del peso. Desde ese pico, el <strong>IPC Argentina</strong> mostró una desaceleración sostenida:
-          10.6% en febrero 2024, 8.8% en marzo, hasta el 1,9% de septiembre 2026 (núcleo 1,7%; el mínimo del año fue el 1,7% de agosto).
+          10.6% en febrero 2024, 8.8% en marzo, hasta el 1,7% de agosto de 2026 (mínimo del nivel general en el año). En octubre de 2026 el nivel general fue 2,2% (núcleo 1,5%), por encima del 1,9% de septiembre.
         </p>
         <p className="mb-3">
           La <strong className="text-[var(--fg-0)]">inflación interanual</strong> cerró 2024 en 117.8%

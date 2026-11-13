@@ -41,7 +41,7 @@ export default function InflacionMensualChart({ compact = false }: { compact?: b
   return (
     <ChartCard
       title="IPC — Inflación Mensual"
-      subtitle={isLive ? `Nivel general y núcleo (%) · Actualizado ${updatedAt} · INDEC` : 'Nivel general y núcleo (%) · último Sep-26: 1,9% / núcleo 1,7% (INDEC 13/10)'}
+      subtitle={isLive ? `Nivel general y núcleo (%) · Actualizado ${updatedAt} · INDEC` : 'Nivel general y núcleo (%) · último Oct-26: 2,2% / núcleo 1,5% (INDEC 12/11)'}
       isLive={isLive}
       periods={[...MONTHLY_PERIODS]}
       selectedPeriod={period}
