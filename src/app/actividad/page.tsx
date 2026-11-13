@@ -9,6 +9,8 @@ import {
   ConsumoPrivadoChart,
   PobrezaChart,
   SalarioRealChart,
+  IndiceSalariosChart,
+  UciiChart,
   EmaeLargoPlazoChart,
 } from '@/components/Charts';
 
@@ -31,7 +33,7 @@ export default function ActividadPage() {
       <SectionHeader
         id="actividad"
         title="Actividad"
-        subtitle="EMAE, PBI y salarios"
+        subtitle="EMAE, PBI, salarios e industria"
         accent="celeste"
       />
       {/*
@@ -58,7 +60,13 @@ export default function ActividadPage() {
         <div id="pobreza" className="scroll-mt-24">
           <HideOnError><PobrezaChart /></HideOnError>
         </div>
+        <div id="indice-salarios" className="scroll-mt-24">
+          <HideOnError><IndiceSalariosChart /></HideOnError>
+        </div>
         <div id="salarios" className="scroll-mt-24">
+          <p className="mb-3 text-[13px] text-[var(--fg-1)]">
+            Salario real (SIPA / EIL), base noviembre 2023 = 100. Es un indicador distinto del índice de salarios del INDEC, arriba.
+          </p>
           <HideOnError><SalarioRealChart /></HideOnError>
         </div>
         <div id="ipi" className="scroll-mt-24">
@@ -69,6 +77,9 @@ export default function ActividadPage() {
             Nivel general (serie original) 122,4. Sin serie gráfica cargada todavía. Fuente:{' '}
             <a href="https://www.indec.gob.ar/uploads/informesdeprensa/ipi_manufacturero_11_2630BE216D2B.pdf" className="underline" rel="noopener" target="_blank">INDEC, Índice de producción industrial manufacturero, septiembre de 2026</a>.
           </p>
+        </div>
+        <div id="ucii" className="scroll-mt-24">
+          <HideOnError><UciiChart /></HideOnError>
         </div>
       </div>
     </div>
