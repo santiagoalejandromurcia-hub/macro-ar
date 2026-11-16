@@ -196,12 +196,17 @@ export const fiscalNominalData = [
   { period: 'Jun 26', primario:  -696843, financiero: -1024891, intereses:  328049 }, // déficit estacional (aguinaldo)
   { period: 'Jul 26', primario:  2960333, financiero:   244897, intereses: 2715436 },
   { period: 'Ago 26', primario:  1990322, financiero:   635529, intereses: 1354793 },
-    // ← ÚLTIMO MECON (Caputo 18/09/2026) · acum. ene-ago: primario 1,1% PIB · financiero 0,2% PIB
-    // financiero ago +62,8% i.a. vs $390.301 M de ago-25
+  // Oct 26 — Ministerio de Economía, Secretaría de Hacienda, publicado el 16/11/2026
+  // https://www.argentina.gob.ar/noticias/en-octubre-el-sector-publico-nacional-volvio-registrar-superavit-financiero-1578627-0
+  // Base caja (xlsx): valores redondeados al millón, como en la noticia (primario 1.931.156,3; financiero 1.578.626,8; intereses netos 352.529,5)
+  // Acum. ene–oct: financiero en torno a 0,4% del PIB · primario de aproximadamente 1,4% del PIB
+  // No se carga Sep 26: no figura en la noticia ni en la base caja de octubre.
+  { period: 'Oct 26', primario:  1931156, financiero:  1578627, intereses:  352530 },
 ];
 
 // Composición del gasto primario — variación interanual real (agosto 2026)
-// Fuente: MECON / Caputo 18/09/2026. Solo rubros publicados; no se arrastran los de julio.
+// Fuente: Ministerio de Economía, 18/09/2026. Solo rubros publicados; no se arrastran los de julio.
+// El informe de octubre (16/11/2026) publica variaciones nominales, no reales; esta tabla no se actualiza con esas cifras.
 export const fiscalGastoRealData: Array<{ concepto: string; variacionReal: string; destacado?: boolean }> = [
   { concepto: 'Gasto primario total', variacionReal: '-0,5%', destacado: true },
   { concepto: 'Transferencias a universidades', variacionReal: '+9,7%' },
