@@ -9,7 +9,7 @@ const SITE_URL = 'https://macrolibre.com';
 export const metadata: Metadata = {
   title: 'Inflación Argentina — IPC mensual, inflación interanual y expectativas 2026 · INDEC',
   description:
-    'IPC octubre 2026: 2,2% mensual, 33,1% interanual, 26,3% acumulado, núcleo 1,5%. IPIM septiembre 3,2% (29,2% i.a.). Expectativas REM del BCRA. Datos oficiales INDEC.',
+    'IPC octubre 2026: 2,2% mensual, 33,1% interanual, 26,3% acumulado, núcleo 1,5%. IPIM octubre 1,6% (29,8% i.a., 24,8% acum.). Expectativas REM del BCRA. Datos oficiales INDEC.',
   alternates: { canonical: `${SITE_URL}/indicadores/inflacion-argentina` },
   keywords: [
     'inflación Argentina',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     q: '¿Cuál fue la inflación mensual en Argentina en octubre 2026?',
-    a: 'La inflación mensual de octubre 2026 fue del 2,2% según el IPC del INDEC (publicado 12/11/2026), frente al 1,9% de septiembre. La variación interanual fue 33,1% y el acumulado enero–octubre 26,3%. El IPC núcleo fue 1,5% (30,7% interanual). Los estacionales subieron 5,5%, los regulados 2,9%, los bienes 1,9% y los servicios 2,7%. La división de mayor aumento fue Vivienda, agua, electricidad, gas y otros combustibles (4,2%); le siguió Recreación y cultura (3,3%). Alimentos y bebidas no alcohólicas subió 2,0%. Las de menor aumento fueron Bebidas alcohólicas y tabaco (0,8%) y Educación (1,3%). El IPIM mayorista de septiembre fue 3,2% mensual y 29,2% interanual (INDEC 16/10/2026).',
+    a: 'La inflación mensual de octubre 2026 fue del 2,2% según el IPC del INDEC (publicado 12/11/2026), frente al 1,9% de septiembre. La variación interanual fue 33,1% y el acumulado enero–octubre 26,3%. El IPC núcleo fue 1,5% (30,7% interanual). Los estacionales subieron 5,5%, los regulados 2,9%, los bienes 1,9% y los servicios 2,7%. La división de mayor aumento fue Vivienda, agua, electricidad, gas y otros combustibles (4,2%); le siguió Recreación y cultura (3,3%). Alimentos y bebidas no alcohólicas subió 2,0%. Las de menor aumento fueron Bebidas alcohólicas y tabaco (0,8%) y Educación (1,3%). El IPIM mayorista de octubre fue 1,6% mensual, 29,8% interanual y 24,8% acumulado ene–oct (INDEC 17/11/2026).',
   },
   {
     q: '¿Qué es el IPC Argentina?',

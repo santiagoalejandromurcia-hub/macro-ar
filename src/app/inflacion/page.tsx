@@ -8,7 +8,7 @@ import { indec, fuenteIndec, num } from '@/data/indec';
 
 export const metadata = {
   title: 'Inflación Argentina en tiempo real — IPC, IPIM y REM',
-  description: 'IPC octubre 2026: 2,2% mensual · núcleo 1,5% · 33,1% interanual · 26,3% acumulado. IPIM septiembre 3,2% · 29,2% i.a. REM del BCRA. Datos INDEC.',
+  description: 'IPC octubre 2026: 2,2% mensual · núcleo 1,5% · 33,1% interanual · 26,3% acumulado. IPIM octubre 1,6% · 29,8% i.a. · 24,8% acum. REM del BCRA. Datos INDEC.',
   alternates: { canonical: 'https://macrolibre.com/inflacion' },
 };
 

@@ -1,0 +1,18 @@
+{
+  "_nota": "El sitio no tiene sección que muestre el ICC. Valores cargados solo desde el informe técnico del INDEC. Una sección de visualización requiere el ok de Santo.",
+  "fuente": "INDEC",
+  "servicio": null,
+  "informe": "Índice del costo de la construcción en el Gran Buenos Aires (ICC). Octubre de 2026",
+  "url": "https://www.indec.gob.ar/uploads/informesdeprensa/icc_11_266E108A19A1.pdf",
+  "fechaPublicacion": "2026-11-17",
+  "ultimoPeriodo": "202610",
+  "alcance": "Gran Buenos Aires",
+  "punto": {
+    "periodo": "202610",
+    "date": "Oct 26",
+    "nivelGeneral": { "mensual": 1.7, "interanual": 31.9, "acumulado": 26.5 },
+    "materiales": { "mensual": 1.5, "interanual": 22.2, "acumulado": 18.5 },
+    "manoDeObra": { "mensual": 1.8, "interanual": 40.6, "acumulado": 33.1 },
+    "gastosGenerales": { "mensual": 1.8, "interanual": 33.6, "acumulado": 29.5 }
+  }
+}

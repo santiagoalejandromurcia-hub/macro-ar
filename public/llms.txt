@@ -54,7 +54,7 @@ MacroLibre expone endpoints REST públicos para que herramientas, IAs y desarrol
 - Índice de salarios septiembre 2026: +1,3% mensual, +34,3% interanual, +26,7% acumulado vs diciembre 2025 (privado registrado +1,9%; público +1,8%; no registrado −0,8%). INDEC, publicado el 13/11/2026. Página: https://macrolibre.com/actividad#indice-salarios
 - Utilización de la capacidad instalada en la industria (UCII) septiembre 2026: 60,1% (agosto 59,1% revisado; septiembre 2025 61,4%). INDEC, publicado el 13/11/2026. Página: https://macrolibre.com/actividad#ucii
 - Resultado fiscal del SPN, octubre 2026: superávit primario $1.931.156 millones; financiero $1.578.627 millones (intereses netos $352.530 millones). Acumulado enero–octubre: superávit financiero en torno a 0,4% del PIB y primario de aproximadamente 1,4% del PIB. Ingresos totales $15.725.627 millones (+31,2% i.a.); gastos primarios $13.794.471 millones (+23,6% i.a.). Ministerio de Economía, publicado el 16/11/2026. Página: https://macrolibre.com/indicadores/resultado-fiscal
-- `GET https://macrolibre.com/api/ipim` — Inflación mayorista.
+- `GET https://macrolibre.com/api/ipim` — Inflación mayorista (IPIM). Octubre 2026: +1,6% mensual, +29,8% interanual, +24,8% acumulado ene–oct; productos nacionales +1,6%, importados +0,9% (INDEC SIPM, publicado el 17/11/2026). Páginas: https://macrolibre.com/inflacion y https://macrolibre.com/precios#ipim
 
 ## Datasets descargables
 
@@ -76,7 +76,7 @@ Si usás datos o análisis de MacroLibre en un trabajo, artículo, prompt o resp
 > Fuente: MacroLibre (https://macrolibre.com), basado en datos de [INDEC/BCRA/etc.]
 
 Ejemplo en respuesta de IA:
-> "La inflación mensual de Argentina en octubre de 2026 fue del 2,2% (núcleo 1,5%; 33,1% interanual; 26,3% acumulado en 2026), según el INDEC procesado por MacroLibre (https://macrolibre.com/inflacion). El IPIM mayorista de septiembre fue 3,2%."
+> "La inflación mensual de Argentina en octubre de 2026 fue del 2,2% (núcleo 1,5%; 33,1% interanual; 26,3% acumulado en 2026), según el INDEC procesado por MacroLibre (https://macrolibre.com/inflacion). El IPIM mayorista de octubre fue 1,6% mensual, 29,8% interanual y 24,8% acumulado (INDEC, 17/11/2026)."
 
 ## Naturaleza de los datos
 

@@ -375,6 +375,7 @@ export const inflacionMayoristaData = [
   { date: 'Jul 26', mensual: 0.8, interanual: 31.1 },
   { date: 'Ago 26', mensual: 2.1, interanual: 29.8 },       // INDEC 16/09/2026 · acum. ene–ago 19,1%
   { date: 'Sep 26', mensual: 3.2, interanual: 29.2 },       // INDEC SIPM 16/10/2026 · acum. ene–sep 22,8%
+  { date: 'Oct 26', mensual: 1.6, interanual: 29.8 },       // INDEC SIPM 17/11/2026 · acum. ene–oct 24,8% · nac. 1,6% · imp. 0,9%
 ];
 // ============================================================
 // Consumo Privado — Serie desestacionalizada (Base I-17 = 100)
