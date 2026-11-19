@@ -13,15 +13,15 @@ import {
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://macrolibre.com/externo' },
-  title: { absolute: 'Sector externo Argentina: ICA ene–sep 2026 saldo USD 21.198 M | MacroLibre' },
-  description: 'ICA ene–sep 2026: expo USD 77.267 M (+21,6%), impo USD 56.069 M (−2,5%), saldo USD 21.198 M (INDEC, 05/11). 3T precios/cantidades + términos +4,2% (03/11). Balanza sep USD 2.976 M. Reservas y riesgo país.',
+  title: { absolute: 'Sector externo Argentina: ICA oct-26 saldo USD 3.394 M | MacroLibre' },
+  description: 'ICA octubre 2026: expo USD 10.061 M (+26,4% i.a.; precios +19,7%, cantidades +5,6%), impo USD 6.668 M (−6,7% i.a.; precios +12,8%, cantidades −17,3%), saldo USD 3.394 M. Acumulado ene–oct: expo 87.328 (+22,1%), impo 62.760 (−2,9%), saldo 24.568 (INDEC, 19/11). Reservas y riesgo país.',
 };
 
 export default function ExternoPage() {
   return (
     <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
       <h1 className="mb-6 font-display text-[26px] sm:text-[30px] leading-tight text-[var(--fg-0)]">
-        ICA ene–sep 2026: saldo comercial USD 21.198 M (INDEC)
+        ICA octubre 2026: saldo comercial USD 3.394 M (INDEC)
       </h1>
       <SectionHeader
         id="externo"
@@ -32,17 +32,23 @@ export default function ExternoPage() {
       <div className="space-y-6">
         <div id="ica" className="scroll-mt-24">
           <p className="mb-3 text-[13px] text-[var(--fg-1)]">
-            Balanza comercial de septiembre 2026: superávit de USD 2.976 M (INDEC, publicado el 19/10)
+            Balanza comercial de octubre 2026: superávit de USD 3.394 M (INDEC, publicado el 19/11/2026)
           </p>
           <p className="-mt-2 mb-3 text-[12px] text-[var(--fg-2)]">
-            Exportaciones USD 10.036 M (+23,5% i.a.), importaciones USD 7.060 M (−1,8% i.a.), intercambio USD 17.095 M (+11,6% i.a.). (INDEC 19/10)
+            Exportaciones USD 10.061 M (+26,4% i.a.; precios +19,7%, cantidades +5,6%), importaciones USD 6.668 M (−6,7% i.a.; precios +12,8%, cantidades −17,3%), intercambio USD 16.729 M (+10,7% i.a.).
           </p>
           <p className="mb-3 text-[13px] text-[var(--fg-1)]">
-            En los nueve meses de 2026, las exportaciones alcanzaron USD 77.267 M (+21,6% i.a.), las importaciones USD 56.069 M (−2,5% i.a.) y el saldo comercial USD 21.198 M, según el Intercambio comercial argentino del INDEC (publicado el 05/11/2026).
+            En el acumulado enero–octubre de 2026, las exportaciones alcanzaron USD 87.328 M (+22,1% i.a.), las importaciones USD 62.760 M (−2,9% i.a.) y el saldo comercial USD 24.568 M, según el Intercambio comercial argentino del INDEC (publicado el 19/11/2026).
           </p>
           <p className="-mt-2 mb-3 text-[12px] text-[var(--fg-2)]">
-            El intercambio comercial (expo + impo) sumó USD 133.336 M (+10,2% i.a.). El informe cubre el acumulado enero–septiembre; no publica el dato mensual de octubre 2026. Fuente:{' '}
-            <a href="https://www.indec.gob.ar/uploads/informesdeprensa/i_argent_11_2661774B50A1.pdf" className="underline" rel="noopener" target="_blank">INDEC, Intercambio comercial argentino (bienes), nueve meses de 2026</a> (publicado el 05/11/2026).
+            En octubre, la serie desestacionalizada de las exportaciones subió 2,7% mensual y la de las importaciones, 1,5%. Combustibles y energía: exportaciones USD 1.734 M (+93,9% i.a.); importaciones de combustibles y lubricantes USD 134 M (−33,2% i.a.). Los términos del intercambio mejoraron 6,1% interanual. Fuente:{' '}
+            <a href="https://www.indec.gob.ar/uploads/informesdeprensa/ica_11_262BEEC7410A.pdf" className="underline" rel="noopener" target="_blank">INDEC, Intercambio comercial argentino (bienes), octubre 2026</a> (publicado el 19/11/2026).
+          </p>
+          <p className="mb-3 text-[13px] text-[var(--fg-1)]">
+            Revisión de septiembre 2026: el saldo mensual pasó de USD 2.976 M a 2.952 M, porque las importaciones se corrigieron de 7.060 a 7.083 (la variación interanual de las importaciones quedó en −1,5%; las exportaciones se mantuvieron en USD 10.036 M, +23,5% i.a.).
+          </p>
+          <p className="-mt-2 mb-3 text-[12px] text-[var(--fg-2)]">
+            En el acumulado enero–septiembre, las importaciones pasaron de USD 56.069 M a 56.092 M (−2,4% i.a.) y el saldo de 21.198 a 21.174; las exportaciones no cambiaron (USD 77.267 M, +21,6% i.a.).
           </p>
           <p className="mb-3 text-[13px] text-[var(--fg-1)]">
             En el tercer trimestre de 2026, los precios de exportación subieron 15,2% interanual y los de importación 10,5%, por lo que los términos del intercambio mejoraron 4,2%, según el INDEC (publicado el 03/11/2026).

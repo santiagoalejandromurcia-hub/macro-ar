@@ -231,7 +231,7 @@ export const taxData = [
 ];
 
 // Balanza Comercial (USD millones)
-// Actualizado al 19-oct-2026 (ICA sep-26) · Fuente: INDEC — Intercambio Comercial Argentino
+// Actualizado al 19-nov-2026 (ICA oct-26) · Fuente: INDEC — Intercambio Comercial Argentino
 export const tradeData = [
   { month: 'Ene 25', exports: 5915, imports: 5753, balance: 162 },
   { month: 'Feb 25', exports: 6140, imports: 5864, balance: 275 },
@@ -253,7 +253,8 @@ export const tradeData = [
   { month: 'Jun 26', exports: 9112, imports: 6877, balance: 2235 },
   { month: 'Jul 26', exports: 8854, imports: 6756, balance: 2098 }, // revisado ICA 19/10/2026
   { month: 'Ago 26', exports: 8866, imports: 6707, balance: 2159 }, // revisado ICA 19/10/2026 (antes 8883/6696/2187)
-  { month: 'Sep 26', exports: 10036, imports: 7060, balance: 2976 }, // INDEC ICA 19/10/2026 · acum. ene–sep X 77.267 · M 56.069 · saldo 21.198 (reconfirmado ICA 05/11/2026; sin dato mensual oct-26 en ese informe)
+  { month: 'Sep 26', exports: 10036, imports: 7083, balance: 2952 }, // revisado ICA 19/11/2026 (antes 7.060 / 2.976; v.i.a. M −1,5%)
+  { month: 'Oct 26', exports: 10061, imports: 6668, balance: 3394 }, // INDEC ICA 19/11/2026 · acum. ene–oct X 87.328 · M 62.760 · saldo 24.568
 ];
 
 // Reservas Internacionales BCRA (USD millones) - Actualizado 17/10/2026 (dato al 14/10/2026)
