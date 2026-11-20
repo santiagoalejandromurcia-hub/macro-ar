@@ -23,6 +23,8 @@ export {
   ExportacionesChart,
   // Salarios y Deuda
   SalarioRealChart,
+  IndiceSalariosChart,
+  UciiChart,
   DeudaPibChart,
   DeudaConsolidadaChart,
   // Histórico largo plazo

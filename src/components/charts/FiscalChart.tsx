@@ -24,7 +24,7 @@ export default function FiscalChart() {
   return (
     <ChartCard
       title="Resultado Fiscal — Primario y Financiero"
-      subtitle={isLive ? `% del PIB · 12 meses · Actualizado ${updatedAt} · MECON / UBA IIEP` : '% del PIB · 12 meses (IIEP a Jul-26) · YTD MECON ene–ago: primario 1,1% · financiero 0,2%'}
+      subtitle={isLive ? `% del PIB · 12 meses · Actualizado ${updatedAt} · MECON / UBA IIEP` : '% del PIB · 12 meses (IIEP a Jul-26) · YTD MECON ene–oct: primario ≈ 1,4% · financiero ≈ 0,4% (16/11/2026)'}
       isLive={isLive}
       periods={[...MONTHLY_PERIODS]}
       selectedPeriod={period}

@@ -1,0 +1,29 @@
+{
+  "_nota": "La API del INDEC no publica la serie de UCII (catálogo api.indec.gob.ar/v1, 13/11/2026). Solo se cargan valores verificados en el informe técnico.",
+  "fuente": "INDEC",
+  "servicio": null,
+  "informe": "Utilización de la capacidad instalada en la industria. Septiembre de 2026",
+  "url": "https://www.indec.gob.ar/uploads/informesdeprensa/capacidad_11_263FB01AE89B.pdf",
+  "fechaPublicacion": "2026-11-13",
+  "ultimoPeriodo": "202609",
+  "puntos": [
+    {
+      "periodo": "202509",
+      "date": "Sep 25",
+      "valor": 61.4,
+      "observaciones": null
+    },
+    {
+      "periodo": "202608",
+      "date": "Ago 26",
+      "valor": 59.1,
+      "observaciones": "Dato revisado (el informe de agosto de 2026 publicaba 58,5%)"
+    },
+    {
+      "periodo": "202609",
+      "date": "Sep 26",
+      "valor": 60.1,
+      "observaciones": null
+    }
+  ]
+}

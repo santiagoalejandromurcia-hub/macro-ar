@@ -1542,9 +1542,9 @@
  "ipc": {
   "fuente": "INDEC — API de datos (api.indec.gob.ar)",
   "servicio": "ipc_nacional",
-  "fechaConsulta": "2026-11-02T21:59:02.697Z",
-  "ultimoPeriodo": "202609",
-  "fechaPublicacion": "2026-10-13",
+  "fechaConsulta": "2026-11-12T19:17:56.262Z",
+  "ultimoPeriodo": "202610",
+  "fechaPublicacion": "2026-11-12",
   "serie": [
    {
     "periodo": "202312",
@@ -2055,50 +2055,65 @@
     "bienes": 1.7,
     "servicios": 2.4,
     "observaciones": null
+   },
+   {
+    "periodo": "202610",
+    "date": "Oct 26",
+    "mensual": 2.2,
+    "interanual": 33.1,
+    "acumulada": 26.3,
+    "indice": 12785.93,
+    "nucleo": 1.5,
+    "nucleoIa": 30.7,
+    "regulados": 2.9,
+    "estacional": 5.5,
+    "bienes": 1.9,
+    "servicios": 2.7,
+    "observaciones": null
    }
   ],
   "regiones": [
    {
     "region": "Nacional",
-    "mensual": 1.9,
-    "interanual": 33.4,
-    "acumulada": 23.6
+    "mensual": 2.2,
+    "interanual": 33.1,
+    "acumulada": 26.3
    },
    {
     "region": "GBA",
     "mensual": 2,
-    "interanual": 33.5,
-    "acumulada": 23.8
+    "interanual": 33,
+    "acumulada": 26.3
    },
    {
     "region": "Pampeana",
-    "mensual": 2,
-    "interanual": 33.1,
-    "acumulada": 23.3
+    "mensual": 2.6,
+    "interanual": 33.4,
+    "acumulada": 26.5
    },
    {
     "region": "Noreste",
-    "mensual": 1.7,
-    "interanual": 36.9,
-    "acumulada": 26.6
+    "mensual": 1.5,
+    "interanual": 35.9,
+    "acumulada": 28.4
    },
    {
     "region": "Noroeste",
-    "mensual": 1.9,
-    "interanual": 33.6,
-    "acumulada": 24.6
+    "mensual": 1.7,
+    "interanual": 33,
+    "acumulada": 26.7
    },
    {
     "region": "Cuyo",
-    "mensual": 1.9,
+    "mensual": 2.3,
     "interanual": 33,
-    "acumulada": 22.8
+    "acumulada": 25.6
    },
    {
     "region": "Patagonia",
-    "mensual": 1.4,
-    "interanual": 30.3,
-    "acumulada": 21.2
+    "mensual": 2.5,
+    "interanual": 30.4,
+    "acumulada": 24.2
    }
   ],
   "divisiones": [
@@ -2106,113 +2121,113 @@
     "codigo": "01",
     "descripcion": "Alimentos y bebidas no alcohólicas",
     "mensual": 2,
-    "interanual": 35.1,
-    "acumulada": 24.5
+    "interanual": 34.6,
+    "acumulada": 27
    },
    {
     "codigo": "02",
     "descripcion": "Bebidas alcohólicas y tabaco",
-    "mensual": 1.4,
-    "interanual": 22.4,
-    "acumulada": 15
+    "mensual": 0.8,
+    "interanual": 20.6,
+    "acumulada": 15.9
    },
    {
     "codigo": "03",
     "descripcion": "Prendas de vestir y calzado",
-    "mensual": 1.4,
-    "interanual": 10.3,
-    "acumulada": 6
+    "mensual": 2.2,
+    "interanual": 10,
+    "acumulada": 8.3
    },
    {
     "codigo": "04",
     "descripcion": "Vivienda, agua, electricidad, gas y otros combustibles",
-    "mensual": 3.1,
-    "interanual": 49.1,
-    "acumulada": 35.6
+    "mensual": 4.2,
+    "interanual": 51.1,
+    "acumulada": 41.3
    },
    {
     "codigo": "05",
     "descripcion": "Equipamiento y mantenimiento del hogar",
-    "mensual": 1.6,
-    "interanual": 23.7,
-    "acumulada": 18
+    "mensual": 1.4,
+    "interanual": 23.5,
+    "acumulada": 19.7
    },
    {
     "codigo": "06",
     "descripcion": "Salud",
-    "mensual": 2.4,
-    "interanual": 33.3,
-    "acumulada": 25.2
+    "mensual": 1.7,
+    "interanual": 33.1,
+    "acumulada": 27.3
    },
    {
     "codigo": "07",
     "descripcion": "Transporte",
-    "mensual": 1.5,
-    "interanual": 36.2,
-    "acumulada": 22.9
+    "mensual": 2.1,
+    "interanual": 34.4,
+    "acumulada": 25.4
    },
    {
     "codigo": "08",
     "descripcion": "Comunicación",
-    "mensual": 2.5,
-    "interanual": 37.3,
-    "acumulada": 26.6
+    "mensual": 2,
+    "interanual": 36.9,
+    "acumulada": 29.1
    },
    {
     "codigo": "09",
     "descripcion": "Recreación y cultura",
-    "mensual": 1.9,
-    "interanual": 32.2,
-    "acumulada": 23.8
+    "mensual": 3.3,
+    "interanual": 34.3,
+    "acumulada": 27.9
    },
    {
     "codigo": "10",
     "descripcion": "Educación",
-    "mensual": 3,
-    "interanual": 39.9,
-    "acumulada": 34
+    "mensual": 1.3,
+    "interanual": 39.4,
+    "acumulada": 35.8
    },
    {
     "codigo": "11",
     "descripcion": "Restaurantes y hoteles",
-    "mensual": 1.1,
-    "interanual": 34.6,
-    "acumulada": 24.5
+    "mensual": 1.5,
+    "interanual": 33.6,
+    "acumulada": 26.4
    },
    {
     "codigo": "12",
     "descripcion": "Bienes y servicios varios",
-    "mensual": 1.9,
-    "interanual": 32.5,
-    "acumulada": 22.9
+    "mensual": 2.3,
+    "interanual": 32.3,
+    "acumulada": 25.7
    }
   ]
  },
  "canastas": {
   "fuente": "INDEC — API de datos (api.indec.gob.ar)",
   "servicio": "valorizacion_canastas_cba_cbt",
-  "fechaConsulta": "2026-11-02T21:59:02.697Z",
-  "ultimoPeriodo": "202609",
-  "fechaPublicacion": null,
-  "periodo": "202609",
+  "fechaConsulta": "2026-11-12T19:17:56.262Z",
+  "ultimoPeriodo": "202610",
+  "fechaPublicacion": "2026-11-12",
+  "periodo": "202610",
   "regiones": [
    {
     "region": "GBA",
     "cba": {
-     "adultoEquivalente": 239058.22,
-     "mensual": 1.7,
-     "interanual": 40,
-     "hogar1": 588083.22,
-     "hogar2": 738689.9,
-     "hogar3": 776939.22
+     "adultoEquivalente": 246362.93,
+     "mensual": 3.1,
+     "interanual": 39.9,
+     "hogar1": 606052.81,
+     "hogar2": 761261.45,
+     "hogar3": 800679.52
     },
     "cbt": {
-     "adultoEquivalente": 528318.67,
-     "mensual": 1.7,
-     "interanual": 38.7,
-     "hogar1": 1299663.93,
-     "hogar2": 1632504.69,
-     "hogar3": 1717035.68
+     "adultoEquivalente": 546925.7,
+     "mensual": 3.5,
+     "interanual": 39.2,
+     "hogar1": 1345437.22,
+     "hogar2": 1690000.41,
+     "hogar3": 1777508.52
     },
     "observaciones": null
    }
@@ -2875,72 +2890,532 @@
  "salarios": {
   "fuente": "INDEC — API de datos (api.indec.gob.ar)",
   "servicio": "indice_salarios",
-  "fechaConsulta": "2026-11-02T21:59:02.697Z",
-  "ultimoPeriodo": "202608",
-  "fechaPublicacion": null,
-  "periodo": "202608",
+  "fechaConsulta": "2026-11-13T19:50:29.711Z",
+  "ultimoPeriodo": "202609",
+  "fechaPublicacion": "2026-11-13",
+  "periodo": "202609",
   "series": [
    {
     "codigo": "0",
     "descripcion": "Nivel general",
-    "indice": 9973.55,
-    "mensual": 2.73,
-    "interanual": 35.61,
-    "acumulada": 25.14,
+    "indice": 10098.36,
+    "mensual": 1.25,
+    "interanual": 34.32,
+    "acumulada": 26.71,
     "observaciones": null
    },
    {
     "codigo": "100",
     "descripcion": "Total registrado",
-    "indice": 9467.78,
-    "mensual": 2.64,
-    "interanual": 30.38,
-    "acumulada": 21.46,
+    "indice": 9647.4,
+    "mensual": 1.9,
+    "interanual": 31.16,
+    "acumulada": 23.77,
     "observaciones": null
    },
    {
     "codigo": "110",
     "descripcion": "Sector privado registrado",
-    "indice": 10159.65,
-    "mensual": 2.83,
-    "interanual": 30.42,
-    "acumulada": 20.36,
+    "indice": 10357.14,
+    "mensual": 1.94,
+    "interanual": 31.15,
+    "acumulada": 22.7,
     "observaciones": null
    },
    {
     "codigo": "120",
     "descripcion": "Sector público",
-    "indice": 8307.48,
-    "mensual": 2.26,
-    "interanual": 30.31,
-    "acumulada": 23.79,
+    "indice": 8457.14,
+    "mensual": 1.8,
+    "interanual": 31.16,
+    "acumulada": 26.02,
     "observaciones": null
    },
    {
     "codigo": "121",
     "descripcion": "Subsector público nacional",
     "indice": null,
-    "mensual": 1.94,
-    "interanual": 26.26,
-    "acumulada": 20.39,
+    "mensual": 3.49,
+    "interanual": 29.04,
+    "acumulada": 24.59,
     "observaciones": null
    },
    {
     "codigo": "122",
     "descripcion": "Subsector público provincial",
     "indice": null,
-    "mensual": 2.6,
-    "interanual": 29.98,
-    "acumulada": 23.16,
+    "mensual": 1.31,
+    "interanual": 30.24,
+    "acumulada": 24.77,
     "observaciones": null
    },
    {
     "codigo": "200",
     "descripcion": "Total no registrado",
-    "indice": 12005.54,
-    "mensual": 3,
-    "interanual": 55.36,
-    "acumulada": 38.44,
+    "indice": 11910.13,
+    "mensual": -0.79,
+    "interanual": 45.77,
+    "acumulada": 37.34,
+    "observaciones": null
+   }
+  ],
+  "serie": [
+   {
+    "periodo": "202401",
+    "date": "Ene 24",
+    "indice": 2734.97,
+    "acumulada": 16.44,
+    "interanual": 180.99,
+    "mensual": 16.44,
+    "general": 16.44,
+    "privadoReg": 19.99,
+    "publico": 12.08,
+    "noReg": 11.24,
+    "observaciones": null
+   },
+   {
+    "periodo": "202402",
+    "date": "Feb 24",
+    "indice": 3099.2,
+    "acumulada": 31.94,
+    "interanual": 200.38,
+    "mensual": 13.32,
+    "general": 13.32,
+    "privadoReg": 14.07,
+    "publico": 15.11,
+    "noReg": 5.72,
+    "observaciones": null
+   },
+   {
+    "periodo": "202403",
+    "date": "Mar 24",
+    "indice": 3417.34,
+    "acumulada": 45.49,
+    "interanual": 200.81,
+    "mensual": 10.27,
+    "general": 10.27,
+    "privadoReg": 9.99,
+    "publico": 11.02,
+    "noReg": 9.74,
+    "observaciones": null
+   },
+   {
+    "periodo": "202404",
+    "date": "Abr 24",
+    "indice": 3764.21,
+    "acumulada": 60.26,
+    "interanual": 213.56,
+    "mensual": 10.15,
+    "general": 10.15,
+    "privadoReg": 11.97,
+    "publico": 7.52,
+    "noReg": 7.77,
+    "observaciones": null
+   },
+   {
+    "periodo": "202405",
+    "date": "May 24",
+    "indice": 4077.32,
+    "acumulada": 73.59,
+    "interanual": 215.96,
+    "mensual": 8.32,
+    "general": 8.32,
+    "privadoReg": 7.68,
+    "publico": 8.26,
+    "noReg": 11.81,
+    "observaciones": null
+   },
+   {
+    "periodo": "202406",
+    "date": "Jun 24",
+    "indice": 4329.8,
+    "acumulada": 84.34,
+    "interanual": 216.34,
+    "mensual": 6.19,
+    "general": 6.19,
+    "privadoReg": 6.69,
+    "publico": 3.94,
+    "noReg": 9.21,
+    "observaciones": null
+   },
+   {
+    "periodo": "202407",
+    "date": "Jul 24",
+    "indice": 4653.26,
+    "acumulada": 98.11,
+    "interanual": 206.19,
+    "mensual": 7.47,
+    "general": 7.47,
+    "privadoReg": 6.27,
+    "publico": 6.72,
+    "noReg": 15.08,
+    "observaciones": null
+   },
+   {
+    "periodo": "202408",
+    "date": "Ago 24",
+    "indice": 4916.19,
+    "acumulada": 109.31,
+    "interanual": 200.62,
+    "mensual": 5.65,
+    "general": 5.65,
+    "privadoReg": 5.04,
+    "publico": 4.65,
+    "noReg": 10.58,
+    "observaciones": null
+   },
+   {
+    "periodo": "202409",
+    "date": "Sep 24",
+    "indice": 5147.61,
+    "acumulada": 119.16,
+    "interanual": 181.86,
+    "mensual": 4.71,
+    "general": 4.71,
+    "privadoReg": 3.77,
+    "publico": 3.92,
+    "noReg": 10.35,
+    "observaciones": null
+   },
+   {
+    "periodo": "202410",
+    "date": "Oct 24",
+    "indice": 5383.96,
+    "acumulada": 129.22,
+    "interanual": 172.14,
+    "mensual": 4.59,
+    "general": 4.59,
+    "privadoReg": 3.95,
+    "publico": 4.34,
+    "noReg": 7.66,
+    "observaciones": null
+   },
+   {
+    "periodo": "202411",
+    "date": "Nov 24",
+    "indice": 5591,
+    "acumulada": 138.04,
+    "interanual": 159.12,
+    "mensual": 3.84,
+    "general": 3.84,
+    "privadoReg": 3.28,
+    "publico": 2.72,
+    "noReg": 8.14,
+    "observaciones": null
+   },
+   {
+    "periodo": "202412",
+    "date": "Dic 24",
+    "indice": 5765.54,
+    "acumulada": 145.47,
+    "interanual": 145.47,
+    "mensual": 3.12,
+    "general": 3.12,
+    "privadoReg": 2.79,
+    "publico": 1.72,
+    "noReg": 6.84,
+    "observaciones": null
+   },
+   {
+    "periodo": "202501",
+    "date": "Ene 25",
+    "indice": 5934.47,
+    "acumulada": 2.93,
+    "interanual": 116.99,
+    "mensual": 2.93,
+    "general": 2.93,
+    "privadoReg": 2.3,
+    "publico": 0.93,
+    "noReg": 8.58,
+    "observaciones": null
+   },
+   {
+    "periodo": "202502",
+    "date": "Feb 25",
+    "indice": 6161.52,
+    "acumulada": 6.87,
+    "interanual": 98.81,
+    "mensual": 3.83,
+    "general": 3.83,
+    "privadoReg": 2.31,
+    "publico": 4.47,
+    "noReg": 7.93,
+    "observaciones": null
+   },
+   {
+    "periodo": "202503",
+    "date": "Mar 25",
+    "indice": 6344.81,
+    "acumulada": 10.04,
+    "interanual": 85.66,
+    "mensual": 2.97,
+    "general": 2.97,
+    "privadoReg": 2.16,
+    "publico": 3.28,
+    "noReg": 5.11,
+    "observaciones": null
+   },
+   {
+    "periodo": "202504",
+    "date": "Abr 25",
+    "indice": 6559.31,
+    "acumulada": 13.77,
+    "interanual": 74.25,
+    "mensual": 3.38,
+    "general": 3.38,
+    "privadoReg": 2.53,
+    "publico": 2.27,
+    "noReg": 7.68,
+    "observaciones": null
+   },
+   {
+    "periodo": "202505",
+    "date": "May 25",
+    "indice": 6755.22,
+    "acumulada": 17.17,
+    "interanual": 65.68,
+    "mensual": 2.99,
+    "general": 2.99,
+    "privadoReg": 1.98,
+    "publico": 3.28,
+    "noReg": 5.56,
+    "observaciones": null
+   },
+   {
+    "periodo": "202506",
+    "date": "Jun 25",
+    "indice": 6956.46,
+    "acumulada": 20.66,
+    "interanual": 60.66,
+    "mensual": 2.98,
+    "general": 2.98,
+    "privadoReg": 1.73,
+    "publico": 1.28,
+    "noReg": 8.89,
+    "observaciones": null
+   },
+   {
+    "periodo": "202507",
+    "date": "Jul 25",
+    "indice": 7129.22,
+    "acumulada": 23.65,
+    "interanual": 53.21,
+    "mensual": 2.48,
+    "general": 2.48,
+    "privadoReg": 2.17,
+    "publico": 2.28,
+    "noReg": 3.58,
+    "observaciones": null
+   },
+   {
+    "periodo": "202508",
+    "date": "Ago 25",
+    "indice": 7354.44,
+    "acumulada": 27.56,
+    "interanual": 49.6,
+    "mensual": 3.16,
+    "general": 3.16,
+    "privadoReg": 2.24,
+    "publico": 2.79,
+    "noReg": 6.04,
+    "observaciones": null
+   },
+   {
+    "periodo": "202509",
+    "date": "Sep 25",
+    "indice": 7518.03,
+    "acumulada": 30.4,
+    "interanual": 46.04,
+    "mensual": 2.22,
+    "general": 2.22,
+    "privadoReg": 1.37,
+    "publico": 1.14,
+    "noReg": 5.73,
+    "observaciones": null
+   },
+   {
+    "periodo": "202510",
+    "date": "Oct 25",
+    "indice": 7705.88,
+    "acumulada": 33.65,
+    "interanual": 43.13,
+    "mensual": 2.5,
+    "general": 2.5,
+    "privadoReg": 2.08,
+    "publico": 1.89,
+    "noReg": 4.24,
+    "observaciones": null
+   },
+   {
+    "periodo": "202511",
+    "date": "Nov 25",
+    "indice": 7843.14,
+    "acumulada": 36.03,
+    "interanual": 40.28,
+    "mensual": 1.78,
+    "general": 1.78,
+    "privadoReg": 2.13,
+    "publico": 1.15,
+    "noReg": 1.69,
+    "observaciones": null
+   },
+   {
+    "periodo": "202512",
+    "date": "Dic 25",
+    "indice": 7969.6,
+    "acumulada": 38.23,
+    "interanual": 38.23,
+    "mensual": 1.61,
+    "general": 1.61,
+    "privadoReg": 2.53,
+    "publico": 0.99,
+    "noReg": 0.14,
+    "observaciones": null
+   },
+   {
+    "periodo": "202601",
+    "date": "Ene 26",
+    "indice": 8171.66,
+    "acumulada": 2.54,
+    "interanual": 37.7,
+    "mensual": 2.54,
+    "general": 2.54,
+    "privadoReg": 2.13,
+    "publico": 1.81,
+    "noReg": 4.37,
+    "observaciones": null
+   },
+   {
+    "periodo": "202602",
+    "date": "Feb 26",
+    "indice": 8370.04,
+    "acumulada": 5.02,
+    "interanual": 35.84,
+    "mensual": 2.43,
+    "general": 2.43,
+    "privadoReg": 1.56,
+    "publico": 2.33,
+    "noReg": 4.62,
+    "observaciones": null
+   },
+   {
+    "periodo": "202603",
+    "date": "Mar 26",
+    "indice": 8654.99,
+    "acumulada": 8.6,
+    "interanual": 36.41,
+    "mensual": 3.4,
+    "general": 3.4,
+    "privadoReg": 2.06,
+    "publico": 5.04,
+    "noReg": 4.72,
+    "observaciones": null
+   },
+   {
+    "periodo": "202604",
+    "date": "Abr 26",
+    "indice": 8978.1,
+    "acumulada": 12.65,
+    "interanual": 36.88,
+    "mensual": 3.73,
+    "general": 3.73,
+    "privadoReg": 4,
+    "publico": 2.33,
+    "noReg": 4.69,
+    "observaciones": null
+   },
+   {
+    "periodo": "202605",
+    "date": "May 26",
+    "indice": 9177.39,
+    "acumulada": 15.16,
+    "interanual": 35.86,
+    "mensual": 2.22,
+    "general": 2.22,
+    "privadoReg": 2,
+    "publico": 1.5,
+    "noReg": 3.49,
+    "observaciones": null
+   },
+   {
+    "periodo": "202606",
+    "date": "Jun 26",
+    "indice": 9442.5,
+    "acumulada": 18.48,
+    "interanual": 35.74,
+    "mensual": 2.89,
+    "general": 2.89,
+    "privadoReg": 1.94,
+    "publico": 3.42,
+    "noReg": 4.43,
+    "observaciones": null
+   },
+   {
+    "periodo": "202607",
+    "date": "Jul 26",
+    "indice": 9708.64,
+    "acumulada": 21.82,
+    "interanual": 36.18,
+    "mensual": 2.82,
+    "general": 2.82,
+    "privadoReg": 2.25,
+    "publico": 2.97,
+    "noReg": 3.89,
+    "observaciones": null
+   },
+   {
+    "periodo": "202608",
+    "date": "Ago 26",
+    "indice": 9973.55,
+    "acumulada": 25.14,
+    "interanual": 35.61,
+    "mensual": 2.73,
+    "general": 2.73,
+    "privadoReg": 2.83,
+    "publico": 2.26,
+    "noReg": 3,
+    "observaciones": null
+   },
+   {
+    "periodo": "202609",
+    "date": "Sep 26",
+    "indice": 10098.36,
+    "acumulada": 26.71,
+    "interanual": 34.32,
+    "mensual": 1.25,
+    "general": 1.25,
+    "privadoReg": 1.94,
+    "publico": 1.8,
+    "noReg": -0.79,
+    "observaciones": null
+   }
+  ]
+ },
+ "ucii": {
+  "_nota": "La API del INDEC no publica la serie de UCII (catálogo api.indec.gob.ar/v1, 13/11/2026). Solo se cargan valores verificados en el informe técnico.",
+  "fuente": "INDEC",
+  "servicio": null,
+  "informe": "Utilización de la capacidad instalada en la industria. Septiembre de 2026",
+  "url": "https://www.indec.gob.ar/uploads/informesdeprensa/capacidad_11_263FB01AE89B.pdf",
+  "fechaPublicacion": "2026-11-13",
+  "ultimoPeriodo": "202609",
+  "puntos": [
+   {
+    "periodo": "202509",
+    "date": "Sep 25",
+    "valor": 61.4,
+    "observaciones": null
+   },
+   {
+    "periodo": "202608",
+    "date": "Ago 26",
+    "valor": 59.1,
+    "observaciones": "Dato revisado (el informe de agosto de 2026 publicaba 58,5%)"
+   },
+   {
+    "periodo": "202609",
+    "date": "Sep 26",
+    "valor": 60.1,
     "observaciones": null
    }
   ]

@@ -177,6 +177,21 @@ export default function PobrezaArgentinaPage() {
       </div>
 
       <section className="mt-10 glass p-5 md:p-6 text-[13px] text-[var(--fg-1)] leading-relaxed">
+        <h2 className="text-[15px] font-semibold text-[var(--fg-0)] mb-3">Condiciones de vida de los hogares (1er semestre 2026)</h2>
+        <p>
+          En el primer semestre de 2026, el 90,9% de los hogares de los 31 aglomerados urbanos tenía acceso a la red de agua corriente, el 64,6% a la red de gas natural y el 73,1% a la red de cloacas, según el INDEC (publicado el 04/11/2026).
+        </p>
+        <ul className="mt-3 list-disc pl-5 space-y-1">
+          <li>Saneamiento adecuado: 88,4% de los hogares.</li>
+          <li>Hacinamiento crítico: 1,8% de los hogares.</li>
+          <li>Tenencia: 61,7% propietarios; 20,9% inquilinos.</li>
+        </ul>
+        <p className="mt-3 text-[12px] text-[var(--fg-2)]">
+          Fuente: <a href="https://www.indec.gob.ar/uploads/informesdeprensa/eph_indicadores_hogares_11_269E1CF84248.pdf" className="underline" rel="noopener" target="_blank">INDEC, Indicadores de condiciones de vida de los hogares en 31 aglomerados urbanos. Primer semestre de 2026</a> (EPH, publicado el 04/11/2026).
+        </p>
+      </section>
+
+      <section className="mt-10 glass p-5 md:p-6 text-[13px] text-[var(--fg-1)] leading-relaxed">
         <h2 className="text-[15px] font-semibold text-[var(--fg-0)] mb-3">Cómo se mide la pobreza en Argentina</h2>
         <p className="mb-3">
           El INDEC mide la <strong className="text-[var(--fg-0)]">tasa de pobreza en Argentina</strong> a
