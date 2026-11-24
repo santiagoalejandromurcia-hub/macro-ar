@@ -16,19 +16,19 @@ import {
 
 export const metadata: Metadata = {
   alternates: { canonical: 'https://macrolibre.com/actividad' },
-  title: { absolute: 'EMAE agosto 2026: −1,7% interanual | MacroLibre' },
+  title: { absolute: 'EMAE septiembre 2026: −1,2% interanual | MacroLibre' },
   description:
-    'EMAE agosto 2026 (INDEC, 21/10): actividad económica −1,7% interanual, +0,1% mensual desestacionalizado, tendencia-ciclo 0,0% y acumulado enero–agosto +1,2%. Julio revisado a −1,5% i.a.',
+    'EMAE septiembre 2026 (INDEC, 24/11): actividad económica −1,2% interanual, +1,1% mensual desestacionalizado, tendencia-ciclo 0,0% y acumulado enero–septiembre +1,0%. Agosto revisado a −1,6% i.a. y +0,4% s.e.; julio s.e. a −2,5%.',
 };
 
 export default function ActividadPage() {
   return (
     <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
       <h1 className="font-display text-[26px] sm:text-[30px] leading-tight tracking-tight text-[var(--fg-0)] mb-2">
-        EMAE agosto 2026: actividad económica Argentina (INDEC)
+        EMAE septiembre 2026: actividad económica Argentina (INDEC)
       </h1>
       <p className="text-[14px] text-[var(--fg-1)] mb-8">
-        Actividad económica (EMAE) de agosto 2026: −1,7% interanual y +0,1% mensual desestacionalizado (INDEC, publicado el 21/10)
+        Actividad económica (EMAE) de septiembre 2026: −1,2% interanual y +1,1% mensual desestacionalizado (INDEC, publicado el 24/11)
       </p>
       <SectionHeader
         id="actividad"

@@ -706,9 +706,9 @@ export const inflacionLargoPlazoData: Array<{
 
 // ============================================================
 // EMAE largo plazo — Serie desestacionalizada (puntos clave 2017-2026)
-// Fuente: Econométrica en base a INDEC. 2026 alineado al informe INDEC 24/09/2026.
+// Fuente: API del INDEC, informe técnico de septiembre de 2026 (publicado el 24/11/2026).
 // Hitos: nov-17 J×C ~152 · COVID 2020 ~137 · jun-22 pico azul ~152 ·
-//        dic-23 punto partida Milei · Jul-26 desest. 149,6 (INDEC)
+//        dic-23 punto partida Milei · Sep-26 desest. 152,2 (INDEC)
 // ============================================================
 // Fuente: API del INDEC (EMAE serie desestacionalizada), mismos cortes que antes; se omite el corte sin dato.
 const emaeLargoPlazoCortes: Array<[string, EtapaPolitica]> = [
@@ -739,6 +739,7 @@ const emaeLargoPlazoCortes: Array<[string, EtapaPolitica]> = [
   ['Jun 26', 'lla'],
   ['Jul 26', 'lla'],
   ['Ago 26', 'lla'],
+  ['Sep 26', 'lla'],
 ];
 const emaeDesestPorFecha = new Map(indec.emae.serie.map((r) => [r.date, r.desest]));
 export const emaeLargoPlazoData: Array<{
