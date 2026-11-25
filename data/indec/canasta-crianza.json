@@ -1,0 +1,154 @@
+{
+  "_nota": "La canasta de crianza no se muestra aún en el sitio. Valores cargados solo desde el informe técnico del INDEC. Una sección de visualización requiere el ok de Santo.",
+  "fuente": "INDEC",
+  "servicio": null,
+  "informe": "Valorización mensual de la canasta de crianza de la primera infancia, la niñez y la adolescencia. Octubre de 2026",
+  "url": "https://www.indec.gob.ar/uploads/informesdeprensa/canasta_crianza_11_26F9D722BE15.pdf",
+  "fechaPublicacion": "2026-11-16",
+  "ultimoPeriodo": "202610",
+  "unidad": "pesos",
+  "tramos": [
+    {
+      "id": "menor-1",
+      "label": "Menor de 1 año",
+      "total": 591320,
+      "bienesYServicios": 191424,
+      "cuidado": 399896,
+      "horasCuidado": 147,
+      "costoPorHora": 2720
+    },
+    {
+      "id": "1-a-3",
+      "label": "1 a 3 años",
+      "total": 704198,
+      "bienesYServicios": 247173,
+      "cuidado": 457024,
+      "horasCuidado": 168,
+      "costoPorHora": 2720
+    },
+    {
+      "id": "4-a-5",
+      "label": "4 a 5 años",
+      "total": 600445,
+      "bienesYServicios": 314805,
+      "cuidado": 285640,
+      "horasCuidado": 105,
+      "costoPorHora": 2720
+    },
+    {
+      "id": "6-a-12",
+      "label": "6 a 12 años",
+      "total": 754869,
+      "bienesYServicios": 390516,
+      "cuidado": 364353,
+      "horasCuidado": 84,
+      "costoPorHora": 4338
+    }
+  ],
+  "serie": [
+    {
+      "periodo": "202510",
+      "date": "Oct 25",
+      "menor1": { "bienesYServicios": 137485, "cuidado": 303687, "total": 441173 },
+      "de1a3": { "bienesYServicios": 177526, "cuidado": 347071, "total": 524597 },
+      "de4a5": { "bienesYServicios": 226100, "cuidado": 216920, "total": 443020 },
+      "de6a12": { "bienesYServicios": 280478, "cuidado": 276695, "total": 557173 }
+    },
+    {
+      "periodo": "202511",
+      "date": "Nov 25",
+      "menor1": { "bienesYServicios": 142416, "cuidado": 307939, "total": 450355 },
+      "de1a3": { "bienesYServicios": 183892, "cuidado": 351930, "total": 535823 },
+      "de4a5": { "bienesYServicios": 234209, "cuidado": 219956, "total": 454165 },
+      "de6a12": { "bienesYServicios": 290537, "cuidado": 280569, "total": 571106 }
+    },
+    {
+      "periodo": "202512",
+      "date": "Dic 25",
+      "menor1": { "bienesYServicios": 148236, "cuidado": 311942, "total": 460178 },
+      "de1a3": { "bienesYServicios": 191408, "cuidado": 356505, "total": 547913 },
+      "de4a5": { "bienesYServicios": 243780, "cuidado": 222816, "total": 466596 },
+      "de6a12": { "bienesYServicios": 302411, "cuidado": 284217, "total": 586627 }
+    },
+    {
+      "periodo": "202601",
+      "date": "Ene 26",
+      "menor1": { "bienesYServicios": 154079, "cuidado": 322151, "total": 476230 },
+      "de1a3": { "bienesYServicios": 198952, "cuidado": 368172, "total": 567124 },
+      "de4a5": { "bienesYServicios": 253390, "cuidado": 230108, "total": 483497 },
+      "de6a12": { "bienesYServicios": 314331, "cuidado": 293517, "total": 607848 }
+    },
+    {
+      "periodo": "202602",
+      "date": "Feb 26",
+      "menor1": { "bienesYServicios": 158312, "cuidado": 322151, "total": 480463 },
+      "de1a3": { "bienesYServicios": 204418, "cuidado": 368172, "total": 572590 },
+      "de4a5": { "bienesYServicios": 260351, "cuidado": 230108, "total": 490459 },
+      "de6a12": { "bienesYServicios": 322967, "cuidado": 293517, "total": 616484 }
+    },
+    {
+      "periodo": "202603",
+      "date": "Mar 26",
+      "menor1": { "bienesYServicios": 162480, "cuidado": 331888, "total": 494367 },
+      "de1a3": { "bienesYServicios": 209799, "cuidado": 379300, "total": 589099 },
+      "de4a5": { "bienesYServicios": 267205, "cuidado": 237063, "total": 504267 },
+      "de6a12": { "bienesYServicios": 331468, "cuidado": 302389, "total": 633857 }
+    },
+    {
+      "periodo": "202604",
+      "date": "Abr 26",
+      "menor1": { "bienesYServicios": 166479, "cuidado": 345284, "total": 511763 },
+      "de1a3": { "bienesYServicios": 214963, "cuidado": 394611, "total": 609574 },
+      "de4a5": { "bienesYServicios": 273781, "cuidado": 246632, "total": 520413 },
+      "de6a12": { "bienesYServicios": 339626, "cuidado": 314595, "total": 654221 }
+    },
+    {
+      "periodo": "202605",
+      "date": "May 26",
+      "menor1": { "bienesYServicios": 169760, "cuidado": 350809, "total": 520569 },
+      "de1a3": { "bienesYServicios": 219200, "cuidado": 400925, "total": 620125 },
+      "de4a5": { "bienesYServicios": 279178, "cuidado": 250578, "total": 529756 },
+      "de6a12": { "bienesYServicios": 346321, "cuidado": 319628, "total": 665950 }
+    },
+    {
+      "periodo": "202606",
+      "date": "Jun 26",
+      "menor1": { "bienesYServicios": 173468, "cuidado": 356071, "total": 529539 },
+      "de1a3": { "bienesYServicios": 223988, "cuidado": 406938, "total": 630926 },
+      "de4a5": { "bienesYServicios": 285275, "cuidado": 254337, "total": 539612 },
+      "de6a12": { "bienesYServicios": 353885, "cuidado": 324423, "total": 678308 }
+    },
+    {
+      "periodo": "202607",
+      "date": "Jul 26",
+      "menor1": { "bienesYServicios": 177233, "cuidado": 368450, "total": 545683 },
+      "de1a3": { "bienesYServicios": 228850, "cuidado": 421086, "total": 649935 },
+      "de4a5": { "bienesYServicios": 291467, "cuidado": 263179, "total": 554646 },
+      "de6a12": { "bienesYServicios": 361566, "cuidado": 335702, "total": 697268 }
+    },
+    {
+      "periodo": "202608",
+      "date": "Ago 26",
+      "menor1": { "bienesYServicios": 181852, "cuidado": 375450, "total": 557303 },
+      "de1a3": { "bienesYServicios": 234814, "cuidado": 429086, "total": 663900 },
+      "de4a5": { "bienesYServicios": 299064, "cuidado": 268179, "total": 567243 },
+      "de6a12": { "bienesYServicios": 370990, "cuidado": 342080, "total": 713070 }
+    },
+    {
+      "periodo": "202609",
+      "date": "Sep 26",
+      "menor1": { "bienesYServicios": 184912, "cuidado": 385920, "total": 570832 },
+      "de1a3": { "bienesYServicios": 238764, "cuidado": 441051, "total": 679816 },
+      "de4a5": { "bienesYServicios": 304095, "cuidado": 275657, "total": 579752 },
+      "de6a12": { "bienesYServicios": 377231, "cuidado": 351619, "total": 728850 }
+    },
+    {
+      "periodo": "202610",
+      "date": "Oct 26",
+      "menor1": { "bienesYServicios": 191424, "cuidado": 399896, "total": 591320 },
+      "de1a3": { "bienesYServicios": 247173, "cuidado": 457024, "total": 704198 },
+      "de4a5": { "bienesYServicios": 314805, "cuidado": 285640, "total": 600445 },
+      "de6a12": { "bienesYServicios": 390516, "cuidado": 364353, "total": 754869 }
+    }
+  ]
+}

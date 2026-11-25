@@ -23,7 +23,7 @@ export default function FiscalDetalleTable() {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <ChartCard
         title="Resultado fiscal nominal — SPN"
-        subtitle={`${ultimo.period} · millones de ARS · MECON 18/09/2026`}
+        subtitle={`${ultimo.period} · millones de ARS · Ministerio de Economía, 16/11/2026`}
         csvData={fiscalNominalData.map((r) => ({
           Período: r.period,
           'Superávit primario (M)': r.primario,
@@ -59,8 +59,8 @@ export default function FiscalDetalleTable() {
           </table>
         </div>
         <p className="mt-3 text-[11px] text-theme-muted leading-relaxed">
-          Acumulado ene–ago 2026: superávit primario 1,1% del PIB · superávit financiero 0,2% del PIB.
-          Agosto: financiero +62,8% i.a. Intereses netos de tenencias intra sector público. Junio fue déficit estacional (aguinaldo).
+          Acumulado ene–oct 2026: superávit financiero en torno a 0,4% del PIB · superávit primario de aproximadamente 1,4% del PIB.
+          Intereses netos de tenencias intra sector público. Junio fue déficit estacional (aguinaldo). No se incluye septiembre: no figura en el informe de octubre. Fuente: Ministerio de Economía, 16/11/2026.
         </p>
       </ChartCard>
 

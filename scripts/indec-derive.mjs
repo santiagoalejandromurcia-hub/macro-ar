@@ -90,13 +90,35 @@ const trabajo = mt.datos.filter((r) => r.area_geografica_nom === 'T_31_A').map((
   empleoFormal: r.tasa_de_empleo_formal ?? null, empleoInformal: r.tasa_de_empleo_informal ?? null, observaciones: r.observaciones ?? null,
 }));
 
-// ---------- Índice de salarios (solo resumen; el sitio no lo muestra aún)
+// ---------- Índice de salarios
 const sal = await load('indice-salarios');
 const sLast = sal.datos.filter((r) => r.periodo === sal.ultimoPeriodo);
 const salarios = [...new Set(sLast.map((r) => r.codigo))].map((c) => {
   const rs = sLast.filter((r) => r.codigo === c); const g = (t) => r2(rs.find((r) => r.tipo_de_indicador === t)?.valor);
   return { codigo: c, descripcion: rs[0].descripcion, indice: g('Indice'), mensual: g('v_m'), interanual: g('v_ia'), acumulada: g('v_acum'), observaciones: obsOf(rs) };
 });
+const SAL_MM = { '0': 'general', '110': 'privadoReg', '120': 'publico', '200': 'noReg' };
+const salBy = new Map();
+for (const r of sal.datos) {
+  const o = salBy.get(r.periodo) ?? { periodo: r.periodo, date: lbl(r.periodo) };
+  if (r.codigo === '0') {
+    if (r.tipo_de_indicador === 'v_m') o.mensual = r2(r.valor);
+    else if (r.tipo_de_indicador === 'v_ia') o.interanual = r2(r.valor);
+    else if (r.tipo_de_indicador === 'v_acum') o.acumulada = r2(r.valor);
+    else if (r.tipo_de_indicador === 'Indice') o.indice = r2(r.valor);
+  }
+  const mm = SAL_MM[r.codigo];
+  if (mm && r.tipo_de_indicador === 'v_m') o[mm] = r2(r.valor);
+  if (r.observaciones) {
+    o.obs = o.obs ?? [];
+    o.obs.push(r.observaciones);
+  }
+  salBy.set(r.periodo, o);
+}
+const salariosSerie = [...salBy.values()].sort((a, b) => a.periodo.localeCompare(b.periodo)).map(({ obs, ...o }) => ({ ...o, observaciones: obs ? [...new Set(obs)].join(' · ') : null }));
+
+// ---------- UCII (snapshot verificado en el informe técnico; la API no publica esta serie)
+const ucii = await load('ucii');
 
 const out = {
   _nota: 'Generado por scripts/indec-derive.mjs desde data/indec/*.json (API del INDEC). No editar a mano.',
@@ -106,7 +128,8 @@ const out = {
   canastas: { ...meta(cb), periodo: cb.ultimoPeriodo, regiones: canastas, hogares: hogarDesc },
   pobreza: { ...meta(pob), serie: pobreza },
   trabajo: { ...meta(mt), serie: trabajo },
-  salarios: { ...meta(sal), periodo: sal.ultimoPeriodo, series: salarios },
+  salarios: { ...meta(sal), periodo: sal.ultimoPeriodo, series: salarios, serie: salariosSerie },
+  ucii,
 };
 await writeFile(path.join(DIR, 'resumen.json'), JSON.stringify(out, null, 1) + '\n');
 console.log('✓ data/indec/resumen.json');

@@ -39,3 +39,6 @@ export const emaeUltimo = indec.emae.serie[indec.emae.serie.length - 1];
 export const ipcUltimo = indec.ipc.serie[indec.ipc.serie.length - 1];
 export const pobrezaUltimo = indec.pobreza.serie[indec.pobreza.serie.length - 1];
 export const trabajoUltimo = indec.trabajo.serie[indec.trabajo.serie.length - 1];
+
+export const salariosUltimo = indec.salarios.serie[indec.salarios.serie.length - 1];
+export const uciiUltimo = indec.ucii.puntos[indec.ucii.puntos.length - 1];

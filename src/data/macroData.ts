@@ -196,12 +196,17 @@ export const fiscalNominalData = [
   { period: 'Jun 26', primario:  -696843, financiero: -1024891, intereses:  328049 }, // déficit estacional (aguinaldo)
   { period: 'Jul 26', primario:  2960333, financiero:   244897, intereses: 2715436 },
   { period: 'Ago 26', primario:  1990322, financiero:   635529, intereses: 1354793 },
-    // ← ÚLTIMO MECON (Caputo 18/09/2026) · acum. ene-ago: primario 1,1% PIB · financiero 0,2% PIB
-    // financiero ago +62,8% i.a. vs $390.301 M de ago-25
+  // Oct 26 — Ministerio de Economía, Secretaría de Hacienda, publicado el 16/11/2026
+  // https://www.argentina.gob.ar/noticias/en-octubre-el-sector-publico-nacional-volvio-registrar-superavit-financiero-1578627-0
+  // Base caja (xlsx): valores redondeados al millón, como en la noticia (primario 1.931.156,3; financiero 1.578.626,8; intereses netos 352.529,5)
+  // Acum. ene–oct: financiero en torno a 0,4% del PIB · primario de aproximadamente 1,4% del PIB
+  // No se carga Sep 26: no figura en la noticia ni en la base caja de octubre.
+  { period: 'Oct 26', primario:  1931156, financiero:  1578627, intereses:  352530 },
 ];
 
 // Composición del gasto primario — variación interanual real (agosto 2026)
-// Fuente: MECON / Caputo 18/09/2026. Solo rubros publicados; no se arrastran los de julio.
+// Fuente: Ministerio de Economía, 18/09/2026. Solo rubros publicados; no se arrastran los de julio.
+// El informe de octubre (16/11/2026) publica variaciones nominales, no reales; esta tabla no se actualiza con esas cifras.
 export const fiscalGastoRealData: Array<{ concepto: string; variacionReal: string; destacado?: boolean }> = [
   { concepto: 'Gasto primario total', variacionReal: '-0,5%', destacado: true },
   { concepto: 'Transferencias a universidades', variacionReal: '+9,7%' },
@@ -210,21 +215,23 @@ export const fiscalGastoRealData: Array<{ concepto: string; variacionReal: strin
   { concepto: 'Pensiones no contributivas', variacionReal: '+4,2%' },
 ];
 
-// Recaudación Tributaria Nacional (millones de pesos) — Agosto 2026
-// Fuente oficial: ARCA / DNIAF — informe mensual agosto 2026
+// Recaudación Tributaria Nacional (millones de pesos) — Octubre 2026
+// Fuente oficial: ARCA — informe mensual octubre 2026 (publicado 02/11/2026)
+// https://www.afip.gob.ar/institucional/documentos/ARCA-Recaudacion-102026.pdf
+// Acumulado ene–oct: $196.013.106 M (+29,8% i.a.)
 export const taxData = [
-  { concepto: 'IVA', monto: '6.675.409', pctPIB: '-', variacion: '+25,3%' },
-  { concepto: 'Ganancias', monto: '4.636.836', pctPIB: '-', variacion: '+45,2%' },
-  { concepto: 'Seg. Social', monto: '4.833.581', pctPIB: '-', variacion: '+31,9%' },
-  { concepto: 'Créditos y Débitos', monto: '1.520.865', pctPIB: '-', variacion: '+21,5%' },
-  { concepto: 'Der. Exportación', monto: '1.015.506', pctPIB: '-', variacion: '+155,1%' },
-  { concepto: 'Combustibles', monto: '724.899', pctPIB: '-', variacion: '+50,4%' },
-  { concepto: 'Bienes Personales', monto: '137.797', pctPIB: '-', variacion: '+24,8%' },
-  { concepto: 'TOTAL', monto: '20.508.537', pctPIB: '-', variacion: '+33,5%' },
+  { concepto: 'IVA', monto: '7.032.743', pctPIB: '-', variacion: '+21,8%' },
+  { concepto: 'Ganancias', monto: '5.085.492', pctPIB: '-', variacion: '+55,1%' },
+  { concepto: 'Seg. Social', monto: '5.033.064', pctPIB: '-', variacion: '+33,8%' },
+  { concepto: 'Créditos y Débitos', monto: '1.631.977', pctPIB: '-', variacion: '+21,5%' },
+  { concepto: 'Der. Exportación', monto: '870.052', pctPIB: '-', variacion: '+238,4%' },
+  { concepto: 'Combustibles', monto: '688.197', pctPIB: '-', variacion: '+51,1%' },
+  { concepto: 'Bienes Personales', monto: '122.441', pctPIB: '-', variacion: '+26,6%' },
+  { concepto: 'TOTAL', monto: '21.608.201', pctPIB: '-', variacion: '+33,7%' },
 ];
 
 // Balanza Comercial (USD millones)
-// Actualizado al 19-oct-2026 (ICA sep-26) · Fuente: INDEC — Intercambio Comercial Argentino
+// Actualizado al 19-nov-2026 (ICA oct-26) · Fuente: INDEC — Intercambio Comercial Argentino
 export const tradeData = [
   { month: 'Ene 25', exports: 5915, imports: 5753, balance: 162 },
   { month: 'Feb 25', exports: 6140, imports: 5864, balance: 275 },
@@ -246,7 +253,8 @@ export const tradeData = [
   { month: 'Jun 26', exports: 9112, imports: 6877, balance: 2235 },
   { month: 'Jul 26', exports: 8854, imports: 6756, balance: 2098 }, // revisado ICA 19/10/2026
   { month: 'Ago 26', exports: 8866, imports: 6707, balance: 2159 }, // revisado ICA 19/10/2026 (antes 8883/6696/2187)
-  { month: 'Sep 26', exports: 10036, imports: 7060, balance: 2976 }, // INDEC ICA 19/10/2026 · acum. ene–sep X 77.267 · M 56.069 · saldo 21.198
+  { month: 'Sep 26', exports: 10036, imports: 7083, balance: 2952 }, // revisado ICA 19/11/2026 (antes 7.060 / 2.976; v.i.a. M −1,5%)
+  { month: 'Oct 26', exports: 10061, imports: 6668, balance: 3394 }, // INDEC ICA 19/11/2026 · acum. ene–oct X 87.328 · M 62.760 · saldo 24.568
 ];
 
 // Reservas Internacionales BCRA (USD millones) - Actualizado 17/10/2026 (dato al 14/10/2026)
@@ -368,6 +376,7 @@ export const inflacionMayoristaData = [
   { date: 'Jul 26', mensual: 0.8, interanual: 31.1 },
   { date: 'Ago 26', mensual: 2.1, interanual: 29.8 },       // INDEC 16/09/2026 · acum. ene–ago 19,1%
   { date: 'Sep 26', mensual: 3.2, interanual: 29.2 },       // INDEC SIPM 16/10/2026 · acum. ene–sep 22,8%
+  { date: 'Oct 26', mensual: 1.6, interanual: 29.8 },       // INDEC SIPM 17/11/2026 · acum. ene–oct 24,8% · nac. 1,6% · imp. 0,9%
 ];
 // ============================================================
 // Consumo Privado — Serie desestacionalizada (Base I-17 = 100)
@@ -697,9 +706,9 @@ export const inflacionLargoPlazoData: Array<{
 
 // ============================================================
 // EMAE largo plazo — Serie desestacionalizada (puntos clave 2017-2026)
-// Fuente: Econométrica en base a INDEC. 2026 alineado al informe INDEC 24/09/2026.
+// Fuente: API del INDEC, informe técnico de septiembre de 2026 (publicado el 24/11/2026).
 // Hitos: nov-17 J×C ~152 · COVID 2020 ~137 · jun-22 pico azul ~152 ·
-//        dic-23 punto partida Milei · Jul-26 desest. 149,6 (INDEC)
+//        dic-23 punto partida Milei · Sep-26 desest. 152,2 (INDEC)
 // ============================================================
 // Fuente: API del INDEC (EMAE serie desestacionalizada), mismos cortes que antes; se omite el corte sin dato.
 const emaeLargoPlazoCortes: Array<[string, EtapaPolitica]> = [
@@ -730,6 +739,7 @@ const emaeLargoPlazoCortes: Array<[string, EtapaPolitica]> = [
   ['Jun 26', 'lla'],
   ['Jul 26', 'lla'],
   ['Ago 26', 'lla'],
+  ['Sep 26', 'lla'],
 ];
 const emaeDesestPorFecha = new Map(indec.emae.serie.map((r) => [r.date, r.desest]));
 export const emaeLargoPlazoData: Array<{
@@ -770,7 +780,8 @@ export const riesgoPaisData: Array<{
   { date: 'Abr 26', value: 557 },
   { date: 'May 26', value: 490 },
   { date: 'Jun 26', value: 470, note: 'Mínimo reciente EMBIGD' },
-  { date: 'Sep 26', value: 490, highlight: 'actual', note: 'JP Morgan EMBIGD · 07/09/2026' },
+  { date: 'Sep 26', value: 490, note: 'JP Morgan EMBIGD · 07/09/2026' },
+  { date: 'Nov 26', value: 855, highlight: 'actual', note: 'EMBIGD · cierre 16/11/2026 · ArgentinaDatos' },
 ];
 
 // Última actualización

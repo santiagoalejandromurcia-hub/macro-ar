@@ -21,7 +21,7 @@ export default function TradeChart() {
   return (
     <ChartCard
       title="Balanza Comercial"
-      subtitle={isLive ? `Exp. vs Imp. (USD M) · Actualizado ${updatedAt} · INDEC` : 'USD M · Sep-26 +2.976 · ene–sep +21.198 · INDEC ICA 19/10'}
+      subtitle={isLive ? `Exp. vs Imp. (USD M) · Actualizado ${updatedAt} · INDEC` : 'USD M · Oct-26 +3.394 · ene–oct +24.568 · INDEC ICA 19/11'}
       isLive={isLive}
       periods={[...MONTHLY_PERIODS]}
       selectedPeriod={period}

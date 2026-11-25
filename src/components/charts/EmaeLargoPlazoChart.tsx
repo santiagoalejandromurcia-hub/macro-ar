@@ -21,7 +21,7 @@ import { useIndicatorData } from '@/hooks/useIndicatorData';
 /**
  * Actividad Económica EMAE — Largo plazo, serie desestacionalizada.
  * Hitos: Nov-17 J×C ~152 · COVID ~137 · Jun-22 pico azul ~152 ·
- * Dic-23 punto partida Milei · Ago-26 desest. 149,9 (INDEC · −1,7% i.a. · +0,1% s.e.).
+ * Dic-23 punto partida Milei · Sep-26 desest. 152,2 (INDEC · −1,2% i.a. · +1,1% s.e.).
  * Fuente: API del INDEC (serie desestacionalizada), snapshot en data/indec/.
  */
 export default function EmaeLargoPlazoChart() {
@@ -75,9 +75,9 @@ export default function EmaeLargoPlazoChart() {
           <ReferenceDot x="Nov 17" y={152} r={5} fill="#E73F25" stroke="#fff" strokeWidth={2} label={{ value: 'Nov-17', position: 'top', fill: t.textSecondary, fontSize: 9 }} />
           <ReferenceDot x="Jun 20" y={119.5} r={5} fill="#EF4444" stroke="#fff" strokeWidth={2} label={{ value: 'COVID', position: 'bottom', fill: t.textSecondary, fontSize: 9 }} />
           <ReferenceDot x="Jun 22" y={152} r={5} fill="#0099FF" stroke="#fff" strokeWidth={2} label={{ value: 'Pico azul', position: 'top', fill: t.textSecondary, fontSize: 9 }} />
-          <ReferenceDot x="Dic 23" y={143.6} r={5} fill="#0070C2" stroke="#fff" strokeWidth={2} />
-          <ReferenceDot x="Mar 26" y={156.7} r={4} fill="#0070C2" stroke="#fff" strokeWidth={1.5} />
-          <ReferenceDot x="Ago 26" y={149.9} r={6} fill="#EF4444" stroke="#fff" strokeWidth={2} label={{ value: 'Ago-26', position: 'top', fill: '#EF4444', fontSize: 10, fontWeight: 600 }} />
+          <ReferenceDot x="Dic 23" y={143.0} r={5} fill="#0070C2" stroke="#fff" strokeWidth={2} />
+          <ReferenceDot x="Mar 26" y={156.6} r={4} fill="#0070C2" stroke="#fff" strokeWidth={1.5} />
+          <ReferenceDot x="Sep 26" y={152.2} r={6} fill="#EF4444" stroke="#fff" strokeWidth={2} label={{ value: 'Sep-26', position: 'top', fill: '#EF4444', fontSize: 10, fontWeight: 600 }} />
         </ComposedChart>
       </ResponsiveContainer>
 
@@ -85,7 +85,7 @@ export default function EmaeLargoPlazoChart() {
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#E73F25' }} />J×C (Nov-17 ~152)</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#0099FF' }} />Fernández (Jun-22 pico ~152)</span>
         <span><span className="inline-block w-2 h-2 rounded-full mr-1" style={{ background: '#0070C2' }} />Milei (Dic-23 ~143)</span>
-        <span className="ml-auto text-theme-primary font-semibold">Ago-26: <span className="text-ar-red">−1,7% i.a.</span> · +0,1% s.e. · desest. 149,9</span>
+        <span className="ml-auto text-theme-primary font-semibold">Sep-26: <span className="text-ar-red">−1,2% i.a.</span> · +1,1% s.e. · desest. 152,2</span>
       </div>
     </ChartCard>
   );
