@@ -115,7 +115,7 @@ export default function CreditoContent() {
               <tr className="border-t border-[var(--line-1)]"><td className="py-2">Sistema financiero</td><td className="text-right">{MORA_OFICIAL.total}%</td><td className="text-right text-[var(--fg-3)]">jun-26 oficial</td></tr>
               <tr className="border-t border-[var(--line-1)]"><td className="py-2">Familias</td><td className="text-right">{MORA_OFICIAL.familias}%</td><td className="text-right text-[var(--fg-3)]">jun-26 oficial</td></tr>
               <tr className="border-t border-[var(--line-1)]"><td className="py-2">Empresas</td><td className="text-right">{MORA_OFICIAL.empresas}%</td><td className="text-right text-[var(--fg-3)]">jun-26 oficial</td></tr>
-              <tr className="border-t border-[var(--line-1)]"><td className="py-2">PNFC / fintech</td><td className="text-right">{MORA_FINTECH.irregularPnfc}%</td><td className="text-right text-[var(--fg-3)]">may-26 CENDEU</td></tr>
+              <tr className="border-t border-[var(--line-1)]"><td className="py-2">PNFC / fintech</td><td className="text-right">{MORA_FINTECH.irregularPnfc}%</td><td className="text-right text-[var(--fg-3)]">{MORA_FINTECH.corte}</td></tr>
             </tbody>
           </table>
           <p className="text-[11px] text-[var(--fg-3)] mt-3">{MORA_FINTECH.note}</p>

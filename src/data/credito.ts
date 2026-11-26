@@ -46,12 +46,14 @@ export const MORA_OFICIAL = {
   creditoPibTotal: 12.3,
 };
 
-/** CENDEU / PNFC. No es el mismo ratio que el Informe de Bancos. */
+/** Irregularidad total de la cartera PNFC (mora >90 días, CENDEU). No es el mismo ratio que el Informe de Bancos. */
 export const MORA_FINTECH = {
-  asOf: '2026-05',
-  source: 'CENDEU vía CEPA / 1816 (mayo 2026)',
-  irregularPnfc: 28.7,
-  note: 'Proveedores no financieros (billeteras, fintech). No comparable 1:1 con el 7,6% bancario.',
+  asOf: '2026-08',
+  released: '2026-11-26',
+  source: 'BCRA, Informe de Proveedores No Financieros de Crédito – primer semestre 2026, publicado el 26/11/2026',
+  irregularPnfc: 30,
+  corte: 'ago-26 Informe PNFC',
+  note: 'Irregularidad total de la cartera PNFC (mora >90 días, CENDEU). 30% en julio de 2026 (+5,3 p.p. vs enero) y se estabilizó en 30% en agosto. No comparable 1:1 con el 7,6% bancario.',
 };
 
 export const MORA_SERIE: { mes: string; total: number | null; familias: number | null; empresas: number | null; oficial: boolean }[] = [
