@@ -7,7 +7,7 @@ const SITE_URL = 'https://macrolibre.com';
 export const metadata: Metadata = {
   title: 'Crédito al privado · stock real, mora y crédito/PBI',
   description:
-    'Préstamos al sector privado en términos reales, irregularidad (mora) de familias y empresas, crédito/PBI y composición por línea. Datos BCRA. Fintech/PNFC con fuente CENDEU.',
+    'Préstamos al sector privado en términos reales, irregularidad (mora) de familias y empresas, crédito/PBI y composición por línea. Datos BCRA. Fintech/PNFC: irregularidad del Informe PNFC del BCRA (CENDEU), publicado el 26/11/2026.',
   alternates: { canonical: `${SITE_URL}/credito` },
   openGraph: {
     type: 'website',
